@@ -1,5 +1,18 @@
 ﻿<MudNavMenu>
-    <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">Home</MudNavLink>
-    <MudNavLink Href="/counter" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Add">Counter</MudNavLink>
-    <MudNavLink Href="/fetchdata" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">Fetch data</MudNavLink>
+    <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">Início</MudNavLink>
+    <MudNavGroup Title="Cadastros" Icon="@Icons.Material.Filled.Description">
+        <MudNavLink Href="/alunos" Match="NavLinkMatch.Prefix">Alunos e Matrículas</MudNavLink>
+    </MudNavGroup>
+    <MudNavGroup Title="Rotinas" Icon="@Icons.Material.Filled.Update">
+        <MudNavLink Href="/rotina-liquidar-pagamento" Match="NavLinkMatch.Prefix">Liquidar Pagamentos</MudNavLink>
+    </MudNavGroup>
+    <MudNavGroup Title="Documentos" Icon="@Icons.Material.Filled.Print">
+        <MudNavLink Href="/documento-contrato" Match="NavLinkMatch.Prefix">Ficha de Matrícula / Contrato</MudNavLink>
+    </MudNavGroup>
+    <MudNavGroup Title="Relatórios" Icon="@Icons.Material.Filled.Leaderboard">
+        <MudNavLink Href="/relatorio-alunos" Match="NavLinkMatch.Prefix">Relatório de Alunos</MudNavLink>
+    </MudNavGroup>
+    <MudNavGroup Title="Configurações" Icon="@Icons.Material.Filled.Settings">
+        <MudNavLink Href="/configuracao-cursos-autorizados-estados" Match="NavLinkMatch.Prefix">Autorizar Cursos Por Estado</MudNavLink>
+    </MudNavGroup>
 </MudNavMenu>
