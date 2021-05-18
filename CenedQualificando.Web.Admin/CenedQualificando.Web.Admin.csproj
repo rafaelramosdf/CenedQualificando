@@ -8,11 +8,17 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.6" PrivateAssets="all" />
     <PackageReference Include="MudBlazor" Version="5.0.8" />
+    <PackageReference Include="Refit" Version="6.0.38" />
     <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Services\Params\" />
     <Folder Include="wwwroot\css\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CenedQualificando.Domain\CenedQualificando.Domain.csproj" />
   </ItemGroup>
 
 </Project>

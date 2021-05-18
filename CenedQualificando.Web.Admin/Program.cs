@@ -1,3 +1,8 @@
+using CenedQualificando.Domain.Interfaces.Queries;
+using CenedQualificando.Domain.Queries;
+using CenedQualificando.Web.Admin.Services;
+using CenedQualificando.Web.Admin.Services.Contracts;
+using CenedQualificando.Web.Admin.Shared;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,8 +23,13 @@ namespace CenedQualificando.Web.Admin
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
 
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddMudServices();
+            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+            builder.Services.AddSingleton<StateContainer>();
+
+            builder.Services.AddScoped<IFiscalSalaQuery, FiscalSalaQuery>();
+
+            builder.Services.AddScoped<IFiscalSalaService, FiscalSalaService>();
 
             await builder.Build().RunAsync();
         }

@@ -1,0 +1,66 @@
+﻿@using CenedQualificando.Web.Admin.Models
+@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.ListPageBase<FiscalSalaModel>
+@inject ISnackbar Snackbar
+
+@page "/fiscais-salas"
+
+<MudTable ServerData="@(new Func<TableState, Task<TableData<FiscalSalaModel>>>(ServerReload))"
+          @ref="Table"
+          Dense="false"
+          Hover="true"
+          ReadOnly="@SomenteLeitura"
+          @bind-SelectedItem="ItemSelecionado"
+          SortLabel="Ordenar por"
+          CommitEditTooltip="Salvar"
+          OnCommitEditClick="@(() => Snackbar.Add("Commit Edit Handler Invoked"))">
+
+    <ToolBarContent>
+        <MudToolBarSpacer />
+        <MudTextField T="string" ValueChanged="@(s => OnSearch(s))"
+                      Placeholder="Pesquisar por Nome ou CPF"
+                      Adornment="Adornment.Start"
+                      AdornmentIcon="@Icons.Material.Filled.Search"
+                      IconSize="Size.Medium"
+                      Class="mt-0">
+        </MudTextField>
+    </ToolBarContent>
+    <ColGroup>
+        <col style="width:10%;" />
+        <col style="width:50%;" />
+        <col style="width:15%;" />
+        <col style="width:15%;" />
+        <col style="width:10%;" />
+    </ColGroup>
+    <HeaderContent>
+        <MudTh><MudTableSortLabel T="FiscalSalaModel" SortLabel="@nameof(FiscalSalaModel.Id)">ID</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel T="FiscalSalaModel" SortLabel="@nameof(FiscalSalaModel.Nome)" InitialDirection="SortDirection.Ascending">Nome</MudTableSortLabel></MudTh>
+        <MudTh><MudText>CPF</MudText></MudTh>
+        <MudTh><MudText>RG</MudText></MudTh>
+        <MudTh><MudText>UF</MudText></MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="ID">@context.Id</MudTd>
+        <MudTd DataLabel="Nome">@context.Nome</MudTd>
+        <MudTd DataLabel="CPF">@context.Cpf</MudTd>
+        <MudTd DataLabel="RG">@context.Rg</MudTd>
+        <MudTd DataLabel="UF">@context.UfDescricao</MudTd>
+    </RowTemplate>
+    <RowEditingTemplate>
+        <MudTd DataLabel="ID">@context.Id</MudTd>
+        <MudTd DataLabel="Nome">
+            <MudTextField @bind-Value="@context.Nome" Required />
+        </MudTd>
+        <MudTd DataLabel="CPF">
+            <MudTextField @bind-Value="@context.Cpf" Required />
+        </MudTd>
+        <MudTd DataLabel="RG">
+            <MudTextField @bind-Value="@context.Rg" Required />
+        </MudTd>
+        <MudTd DataLabel="UF">
+            <MudNumericField @bind-Value="@context.Uf" />
+        </MudTd>
+    </RowEditingTemplate>
+    <PagerContent>
+        <MudTablePager RowsPerPageString="Itens por página: " PageSizeOptions="new int[] { 5, 10, 20, 50, 100 }" InfoFormat="{first_item}-{last_item} de {all_items}" />
+    </PagerContent>
+</MudTable>
