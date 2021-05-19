@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using CenedQualificando.Domain.Models;
+using CenedQualificando.Domain.Models.Entities;
 
 namespace CenedQualificando.Infra.Mappings
 {
@@ -27,7 +27,7 @@ namespace CenedQualificando.Infra.Mappings
 
             builder.HasIndex(e => e.IdUsuario)
                 .HasDatabaseName("IX_IdUsuario");
-            
+
             builder.Property(e => e.CertificadoEnviado).HasColumnType("datetime");
 
             builder.Property(e => e.CertificadoExpedido).HasColumnType("datetime");

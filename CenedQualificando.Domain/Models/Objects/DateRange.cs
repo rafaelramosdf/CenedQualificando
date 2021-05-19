@@ -1,4 +1,5 @@
 ﻿using System;
+using CenedQualificando.Domain.Extensions;
 
 namespace CenedQualificando.Domain.Models.Objects
 {

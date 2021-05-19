@@ -1,10 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using CenedQualificando.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using CenedQualificando.Domain.Models.Entities;
 
 namespace CenedQualificando.Infra.Mappings
 {
@@ -14,7 +10,7 @@ namespace CenedQualificando.Infra.Mappings
         {
             builder.HasKey(e => new { e.GruposProvaUfIdGruposProvaUf, e.CursoIdCurso })
                     .HasName("PK_Penitenciario.GruposProvaUfCurso");
-            
+
             builder.ToTable("GruposProvaUfCurso", "Penitenciario");
 
             builder.HasIndex(e => e.CursoIdCurso)

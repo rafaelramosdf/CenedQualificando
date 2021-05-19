@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using CenedQualificando.Domain.Interfaces.Repository;
-using CenedQualificando.Domain.Models;
+using CenedQualificando.Domain.Models.Entities;
 using CenedQualificando.Infra.Context;
 using CenedQualificando.Infra.Repository.Base;
 
@@ -16,7 +16,7 @@ namespace CenedQualificando.Infra.Repository
 
         public async Task<IEnumerable<Permissao>> GetPermissoesAsync(int idGrupoPermissao)
         {
-            return null;
+            return await Task.Run(() => new List<Permissao>());
             // TODO: Refazer com EntityFramework
             //return await Dapper.DapperConnection.QueryAsync<Permissao>($@"SELECT IdPermissao, Nome, IdGrupoDePermissao FROM Penitenciario.Permissao WHERE IdGrupoDePermissao = {idGrupoPermissao}");
         }

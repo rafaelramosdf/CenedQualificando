@@ -1,9 +1,7 @@
-﻿using CenedQualificando.Web.Admin.Models;
-using CenedQualificando.Web.Admin.Models.Base;
+﻿using CenedQualificando.Domain.Models.Dtos;
+using CenedQualificando.Domain.Models.Objects;
 using Refit;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CenedQualificando.Web.Admin.Services.Contracts.RefitServices
@@ -11,9 +9,9 @@ namespace CenedQualificando.Web.Admin.Services.Contracts.RefitServices
     public interface IFiscalSalaRefitService
     {
         [Get("/fiscais-salas")]
-        Task<IEnumerable<FiscalSalaModel>> Listar();
+        Task<IEnumerable<FiscalSalaDto>> Listar();
 
         [Post("/fiscais-salas/filtros")]
-        Task<DataTableModel<FiscalSalaModel>> Filtrar([Body] DataTableModel<FiscalSalaModel> dataTableModel);
+        Task<DataTableModel<FiscalSalaDto>> Filtrar([Body] DataTableModel<FiscalSalaDto> dataTableModel);
     }
 }

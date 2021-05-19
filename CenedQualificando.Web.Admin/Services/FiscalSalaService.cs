@@ -1,5 +1,5 @@
-﻿using CenedQualificando.Web.Admin.Models;
-using CenedQualificando.Web.Admin.Models.Base;
+﻿using CenedQualificando.Domain.Models.Dtos;
+using CenedQualificando.Domain.Models.Objects;
 using CenedQualificando.Web.Admin.Services.Contracts;
 using CenedQualificando.Web.Admin.Services.Contracts.RefitServices;
 using Refit;
@@ -18,7 +18,7 @@ namespace CenedQualificando.Web.Admin.Services
             _refitService = RestService.For<IFiscalSalaRefitService>("https://localhost:6001/api");
         }
 
-        public async Task<IEnumerable<FiscalSalaModel>> Listar()
+        public async Task<IEnumerable<FiscalSalaDto>> Listar()
         {
             try
             {
@@ -30,7 +30,7 @@ namespace CenedQualificando.Web.Admin.Services
             }
         }
 
-        public async Task<DataTableModel<FiscalSalaModel>> Filtrar(DataTableModel<FiscalSalaModel> dataTableModel)
+        public async Task<DataTableModel<FiscalSalaDto>> Filtrar(DataTableModel<FiscalSalaDto> dataTableModel)
         {
             try
             {

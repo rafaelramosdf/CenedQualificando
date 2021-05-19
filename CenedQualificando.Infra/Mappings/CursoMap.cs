@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using CenedQualificando.Domain.Models;
+using CenedQualificando.Domain.Models.Entities;
 
 namespace CenedQualificando.Infra.Mappings
 {
@@ -15,7 +15,7 @@ namespace CenedQualificando.Infra.Mappings
                 .HasDefaultValueSql("NEXT VALUE FOR SequencialCurso");
 
             builder.ToTable("Curso", "Penitenciario");
-            
+
             builder.Property(e => e.Codigo).IsRequired();
 
             builder.Property(e => e.Nome).IsRequired();

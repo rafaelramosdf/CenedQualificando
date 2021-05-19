@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using CenedQualificando.Domain.Models;
+using CenedQualificando.Domain.Models.Entities;
 
 namespace CenedQualificando.Infra.Mappings
 {
@@ -18,7 +18,7 @@ namespace CenedQualificando.Infra.Mappings
 
             builder.HasIndex(e => e.IdCurso)
                 .HasDatabaseName("IX_IdCurso");
-            
+
             builder.HasOne(d => d.IdCursoNavigation)
                 .WithMany(p => p.ImpressaoCertificado)
                 .HasForeignKey(d => d.IdCurso)

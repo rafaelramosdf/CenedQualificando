@@ -1,5 +1,5 @@
 ﻿using CenedQualificando.Domain.Interfaces.Repository;
-using CenedQualificando.Domain.Models;
+using CenedQualificando.Domain.Models.Entities;
 using CenedQualificando.Infra.Context;
 using CenedQualificando.Infra.Repository.Base;
 using System.Collections.Generic;
@@ -16,7 +16,7 @@ namespace CenedQualificando.Infra.Repository
 
         public async Task<IEnumerable<Aluno>> BuscarAlunosPorId(int[] idAlunos)
         {
-            return null;
+            return await Task.Run(() => new List<Aluno>());
             // TODO: Refazer com EntityFramework
             //return await GetAllAsync($@"WHERE Aluno.IdAluno IN ({string.Join(",", idAlunos)})");
         }

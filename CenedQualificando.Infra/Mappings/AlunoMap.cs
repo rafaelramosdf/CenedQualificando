@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using CenedQualificando.Domain.Models;
+using CenedQualificando.Domain.Models.Entities;
 
 namespace CenedQualificando.Infra.Mappings
 {
@@ -18,7 +18,7 @@ namespace CenedQualificando.Infra.Mappings
 
             builder.HasIndex(e => e.IdPenitenciaria)
                 .HasDatabaseName("IX_IdPenitenciaria");
-            
+
             builder.Property(e => e.ConfirmarSenha).IsRequired();
 
             builder.Property(e => e.Cpf).IsRequired();

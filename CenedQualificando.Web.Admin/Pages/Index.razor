@@ -1,9 +1,9 @@
-﻿@inject StateContainer State
+﻿@page "/"
 
-@page "/"
+@inject StateContainer State
 
 @code{
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
         State.OnChange += StateHasChanged;
         State.TituloPagina = "Página Inicial";

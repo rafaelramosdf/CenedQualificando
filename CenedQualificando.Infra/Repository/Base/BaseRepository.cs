@@ -5,6 +5,7 @@ using CenedQualificando.Infra.Context;
 using CenedQualificando.Domain.Models.Base;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Collections.Generic;
 
 namespace CenedQualificando.Infra.Repository.Base
 {
@@ -25,48 +26,52 @@ namespace CenedQualificando.Infra.Repository.Base
 
         #region ***** READER *****
 
-        public virtual TEntity Get(Expression<Func<TEntity, bool>> query)
-        {
-            return DbSet.Where(query).FirstOrDefault();
-        }
+        public virtual TEntity Get(Expression<Func<TEntity, bool>> query) => DbSet.Where(query).FirstOrDefault();
 
-        public virtual TEntity Get(int id)
-        {
-            return DbSet.Find(id);
-        }
+        public virtual TEntity Get(int id) => DbSet.Find(id);
 
-        public virtual IQueryable<TEntity> List()
-        {
-            return DbSet.AsNoTracking();
-        }
+        public virtual IQueryable<TEntity> List() => DbSet.AsNoTracking();
 
-        public virtual IQueryable<TEntity> List(Expression<Func<TEntity, bool>> query)
-        {
-            return DbSet.Where(query).AsNoTracking();
-        }
+        public virtual IQueryable<TEntity> List(Expression<Func<TEntity, bool>> query) => DbSet.Where(query).AsNoTracking();
 
         #endregion
 
 
         #region ***** WRITER *****
-        public virtual void Add(TEntity obj)
+        public virtual void Add(TEntity obj) => DbSet.Add(obj);
+        public void Add(IEnumerable<TEntity> objList)
         {
-            DbSet.Add(obj);
+            foreach (var obj in objList)
+            {
+                Add(obj);
+            }
         }
 
-        public virtual void Attach(TEntity obj)
+        public virtual void Attach(TEntity obj) => DbSet.Attach(obj);
+        public void Attach(IEnumerable<TEntity> objList)
         {
-            DbSet.Attach(obj);
+            foreach (var obj in objList)
+            {
+                Attach(obj);
+            }
         }
 
-        public virtual void Update(TEntity obj)
+        public virtual void Update(TEntity obj) => DbSet.Update(obj);
+        public void Update(IEnumerable<TEntity> objList)
         {
-            DbSet.Update(obj);
+            foreach (var obj in objList)
+            {
+                Update(obj);
+            }
         }
 
-        public virtual void Remove(TEntity obj)
+        public virtual void Remove(TEntity obj) => DbSet.Remove(obj);
+        public void Remove(IEnumerable<TEntity> objList)
         {
-            DbSet.Remove(obj);
+            foreach (var obj in objList)
+            {
+                Remove(obj);
+            }
         }
         #endregion
 

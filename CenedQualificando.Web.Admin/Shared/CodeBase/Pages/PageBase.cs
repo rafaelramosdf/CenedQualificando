@@ -10,7 +10,7 @@ namespace CenedQualificando.Web.Admin.Shared.CodeBase.Pages
 
         protected virtual void OnInit() { }
 
-        protected override async Task OnInitializedAsync()
+        protected override void OnInitialized()
         {
             State.OnChange += StateHasChanged;
             OnInit();

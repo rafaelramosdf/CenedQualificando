@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Text.RegularExpressions;
-
-public static class GeneralExtension
+namespace CenedQualificando.Domain.Extensions
+{
+    public static class GeneralExtension 
 {
     public static string ToDateSqlCast(this DateTime dt)
     {
@@ -774,22 +773,6 @@ public static class GeneralExtension
 
     #endregion CNPJ - CPF
 
-    #region Clonar objetos
-
-    public static T Clone<T>(this T item)
-    {
-        BinaryFormatter bf = new BinaryFormatter();
-        MemoryStream ms = new MemoryStream();
-        bf.Serialize(ms, item);
-        ms.Position = 0;
-        object obj = bf.Deserialize(ms);
-        ms.Close();
-
-        return (T)obj;
-    }
-
-    #endregion Clonar objetos
-
     #region Operações de arredondamento
 
     /// <summary>
@@ -1394,4 +1377,5 @@ public static class GeneralExtension
         return (valor != null && valor > 0);
     }
     #endregion
+}
 }

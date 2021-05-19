@@ -1,14 +1,13 @@
 ﻿using CenedQualificando.Api.Controllers.Base;
-using CenedQualificando.Api.Models;
-using CenedQualificando.Api.Models.Base;
 using CenedQualificando.Api.Services.Base;
+using CenedQualificando.Domain.Models.Dtos;
+using CenedQualificando.Domain.Models.Objects;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace CenedQualificando.Api.Controllers
 {
     [Route("api/fiscais-salas")]
-    public class FiscalSalaController : BaseController 
+    public class FiscalSalaController : BaseController
     {
         [HttpGet]
         public IActionResult Listar([FromServices] IFiscalSalaService service)
@@ -17,8 +16,8 @@ namespace CenedQualificando.Api.Controllers
         }
 
         [HttpPost("filtros")]
-        public IActionResult Filtrar([FromServices] IFiscalSalaService service, 
-            [FromBody] DataTableModel<FiscalSalaModel> dataTableModel)
+        public IActionResult Filtrar([FromServices] IFiscalSalaService service,
+            [FromBody] DataTableModel<FiscalSalaDto> dataTableModel)
         {
             return Ok(service.Listar(dataTableModel));
         }

@@ -1,4 +1,4 @@
-﻿using CenedQualificando.Domain.Models;
+﻿using CenedQualificando.Domain.Models.Entities;
 using CenedQualificando.Infra.Mappings;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,7 +22,7 @@ namespace CenedQualificando.Infra.Context
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(StrConnHomologacao, 
+                optionsBuilder.UseSqlServer(StrConnHomologacao,
                     x => x.MigrationsHistoryTable("__MigrationHistory", "Penitenciario"));
             }
         }

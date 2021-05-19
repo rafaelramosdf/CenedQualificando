@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using CenedQualificando.Domain.Models;
+using CenedQualificando.Domain.Models.Entities;
 
 namespace CenedQualificando.Infra.Mappings
 {
@@ -21,7 +21,7 @@ namespace CenedQualificando.Infra.Mappings
 
             builder.HasIndex(e => e.IdTabelaHistoricoCurso)
                 .HasDatabaseName("IX_IdTabelaHistoricoCurso");
-            
+
             builder.Property(e => e.DataHora).HasColumnType("datetime");
 
             builder.HasOne(d => d.IdMatriculaNavigation)

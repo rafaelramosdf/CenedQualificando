@@ -1,5 +1,5 @@
 ﻿using CenedQualificando.Domain.Interfaces.Repository;
-using CenedQualificando.Domain.Models;
+using CenedQualificando.Domain.Models.Entities;
 using CenedQualificando.Infra.Context;
 using CenedQualificando.Infra.Repository.Base;
 

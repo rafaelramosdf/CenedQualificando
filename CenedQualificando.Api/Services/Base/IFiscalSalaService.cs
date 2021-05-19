@@ -1,12 +1,12 @@
-﻿using CenedQualificando.Api.Models;
-using CenedQualificando.Api.Models.Base;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using CenedQualificando.Domain.Models.Dtos;
+using CenedQualificando.Domain.Models.Objects;
 
 namespace CenedQualificando.Api.Services.Base
 {
     public interface IFiscalSalaService
     {
-        public IEnumerable<FiscalSalaModel> Listar();
-        public DataTableModel<FiscalSalaModel> Listar(DataTableModel<FiscalSalaModel> dataTableModel);
+        public IEnumerable<FiscalSalaDto> Listar();
+        public DataTableModel<FiscalSalaDto> Listar(DataTableModel<FiscalSalaDto> dataTableModel);
     }
 }

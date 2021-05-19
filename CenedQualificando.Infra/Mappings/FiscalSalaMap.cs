@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using CenedQualificando.Domain.Models;
+using CenedQualificando.Domain.Models.Entities;
 
 namespace CenedQualificando.Infra.Mappings
 {
@@ -15,7 +15,7 @@ namespace CenedQualificando.Infra.Mappings
                     .HasName("PK_Penitenciario.FiscalSala");
 
             builder.ToTable("FiscalSala", "Penitenciario");
-            
+
             builder.Property(e => e.Nome).IsRequired();
         }
     }

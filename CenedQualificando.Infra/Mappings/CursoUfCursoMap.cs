@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using CenedQualificando.Domain.Models;
+using CenedQualificando.Domain.Models.Entities;
 
 namespace CenedQualificando.Infra.Mappings
 {
@@ -10,7 +10,7 @@ namespace CenedQualificando.Infra.Mappings
         {
             entity.HasKey(e => new { e.CursoUfIdCursoUf, e.CursoIdCurso })
                     .HasName("PK_Penitenciario.CursoUfCurso");
-            
+
             entity.ToTable("CursoUfCurso", "Penitenciario");
 
             entity.HasIndex(e => e.CursoIdCurso)

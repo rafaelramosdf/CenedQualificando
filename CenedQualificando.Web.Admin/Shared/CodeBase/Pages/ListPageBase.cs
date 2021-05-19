@@ -1,4 +1,5 @@
-﻿using CenedQualificando.Web.Admin.Models.Base;
+﻿using CenedQualificando.Domain.Models.Base;
+using CenedQualificando.Domain.Models.Objects;
 using MudBlazor;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 namespace CenedQualificando.Web.Admin.Shared.CodeBase.Pages
 {
     public abstract partial class ListPageBase<TModel> : PageBase
-        where TModel : BaseModel
+        where TModel : class
     {
         protected bool SomenteLeitura = false;
         protected string FiltroTexto = "";
@@ -45,7 +46,7 @@ namespace CenedQualificando.Web.Admin.Shared.CodeBase.Pages
 
         protected virtual async Task<DataTableModel<TModel>> Buscar(DataTableModel<TModel> dataTable)
         {
-            return dataTable;
+            return await Task.Run(() => dataTable);
         }
     }
 }

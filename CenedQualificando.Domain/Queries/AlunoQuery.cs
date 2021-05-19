@@ -1,5 +1,5 @@
 ﻿using CenedQualificando.Domain.Interfaces.Queries;
-using CenedQualificando.Domain.Models;
+using CenedQualificando.Domain.Models.Entities;
 using System;
 using System.Linq.Expressions;
 
@@ -12,12 +12,12 @@ namespace CenedQualificando.Domain.Queries
             return x => x.Cpf == cpf;
         }
 
-        public Expression<Func<Aluno, bool>> ObterFiltroGenerico(string textoFiltro)
+        public Expression<Func<Aluno, bool>> FiltroGenerico(string textoFiltro)
         {
             return x => x.Nome.Contains(textoFiltro) || x.Cpf.Contains(textoFiltro);
         }
 
-        public Expression<Func<Aluno, object>> ObterOrdenacao(string campo)
+        public Expression<Func<Aluno, object>> Ordenacao(string campo)
         {
             switch (campo)
             {
