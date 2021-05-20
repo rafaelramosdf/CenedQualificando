@@ -9,12 +9,12 @@ using CenedQualificando.Domain.Models.Entities;
 
 namespace CenedQualificando.Api.Services
 {
-    public class FiscalSalaService
-        : BaseService<FiscalSala, FiscalSalaDto, IFiscalSalaQuery, IFiscalSalaRepository>, IFiscalSalaService
+    public class AgentePenitenciarioService
+        : BaseService<AgentePenitenciario, AgentePenitenciarioDto, IAgentePenitenciarioQuery, IAgentePenitenciarioRepository>, IAgentePenitenciarioService
     {
-        public FiscalSalaService(
-            IFiscalSalaQuery query,
-            IFiscalSalaRepository repository,
+        public AgentePenitenciarioService(
+            IAgentePenitenciarioQuery query,
+            IAgentePenitenciarioRepository repository,
             IUnitOfWork unitOfWork,
             IMapper mapper) :
             base(query, repository, unitOfWork, mapper)

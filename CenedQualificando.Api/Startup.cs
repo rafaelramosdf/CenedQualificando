@@ -1,7 +1,7 @@
 using CenedQualificando.Api.Services;
-using CenedQualificando.Api.Services.Base;
 using CenedQualificando.Domain.Interfaces.Queries;
 using CenedQualificando.Domain.Interfaces.Repository;
+using CenedQualificando.Domain.Interfaces.Services;
 using CenedQualificando.Domain.Interfaces.UoW;
 using CenedQualificando.Domain.Queries;
 using CenedQualificando.Infra.Context;
@@ -78,26 +78,37 @@ namespace CenedQualificando.Api
         {
             #region Service
 
-            // TODO: Criar demais servi�os
-            //services.AddScoped<IAgentePenitenciarioService, AgentePenitenciarioService>();
-            //services.AddScoped<IAlunoService, AlunoService>();
-            //services.AddScoped<ICargaHorariaDiariaService, CargaHorariaDiariaService>();
-            //services.AddScoped<ICursoService, CursoService>();
+            services.AddScoped<IAgentePenitenciarioService, AgentePenitenciarioService>();
+            services.AddScoped<IAlunoService, AlunoService>();
+            services.AddScoped<ICargaHorariaDiariaService, CargaHorariaDiariaService>();
+            services.AddScoped<ICursoService, CursoService>();
             services.AddScoped<IFiscalSalaService, FiscalSalaService>();
-            //services.AddScoped<IGrupoDePermissaoService, GrupoDePermissaoService>();
-            //services.AddScoped<IPermissaoService, PermissaoService>();
-            //services.AddScoped<IMatriculaService, MatriculaService>();
-            //services.AddScoped<IPenitenciariaService, PenitenciariaService>();
-            //services.AddScoped<IProvaService, ProvaService>();
-            //services.AddScoped<IRepresentanteService, RepresentanteService>();
-            //services.AddScoped<IUfEntregaService, UfEntregaService>();
-            //services.AddScoped<IUsuarioService, UsuarioService>();
+            services.AddScoped<IGrupoDePermissaoService, GrupoDePermissaoService>();
+            services.AddScoped<IPermissaoService, PermissaoService>();
+            services.AddScoped<IMatriculaService, MatriculaService>();
+            services.AddScoped<IPenitenciariaService, PenitenciariaService>();
+            services.AddScoped<IProvaService, ProvaService>();
+            services.AddScoped<IRepresentanteService, RepresentanteService>();
+            services.AddScoped<IUfEntregaService, UfEntregaService>();
+            services.AddScoped<IUsuarioService, UsuarioService>();
 
             #endregion
 
             #region Domain
 
+            services.AddScoped<IAgentePenitenciarioQuery, AgentePenitenciarioQuery>();
+            services.AddScoped<IAlunoQuery, AlunoQuery>();
+            services.AddScoped<ICargaHorariaDiariaQuery, CargaHorariaDiariaQuery>();
+            services.AddScoped<ICursoQuery, CursoQuery>();
             services.AddScoped<IFiscalSalaQuery, FiscalSalaQuery>();
+            services.AddScoped<IGrupoDePermissaoQuery, GrupoDePermissaoQuery>();
+            services.AddScoped<IPermissaoQuery, PermissaoQuery>();
+            services.AddScoped<IMatriculaQuery, MatriculaQuery>();
+            services.AddScoped<IPenitenciariaQuery, PenitenciariaQuery>();
+            services.AddScoped<IProvaQuery, ProvaQuery>();
+            services.AddScoped<IRepresentanteQuery, RepresentanteQuery>();
+            services.AddScoped<IUfEntregaQuery, UfEntregaQuery>();
+            services.AddScoped<IUsuarioQuery, UsuarioQuery>();
 
             #endregion
 

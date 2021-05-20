@@ -9,16 +9,21 @@ using CenedQualificando.Domain.Models.Entities;
 
 namespace CenedQualificando.Api.Services
 {
-    public class FiscalSalaService
-        : BaseService<FiscalSala, FiscalSalaDto, IFiscalSalaQuery, IFiscalSalaRepository>, IFiscalSalaService
+    public class PermissaoService
+        : BaseService<Permissao, PermissaoDto, IPermissaoQuery, IPermissaoRepository>, IPermissaoService
     {
-        public FiscalSalaService(
-            IFiscalSalaQuery query,
-            IFiscalSalaRepository repository,
+        public PermissaoService(
+            IPermissaoQuery query,
+            IPermissaoRepository repository,
             IUnitOfWork unitOfWork,
             IMapper mapper) :
             base(query, repository, unitOfWork, mapper)
         {
+        }
+
+        public void Attach(Permissao obj)
+        {
+            Repository.Attach(obj);
         }
     }
 }

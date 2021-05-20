@@ -6,19 +6,26 @@ using CenedQualificando.Domain.Interfaces.Services;
 using CenedQualificando.Domain.Interfaces.UoW;
 using CenedQualificando.Domain.Models.Dtos;
 using CenedQualificando.Domain.Models.Entities;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CenedQualificando.Api.Services
 {
-    public class FiscalSalaService
-        : BaseService<FiscalSala, FiscalSalaDto, IFiscalSalaQuery, IFiscalSalaRepository>, IFiscalSalaService
+    public class AlunoService
+        : BaseService<Aluno, AlunoDto, IAlunoQuery, IAlunoRepository>, IAlunoService
     {
-        public FiscalSalaService(
-            IFiscalSalaQuery query,
-            IFiscalSalaRepository repository,
+        public AlunoService(
+            IAlunoQuery query,
+            IAlunoRepository repository,
             IUnitOfWork unitOfWork,
             IMapper mapper) :
             base(query, repository, unitOfWork, mapper)
         {
+        }
+
+        public async Task<IEnumerable<Aluno>> BuscarAlunosPorId(int[] idAlunos)
+        {
+            return await Repository.BuscarAlunosPorId(idAlunos);
         }
     }
 }

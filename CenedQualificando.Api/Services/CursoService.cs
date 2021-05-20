@@ -1,20 +1,20 @@
 ﻿using AutoMapper;
-using CenedQualificando.Api.Services.Base;
 using CenedQualificando.Domain.Interfaces.Queries;
 using CenedQualificando.Domain.Interfaces.Repository;
-using CenedQualificando.Domain.Interfaces.Services;
 using CenedQualificando.Domain.Interfaces.UoW;
-using CenedQualificando.Domain.Models.Dtos;
+using CenedQualificando.Api.Services.Base;
 using CenedQualificando.Domain.Models.Entities;
+using CenedQualificando.Domain.Models.Dtos;
+using CenedQualificando.Domain.Interfaces.Services;
 
 namespace CenedQualificando.Api.Services
 {
-    public class FiscalSalaService
-        : BaseService<FiscalSala, FiscalSalaDto, IFiscalSalaQuery, IFiscalSalaRepository>, IFiscalSalaService
+    public class CursoService
+        : BaseService<Curso, CursoDto, ICursoQuery, ICursoRepository>, ICursoService
     {
-        public FiscalSalaService(
-            IFiscalSalaQuery query,
-            IFiscalSalaRepository repository,
+        public CursoService(
+            ICursoQuery query,
+            ICursoRepository repository,
             IUnitOfWork unitOfWork,
             IMapper mapper) :
             base(query, repository, unitOfWork, mapper)
