@@ -21,19 +21,6 @@ namespace CenedQualificando.Api.Controllers.Base
             Service = service;
         }
 
-        [HttpGet("{id:int}")]
-        public virtual IActionResult Buscar(int id)
-        {
-            var result = Service.Buscar(id);
-
-            if (result == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(result);
-        }
-
         [HttpPost]
         public virtual IActionResult Incluir([FromBody] TDto model)
         {
@@ -41,7 +28,6 @@ namespace CenedQualificando.Api.Controllers.Base
                 return NotFound();
 
             model.Validate();
-
             if (!model.IsValid)
                 return BadRequest(model.Notifications);
 
@@ -57,14 +43,13 @@ namespace CenedQualificando.Api.Controllers.Base
             if (id != model.Id)
                 return BadRequest("ID inválido");
 
-            var vm = Service.Buscar(id);
-
-            if (vm == null)
-                return NotFound();
-
             model.Validate();
             if (!model.IsValid)
                 return BadRequest(model.Notifications);
+
+            var vm = Service.Buscar(id);
+            if (vm == null)
+                return NotFound();
 
             Service.Alterar(model);
 
@@ -82,6 +67,19 @@ namespace CenedQualificando.Api.Controllers.Base
             Service.Excluir(model);
 
             return NoContent();
+        }
+
+        [HttpGet("{id:int}")]
+        public virtual IActionResult Buscar(int id)
+        {
+            var result = Service.Buscar(id);
+
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
         }
 
         [HttpPost("filtros")]
