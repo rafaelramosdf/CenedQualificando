@@ -21,7 +21,7 @@ namespace CenedQualificando.Domain.Models.Dtos
 
         public int IdPermissao { get; set; }
         public TipoPermissao TipoPermissao { get; set; }
-        public string TipoPermissaoDescription => TipoPermissao.GetDescription();
+        public string TipoPermissaoDescription => TipoPermissao.EnumDescription();
         public string Nome { get; set; }
         public bool Selecionado { get; set; }
         public int IdGrupoDePermissao { get; set; }

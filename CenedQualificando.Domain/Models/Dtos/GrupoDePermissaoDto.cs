@@ -33,12 +33,12 @@ namespace CenedQualificando.Domain.Models.Dtos
         public List<PermissaoDto> ListarPermissoes()
         {
             var todasPermissoes = new List<PermissaoDto>();
-            todasPermissoes.AddRange(EnumerationExtension.GetNames<PermissaoCadastro>().Select(permissao => new PermissaoDto(TipoPermissao.PermissaoCadastro, permissao)));
-            todasPermissoes.AddRange(EnumerationExtension.GetNames<PermissaoEtiqueta>().Select(permissao => new PermissaoDto(TipoPermissao.PermissaoEtiqueta, permissao)));
-            todasPermissoes.AddRange(EnumerationExtension.GetNames<PermissaoRelatorio>().Select(permissao => new PermissaoDto(TipoPermissao.PermissaoRelatorio, permissao)));
-            todasPermissoes.AddRange(EnumerationExtension.GetNames<PermissaoMensagem>().Select(permissao => new PermissaoDto(TipoPermissao.PermissaoMensagem, permissao)));
-            todasPermissoes.AddRange(EnumerationExtension.GetNames<PermissaoDocumento>().Select(permissao => new PermissaoDto(TipoPermissao.PermissaoDocumento, permissao)));
-            todasPermissoes.AddRange(EnumerationExtension.GetNames<PermissaoConfiguracoes>().Select(permissao => new PermissaoDto(TipoPermissao.PermissaoConfiguracoes, permissao)));
+            todasPermissoes.AddRange(EnumerationExtension.EnumNames<PermissaoCadastro>().Select(permissao => new PermissaoDto(TipoPermissao.PermissaoCadastro, permissao)));
+            todasPermissoes.AddRange(EnumerationExtension.EnumNames<PermissaoEtiqueta>().Select(permissao => new PermissaoDto(TipoPermissao.PermissaoEtiqueta, permissao)));
+            todasPermissoes.AddRange(EnumerationExtension.EnumNames<PermissaoRelatorio>().Select(permissao => new PermissaoDto(TipoPermissao.PermissaoRelatorio, permissao)));
+            todasPermissoes.AddRange(EnumerationExtension.EnumNames<PermissaoMensagem>().Select(permissao => new PermissaoDto(TipoPermissao.PermissaoMensagem, permissao)));
+            todasPermissoes.AddRange(EnumerationExtension.EnumNames<PermissaoDocumento>().Select(permissao => new PermissaoDto(TipoPermissao.PermissaoDocumento, permissao)));
+            todasPermissoes.AddRange(EnumerationExtension.EnumNames<PermissaoConfiguracoes>().Select(permissao => new PermissaoDto(TipoPermissao.PermissaoConfiguracoes, permissao)));
 
             return todasPermissoes;
         }

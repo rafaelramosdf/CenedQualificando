@@ -1,4 +1,5 @@
 ﻿using CenedQualificando.Domain.Models.Dtos;
+using CenedQualificando.Domain.Models.Enumerations;
 using CenedQualificando.Domain.Models.Objects;
 using CenedQualificando.Web.Admin.Services.Contracts;
 using CenedQualificando.Web.Admin.Shared.CodeBase.Pages;
@@ -22,6 +23,25 @@ namespace CenedQualificando.Web.Admin.Pages.Cadastros
             dataTable.Filter.Text = FiltroTexto;
             dataTable = await MatriculaService.Filtrar(dataTable);
             return dataTable;
+        }
+
+        protected MudBlazor.Color ObterClasseStatusCurso(StatusCursoEnum status)
+        {
+            switch (status)
+            {
+                case StatusCursoEnum.EmAndamento:
+                    return MudBlazor.Color.Success;
+                case StatusCursoEnum.Aprovado:
+                    return MudBlazor.Color.Primary;
+                case StatusCursoEnum.NaoAprovado:
+                    return MudBlazor.Color.Warning;
+                case StatusCursoEnum.Agendado:
+                    return MudBlazor.Color.Info;
+                case StatusCursoEnum.ReProva:
+                    return MudBlazor.Color.Error;
+                default:
+                    return MudBlazor.Color.Dark;
+            }
         }
     }
 }

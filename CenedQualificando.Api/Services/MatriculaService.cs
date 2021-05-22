@@ -25,7 +25,7 @@ namespace CenedQualificando.Api.Services
 
         public override DataTableModel<MatriculaDto> Buscar(DataTableModel<MatriculaDto> dataTableModel)
         {
-            var query = Repository.List();//.Include(x => x.Aluno).Include(x => x.Curso).Include(x => x.Provas);
+            var query = Repository.List().Include(x => x.Aluno).Include(x => x.Curso);
 
             dataTableModel = GerarDataTable(dataTableModel, query);
             return dataTableModel;

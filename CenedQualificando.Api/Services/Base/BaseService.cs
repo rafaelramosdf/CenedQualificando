@@ -122,16 +122,20 @@ namespace CenedQualificando.Api.Services.Base
         {
             IQueryable<TEntity> queryList = query != null ? query : Repository.List();
 
+            Expression<Func<TEntity, bool>> filterExpression = null;
+
             if (!string.IsNullOrEmpty(dataTableModel.Filter.Text))
             {
-                var filterExpression = Query.FiltroGenerico(dataTableModel.Filter.Text);
-                queryList = Repository.List(filterExpression);
+                filterExpression = Query.FiltroGenerico(dataTableModel.Filter.Text);
+                queryList = queryList.Where(filterExpression);
             }
+
+            dataTableModel.Pagination.Total = filterExpression != null 
+                ? Repository.List(filterExpression).Count() 
+                : Repository.List().Count();
 
             var sortingExpression = Query.Ordenacao(dataTableModel.Sorting.Field);
             queryList = dataTableModel.Sorting.Desc ? queryList.OrderByDescending(sortingExpression) : queryList.OrderBy(sortingExpression);
-
-            dataTableModel.Pagination.Total = queryList.Count();
 
             queryList = queryList
                 .Skip((dataTableModel.Pagination.Page - 1) * dataTableModel.Pagination.Limit)

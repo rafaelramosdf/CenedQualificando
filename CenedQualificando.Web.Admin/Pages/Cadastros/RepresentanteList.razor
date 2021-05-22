@@ -1,11 +1,11 @@
 ﻿
-@page "/fiscais-salas"
+@page "/representantes"
 
-@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.ListPageBase<FiscalSalaDto>
+@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.ListPageBase<RepresentanteDto>
 @inject ISnackbar Snackbar
 @using Domain.Models.Dtos
 
-<MudTable ServerData="@(new Func<TableState, Task<TableData<FiscalSalaDto>>>(ServerReload))"
+<MudTable ServerData="@(new Func<TableState, Task<TableData<RepresentanteDto>>>(ServerReload))"
           @ref="Table"
           Dense="true"
           Hover="true"
@@ -19,7 +19,7 @@
     <ToolBarContent>
         <MudToolBarSpacer />
         <MudTextField T="string" ValueChanged="@(s => OnSearch(s))"
-                      Placeholder="Pesquisar por Nome ou CPF"
+                      Placeholder="Pesquisar por Nome"
                       Adornment="Adornment.Start"
                       AdornmentIcon="@Icons.Material.Filled.Search"
                       IconSize="Size.Medium"
@@ -32,10 +32,10 @@
                 <MudMenuItem>...</MudMenuItem>
             </MudMenu>
         </MudTh>
-        <MudTh><MudTableSortLabel T="FiscalSalaDto" SortLabel="@nameof(FiscalSalaDto.Nome)" InitialDirection="SortDirection.Ascending">Nome</MudTableSortLabel></MudTh>
-        <MudTh><MudText>CPF</MudText></MudTh>
-        <MudTh><MudText>RG</MudText></MudTh>
+        <MudTh><MudTableSortLabel T="RepresentanteDto" SortLabel="@nameof(RepresentanteDto.Nome)" InitialDirection="SortDirection.Ascending">Nome</MudTableSortLabel></MudTh>
+        <MudTh><MudText>Email</MudText></MudTh>
         <MudTh><MudText>UF</MudText></MudTh>
+        <MudTh><MudText>Ativo</MudText></MudTh>
     </HeaderContent>
     <RowTemplate>
         <MudTd>
@@ -46,22 +46,23 @@
             </MudMenu>
         </MudTd>
         <MudTd DataLabel="Nome">@context.Nome</MudTd>
-        <MudTd DataLabel="CPF">@context.Cpf</MudTd>
-        <MudTd DataLabel="RG">@context.Rg</MudTd>
+        <MudTd DataLabel="Email">@context.Email</MudTd>
         <MudTd DataLabel="UF">@context.UfDescricao</MudTd>
+        <MudTd DataLabel="Ativo">@context.AtivoDescricao</MudTd>
     </RowTemplate>
     <RowEditingTemplate>
+        <MudTd></MudTd>
         <MudTd DataLabel="Nome">
             <MudTextField @bind-Value="@context.Nome" Required />
         </MudTd>
-        <MudTd DataLabel="CPF">
-            <MudTextField @bind-Value="@context.Cpf" Required />
-        </MudTd>
-        <MudTd DataLabel="RG">
-            <MudTextField @bind-Value="@context.Rg" Required />
+        <MudTd DataLabel="Email">
+            <MudTextField @bind-Value="@context.Email" Required />
         </MudTd>
         <MudTd DataLabel="UF">
-            <MudNumericField @bind-Value="@context.Uf" />
+            <MudTextField @bind-Value="@context.Uf" Required />
+        </MudTd>
+        <MudTd DataLabel="Ativo">
+            <MudNumericField @bind-Value="@context.Ativo" />
         </MudTd>
     </RowEditingTemplate>
     <PagerContent>

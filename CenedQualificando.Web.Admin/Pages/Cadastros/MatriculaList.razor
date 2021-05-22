@@ -17,7 +17,7 @@
     <ToolBarContent>
         <MudToolBarSpacer />
         <MudTextField T="string" ValueChanged="@(s => OnSearch(s))"
-                      Placeholder="Pesquisar por Matrícula, Aluno ou Curso"
+                      Placeholder="Pesquisar por Aluno ou Curso"
                       Adornment="Adornment.Start"
                       AdornmentIcon="@Icons.Material.Filled.Search"
                       IconSize="Size.Medium"
@@ -25,10 +25,14 @@
         </MudTextField>
     </ToolBarContent>
     <HeaderContent>
-        <MudTh></MudTh>
         <MudTh>
-            <MudTableSortLabel T="MatriculaDto" SortLabel="@nameof(MatriculaDto.NumeroMatricula)">
-                Matrícula
+            <MudMenu Icon="@Icons.Material.Filled.ViewList" Color="Color.Primary" Disabled="true">
+                <MudMenuItem>...</MudMenuItem>
+            </MudMenu>
+        </MudTh>
+        <MudTh>
+            <MudTableSortLabel T="MatriculaDto" SortLabel="@nameof(MatriculaDto.Aluno)">
+                Aluno / CPF
             </MudTableSortLabel>
         </MudTh>
         <MudTh>
@@ -37,12 +41,14 @@
             </MudTableSortLabel>
         </MudTh>
         <MudTh>
-            <MudTableSortLabel T="MatriculaDto" SortLabel="@nameof(MatriculaDto.Aluno)" InitialDirection="SortDirection.Ascending">
-                Aluno / CPF
-            </MudTableSortLabel>
+            <MudText>
+                Situação
+            </MudText>
         </MudTh>
         <MudTh>
-            <MudText>Data</MudText>
+            <MudTableSortLabel T="MatriculaDto" SortLabel="@nameof(MatriculaDto.DataMatricula)" InitialDirection="SortDirection.Descending">
+                Data
+            </MudTableSortLabel>
         </MudTh>
     </HeaderContent>
     <RowTemplate>
@@ -53,10 +59,14 @@
                 <MudMenuItem>Excluir</MudMenuItem>
             </MudMenu>
         </MudTd>
-        <MudTd DataLabel="Matricula">@context.NumeroMatricula</MudTd>
+        <MudTd DataLabel="Aluno">@context.Aluno.Nome.ToUpper() / @context.Aluno.Cpf</MudTd>
         <MudTd DataLabel="Curso">@context.Curso.Codigo / @context.Curso.Nome</MudTd>
-        <MudTd DataLabel="Aluno">@context.Aluno.Nome / @context.Aluno.Cpf</MudTd>
-        <MudTd DataLabel="Data">@($"context.DataMatricula:dd/MM/yyyy")</MudTd>
+        <MudTd DataLabel="StatusCurso">
+            <MudText Color="@ObterClasseStatusCurso(context.StatusCurso)" Typo="MudBlazor.Typo.caption" Style="font-weight: bold;">
+                @context.StatusCursoDescricao
+            </MudText>
+        </MudTd>
+        <MudTd DataLabel="Data">@($"{context.DataMatricula:dd/MM/yyyy}")</MudTd>
     </RowTemplate>
     <PagerContent>
         <MudTablePager RowsPerPageString="Itens por página: "

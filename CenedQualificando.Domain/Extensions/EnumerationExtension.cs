@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+
 namespace CenedQualificando.Domain.Extensions
 {
     public static class EnumerationExtension
     {
-        public static string GetDescription(this Enum en)
+        public static string EnumDescription(this Enum en)
         {
             Type type = en.GetType();
 
@@ -26,12 +27,12 @@ namespace CenedQualificando.Domain.Extensions
             return en.ToString();
         }
 
-        public static IEnumerable<string> GetNames<T>()
+        public static IEnumerable<string> EnumNames<T>()
         {
             return (from object value in Enum.GetValues(typeof(T)) select Enum.GetName(typeof(T), value)).ToList();
         }
 
-        public static IEnumerable<string> GetDescriptions<T>()
+        public static IEnumerable<string> EnumDescriptions<T>()
         {
             var attributes = typeof(T).GetMembers()
                 .SelectMany(member => member.GetCustomAttributes(typeof(DescriptionAttribute), true).Cast<DescriptionAttribute>())
@@ -44,7 +45,7 @@ namespace CenedQualificando.Domain.Extensions
         /// Converte um Array de Enum em uma string com os valores (HashCode) separados por "," (Vírgula).
         /// </summary>
         /// <returns>Ex.: "1, 2, 3, 4" ...</returns>
-        public static string ToStringJoin<T>(this IEnumerable<T> en) where T : Enum
+        public static string EnumCodesToStringArray<T>(this IEnumerable<T> en) where T : Enum
         {
             var list = new List<string>();
             foreach (var item in en)
@@ -52,7 +53,7 @@ namespace CenedQualificando.Domain.Extensions
             return string.Join(",", list);
         }
 
-        public static bool Has<T>(this Enum type, T value)
+        public static bool EnumHas<T>(this Enum type, T value)
         {
             try
             {
@@ -64,7 +65,7 @@ namespace CenedQualificando.Domain.Extensions
             }
         }
 
-        public static bool Is<T>(this Enum type, T value)
+        public static bool EnumIs<T>(this Enum type, T value)
         {
             try
             {
@@ -76,7 +77,7 @@ namespace CenedQualificando.Domain.Extensions
             }
         }
 
-        public static T Add<T>(this Enum type, T value)
+        public static T EnumAdd<T>(this Enum type, T value)
         {
             try
             {
@@ -88,7 +89,7 @@ namespace CenedQualificando.Domain.Extensions
             }
         }
 
-        public static T Remove<T>(this Enum type, T value)
+        public static T EnumRemove<T>(this Enum type, T value)
         {
             try
             {
@@ -114,6 +115,13 @@ namespace CenedQualificando.Domain.Extensions
             return lista;
         }
 
+        public static IEnumerable<Enum> GetFlags(this Enum input)
+        {
+            foreach (Enum value in Enum.GetValues(input.GetType()))
+                if (input.HasFlag(value))
+                    yield return value;
+        }
+
         public static string ToDescription<T>(this T source)
         {
             FieldInfo fi = source.GetType().GetField(source.ToString());
@@ -124,14 +132,13 @@ namespace CenedQualificando.Domain.Extensions
             return (attributes != null && attributes.Length > 0) ? attributes[0].Description : source.ToString();
         }
 
-        public static IEnumerable<Enum> GetFlags(this Enum input)
-        {
-            foreach (Enum value in Enum.GetValues(input.GetType()))
-                if (input.HasFlag(value))
-                    yield return value;
-        }
-
-        public static T GetValueFromDescription<T>(this string description)
+        /// <summary>
+        /// Converte uma descrição de enumerador em um valor do tipo "T" informado.
+        /// </summary>
+        /// <typeparam name="T">Tipo de retorno (saída)</typeparam>
+        /// <param name="description">Texto "description" do enum</param>
+        /// <returns>Retorna o valor convertido</returns>
+        public static T DescriptionTo<T>(this string description)
         {
             var fis = typeof(T).GetFields();
 

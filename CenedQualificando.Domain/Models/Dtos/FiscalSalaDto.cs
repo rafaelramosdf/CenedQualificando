@@ -19,7 +19,7 @@ namespace CenedQualificando.Domain.Models.Dtos
         public string Cpf { get; set; }
         public string Rg { get; set; }
         public UfEnum Uf { get; set; }
-        public string UfDescricao => Uf.GetDescription();
+        public string UfDescricao => Uf.EnumDescription();
 
         public override void Validate()
         {

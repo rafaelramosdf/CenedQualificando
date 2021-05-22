@@ -27,21 +27,21 @@ namespace CenedQualificando.Domain.Models.Dtos
         public string Observacoes { get; set; }
         public int IdUsuario { get; set; }
         public StatusFinanceiroEnum StatusFinanceiro { get; set; }
-        public string StatusFinanceiroDescricao => StatusFinanceiro.GetDescription();
+        public string StatusFinanceiroDescricao => StatusFinanceiro.EnumDescription();
         public string Boleto { get; set; }
         public FormaPagamentoEnum FormaPagamento { get; set; }
-        public string FormaPagamentoDescricao => FormaPagamento.GetDescription();
+        public string FormaPagamentoDescricao => FormaPagamento.EnumDescription();
         public decimal ValorTotal { get; set; }
         public DateTime? DataPagamento { get; set; }
         public SolicitacaoCancelamentoPorEnum SolicitacaoCancelamento { get; set; }
-        public string SolicitacaoCancelamentoDescricao => SolicitacaoCancelamento.GetDescription();
+        public string SolicitacaoCancelamentoDescricao => SolicitacaoCancelamento.EnumDescription();
         public MaterialDidaticoEnum MaterialDidatico { get; set; }
-        public string MaterialDidaticoDescricao => MaterialDidatico.GetDescription();
+        public string MaterialDidaticoDescricao => MaterialDidatico.EnumDescription();
         public DateTime? DataPostagem { get; set; }
         public EnvioMaterialEnum MaterialEnviadoPara { get; set; }
-        public string MaterialEnviadoParaDescricao => MaterialEnviadoPara.GetDescription();
+        public string MaterialEnviadoParaDescricao => MaterialEnviadoPara.EnumDescription();
         public StatusCursoEnum StatusCurso { get; set; }
-        public string StatusCursoDescricao => StatusCurso.GetDescription();
+        public string StatusCursoDescricao => StatusCurso.EnumDescription();
         public DateTime? DataStatusCurso { get; set; }
         public DateTime? CertificadoExpedido { get; set; }
         public DateTime? CertificadoEnviado { get; set; }
@@ -49,9 +49,9 @@ namespace CenedQualificando.Domain.Models.Dtos
         public string Pagina { get; set; }
         public string Livro { get; set; }
         public EnviadoParaEnum CertificadoEnviadoPara { get; set; }
-        public string CertificadoEnviadoParaDescricao => CertificadoEnviadoPara.GetDescription();
+        public string CertificadoEnviadoParaDescricao => CertificadoEnviadoPara.EnumDescription();
         public EnvioMaterialEnum EnvioMaterial { get; set; }
-        public string EnvioMaterialDescricao => EnvioMaterial.GetDescription();
+        public string EnvioMaterialDescricao => EnvioMaterial.EnumDescription();
         public bool PossuiBolsaParceria { get; set; }
 
         public AlunoDto Aluno { get; set; } = new AlunoDto();

@@ -13,20 +13,20 @@ namespace CenedQualificando.Domain.Models.Dtos
         public int IdAluno { get; set; }
         public string Nome { get; set; }
         public SexoEnum Sexo { get; set; }
-        public string SexoDescricao => Sexo.GetDescription();
+        public string SexoDescricao => Sexo.EnumDescription();
         public string Cpf { get; set; }
         public string Rg { get; set; }
         public string OrgaoExpedidor { get; set; }
         public DateTime? DataNascimento { get; set; }
         public string Naturalidade { get; set; }
         public UfEnum UfNaturalidade { get; set; }
-        public string UfNaturalidadeDescricao => UfNaturalidade.GetDescription();
+        public string UfNaturalidadeDescricao => UfNaturalidade.EnumDescription();
         public string Nacionalidade { get; set; }
         public string Endereco { get; set; }
         public string Bairro { get; set; }
         public string Cidade { get; set; }
         public UfEnum UfResidencial { get; set; }
-        public string UfResidencialDescricao => UfResidencial.GetDescription();
+        public string UfResidencialDescricao => UfResidencial.EnumDescription();
         public string Cep { get; set; }
         public string Senha { get; set; }
         public string ConfirmarSenha { get; set; }
@@ -36,9 +36,9 @@ namespace CenedQualificando.Domain.Models.Dtos
         public string Email { get; set; }
         public string NomePreposto { get; set; }
         public VinculoEnum Vinculo { get; set; }
-        public string VinculoDescricao => Vinculo.GetDescription();
+        public string VinculoDescricao => Vinculo.EnumDescription();
         public SexoEnum SexoPreposto { get; set; }
-        public string SexoPrepostoDescricao => SexoPreposto.GetDescription();
+        public string SexoPrepostoDescricao => SexoPreposto.EnumDescription();
         public string CpfPreposto { get; set; }
         public string RgPreposto { get; set; }
         public string OrgaoExpedidorPreposto { get; set; }
@@ -48,15 +48,15 @@ namespace CenedQualificando.Domain.Models.Dtos
         public string LocalTrabalho { get; set; }
         public string CidadeTrabalho { get; set; }
         public UfEnum UfTrabalho { get; set; }
-        public string UfTrabalhoDescricao => UfTrabalho.GetDescription();
+        public string UfTrabalhoDescricao => UfTrabalho.EnumDescription();
         public int IdPenitenciaria { get; set; }
         public string Bloco { get; set; }
         public string Ala { get; set; }
         public string Cela { get; set; }
         public CondicaoPresoEnum CondicaoPreso { get; set; }
-        public string CondicaoPresoDescricao => CondicaoPreso.GetDescription();
+        public string CondicaoPresoDescricao => CondicaoPreso.EnumDescription();
         public RegimeEnum Regime { get; set; }
-        public string RegimeDescricao => Regime.GetDescription();
+        public string RegimeDescricao => Regime.EnumDescription();
         public string Observacoes { get; set; }
 
         public PenitenciariaDto Penitenciaria { get; set; } = new PenitenciariaDto();

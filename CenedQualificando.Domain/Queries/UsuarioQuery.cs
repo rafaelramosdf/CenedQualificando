@@ -9,12 +9,19 @@ namespace CenedQualificando.Domain.Queries
     {
         public Expression<Func<Usuario, bool>> FiltroGenerico(string textoFiltro)
         {
-            throw new NotImplementedException();
+            return x => x.Nome.Contains(textoFiltro) 
+                || x.CpfUsuario == textoFiltro 
+                || x.Login.ToLower() == textoFiltro.ToLower() 
+                || x.Email.ToLower() == textoFiltro.ToLower();
         }
 
         public Expression<Func<Usuario, object>> Ordenacao(string campo)
         {
-            throw new NotImplementedException();
+            switch (campo)
+            {
+                default:
+                    return x => x.Nome;
+            }
         }
     }
 }

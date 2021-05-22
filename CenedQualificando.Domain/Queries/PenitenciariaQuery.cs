@@ -9,12 +9,20 @@ namespace CenedQualificando.Domain.Queries
     {
         public Expression<Func<Penitenciaria, bool>> FiltroGenerico(string textoFiltro)
         {
-            throw new NotImplementedException();
+            return x => x.Nome.Contains(textoFiltro) || x.Cidade.Contains(textoFiltro);
         }
 
         public Expression<Func<Penitenciaria, object>> Ordenacao(string campo)
         {
-            throw new NotImplementedException();
+            switch (campo)
+            {
+                case nameof(Penitenciaria.Uf):
+                    return x => x.Uf;
+                case nameof(Penitenciaria.Cidade):
+                    return x => x.Cidade;
+                default:
+                    return x => x.Nome;
+            }
         }
     }
 }

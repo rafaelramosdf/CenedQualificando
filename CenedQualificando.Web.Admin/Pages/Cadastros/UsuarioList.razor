@@ -1,23 +1,24 @@
-﻿@page "/alunos"
+﻿
+@page "/usuarios"
 
-@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.ListPageBase<AlunoDto>
+@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.ListPageBase<UsuarioDto>
 @inject ISnackbar Snackbar
 @using Domain.Models.Dtos
 
-<MudTable ServerData="@(new Func<TableState, Task<TableData<AlunoDto>>>(ServerReload))"
+<MudTable ServerData="@(new Func<TableState, Task<TableData<UsuarioDto>>>(ServerReload))"
           @ref="Table"
           Dense="true"
           Hover="true"
-          ReadOnly="@SomenteLeitura"
           Striped="false"
           @bind-SelectedItem="ItemSelecionado"
           SortLabel="Ordenar por"
           CommitEditTooltip="Salvar"
           OnCommitEditClick="@(() => Snackbar.Add("Commit Edit Handler Invoked"))">
+
     <ToolBarContent>
         <MudToolBarSpacer />
         <MudTextField T="string" ValueChanged="@(s => OnSearch(s))"
-                      Placeholder="Pesquisar por Nome ou CPF"
+                      Placeholder="Pesquisar por Nome, CPF, Login ou Email"
                       Adornment="Adornment.Start"
                       AdornmentIcon="@Icons.Material.Filled.Search"
                       IconSize="Size.Medium"
@@ -26,15 +27,14 @@
     </ToolBarContent>
     <HeaderContent>
         <MudTh>
-            <MudMenu Icon="@Icons.Material.Filled.ViewList" Color="Color.Primary" Disabled="true">
-                <MudMenuItem>...</MudMenuItem>
+            <MudMenu Icon="@Icons.Material.Filled.ViewList" Color="Color.Primary">
+                <MudMenuItem>Grupos de Permissões</MudMenuItem>
             </MudMenu>
         </MudTh>
-        <MudTh><MudTableSortLabel T="AlunoDto" SortLabel="@nameof(AlunoDto.Nome)" InitialDirection="SortDirection.Ascending">Nome</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel T="UsuarioDto" SortLabel="@nameof(UsuarioDto.Nome)" InitialDirection="SortDirection.Ascending">Nome</MudTableSortLabel></MudTh>
         <MudTh><MudText>CPF</MudText></MudTh>
-        <MudTh><MudText>Preposto</MudText></MudTh>
-        <MudTh><MudText>CPF Preposto</MudText></MudTh>
-        <MudTh><MudText>UF / Penitenciária</MudText></MudTh>
+        <MudTh><MudText>Email</MudText></MudTh>
+        <MudTh><MudText>Login</MudText></MudTh>
     </HeaderContent>
     <RowTemplate>
         <MudTd>
@@ -45,15 +45,12 @@
             </MudMenu>
         </MudTd>
         <MudTd DataLabel="Nome">@context.Nome</MudTd>
-        <MudTd DataLabel="CPF">@context.Cpf</MudTd>
-        <MudTd DataLabel="Preposto">@context.Nome</MudTd>
-        <MudTd DataLabel="CPF Preposto">@context.Cpf</MudTd>
-        <MudTd DataLabel="Penitenciária">@context.Penitenciaria.UfDescricao / @context.Penitenciaria.Nome</MudTd>
+        <MudTd DataLabel="CPF">@context.CpfUsuario</MudTd>
+        <MudTd DataLabel="Email">@context.Email</MudTd>
+        <MudTd DataLabel="Login">@context.Login</MudTd>
     </RowTemplate>
     <PagerContent>
-        <MudTablePager RowsPerPageString="Itens por página: "
-                       PageSizeOptions="new int[] { 5, 10, 20, 50, 100 }"
-                       InfoFormat="{first_item}-{last_item} de {all_items}" />
+        <MudTablePager RowsPerPageString="Itens por página: " PageSizeOptions="new int[] { 5, 10, 20, 50, 100 }" InfoFormat="{first_item}-{last_item} de {all_items}" />
     </PagerContent>
 </MudTable>
 

@@ -15,14 +15,14 @@ namespace CenedQualificando.Domain.Models.Dtos
         public string Endereco { get; set; }
         public string Cidade { get; set; }
         public UfEnum Uf { get; set; }
-        public string UfDescricao => Uf.GetDescription();
+        public string UfDescricao => Uf.EnumDescription();
         public string Cep { get; set; }
         public string NomeDepartamentoEnsino { get; set; }
         public string ResponsavelDepartamentoEnsino { get; set; }
         public string TituloCargoDepartamentoEnsino { get; set; }
         public string EmailContatoDepartamentoEnsino { get; set; }
         public AtivoEnum Ativo { get; set; }
-        public string AtivoDescricao => Ativo.GetDescription();
+        public string AtivoDescricao => Ativo.EnumDescription();
         public bool PossuiBolsaParceria { get; set; }
         public DateTime? DataInicioBolsaParceria { get; set; }
         public int BolsasConcedidas { get; set; }

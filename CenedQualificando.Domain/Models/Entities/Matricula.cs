@@ -52,7 +52,6 @@ namespace CenedQualificando.Domain.Models.Entities
         public int CertificadoEnviadoPara { get; set; }
         public int EnvioMaterial { get; set; }
         public bool PossuiBolsaParceria { get; set; }
-        public int StatusRotina { get; set; }
 
         public virtual Aluno Aluno { get; set; }
         public virtual Curso Curso { get; set; }

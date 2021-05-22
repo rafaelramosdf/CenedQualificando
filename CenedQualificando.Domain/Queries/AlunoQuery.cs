@@ -21,8 +21,8 @@ namespace CenedQualificando.Domain.Queries
         {
             switch (campo)
             {
-                case nameof(Aluno.Id):
-                    return x => x.IdAluno;
+                case nameof(Aluno.NomePreposto):
+                    return x => x.NomePreposto;
                 default:
                     return x => x.Nome;
             }
