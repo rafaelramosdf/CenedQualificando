@@ -1,0 +1,69 @@
+﻿@page "/matriculas"
+
+@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.ListPageBase<MatriculaDto>
+@inject ISnackbar Snackbar
+@using Domain.Models.Dtos
+
+<MudTable ServerData="@(new Func<TableState, Task<TableData<MatriculaDto>>>(ServerReload))"
+          @ref="Table"
+          Dense="true"
+          Hover="true"
+          ReadOnly="@SomenteLeitura"
+          Striped="false"
+          @bind-SelectedItem="ItemSelecionado"
+          SortLabel="Ordenar por"
+          CommitEditTooltip="Salvar"
+          OnCommitEditClick="@(() => Snackbar.Add("Commit Edit Handler Invoked"))">
+    <ToolBarContent>
+        <MudToolBarSpacer />
+        <MudTextField T="string" ValueChanged="@(s => OnSearch(s))"
+                      Placeholder="Pesquisar por Matrícula, Aluno ou Curso"
+                      Adornment="Adornment.Start"
+                      AdornmentIcon="@Icons.Material.Filled.Search"
+                      IconSize="Size.Medium"
+                      Class="mt-0">
+        </MudTextField>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh></MudTh>
+        <MudTh>
+            <MudTableSortLabel T="MatriculaDto" SortLabel="@nameof(MatriculaDto.NumeroMatricula)">
+                Matrícula
+            </MudTableSortLabel>
+        </MudTh>
+        <MudTh>
+            <MudTableSortLabel T="MatriculaDto" SortLabel="@nameof(MatriculaDto.Curso)">
+                Curso
+            </MudTableSortLabel>
+        </MudTh>
+        <MudTh>
+            <MudTableSortLabel T="MatriculaDto" SortLabel="@nameof(MatriculaDto.Aluno)" InitialDirection="SortDirection.Ascending">
+                Aluno / CPF
+            </MudTableSortLabel>
+        </MudTh>
+        <MudTh>
+            <MudText>Data</MudText>
+        </MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd>
+            <MudMenu Icon="@Icons.Material.Filled.MoreVert">
+                <MudMenuItem>Alterar</MudMenuItem>
+                <MudMenuItem>Consultar</MudMenuItem>
+                <MudMenuItem>Excluir</MudMenuItem>
+            </MudMenu>
+        </MudTd>
+        <MudTd DataLabel="Matricula">@context.NumeroMatricula</MudTd>
+        <MudTd DataLabel="Curso">@context.Curso.Codigo / @context.Curso.Nome</MudTd>
+        <MudTd DataLabel="Aluno">@context.Aluno.Nome / @context.Aluno.Cpf</MudTd>
+        <MudTd DataLabel="Data">@($"context.DataMatricula:dd/MM/yyyy")</MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager RowsPerPageString="Itens por página: "
+                       PageSizeOptions="new int[] { 5, 10, 20, 50, 100 }"
+                       InfoFormat="{first_item}-{last_item} de {all_items}" />
+    </PagerContent>
+</MudTable>
+
+<MudFab Color="Color.Success" Icon="@Icons.Material.Filled.Add"
+        Style="position: fixed; bottom: 45px; right: 30px;" />

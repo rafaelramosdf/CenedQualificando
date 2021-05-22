@@ -1,6 +1,5 @@
 ﻿using CenedQualificando.Domain.Models.Base;
 using CenedQualificando.Domain.Models.Objects;
-using System.Collections.Generic;
 
 namespace CenedQualificando.Domain.Interfaces.Services
 {

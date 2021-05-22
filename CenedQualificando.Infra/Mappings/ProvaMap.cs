@@ -30,7 +30,7 @@ namespace CenedQualificando.Infra.Mappings
             builder.Property(e => e.TipoProva).IsRequired();
 
             builder.HasOne(d => d.IdMatriculaNavigation)
-                .WithMany(p => p.Prova)
+                .WithMany(p => p.Provas)
                 .HasForeignKey(d => d.IdMatricula)
                 .HasConstraintName("FK_Penitenciario.Prova_Penitenciario.Matricula_IdMatricula");
         }

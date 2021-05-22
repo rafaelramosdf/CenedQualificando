@@ -7,9 +7,10 @@
 
 <MudTable ServerData="@(new Func<TableState, Task<TableData<FiscalSalaDto>>>(ServerReload))"
           @ref="Table"
-          Dense="false"
+          Dense="true"
           Hover="true"
-          ReadOnly="@SomenteLeitura"
+          ReadOnly="@SomenteLeitura" 
+          Striped="false"
           @bind-SelectedItem="ItemSelecionado"
           SortLabel="Ordenar por"
           CommitEditTooltip="Salvar"
@@ -25,29 +26,27 @@
                       Class="mt-0">
         </MudTextField>
     </ToolBarContent>
-    <ColGroup>
-        <col style="width:10%;" />
-        <col style="width:50%;" />
-        <col style="width:15%;" />
-        <col style="width:15%;" />
-        <col style="width:10%;" />
-    </ColGroup>
     <HeaderContent>
-        <MudTh><MudTableSortLabel T="FiscalSalaDto" SortLabel="@nameof(FiscalSalaDto.Id)">ID</MudTableSortLabel></MudTh>
+        <MudTh></MudTh>
         <MudTh><MudTableSortLabel T="FiscalSalaDto" SortLabel="@nameof(FiscalSalaDto.Nome)" InitialDirection="SortDirection.Ascending">Nome</MudTableSortLabel></MudTh>
         <MudTh><MudText>CPF</MudText></MudTh>
         <MudTh><MudText>RG</MudText></MudTh>
         <MudTh><MudText>UF</MudText></MudTh>
     </HeaderContent>
     <RowTemplate>
-        <MudTd DataLabel="ID">@context.Id</MudTd>
+        <MudTd>
+            <MudMenu Icon="@Icons.Material.Filled.MoreVert">
+                <MudMenuItem>Alterar</MudMenuItem>
+                <MudMenuItem>Consultar</MudMenuItem>
+                <MudMenuItem>Excluir</MudMenuItem>
+            </MudMenu>
+        </MudTd>
         <MudTd DataLabel="Nome">@context.Nome</MudTd>
         <MudTd DataLabel="CPF">@context.Cpf</MudTd>
         <MudTd DataLabel="RG">@context.Rg</MudTd>
         <MudTd DataLabel="UF">@context.UfDescricao</MudTd>
     </RowTemplate>
     <RowEditingTemplate>
-        <MudTd DataLabel="ID">@context.Id</MudTd>
         <MudTd DataLabel="Nome">
             <MudTextField @bind-Value="@context.Nome" Required />
         </MudTd>
@@ -65,3 +64,6 @@
         <MudTablePager RowsPerPageString="Itens por página: " PageSizeOptions="new int[] { 5, 10, 20, 50, 100 }" InfoFormat="{first_item}-{last_item} de {all_items}" />
     </PagerContent>
 </MudTable>
+
+<MudFab Color="Color.Success" Icon="@Icons.Material.Filled.Add"
+        Style="position: fixed; bottom: 45px; right: 30px;" />

@@ -59,6 +59,8 @@ namespace CenedQualificando.Domain.Models.Dtos
         public string RegimeDescricao => Regime.GetDescription();
         public string Observacoes { get; set; }
 
+        public PenitenciariaDto Penitenciaria { get; set; } = new PenitenciariaDto();
+
         public override void Validate()
         {
         }

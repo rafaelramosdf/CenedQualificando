@@ -54,22 +54,9 @@ namespace CenedQualificando.Domain.Models.Dtos
         public string EnvioMaterialDescricao => EnvioMaterial.GetDescription();
         public bool PossuiBolsaParceria { get; set; }
 
-        public string MatriculaStatusDescricao => ((StatusCursoEnum)StatusCurso).GetDescription();
-        public string CursoCodigo { get; set; }
-        public string CursoNome { get; set; }
-        public int CursoCargaHoraria { get; set; }
-        public string AlunoNome { get; set; }
-        public string AlunoCpf { get; set; }
-        public string PenitenciariaNome { get; set; }
-        public UfEnum PenitenciariaUf { get; set; }
-        public string PenitenciariaUfDescricao => PenitenciariaUf != UfEnum.Null ? PenitenciariaUf.GetDescription() : "";
-
         public AlunoDto Aluno { get; set; } = new AlunoDto();
-
-        // DADOS DE PROVAS
+        public CursoDto Curso { get; set; } = new CursoDto();
         public IEnumerable<ProvaDto> Provas { get; set; } = new List<ProvaDto>();
-        public DateTime? DataRecebimentoUltimaProva => Provas.LastOrDefault()?.DataRecebidaProva;
-        public decimal? NotaProva => Provas.LastOrDefault()?.Nota;
 
         public override void Validate()
         {

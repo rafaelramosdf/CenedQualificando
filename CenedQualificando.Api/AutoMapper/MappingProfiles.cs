@@ -1,6 +1,4 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq.Expressions;
+﻿using System.Diagnostics.CodeAnalysis;
 using AutoMapper;
 using CenedQualificando.Domain.Models.Dtos;
 using CenedQualificando.Domain.Models.Entities;
@@ -12,9 +10,19 @@ namespace Cened.Penitenciario.Api.AutoMapper
     {
         public MappingProfiles()
         {
+            CreateMap<AgentePenitenciario, AgentePenitenciarioDto>().ReverseMap();
+            CreateMap<Aluno, AlunoDto>().ReverseMap();
+            CreateMap<CargaHorariaDiaria, CargaHorariaDiariaDto>().ReverseMap();
+            CreateMap<Curso, CursoDto>().ReverseMap();
             CreateMap<FiscalSala, FiscalSalaDto>().ReverseMap();
-            CreateMap<Expression<Func<FiscalSalaDto, bool>>, Expression<Func<FiscalSala, bool>>>().ReverseMap();
-            CreateMap<Expression<Func<FiscalSalaDto, object>>, Expression<Func<FiscalSala, object>>>().ReverseMap();
+            CreateMap<GrupoDePermissao, GrupoDePermissaoDto>().ReverseMap();
+            CreateMap<Matricula, MatriculaDto>().ReverseMap();
+            CreateMap<Penitenciaria, PenitenciariaDto>().ReverseMap();
+            CreateMap<Permissao, PermissaoDto>().ReverseMap();
+            CreateMap<Prova, ProvaDto>().ReverseMap();
+            CreateMap<Representante, RepresentanteDto>().ReverseMap();
+            CreateMap<UfEntrega, UfEntregaDto>().ReverseMap();
+            CreateMap<Usuario, UsuarioDto>().ReverseMap();
         }
     }
 }

@@ -8,8 +8,8 @@ namespace CenedQualificando.Domain.Models.Entities
     {
         public Aluno()
         {
-            Matricula = new HashSet<Matricula>();
-            Mensagem = new HashSet<Mensagem>();
+            Matriculas = new HashSet<Matricula>();
+            Mensagens = new HashSet<Mensagem>();
         }
 
         public override int Id => IdAluno;
@@ -55,8 +55,8 @@ namespace CenedQualificando.Domain.Models.Entities
         public int Regime { get; set; }
         public string Observacoes { get; set; }
 
-        public virtual Penitenciaria IdPenitenciariaNavigation { get; set; }
-        public virtual ICollection<Matricula> Matricula { get; set; }
-        public virtual ICollection<Mensagem> Mensagem { get; set; }
+        public virtual Penitenciaria Penitenciaria { get; set; }
+        public virtual ICollection<Matricula> Matriculas { get; set; }
+        public virtual ICollection<Mensagem> Mensagens { get; set; }
     }
 }

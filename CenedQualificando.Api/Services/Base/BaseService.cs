@@ -5,8 +5,10 @@ using CenedQualificando.Domain.Interfaces.Services;
 using CenedQualificando.Domain.Interfaces.UoW;
 using CenedQualificando.Domain.Models.Base;
 using CenedQualificando.Domain.Models.Objects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace CenedQualificando.Api.Services.Base
 {
@@ -106,14 +108,19 @@ namespace CenedQualificando.Api.Services.Base
             }
         }
 
-        public TDto Buscar(int id)
+        public virtual TDto Buscar(int id)
         {
             return Mapper.Map<TDto>(Repository.Get(id));
         }
 
-        public DataTableModel<TDto> Buscar(DataTableModel<TDto> dataTableModel)
+        public virtual DataTableModel<TDto> Buscar(DataTableModel<TDto> dataTableModel)
         {
-            IQueryable<TEntity> queryList = Repository.List();
+            return GerarDataTable(dataTableModel);
+        }
+
+        protected DataTableModel<TDto> GerarDataTable(DataTableModel<TDto> dataTableModel, IQueryable<TEntity> query = null)
+        {
+            IQueryable<TEntity> queryList = query != null ? query : Repository.List();
 
             if (!string.IsNullOrEmpty(dataTableModel.Filter.Text))
             {

@@ -18,18 +18,6 @@ namespace CenedQualificando.Web.Admin.Services
             _refitService = RestService.For<IFiscalSalaRefitService>("https://localhost:6001/api");
         }
 
-        public async Task<IEnumerable<FiscalSalaDto>> Listar()
-        {
-            try
-            {
-                return await _refitService.Listar();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
         public async Task<DataTableModel<FiscalSalaDto>> Filtrar(DataTableModel<FiscalSalaDto> dataTableModel)
         {
             try

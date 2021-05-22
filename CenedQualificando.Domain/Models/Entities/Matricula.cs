@@ -11,10 +11,10 @@ namespace CenedQualificando.Domain.Models.Entities
     {
         public Matricula()
         {
-            DespesaExtra = new HashSet<DespesaExtra>();
+            DespesasExtras = new HashSet<DespesaExtra>();
             HistoricoCurso = new HashSet<HistoricoCurso>();
-            Prova = new HashSet<Prova>();
-            SolicitacaoCertificado = new HashSet<SolicitacaoCertificado>();
+            Provas = new HashSet<Prova>();
+            SolicitacoesCertificados = new HashSet<SolicitacaoCertificado>();
         }
 
         public override int Id => IdMatricula;
@@ -54,32 +54,13 @@ namespace CenedQualificando.Domain.Models.Entities
         public bool PossuiBolsaParceria { get; set; }
         public int StatusRotina { get; set; }
 
-        [NotMapped]
-        public string MatriculaStatusDescricao => ((StatusCursoEnum)StatusCurso).GetDescription();
-        [NotMapped]
-        public string CursoCodigo { get; set; }
-        [NotMapped]
-        public string CursoNome { get; set; }
-        [NotMapped]
-        public int CursoCargaHoraria { get; set; }
-        [NotMapped]
-        public string AlunoNome { get; set; }
-        [NotMapped]
-        public string AlunoCpf { get; set; }
-        [NotMapped]
-        public string PenitenciariaNome { get; set; }
-        [NotMapped]
-        public int PenitenciariaUf { get; set; }
-        [NotMapped]
-        public string PenitenciariaUfDescricao => PenitenciariaUf > 0 ? ((UfEnum)PenitenciariaUf).GetDescription() : "";
-
-        public virtual Aluno IdAlunoNavigation { get; set; }
-        public virtual Curso IdCursoNavigation { get; set; }
-        public virtual Penitenciaria IdPenitenciariaNavigation { get; set; }
-        public virtual Usuario IdUsuarioNavigation { get; set; }
-        public virtual ICollection<DespesaExtra> DespesaExtra { get; set; }
+        public virtual Aluno Aluno { get; set; }
+        public virtual Curso Curso { get; set; }
+        public virtual Penitenciaria Penitenciaria { get; set; }
+        public virtual Usuario Usuario { get; set; }
+        public virtual ICollection<DespesaExtra> DespesasExtras { get; set; }
         public virtual ICollection<HistoricoCurso> HistoricoCurso { get; set; }
-        public virtual ICollection<Prova> Prova { get; set; }
-        public virtual ICollection<SolicitacaoCertificado> SolicitacaoCertificado { get; set; }
+        public virtual ICollection<Prova> Provas { get; set; }
+        public virtual ICollection<SolicitacaoCertificado> SolicitacoesCertificados { get; set; }
     }
 }

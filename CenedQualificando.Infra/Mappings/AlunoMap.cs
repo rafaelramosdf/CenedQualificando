@@ -31,7 +31,7 @@ namespace CenedQualificando.Infra.Mappings
 
             builder.Property(e => e.Senha).IsRequired();
 
-            builder.HasOne(d => d.IdPenitenciariaNavigation)
+            builder.HasOne(d => d.Penitenciaria)
                 .WithMany(p => p.Aluno)
                 .HasForeignKey(d => d.IdPenitenciaria)
                 .OnDelete(DeleteBehavior.ClientSetNull)

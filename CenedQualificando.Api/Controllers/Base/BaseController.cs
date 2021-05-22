@@ -22,7 +22,7 @@ namespace CenedQualificando.Api.Controllers.Base
         }
 
         [HttpPost]
-        public virtual IActionResult Incluir([FromBody] TDto model)
+        public virtual ActionResult<TDto> Incluir([FromBody] TDto model)
         {
             if (model == null)
                 return NotFound();
@@ -35,7 +35,7 @@ namespace CenedQualificando.Api.Controllers.Base
         }
 
         [HttpPut("{id:int}")]
-        public virtual IActionResult Alterar(int id, [FromBody] TDto model)
+        public virtual ActionResult Alterar(int id, [FromBody] TDto model)
         {
             if (model == null)
                 return BadRequest();
@@ -57,7 +57,7 @@ namespace CenedQualificando.Api.Controllers.Base
         }
 
         [HttpDelete("{id:int}")]
-        public virtual IActionResult Excluir(int id)
+        public virtual ActionResult Excluir(int id)
         {
             var model = Service.Buscar(id);
 
@@ -70,7 +70,7 @@ namespace CenedQualificando.Api.Controllers.Base
         }
 
         [HttpGet("{id:int}")]
-        public virtual IActionResult Buscar(int id)
+        public virtual ActionResult<TDto> Buscar(int id)
         {
             var result = Service.Buscar(id);
 
@@ -83,7 +83,7 @@ namespace CenedQualificando.Api.Controllers.Base
         }
 
         [HttpPost("filtros")]
-        public virtual IActionResult Buscar([FromBody] DataTableModel<TDto> dataTableModel)
+        public virtual ActionResult<DataTableModel<TDto>> Buscar([FromBody] DataTableModel<TDto> dataTableModel)
         {
             return Ok(Service.Buscar(dataTableModel));
         }

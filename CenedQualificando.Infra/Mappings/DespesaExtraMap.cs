@@ -28,7 +28,7 @@ namespace CenedQualificando.Infra.Mappings
             builder.Property(e => e.Valor).HasColumnType("decimal(18, 2)");
 
             builder.HasOne(d => d.IdMatriculaNavigation)
-                .WithMany(p => p.DespesaExtra)
+                .WithMany(p => p.DespesasExtras)
                 .HasForeignKey(d => d.IdMatricula)
                 .HasConstraintName("FK_Penitenciario.DespesaExtra_Penitenciario.Matricula_IdMatricula");
         }

@@ -6,26 +6,29 @@ using CenedQualificando.Domain.Interfaces.Services;
 using CenedQualificando.Domain.Interfaces.UoW;
 using CenedQualificando.Domain.Models.Dtos;
 using CenedQualificando.Domain.Models.Entities;
+using CenedQualificando.Domain.Models.Objects;
+using Microsoft.EntityFrameworkCore;
 
 namespace CenedQualificando.Api.Services
 {
     public class MatriculaService
         : BaseService<Matricula, MatriculaDto, IMatriculaQuery, IMatriculaRepository>, IMatriculaService
     {
-        private readonly IProvaRepository _provaRepository;
-        private readonly IAlunoRepository _alunoRepository;
-
         public MatriculaService(
             IMatriculaQuery query,
             IMatriculaRepository repository,
-            IProvaRepository provaRepository,
-            IAlunoRepository alunoRepository,
             IUnitOfWork unitOfWork,
             IMapper mapper) :
             base(query, repository, unitOfWork, mapper)
         {
-            _provaRepository = provaRepository;
-            _alunoRepository = alunoRepository;
+        }
+
+        public override DataTableModel<MatriculaDto> Buscar(DataTableModel<MatriculaDto> dataTableModel)
+        {
+            var query = Repository.List();//.Include(x => x.Aluno).Include(x => x.Curso).Include(x => x.Provas);
+
+            dataTableModel = GerarDataTable(dataTableModel, query);
+            return dataTableModel;
         }
     }
 }

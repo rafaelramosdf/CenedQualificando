@@ -26,7 +26,7 @@ namespace CenedQualificando.Infra.Mappings
             builder.Property(e => e.Titulo).IsRequired();
 
             builder.HasOne(d => d.IdAlunoNavigation)
-                .WithMany(p => p.Mensagem)
+                .WithMany(p => p.Mensagens)
                 .HasForeignKey(d => d.IdAluno)
                 .HasConstraintName("FK_Penitenciario.Mensagem_Penitenciario.Aluno_IdAluno");
         }

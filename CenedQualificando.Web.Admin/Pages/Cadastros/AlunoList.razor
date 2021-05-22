@@ -1,7 +1,57 @@
 ﻿@page "/alunos"
 
-<MudText Typo="Typo.h6">Alunos e Matrículas</MudText>
+@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.ListPageBase<AlunoDto>
+@inject ISnackbar Snackbar
+@using Domain.Models.Dtos
 
-@code {
+<MudTable ServerData="@(new Func<TableState, Task<TableData<AlunoDto>>>(ServerReload))"
+          @ref="Table"
+          Dense="true"
+          Hover="true"
+          ReadOnly="@SomenteLeitura"
+          Striped="false"
+          @bind-SelectedItem="ItemSelecionado"
+          SortLabel="Ordenar por"
+          CommitEditTooltip="Salvar"
+          OnCommitEditClick="@(() => Snackbar.Add("Commit Edit Handler Invoked"))">
+    <ToolBarContent>
+        <MudToolBarSpacer />
+        <MudTextField T="string" ValueChanged="@(s => OnSearch(s))"
+                      Placeholder="Pesquisar por Nome ou CPF"
+                      Adornment="Adornment.Start"
+                      AdornmentIcon="@Icons.Material.Filled.Search"
+                      IconSize="Size.Medium"
+                      Class="mt-0">
+        </MudTextField>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh></MudTh>
+        <MudTh><MudTableSortLabel T="AlunoDto" SortLabel="@nameof(AlunoDto.Nome)" InitialDirection="SortDirection.Ascending">Nome</MudTableSortLabel></MudTh>
+        <MudTh><MudText>CPF</MudText></MudTh>
+        <MudTh><MudText>Preposto</MudText></MudTh>
+        <MudTh><MudText>CPF Preposto</MudText></MudTh>
+        <MudTh><MudText>UF / Penitenciária</MudText></MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd>
+            <MudMenu Icon="@Icons.Material.Filled.MoreVert">
+                <MudMenuItem>Alterar</MudMenuItem>
+                <MudMenuItem>Consultar</MudMenuItem>
+                <MudMenuItem>Excluir</MudMenuItem>
+            </MudMenu>
+        </MudTd>
+        <MudTd DataLabel="Nome">@context.Nome</MudTd>
+        <MudTd DataLabel="CPF">@context.Cpf</MudTd>
+        <MudTd DataLabel="Preposto">@context.Nome</MudTd>
+        <MudTd DataLabel="CPF Preposto">@context.Cpf</MudTd>
+        <MudTd DataLabel="Penitenciária">@context.Penitenciaria.UfDescricao / @context.Penitenciaria.Nome</MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager RowsPerPageString="Itens por página: "
+                       PageSizeOptions="new int[] { 5, 10, 20, 50, 100 }"
+                       InfoFormat="{first_item}-{last_item} de {all_items}" />
+    </PagerContent>
+</MudTable>
 
-}
+<MudFab Color="Color.Success" Icon="@Icons.Material.Filled.Add"
+        Style="position: fixed; bottom: 45px; right: 30px;" />

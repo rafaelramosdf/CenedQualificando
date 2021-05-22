@@ -13,7 +13,7 @@ namespace CenedQualificando.Web.Admin.Pages.Cadastros
 
         protected override void OnInit()
         {
-            State.TituloPagina = "Fiscais de Sala";
+            State.TituloPagina = "Fiscais de Sala / Lista";
         }
 
         protected override async Task<DataTableModel<FiscalSalaDto>> Buscar(DataTableModel<FiscalSalaDto> dataTable)

@@ -9,12 +9,23 @@ namespace CenedQualificando.Domain.Queries
     {
         public Expression<Func<Matricula, bool>> FiltroGenerico(string textoFiltro)
         {
-            throw new NotImplementedException();
+            return x => x.NumeroMatricula.Contains(textoFiltro) ||
+                (x.Aluno != null && x.Aluno.Nome.Contains(textoFiltro)) ||
+                (x.Curso != null && x.Curso.Codigo.Contains(textoFiltro)) ||
+                (x.Curso != null && x.Curso.Nome.Contains(textoFiltro));
         }
 
         public Expression<Func<Matricula, object>> Ordenacao(string campo)
         {
-            throw new NotImplementedException();
+            switch (campo)
+            {
+                case nameof(Matricula.Aluno):
+                    return x => x.Aluno.Nome;
+                case nameof(Matricula.Curso):
+                    return x => x.Curso.Nome;
+                default:
+                    return x => x.NumeroMatricula;
+            }
         }
     }
 }

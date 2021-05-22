@@ -42,7 +42,7 @@ namespace CenedQualificando.Infra.Mappings
             builder.Property(e => e.ValorFrete).HasColumnType("decimal(18, 2)");
 
             builder.HasOne(d => d.IdMatriculaNavigation)
-                .WithMany(p => p.SolicitacaoCertificado)
+                .WithMany(p => p.SolicitacoesCertificados)
                 .HasForeignKey(d => d.IdMatricula)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Penitenciario.SolicitacaoCertificado_Penitenciario.Matricula_IdMatricula");

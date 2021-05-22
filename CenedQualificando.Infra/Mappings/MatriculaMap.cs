@@ -50,24 +50,24 @@ namespace CenedQualificando.Infra.Mappings
 
             builder.Property(e => e.ValorTotal).HasColumnType("decimal(18, 2)");
 
-            builder.HasOne(d => d.IdAlunoNavigation)
-                .WithMany(p => p.Matricula)
+            builder.HasOne(d => d.Aluno)
+                .WithMany(p => p.Matriculas)
                 .HasForeignKey(d => d.IdAluno)
                 .HasConstraintName("FK_Penitenciario.Matricula_Penitenciario.Aluno_IdAluno");
 
-            builder.HasOne(d => d.IdCursoNavigation)
+            builder.HasOne(d => d.Curso)
                 .WithMany(p => p.Matricula)
                 .HasForeignKey(d => d.IdCurso)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Penitenciario.Matricula_Penitenciario.Curso_IdCurso");
 
-            builder.HasOne(d => d.IdPenitenciariaNavigation)
+            builder.HasOne(d => d.Penitenciaria)
                 .WithMany(p => p.Matricula)
                 .HasForeignKey(d => d.IdPenitenciaria)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Penitenciario.Matricula_Penitenciario.Penitenciaria_IdPenitenciaria");
 
-            builder.HasOne(d => d.IdUsuarioNavigation)
+            builder.HasOne(d => d.Usuario)
                 .WithMany(p => p.Matricula)
                 .HasForeignKey(d => d.IdUsuario)
                 .OnDelete(DeleteBehavior.ClientSetNull)
