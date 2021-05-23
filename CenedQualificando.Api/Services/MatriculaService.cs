@@ -6,8 +6,8 @@ using CenedQualificando.Domain.Interfaces.Services;
 using CenedQualificando.Domain.Interfaces.UoW;
 using CenedQualificando.Domain.Models.Dtos;
 using CenedQualificando.Domain.Models.Entities;
-using CenedQualificando.Domain.Models.Objects;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace CenedQualificando.Api.Services
 {
@@ -23,12 +23,9 @@ namespace CenedQualificando.Api.Services
         {
         }
 
-        public override DataTableModel<MatriculaDto> Buscar(DataTableModel<MatriculaDto> dataTableModel)
+        public override IQueryable<Matricula> CriarConsulta()
         {
-            var query = Repository.List().Include(x => x.Aluno).Include(x => x.Curso);
-
-            dataTableModel = GerarDataTable(dataTableModel, query);
-            return dataTableModel;
+            return Repository.List().Include(x => x.Aluno).Include(x => x.Curso);
         }
     }
 }

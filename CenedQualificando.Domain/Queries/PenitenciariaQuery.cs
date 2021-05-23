@@ -1,6 +1,9 @@
-﻿using CenedQualificando.Domain.Interfaces.Queries;
+﻿using CenedQualificando.Domain.Extensions;
+using CenedQualificando.Domain.Interfaces.Queries;
 using CenedQualificando.Domain.Models.Entities;
+using CenedQualificando.Domain.Models.Enumerations;
 using System;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace CenedQualificando.Domain.Queries
@@ -9,7 +12,12 @@ namespace CenedQualificando.Domain.Queries
     {
         public Expression<Func<Penitenciaria, bool>> FiltroGenerico(string textoFiltro)
         {
-            return x => x.Nome.Contains(textoFiltro) || x.Cidade.Contains(textoFiltro);
+            var ufs = Enum.GetNames(typeof(UfEnum)).Select(s => s.ToUpper()).ToList();
+            var filtroUf = ufs.Contains(textoFiltro.ToUpper()) ? textoFiltro.DescriptionTo<UfEnum>() : UfEnum.Null;
+
+            return filtroUf != UfEnum.Null  
+                ? x => x.Uf == (int)filtroUf
+                : x => x.Nome.Contains(textoFiltro) || x.Cidade.Contains(textoFiltro);
         }
 
         public Expression<Func<Penitenciaria, object>> Ordenacao(string campo)

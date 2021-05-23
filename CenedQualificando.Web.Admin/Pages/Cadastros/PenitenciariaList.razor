@@ -11,14 +11,12 @@
           Hover="true"
           Striped="false"
           @bind-SelectedItem="ItemSelecionado"
-          SortLabel="Ordenar por"
-          CommitEditTooltip="Salvar"
-          OnCommitEditClick="@(() => Snackbar.Add("Commit Edit Handler Invoked"))">
+          SortLabel="Ordenar por">
 
     <ToolBarContent>
         <MudToolBarSpacer />
         <MudTextField T="string" ValueChanged="@(s => OnSearch(s))"
-                      Placeholder="Pesquisar por Nome ou Cidade"
+                      Placeholder="Pesquisar por Nome, Cidade ou UF"
                       Adornment="Adornment.Start"
                       AdornmentIcon="@Icons.Material.Filled.Search"
                       IconSize="Size.Medium"
@@ -32,8 +30,9 @@
             </MudMenu>
         </MudTh>
         <MudTh><MudTableSortLabel T="PenitenciariaDto" SortLabel="@nameof(PenitenciariaDto.Nome)" InitialDirection="SortDirection.Ascending">Nome</MudTableSortLabel></MudTh>
-        <MudTh><MudText>Cidade</MudText></MudTh>
-        <MudTh><MudText>UF</MudText></MudTh>
+        <MudTh><MudTableSortLabel T="PenitenciariaDto" SortLabel="@nameof(PenitenciariaDto.Cidade)">Cidade</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel T="PenitenciariaDto" SortLabel="@nameof(PenitenciariaDto.Uf)">UF</MudTableSortLabel></MudTh>
+        <MudTh><MudText>Ativo</MudText></MudTh>
     </HeaderContent>
     <RowTemplate>
         <MudTd>
@@ -43,9 +42,10 @@
                 <MudMenuItem>Excluir</MudMenuItem>
             </MudMenu>
         </MudTd>
-        <MudTd DataLabel="Nome">@context.Nome</MudTd>
-        <MudTd DataLabel="Cidade">@context.Cidade</MudTd>
+        <MudTd DataLabel="Nome">@context.Nome.ToUpper()</MudTd>
+        <MudTd DataLabel="Cidade">@context.Cidade.ToUpper()</MudTd>
         <MudTd DataLabel="UF">@context.UfDescricao</MudTd>
+        <MudTd DataLabel="Ativo">@context.AtivoDescricao</MudTd>
     </RowTemplate>
     <PagerContent>
         <MudTablePager RowsPerPageString="Itens por página: " PageSizeOptions="new int[] { 5, 10, 20, 50, 100 }" InfoFormat="{first_item}-{last_item} de {all_items}" />
@@ -54,3 +54,7 @@
 
 <MudFab Color="Color.Success" Icon="@Icons.Material.Filled.Add"
         Style="position: fixed; bottom: 45px; right: 30px;" />
+
+<MudOverlay @bind-Visible="State.Carregando" DarkBackground="true" ZIndex="9999" AutoClose="true">
+    <MudProgressCircular Color="Color.Primary" Indeterminate="true" />
+</MudOverlay>

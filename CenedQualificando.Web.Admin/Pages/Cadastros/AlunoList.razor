@@ -11,9 +11,7 @@
           ReadOnly="@SomenteLeitura"
           Striped="false"
           @bind-SelectedItem="ItemSelecionado"
-          SortLabel="Ordenar por"
-          CommitEditTooltip="Salvar"
-          OnCommitEditClick="@(() => Snackbar.Add("Commit Edit Handler Invoked"))">
+          SortLabel="Ordenar por">
     <ToolBarContent>
         <MudToolBarSpacer />
         <MudTextField T="string" ValueChanged="@(s => OnSearch(s))"
@@ -44,11 +42,11 @@
                 <MudMenuItem>Excluir</MudMenuItem>
             </MudMenu>
         </MudTd>
-        <MudTd DataLabel="Nome">@context.Nome</MudTd>
-        <MudTd DataLabel="CPF">@context.Cpf</MudTd>
-        <MudTd DataLabel="Preposto">@context.Nome</MudTd>
-        <MudTd DataLabel="CPF Preposto">@context.Cpf</MudTd>
-        <MudTd DataLabel="Penitenciária">@context.Penitenciaria.UfDescricao / @context.Penitenciaria.Nome</MudTd>
+        <MudTd DataLabel="Nome">@context.Nome.ToUpper()</MudTd>
+        <MudTd DataLabel="Cpf">@context.Cpf</MudTd>
+        <MudTd DataLabel="NomePreposto">@context.NomePreposto.ToUpper()</MudTd>
+        <MudTd DataLabel="CpfPreposto">@context.CpfPreposto</MudTd>
+        <MudTd DataLabel="Penitenciaria">@context.Penitenciaria.UfDescricao / @context.Penitenciaria.Nome.ToUpper()</MudTd>
     </RowTemplate>
     <PagerContent>
         <MudTablePager RowsPerPageString="Itens por página: "
@@ -59,3 +57,7 @@
 
 <MudFab Color="Color.Success" Icon="@Icons.Material.Filled.Add"
         Style="position: fixed; bottom: 45px; right: 30px;" />
+
+<MudOverlay @bind-Visible="State.Carregando" DarkBackground="true" ZIndex="9999" AutoClose="true">
+    <MudProgressCircular Color="Color.Primary" Indeterminate="true" />
+</MudOverlay>

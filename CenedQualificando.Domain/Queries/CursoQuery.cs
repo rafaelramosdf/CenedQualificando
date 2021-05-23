@@ -16,6 +16,8 @@ namespace CenedQualificando.Domain.Queries
         {
             switch (campo)
             {
+                case nameof(Curso.Codigo):
+                    return x => Convert.ToDecimal(x.Codigo);
                 default:
                     return x => x.Nome;
             }

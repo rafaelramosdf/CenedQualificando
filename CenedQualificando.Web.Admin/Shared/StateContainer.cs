@@ -15,6 +15,17 @@ namespace CenedQualificando.Web.Admin.Shared
             } 
         }
 
+        private bool carregando { get; set; }
+        public bool Carregando
+        {
+            get => carregando;
+            set
+            {
+                carregando = value;
+                NotifyStateChanged();
+            }
+        }
+
         public event Action OnChange;
         private void NotifyStateChanged() => OnChange?.Invoke();
     }

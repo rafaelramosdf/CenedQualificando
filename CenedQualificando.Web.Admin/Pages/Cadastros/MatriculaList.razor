@@ -11,9 +11,7 @@
           ReadOnly="@SomenteLeitura"
           Striped="false"
           @bind-SelectedItem="ItemSelecionado"
-          SortLabel="Ordenar por"
-          CommitEditTooltip="Salvar"
-          OnCommitEditClick="@(() => Snackbar.Add("Commit Edit Handler Invoked"))">
+          SortLabel="Ordenar por">
     <ToolBarContent>
         <MudToolBarSpacer />
         <MudTextField T="string" ValueChanged="@(s => OnSearch(s))"
@@ -77,3 +75,7 @@
 
 <MudFab Color="Color.Success" Icon="@Icons.Material.Filled.Add"
         Style="position: fixed; bottom: 45px; right: 30px;" />
+
+<MudOverlay @bind-Visible="State.Carregando" DarkBackground="true" ZIndex="9999" AutoClose="true">
+    <MudProgressCircular Color="Color.Primary" Indeterminate="true" />
+</MudOverlay>

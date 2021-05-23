@@ -18,7 +18,7 @@
     <ToolBarContent>
         <MudToolBarSpacer />
         <MudTextField T="string" ValueChanged="@(s => OnSearch(s))"
-                      Placeholder="Pesquisar por Nome, CPF, Login ou Email"
+                      Placeholder="Pesquisar por Nome, Email ou Login"
                       Adornment="Adornment.Start"
                       AdornmentIcon="@Icons.Material.Filled.Search"
                       IconSize="Size.Medium"
@@ -32,9 +32,9 @@
             </MudMenu>
         </MudTh>
         <MudTh><MudTableSortLabel T="UsuarioDto" SortLabel="@nameof(UsuarioDto.Nome)" InitialDirection="SortDirection.Ascending">Nome</MudTableSortLabel></MudTh>
-        <MudTh><MudText>CPF</MudText></MudTh>
         <MudTh><MudText>Email</MudText></MudTh>
         <MudTh><MudText>Login</MudText></MudTh>
+        <MudTh><MudText>Ativo</MudText></MudTh>
     </HeaderContent>
     <RowTemplate>
         <MudTd>
@@ -44,10 +44,10 @@
                 <MudMenuItem>Excluir</MudMenuItem>
             </MudMenu>
         </MudTd>
-        <MudTd DataLabel="Nome">@context.Nome</MudTd>
-        <MudTd DataLabel="CPF">@context.CpfUsuario</MudTd>
+        <MudTd DataLabel="Nome">@context.Nome.ToUpper()</MudTd>
         <MudTd DataLabel="Email">@context.Email</MudTd>
-        <MudTd DataLabel="Login">@context.Login</MudTd>
+        <MudTd DataLabel="Login">@context.Login.ToUpper()</MudTd>
+        <MudTd DataLabel="Ativo">@context.AtivoDescricao</MudTd>
     </RowTemplate>
     <PagerContent>
         <MudTablePager RowsPerPageString="Itens por página: " PageSizeOptions="new int[] { 5, 10, 20, 50, 100 }" InfoFormat="{first_item}-{last_item} de {all_items}" />
@@ -56,3 +56,7 @@
 
 <MudFab Color="Color.Success" Icon="@Icons.Material.Filled.Add"
         Style="position: fixed; bottom: 45px; right: 30px;" />
+
+<MudOverlay @bind-Visible="State.Carregando" DarkBackground="true" ZIndex="9999" AutoClose="true">
+    <MudProgressCircular Color="Color.Primary" Indeterminate="true" />
+</MudOverlay>

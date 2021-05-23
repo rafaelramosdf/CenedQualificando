@@ -14,7 +14,10 @@ namespace CenedQualificando.Domain.Queries
 
         public Expression<Func<Aluno, bool>> FiltroGenerico(string textoFiltro)
         {
-            return x => x.Nome.Contains(textoFiltro) || x.Cpf.Contains(textoFiltro);
+            return x => x.Nome.Contains(textoFiltro) || 
+                x.Cpf == textoFiltro ||
+                x.NomePreposto.Contains(textoFiltro) || 
+                x.CpfPreposto == textoFiltro;
         }
 
         public Expression<Func<Aluno, object>> Ordenacao(string campo)

@@ -108,42 +108,63 @@ namespace CenedQualificando.Api.Services.Base
             }
         }
 
-        public virtual TDto Buscar(int id)
+        public TDto Buscar(int id)
         {
             return Mapper.Map<TDto>(Repository.Get(id));
         }
 
-        public virtual DataTableModel<TDto> Buscar(DataTableModel<TDto> dataTableModel)
+        public DataTableModel<TDto> Buscar(DataTableModel<TDto> dataTableModel)
         {
             return GerarDataTable(dataTableModel);
         }
 
-        protected DataTableModel<TDto> GerarDataTable(DataTableModel<TDto> dataTableModel, IQueryable<TEntity> query = null)
+        protected DataTableModel<TDto> GerarDataTable(DataTableModel<TDto> dataTableModel)
         {
-            IQueryable<TEntity> queryList = query != null ? query : Repository.List();
+            IQueryable<TEntity> queryList = CriarConsulta();
 
-            Expression<Func<TEntity, bool>> filterExpression = null;
+            Expression<Func<TEntity, bool>> filterExpression = !string.IsNullOrEmpty(dataTableModel.Filter.Text) 
+                ? Query.FiltroGenerico(dataTableModel.Filter.Text) 
+                : null;
 
-            if (!string.IsNullOrEmpty(dataTableModel.Filter.Text))
-            {
-                filterExpression = Query.FiltroGenerico(dataTableModel.Filter.Text);
-                queryList = queryList.Where(filterExpression);
-            }
-
-            dataTableModel.Pagination.Total = filterExpression != null 
-                ? Repository.List(filterExpression).Count() 
+            dataTableModel.Pagination.Total = filterExpression != null
+                ? Repository.List(filterExpression).Count()
                 : Repository.List().Count();
 
-            var sortingExpression = Query.Ordenacao(dataTableModel.Sorting.Field);
-            queryList = dataTableModel.Sorting.Desc ? queryList.OrderByDescending(sortingExpression) : queryList.OrderBy(sortingExpression);
+            queryList = FiltrarConsulta(queryList, filterExpression);
 
-            queryList = queryList
-                .Skip((dataTableModel.Pagination.Page - 1) * dataTableModel.Pagination.Limit)
-                .Take(dataTableModel.Pagination.Limit);
+            queryList = OrdenarConsulta(queryList, dataTableModel.Sorting);
+
+            queryList = PaginarConsulta(queryList, dataTableModel.Pagination);
 
             dataTableModel.Data = Mapper.Map<IEnumerable<TEntity>, IEnumerable<TDto>>(queryList.ToList());
 
             return dataTableModel;
         }
+
+        public virtual IQueryable<TEntity> CriarConsulta()
+        {
+            return Repository.List();
+        }
+
+        public virtual IQueryable<TEntity> FiltrarConsulta(IQueryable<TEntity> queryList, Expression<Func<TEntity, bool>> filterExpression = null)
+        {
+            if (filterExpression != null)
+                queryList = queryList.Where(filterExpression);
+
+            return queryList;
+        }
+
+        public virtual IQueryable<TEntity> OrdenarConsulta(IQueryable<TEntity> queryList, DataTableSortingModel<TDto> sortingModel)
+        {
+            var sortingExpression = Query.Ordenacao(sortingModel.Field);
+            queryList = sortingModel.Desc ? queryList.OrderByDescending(sortingExpression) : queryList.OrderBy(sortingExpression);
+            return queryList;
+        }
+
+        public virtual IQueryable<TEntity> PaginarConsulta(IQueryable<TEntity> queryList, DataTablePaginationModel paginationModel)
+        {
+            return queryList.Skip((paginationModel.Page - 1) * paginationModel.Limit).Take(paginationModel.Limit);
+        }
+
     }
 }

@@ -9,7 +9,7 @@
           @ref="Table"
           Dense="true"
           Hover="true"
-          ReadOnly="@SomenteLeitura" 
+          ReadOnly="@SomenteLeitura"
           Striped="false"
           @bind-SelectedItem="ItemSelecionado"
           SortLabel="Ordenar por"
@@ -45,7 +45,7 @@
                 <MudMenuItem>Excluir</MudMenuItem>
             </MudMenu>
         </MudTd>
-        <MudTd DataLabel="Nome">@context.Nome</MudTd>
+        <MudTd DataLabel="Nome">@context.Nome.ToUpper()</MudTd>
         <MudTd DataLabel="Email">@context.Email</MudTd>
         <MudTd DataLabel="UF">@context.UfDescricao</MudTd>
         <MudTd DataLabel="Ativo">@context.AtivoDescricao</MudTd>
@@ -56,10 +56,10 @@
             <MudTextField @bind-Value="@context.Nome" Required />
         </MudTd>
         <MudTd DataLabel="Email">
-            <MudTextField @bind-Value="@context.Email" Required />
+            <MudTextField @bind-Value="@context.Email" />
         </MudTd>
         <MudTd DataLabel="UF">
-            <MudTextField @bind-Value="@context.Uf" Required />
+            <MudTextField @bind-Value="@context.Uf" />
         </MudTd>
         <MudTd DataLabel="Ativo">
             <MudNumericField @bind-Value="@context.Ativo" />
@@ -72,3 +72,7 @@
 
 <MudFab Color="Color.Success" Icon="@Icons.Material.Filled.Add"
         Style="position: fixed; bottom: 45px; right: 30px;" />
+
+<MudOverlay @bind-Visible="State.Carregando" DarkBackground="true" ZIndex="9999" AutoClose="true">
+    <MudProgressCircular Color="Color.Primary" Indeterminate="true" />
+</MudOverlay>

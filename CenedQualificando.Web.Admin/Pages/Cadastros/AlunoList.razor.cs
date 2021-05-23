@@ -16,11 +16,13 @@ namespace CenedQualificando.Web.Admin.Pages.Cadastros
             State.TituloPagina = "Alunos / Lista";
             SomenteLeitura = true;
         }
-
+        
         protected override async Task<DataTableModel<AlunoDto>> Buscar(DataTableModel<AlunoDto> dataTable)
         {
+            State.Carregando = true;
             dataTable.Filter.Text = FiltroTexto;
             dataTable = await AlunoService.Filtrar(dataTable);
+            State.Carregando = false;
             return dataTable;
         }
     }

@@ -31,10 +31,11 @@
                 <MudMenuItem>...</MudMenuItem>
             </MudMenu>
         </MudTh>
-        <MudTh><MudText>Código</MudText></MudTh>
+        <MudTh><MudTableSortLabel T="CursoDto" SortLabel="@nameof(CursoDto.Codigo)">Código</MudTableSortLabel></MudTh>
         <MudTh><MudTableSortLabel T="CursoDto" SortLabel="@nameof(CursoDto.Nome)" InitialDirection="SortDirection.Ascending">Nome</MudTableSortLabel></MudTh>
         <MudTh><MudText>Carga Horária</MudText></MudTh>
         <MudTh><MudText>Valor</MudText></MudTh>
+        <MudTh><MudText>Ativo</MudText></MudTh>
     </HeaderContent>
     <RowTemplate>
         <MudTd>
@@ -45,9 +46,10 @@
             </MudMenu>
         </MudTd>
         <MudTd DataLabel="Codigo">@context.Codigo</MudTd>
-        <MudTd DataLabel="Nome">@context.Nome</MudTd>
+        <MudTd DataLabel="Nome">@context.Nome.ToUpper()</MudTd>
         <MudTd DataLabel="CargaHoraria">@($"{context.CargaHoraria} h")</MudTd>
         <MudTd DataLabel="Valor">@($"{context.Valor:c2}")</MudTd>
+        <MudTd DataLabel="Ativo">@context.AtivoDescricao</MudTd>
     </RowTemplate>
     <PagerContent>
         <MudTablePager RowsPerPageString="Itens por página: " PageSizeOptions="new int[] { 5, 10, 20, 50, 100 }" InfoFormat="{first_item}-{last_item} de {all_items}" />
@@ -56,3 +58,7 @@
 
 <MudFab Color="Color.Success" Icon="@Icons.Material.Filled.Add"
         Style="position: fixed; bottom: 45px; right: 30px;" />
+
+<MudOverlay @bind-Visible="State.Carregando" DarkBackground="true" ZIndex="9999" AutoClose="true">
+    <MudProgressCircular Color="Color.Primary" Indeterminate="true" />
+</MudOverlay>

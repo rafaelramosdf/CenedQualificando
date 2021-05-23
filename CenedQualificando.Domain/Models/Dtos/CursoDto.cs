@@ -1,5 +1,7 @@
-﻿using CenedQualificando.Domain.Models.Base;
+﻿using CenedQualificando.Domain.Extensions;
+using CenedQualificando.Domain.Models.Base;
 using CenedQualificando.Domain.Models.Entities;
+using CenedQualificando.Domain.Models.Enumerations;
 
 namespace CenedQualificando.Domain.Models.Dtos
 {
@@ -15,7 +17,8 @@ namespace CenedQualificando.Domain.Models.Dtos
         public decimal Taxa { get; set; }
         public decimal ValorTotal { get; set; }
         public string Conteudo { get; set; }
-        public int Ativo { get; set; }
+        public AtivoEnum Ativo { get; set; }
+        public string AtivoDescricao => Ativo.EnumDescription();
 
         public override void Validate()
         {

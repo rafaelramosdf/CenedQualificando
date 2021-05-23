@@ -18,8 +18,10 @@ namespace CenedQualificando.Web.Admin.Pages.Cadastros
 
         protected override async Task<DataTableModel<RepresentanteDto>> Buscar(DataTableModel<RepresentanteDto> dataTable)
         {
+            State.Carregando = true;
             dataTable.Filter.Text = FiltroTexto;
             dataTable = await RepresentanteService.Filtrar(dataTable);
+            State.Carregando = false;
             return dataTable;
         }
     }

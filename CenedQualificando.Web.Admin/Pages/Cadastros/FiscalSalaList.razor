@@ -9,7 +9,7 @@
           @ref="Table"
           Dense="true"
           Hover="true"
-          ReadOnly="@SomenteLeitura" 
+          ReadOnly="@SomenteLeitura"
           Striped="false"
           @bind-SelectedItem="ItemSelecionado"
           SortLabel="Ordenar por"
@@ -55,10 +55,10 @@
             <MudTextField @bind-Value="@context.Nome" Required />
         </MudTd>
         <MudTd DataLabel="CPF">
-            <MudTextField @bind-Value="@context.Cpf" Required />
+            <MudTextField @bind-Value="@context.Cpf" />
         </MudTd>
         <MudTd DataLabel="RG">
-            <MudTextField @bind-Value="@context.Rg" Required />
+            <MudTextField @bind-Value="@context.Rg" />
         </MudTd>
         <MudTd DataLabel="UF">
             <MudNumericField @bind-Value="@context.Uf" />
@@ -71,3 +71,7 @@
 
 <MudFab Color="Color.Success" Icon="@Icons.Material.Filled.Add"
         Style="position: fixed; bottom: 45px; right: 30px;" />
+
+<MudOverlay @bind-Visible="State.Carregando" DarkBackground="true" ZIndex="9999" AutoClose="true">
+    <MudProgressCircular Color="Color.Primary" Indeterminate="true" />
+</MudOverlay>

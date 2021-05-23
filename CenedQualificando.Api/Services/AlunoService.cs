@@ -6,11 +6,9 @@ using CenedQualificando.Domain.Interfaces.Services;
 using CenedQualificando.Domain.Interfaces.UoW;
 using CenedQualificando.Domain.Models.Dtos;
 using CenedQualificando.Domain.Models.Entities;
-using CenedQualificando.Domain.Models.Objects;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CenedQualificando.Api.Services
@@ -27,13 +25,9 @@ namespace CenedQualificando.Api.Services
         {
         }
 
-        public override DataTableModel<AlunoDto> Buscar(DataTableModel<AlunoDto> dataTableModel)
+        public override IQueryable<Aluno> CriarConsulta()
         {
-            var query = Repository.List()
-                .Include(x => x.Penitenciaria);
-
-            dataTableModel = GerarDataTable(dataTableModel, query);
-            return dataTableModel;
+            return Repository.List().Include(x => x.Penitenciaria);
         }
 
         public async Task<IEnumerable<Aluno>> BuscarAlunosPorId(int[] idAlunos)

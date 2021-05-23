@@ -1,5 +1,7 @@
-﻿using CenedQualificando.Domain.Models.Base;
+﻿using CenedQualificando.Domain.Extensions;
+using CenedQualificando.Domain.Models.Base;
 using CenedQualificando.Domain.Models.Entities;
+using CenedQualificando.Domain.Models.Enumerations;
 using System;
 
 namespace CenedQualificando.Domain.Models.Dtos
@@ -17,7 +19,8 @@ namespace CenedQualificando.Domain.Models.Dtos
         public string Email { get; set; }
         public int Uf { get; set; }
         public int IdGrupoDePermissao { get; set; }
-        public int Ativo { get; set; }
+        public AtivoEnum Ativo { get; set; }
+        public string AtivoDescricao => Ativo.EnumDescription();
         public DateTime? DataExpiracaoSenha { get; set; }
         public string CpfUsuario { get; set; }
 

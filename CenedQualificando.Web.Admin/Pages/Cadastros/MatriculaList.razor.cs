@@ -20,8 +20,10 @@ namespace CenedQualificando.Web.Admin.Pages.Cadastros
 
         protected override async Task<DataTableModel<MatriculaDto>> Buscar(DataTableModel<MatriculaDto> dataTable)
         {
+            State.Carregando = true;
             dataTable.Filter.Text = FiltroTexto;
             dataTable = await MatriculaService.Filtrar(dataTable);
+            State.Carregando = false;
             return dataTable;
         }
 
