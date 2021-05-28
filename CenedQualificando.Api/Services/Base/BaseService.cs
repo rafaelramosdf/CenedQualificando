@@ -165,6 +165,5 @@ namespace CenedQualificando.Api.Services.Base
         {
             return queryList.Skip((paginationModel.Page - 1) * paginationModel.Limit).Take(paginationModel.Limit);
         }
-
     }
 }

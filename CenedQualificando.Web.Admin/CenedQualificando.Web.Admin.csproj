@@ -13,7 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\Params\" />
     <Folder Include="wwwroot\css\" />
   </ItemGroup>
 

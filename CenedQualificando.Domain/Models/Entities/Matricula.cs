@@ -1,9 +1,6 @@
 ﻿using CenedQualificando.Domain.Models.Base;
-using CenedQualificando.Domain.Models.Enumerations;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using CenedQualificando.Domain.Extensions;
 
 namespace CenedQualificando.Domain.Models.Entities
 {

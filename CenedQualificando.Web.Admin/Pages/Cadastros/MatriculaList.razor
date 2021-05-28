@@ -1,4 +1,4 @@
-﻿@page "/matriculas"
+﻿@page "/cadastros/matriculas"
 
 @inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.ListPageBase<MatriculaDto>
 @inject ISnackbar Snackbar
@@ -67,7 +67,8 @@
         <MudTd DataLabel="Data">@($"{context.DataMatricula:dd/MM/yyyy}")</MudTd>
     </RowTemplate>
     <PagerContent>
-        <MudTablePager RowsPerPageString="Itens por página: "
+        <MudTablePager Style="float: left;"
+                       RowsPerPageString="Itens por página: "
                        PageSizeOptions="new int[] { 5, 10, 20, 50, 100 }"
                        InfoFormat="{first_item}-{last_item} de {all_items}" />
     </PagerContent>

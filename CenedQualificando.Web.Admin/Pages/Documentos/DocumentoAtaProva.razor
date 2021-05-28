@@ -1,0 +1,67 @@
+﻿@page "/documentos/ata-prova"
+
+@using CenedQualificando.Web.Admin.Shared.Components.Select 
+
+@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.PageBase
+
+@inject ISnackbar Snackbar
+@using Domain.Models.Dtos
+
+<MudGrid>
+    <MudItem md="12" xs="12">
+        <MudCard>
+            <MudCardContent>
+                <PenitenciariaSelect />
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Variant="Variant.Filled" Color="Color.Secondary">Buscar</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+    <MudItem md="12" xs="12">
+        <MudTable Items="Lista"
+                  Dense="true"
+                  Hover="true"
+                  ReadOnly="true"
+                  Striped="false"
+                  SortLabel="Ordenar por"
+                  MultiSelection="true"
+                  @bind-SelectedItems="Selecionados">
+            <HeaderContent>
+                <MudTh>
+                    <MudTableSortLabel T="MatriculaDto" SortLabel="@nameof(MatriculaDto.Aluno)">
+                        Aluno / CPF
+                    </MudTableSortLabel>
+                </MudTh>
+                <MudTh>
+                    <MudTableSortLabel T="MatriculaDto" SortLabel="@nameof(MatriculaDto.Curso)">
+                        Curso
+                    </MudTableSortLabel>
+                </MudTh>
+                <MudTh>
+                    <MudTableSortLabel T="MatriculaDto" SortLabel="@nameof(MatriculaDto.DataPiso)" InitialDirection="SortDirection.Descending">
+                        Data Prova
+                    </MudTableSortLabel>
+                </MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Aluno">@context.Aluno.Nome.ToUpper() / @context.Aluno.Cpf</MudTd>
+                <MudTd DataLabel="Curso">@context.Curso.Codigo / @context.Curso.Nome</MudTd>
+                <MudTd DataLabel="DataPiso">@($"{context.DataPiso:dd/MM/yyyy}")</MudTd>
+            </RowTemplate>
+            <PagerContent>
+                <MudTablePager Style="float: left;"
+                               RowsPerPageString="Itens por página: "
+                               PageSizeOptions="new int[] { 5, 10, 20, 50, 100 }"
+                               InfoFormat="{first_item}-{last_item} de {all_items}" />
+            </PagerContent>
+        </MudTable>
+    </MudItem>
+</MudGrid>
+
+<MudFab Color="Color.Success" Icon="@Icons.Material.Filled.Print"
+        Style="position: fixed; bottom: 45px; right: 30px;" />
+
+<MudOverlay @bind-Visible="State.Carregando" DarkBackground="true" ZIndex="9999" AutoClose="true">
+    <MudProgressCircular Color="Color.Primary" Indeterminate="true" />
+</MudOverlay>

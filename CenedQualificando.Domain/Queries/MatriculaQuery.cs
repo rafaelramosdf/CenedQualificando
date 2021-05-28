@@ -24,6 +24,8 @@ namespace CenedQualificando.Domain.Queries
                     return x => x.Aluno.Nome;
                 case nameof(Matricula.Curso):
                     return x => x.Curso.Nome;
+                case nameof(Matricula.DataPiso):
+                    return x => x.DataPiso;
                 default:
                     return x => x.DataMatricula;
             }

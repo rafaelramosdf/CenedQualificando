@@ -24,6 +24,7 @@ namespace CenedQualificando.Web.Admin
             builder.Services.AddScoped<IAgentePenitenciarioService, AgentePenitenciarioService>();
             builder.Services.AddScoped<IAlunoService, AlunoService>();
             builder.Services.AddScoped<ICargaHorariaDiariaService, CargaHorariaDiariaService>();
+            builder.Services.AddScoped<IComboEntidadeService, ComboEntidadeService>();
             builder.Services.AddScoped<ICursoService, CursoService>();
             builder.Services.AddScoped<IFiscalSalaService, FiscalSalaService>();
             builder.Services.AddScoped<IGrupoDePermissaoService, GrupoDePermissaoService>();

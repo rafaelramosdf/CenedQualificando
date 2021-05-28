@@ -1,0 +1,27 @@
+﻿@namespace CenedQualificando.Web.Admin.Shared.Components.Select
+
+@using CenedQualificando.Domain.Models.Objects
+
+@inject CenedQualificando.Web.Admin.Services.Contracts.IComboEntidadeService Service
+
+<MudAutocomplete T="int" Label="Penitenciária" Value="@Id" SearchFunc="@Buscar" ValueChanged="@IdChanged"
+                 ResetValueOnEmptyText="true" CoerceText="true"
+                 ToStringFunc="@ToStringFunc"
+                 MinCharacters="0"
+                 MaxItems="100" />
+
+@code {
+    [Parameter] public int Id { get; set; } = 0;
+
+    [Parameter] public EventCallback<int> IdChanged { get; set; }
+
+    private IEnumerable<SelectResult> Combo { get; set; } = new List<SelectResult>();
+
+    private string ToStringFunc(int id) => Combo.FirstOrDefault(x => x.Id == id)?.Text;
+
+    private async Task<IEnumerable<int>> Buscar(string pesquisa)
+    {
+        Combo = await Service.Penitenciarias(new SelectSearchParam(pesquisa));
+        return Combo.Select(x => x.Id);
+    }
+}
