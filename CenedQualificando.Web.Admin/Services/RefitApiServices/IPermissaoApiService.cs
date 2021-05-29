@@ -3,9 +3,9 @@ using CenedQualificando.Domain.Models.Objects;
 using Refit;
 using System.Threading.Tasks;
 
-namespace CenedQualificando.Web.Admin.Services.Contracts.RefitServices
+namespace CenedQualificando.Web.Admin.Services.RefitApiServices
 {
-    public interface IPermissaoRefitService
+    public interface IPermissaoApiService
     {
         [Post("/permissoes/filtros")]
         Task<DataTableModel<PermissaoDto>> Filtrar([Body] DataTableModel<PermissaoDto> dataTableModel);

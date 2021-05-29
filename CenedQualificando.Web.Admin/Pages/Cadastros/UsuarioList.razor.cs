@@ -1,6 +1,6 @@
 ﻿using CenedQualificando.Domain.Models.Dtos;
 using CenedQualificando.Domain.Models.Objects;
-using CenedQualificando.Web.Admin.Services.Contracts;
+using CenedQualificando.Web.Admin.Services.RefitApiServices;
 using CenedQualificando.Web.Admin.Shared.CodeBase.Pages;
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
@@ -9,7 +9,7 @@ namespace CenedQualificando.Web.Admin.Pages.Cadastros
 {
     public partial class UsuarioList : ListPageBase<UsuarioDto>
     {
-        [Inject] protected IUsuarioService UsuarioService { get; set; }
+        [Inject] protected IUsuarioApiService UsuarioApiService { get; set; }
 
         protected override void OnInit()
         {
@@ -20,7 +20,7 @@ namespace CenedQualificando.Web.Admin.Pages.Cadastros
         {
             State.Carregando = true;
             dataTable.Filter.Text = FiltroTexto;
-            dataTable = await UsuarioService.Filtrar(dataTable);
+            dataTable = await UsuarioApiService.Filtrar(dataTable);
             State.Carregando = false;
             return dataTable;
         }

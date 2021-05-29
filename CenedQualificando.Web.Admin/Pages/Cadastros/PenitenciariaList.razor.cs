@@ -1,6 +1,6 @@
 ﻿using CenedQualificando.Domain.Models.Dtos;
 using CenedQualificando.Domain.Models.Objects;
-using CenedQualificando.Web.Admin.Services.Contracts;
+using CenedQualificando.Web.Admin.Services.RefitApiServices;
 using CenedQualificando.Web.Admin.Shared.CodeBase.Pages;
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
@@ -9,7 +9,7 @@ namespace CenedQualificando.Web.Admin.Pages.Cadastros
 {
     public partial class PenitenciariaList : ListPageBase<PenitenciariaDto>
     {
-        [Inject] protected IPenitenciariaService PenitenciariaService { get; set; }
+        [Inject] protected IPenitenciariaApiService PenitenciariaApiService { get; set; }
 
         protected override void OnInit()
         {
@@ -20,7 +20,7 @@ namespace CenedQualificando.Web.Admin.Pages.Cadastros
         {
             State.Carregando = true;
             dataTable.Filter.Text = FiltroTexto;
-            dataTable = await PenitenciariaService.Filtrar(dataTable);
+            dataTable = await PenitenciariaApiService.Filtrar(dataTable);
             State.Carregando = false;
             return dataTable;
         }

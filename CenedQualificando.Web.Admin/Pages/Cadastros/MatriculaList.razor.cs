@@ -1,7 +1,7 @@
 ﻿using CenedQualificando.Domain.Models.Dtos;
 using CenedQualificando.Domain.Models.Enumerations;
 using CenedQualificando.Domain.Models.Objects;
-using CenedQualificando.Web.Admin.Services.Contracts;
+using CenedQualificando.Web.Admin.Services.RefitApiServices;
 using CenedQualificando.Web.Admin.Shared.CodeBase.Pages;
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
@@ -10,7 +10,7 @@ namespace CenedQualificando.Web.Admin.Pages.Cadastros
 {
     public partial class MatriculaList : ListPageBase<MatriculaDto>
     {
-        [Inject] protected IMatriculaService MatriculaService { get; set; }
+        [Inject] protected IMatriculaApiService MatriculaApiService { get; set; }
 
         protected override void OnInit()
         {
@@ -22,7 +22,7 @@ namespace CenedQualificando.Web.Admin.Pages.Cadastros
         {
             State.Carregando = true;
             dataTable.Filter.Text = FiltroTexto;
-            dataTable = await MatriculaService.Filtrar(dataTable);
+            dataTable = await MatriculaApiService.Filtrar(dataTable);
             State.Carregando = false;
             return dataTable;
         }

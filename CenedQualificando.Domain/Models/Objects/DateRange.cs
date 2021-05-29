@@ -5,7 +5,7 @@ namespace CenedQualificando.Domain.Models.Objects
 {
     public class DateRange
     {
-        private readonly DateTime defaultStart = new DateTime(2000, 1, 1);
+        private readonly DateTime defaultStart = new DateTime(1800, 1, 1);
         private readonly DateTime defaultEnd = new DateTime(9999, 12, 31);
 
         private DateTime? _start { get; set; }

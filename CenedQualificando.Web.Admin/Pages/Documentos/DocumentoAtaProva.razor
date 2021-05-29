@@ -1,6 +1,6 @@
 ﻿@page "/documentos/ata-prova"
 
-@using CenedQualificando.Web.Admin.Shared.Components.Select 
+@using CenedQualificando.Web.Admin.Shared.Components.Select
 
 @inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.PageBase
 
@@ -9,39 +9,53 @@
 
 <MudGrid>
     <MudItem md="12" xs="12">
-        <MudCard>
+        <MudCard Elevation="0">
             <MudCardContent>
-                <PenitenciariaSelect />
+                <PenitenciariaSelect @bind-Id="Filtro.IdPenitenciaria" />
             </MudCardContent>
             <MudCardActions>
-                <MudButton Variant="Variant.Filled" Color="Color.Secondary">Buscar</MudButton>
+                <MudButton Variant="Variant.Filled" Color="Color.Secondary" OnClick="@Buscar">Buscar</MudButton>
             </MudCardActions>
         </MudCard>
     </MudItem>
+</MudGrid>
+<MudGrid>
     <MudItem md="12" xs="12">
-        <MudTable Items="Lista"
+        <MudTable Items="@Lista"
                   Dense="true"
                   Hover="true"
                   ReadOnly="true"
-                  Striped="false"
+                  Striped="false" 
+                  Elevation="0"
                   SortLabel="Ordenar por"
                   MultiSelection="true"
-                  @bind-SelectedItems="Selecionados">
+                  @bind-SelectedItems="Selecionados"
+                  Filter="new Func<MatriculaDto,bool>(FilterFunc)">
+            <ToolBarContent>
+                <MudToolBarSpacer />
+                <MudTextField @bind-Value="FilterString"
+                              Placeholder="Pesquise por Nome, CPF ou Curso"
+                              Adornment="Adornment.Start"
+                              AdornmentIcon="@Icons.Material.Filled.Search"
+                              IconSize="Size.Medium"
+                              Class="mt-0">
+                </MudTextField>
+            </ToolBarContent>
             <HeaderContent>
                 <MudTh>
-                    <MudTableSortLabel T="MatriculaDto" SortLabel="@nameof(MatriculaDto.Aluno)">
+                    <MudText>
                         Aluno / CPF
-                    </MudTableSortLabel>
+                    </MudText>
                 </MudTh>
                 <MudTh>
-                    <MudTableSortLabel T="MatriculaDto" SortLabel="@nameof(MatriculaDto.Curso)">
+                    <MudText>
                         Curso
-                    </MudTableSortLabel>
+                    </MudText>
                 </MudTh>
                 <MudTh>
-                    <MudTableSortLabel T="MatriculaDto" SortLabel="@nameof(MatriculaDto.DataPiso)" InitialDirection="SortDirection.Descending">
+                    <MudText>
                         Data Prova
-                    </MudTableSortLabel>
+                    </MudText>
                 </MudTh>
             </HeaderContent>
             <RowTemplate>

@@ -1,6 +1,6 @@
 ﻿using CenedQualificando.Domain.Models.Dtos;
-using CenedQualificando.Domain.Models.Objects;
-using CenedQualificando.Web.Admin.Services.Contracts;
+using CenedQualificando.Domain.Models.Filters;
+using CenedQualificando.Web.Admin.Services.RefitApiServices;
 using CenedQualificando.Web.Admin.Shared.CodeBase.Pages;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
@@ -10,24 +10,39 @@ namespace CenedQualificando.Web.Admin.Pages.Documentos
 {
     public partial class DocumentoAtaProva : PageBase
     {
-        [Inject] protected IMatriculaService MatriculaService { get; set; }
+        [Inject] protected IConsultaApiService ConsultaApiService { get; set; }
 
-        protected string FiltroTexto = "";
-        protected IEnumerable<MatriculaDto> Lista = new List<MatriculaDto>();
-        protected HashSet<MatriculaDto> Selecionados = new HashSet<MatriculaDto>();
+        private IEnumerable<MatriculaDto> Lista = new List<MatriculaDto>();
+        private HashSet<MatriculaDto> Selecionados = new HashSet<MatriculaDto>();
+
+        private MatriculaFilter Filtro = new MatriculaFilter();
 
         protected override void OnInit()
         {
             State.TituloPagina = "Documentos / Ata de Prova";
         }
 
-        protected async Task<DataTableModel<MatriculaDto>> Buscar(DataTableModel<MatriculaDto> dataTable)
+        protected async Task Buscar()
         {
             State.Carregando = true;
-            dataTable.Filter.Text = FiltroTexto;
-            dataTable = await MatriculaService.Filtrar(dataTable);
+            Lista = await ConsultaApiService.Matriculas(Filtro);
             State.Carregando = false;
-            return dataTable;
+        }
+
+        private string FilterString = "";
+        private bool FilterFunc(MatriculaDto element)
+        {
+            if (string.IsNullOrWhiteSpace(FilterString))
+                return true;
+            if (element.Aluno.Nome.Contains(FilterString))
+                return true;
+            if (element.Aluno.Cpf == FilterString)
+                return true;
+            if (element.Curso.Nome.Contains(FilterString))
+                return true;
+            if (element.Curso.Codigo == FilterString)
+                return true;
+            return false;
         }
     }
 }

@@ -2,7 +2,7 @@
 
 @using CenedQualificando.Domain.Models.Objects
 
-@inject CenedQualificando.Web.Admin.Services.Contracts.IComboEntidadeService Service
+@inject CenedQualificando.Web.Admin.Services.RefitApiServices.IComboEntidadeApiService Service
 
 <MudAutocomplete T="int" Label="Penitenciária" Value="@Id" SearchFunc="@Buscar" ValueChanged="@IdChanged"
                  ResetValueOnEmptyText="true" CoerceText="true"

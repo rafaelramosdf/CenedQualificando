@@ -1,9 +1,9 @@
-using CenedQualificando.Web.Admin.Services;
-using CenedQualificando.Web.Admin.Services.Contracts;
+using CenedQualificando.Web.Admin.Services.RefitApiServices;
 using CenedQualificando.Web.Admin.Shared;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using MudBlazor.Services;
+using Refit;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -21,22 +21,94 @@ namespace CenedQualificando.Web.Admin
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddSingleton<StateContainer>();
 
-            builder.Services.AddScoped<IAgentePenitenciarioService, AgentePenitenciarioService>();
-            builder.Services.AddScoped<IAlunoService, AlunoService>();
-            builder.Services.AddScoped<ICargaHorariaDiariaService, CargaHorariaDiariaService>();
-            builder.Services.AddScoped<IComboEntidadeService, ComboEntidadeService>();
-            builder.Services.AddScoped<ICursoService, CursoService>();
-            builder.Services.AddScoped<IFiscalSalaService, FiscalSalaService>();
-            builder.Services.AddScoped<IGrupoDePermissaoService, GrupoDePermissaoService>();
-            builder.Services.AddScoped<IMatriculaService, MatriculaService>();
-            builder.Services.AddScoped<IPenitenciariaService, PenitenciariaService>();
-            builder.Services.AddScoped<IPermissaoService, PermissaoService>();
-            builder.Services.AddScoped<IProvaService, ProvaService>();
-            builder.Services.AddScoped<IRepresentanteService, RepresentanteService>();
-            builder.Services.AddScoped<IUfEntregaService, UfEntregaService>();
-            builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+            ConfigureRefitServices(builder);
 
             await builder.Build().RunAsync();
+        }
+
+        private static void ConfigureRefitServices(WebAssemblyHostBuilder builder)
+        {
+            const string urlBase = "https://localhost:6001/api";
+
+            var settings = new RefitSettings
+            {
+                ContentSerializer = new NewtonsoftJsonContentSerializer()
+            };
+
+            builder.Services.AddRefitClient<IAgentePenitenciarioApiService>(settings).ConfigureHttpClient(c =>
+            {
+                c.BaseAddress = new Uri($"{urlBase}");
+            });
+
+            builder.Services.AddRefitClient<IAlunoApiService>(settings).ConfigureHttpClient(c =>
+            {
+                c.BaseAddress = new Uri($"{urlBase}");
+            });
+
+            builder.Services.AddRefitClient<ICargaHorariaDiariaApiService>(settings).ConfigureHttpClient(c =>
+            {
+                c.BaseAddress = new Uri($"{urlBase}");
+            });
+
+            builder.Services.AddRefitClient<IComboEntidadeApiService>(settings).ConfigureHttpClient(c =>
+            {
+                c.BaseAddress = new Uri($"{urlBase}/combos/entidades");
+            });
+
+            builder.Services.AddRefitClient<IConsultaApiService>(settings).ConfigureHttpClient(c =>
+            {
+                c.BaseAddress = new Uri($"{urlBase}/consultas");
+            });
+
+            builder.Services.AddRefitClient<ICursoApiService>(settings).ConfigureHttpClient(c =>
+            {
+                c.BaseAddress = new Uri($"{urlBase}");
+            });
+
+            builder.Services.AddRefitClient<IFiscalSalaApiService>(settings).ConfigureHttpClient(c =>
+            {
+                c.BaseAddress = new Uri($"{urlBase}");
+            });
+
+            builder.Services.AddRefitClient<IGrupoDePermissaoApiService>(settings).ConfigureHttpClient(c =>
+            {
+                c.BaseAddress = new Uri($"{urlBase}");
+            });
+
+            builder.Services.AddRefitClient<IMatriculaApiService>(settings).ConfigureHttpClient(c =>
+            {
+                c.BaseAddress = new Uri($"{urlBase}");
+            });
+
+            builder.Services.AddRefitClient<IPenitenciariaApiService>(settings).ConfigureHttpClient(c =>
+            {
+                c.BaseAddress = new Uri($"{urlBase}");
+            });
+
+            builder.Services.AddRefitClient<IPermissaoApiService>(settings).ConfigureHttpClient(c =>
+            {
+                c.BaseAddress = new Uri($"{urlBase}");
+            });
+
+            builder.Services.AddRefitClient<IProvaApiService>(settings).ConfigureHttpClient(c =>
+            {
+                c.BaseAddress = new Uri($"{urlBase}");
+            });
+
+            builder.Services.AddRefitClient<IRepresentanteApiService>(settings).ConfigureHttpClient(c =>
+            {
+                c.BaseAddress = new Uri($"{urlBase}");
+            });
+
+            builder.Services.AddRefitClient<IUfEntregaApiService>(settings).ConfigureHttpClient(c =>
+            {
+                c.BaseAddress = new Uri($"{urlBase}");
+            });
+
+            builder.Services.AddRefitClient<IUsuarioApiService>(settings).ConfigureHttpClient(c =>
+            {
+                c.BaseAddress = new Uri($"{urlBase}");
+            });
         }
     }
 }

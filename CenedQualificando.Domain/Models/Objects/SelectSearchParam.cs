@@ -18,6 +18,6 @@
         }
 
         public string Term { get; set; }
-        public int Size { get; set; };
+        public int Size { get; set; }
     }
 }

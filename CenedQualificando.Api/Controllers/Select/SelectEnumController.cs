@@ -16,25 +16,26 @@ namespace CenedQualificando.Api.Controllers.Select
     public class SelectEnumController : Controller
     {
         [HttpGet("status-curso")]
-        public ActionResult<SelectResult> StatusCurso(
-            [FromQuery] SelectSearchParam param)
+        public ActionResult<SelectResult> StatusCurso([FromQuery] SelectSearchParam param)
+        {
+            return Ok(ObterListaEnumeradores<StatusCursoEnum>(param));
+        }
+
+        private IEnumerable<SelectResult> ObterListaEnumeradores<TEnum>(SelectSearchParam param)
+            where TEnum : struct, Enum
         {
             var list = new List<SelectResult>();
 
-            var enumList = !string.IsNullOrEmpty(param.Term) 
-                ? Enum.GetValues<StatusCursoEnum>().ToList().Where(x => x.EnumDescription().Contains(param.Term)).ToList()
-                : Enum.GetValues<StatusCursoEnum>().ToList();
+            list = !string.IsNullOrEmpty(param.Term)
+                ? Enum.GetValues<TEnum>().ToList()
+                    .Where(x => x.EnumDescription().Contains(param.Term))
+                    .Select(s => new SelectResult { Id = s.ToInt32(), Text = s.EnumDescription() })
+                    .ToList()
+                : Enum.GetValues<TEnum>()
+                    .Select(s => new SelectResult { Id = s.ToInt32(), Text = s.EnumDescription() })
+                    .ToList();
 
-            foreach (var item in enumList)
-            {
-                list.Add(new SelectResult 
-                {
-                    Id = item.ToInt32(),
-                    Text = item.EnumDescription()
-                });
-            }
-
-            return Ok(list);
+            return list;
         }
     }
 }
