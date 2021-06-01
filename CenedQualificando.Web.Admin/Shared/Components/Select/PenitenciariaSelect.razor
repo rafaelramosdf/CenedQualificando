@@ -1,19 +1,25 @@
 ﻿@namespace CenedQualificando.Web.Admin.Shared.Components.Select
 
+@using CenedQualificando.Domain.Models.Dtos
 @using CenedQualificando.Domain.Models.Objects
 
 @inject CenedQualificando.Web.Admin.Services.RefitApiServices.IComboEntidadeApiService Service
+@inject CenedQualificando.Web.Admin.Services.RefitApiServices.IPenitenciariaApiService PenitenciariaApiService
 
-<MudAutocomplete T="int" Label="Penitenciária" Value="@Id" SearchFunc="@Buscar" ValueChanged="@IdChanged"
+<MudAutocomplete T="int" Label="Penitenciária" Value="@Id" SearchFunc="@Buscar" ValueChanged="@OnValueChanged"
                  ResetValueOnEmptyText="true" CoerceText="true"
                  ToStringFunc="@ToStringFunc"
                  MinCharacters="0"
                  MaxItems="100" />
 
 @code {
-    [Parameter] public int Id { get; set; } = 0;
+
+    [Parameter]
+    public int Id { get; set; } = 0;
 
     [Parameter] public EventCallback<int> IdChanged { get; set; }
+
+    [Parameter] public EventCallback<PenitenciariaDto> ItemChanged { get; set; }
 
     private IEnumerable<SelectResult> Combo { get; set; } = new List<SelectResult>();
 
@@ -23,5 +29,20 @@
     {
         Combo = await Service.Penitenciarias(new SelectSearchParam(pesquisa));
         return Combo.Select(x => x.Id);
+    }
+
+    private void OnValueChanged(int id)
+    {
+        IdChanged.InvokeAsync(id);
+        SelecionarPenitenciariaAsync(id);
+    }
+
+    private async Task SelecionarPenitenciariaAsync(int id)
+    {
+        if(id > 0)
+        {
+            var penitenciariaSelecionada = await PenitenciariaApiService.Buscar(id);
+            ItemChanged.InvokeAsync(penitenciariaSelecionada);
+        }
     }
 }

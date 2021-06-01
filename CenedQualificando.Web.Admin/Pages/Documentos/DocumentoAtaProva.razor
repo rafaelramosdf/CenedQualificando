@@ -4,14 +4,13 @@
 
 @inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.PageBase
 
-@inject ISnackbar Snackbar
 @using Domain.Models.Dtos
 
 <MudGrid>
     <MudItem md="12" xs="12">
         <MudCard Elevation="0">
             <MudCardContent>
-                <PenitenciariaSelect @bind-Id="Filtro.IdPenitenciaria" />
+                <PenitenciariaSelect @bind-Id="Filtro.IdPenitenciaria" ItemChanged="@OnItemChanged" />
             </MudCardContent>
             <MudCardActions>
                 <MudButton Variant="Variant.Filled" Color="Color.Secondary" OnClick="@Buscar">Buscar</MudButton>
@@ -25,7 +24,7 @@
                   Dense="true"
                   Hover="true"
                   ReadOnly="true"
-                  Striped="false" 
+                  Striped="false"
                   Elevation="0"
                   SortLabel="Ordenar por"
                   MultiSelection="true"
@@ -73,7 +72,7 @@
     </MudItem>
 </MudGrid>
 
-<MudFab Color="Color.Success" Icon="@Icons.Material.Filled.Print"
+<MudFab Color="Color.Success" Icon="@Icons.Material.Filled.Print" OnClick="@Imprimir"
         Style="position: fixed; bottom: 45px; right: 30px;" />
 
 <MudOverlay @bind-Visible="State.Carregando" DarkBackground="true" ZIndex="9999" AutoClose="true">

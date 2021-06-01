@@ -1,3 +1,4 @@
+using Blazored.LocalStorage;
 using CenedQualificando.Web.Admin.Services.RefitApiServices;
 using CenedQualificando.Web.Admin.Shared;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -18,6 +19,7 @@ namespace CenedQualificando.Web.Admin
             builder.RootComponents.Add<App>("#app");
 
             builder.Services.AddMudServices();
+            builder.Services.AddBlazoredLocalStorage();
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddSingleton<StateContainer>();
 

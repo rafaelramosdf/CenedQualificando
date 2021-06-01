@@ -1,0 +1,138 @@
+﻿@layout PrintLayout
+
+@page "/documentos/ata-prova/impressao"
+
+@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.PageBase
+@using CenedQualificando.Web.Admin.Shared.Components.Document
+
+<link href="css/documents/print-page-a4.css" rel="stylesheet" />
+
+@if (MatriculasSelecionadas != null && MatriculasSelecionadas.Any())
+{
+    <div class="row" onload="window.print()">
+        <div class="col">
+            <div id="impressao">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                <div class="header-space">&nbsp;</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="text-center pt-4 pb-4">
+                                    <h4>
+                                        <strong>ATA DE APLICAÇÃO DE PROVAS</strong>
+                                    </h4>
+                                </div>
+                                <div class="p-4">
+                                    <table style="border: none; width: 100%;">
+                                        <tr>
+                                            <td style="width: 60%;">
+                                                Data de aplicação:
+                                                <strong>@($"{DataRealizacaoProva:dd/MM/yyyy}")</strong><br />
+                                                Unidade Prisional:
+                                                <strong>@PenitenciariaSelecionada.Nome</strong>
+                                            </td>
+                                            <td style="width: 40%; text-align: right;">
+                                                Inicio: <strong>____:____ h</strong>&nbsp;&nbsp;
+                                                Término: <strong>____:____ h</strong>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <br />
+                                    <div>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Nesta data, na presença do
+                                        funcionário da Escola CENED e do servidor da Unidade
+                                        Prisional,
+                                        abaixo subscritos, realizaram PROVAS FINAIS, relativas a
+                                        Cursos de Qualificação Profissional, os Internos abaixo
+                                        relacionados.
+                                    </div>
+                                </div>
+                                <div class="pl-4 pr-4">
+                                    @foreach (var matricula in MatriculasSelecionadas)
+                                    {
+                                        <table style="border:none; width: 100%;">
+                                            <tr>
+                                                <td class="text-center" style="width: 5%;">
+                                                    @(MatriculasSelecionadas.FindIndex(x => x.Id == matricula.Id) + 1)
+                                                </td>
+                                                <td style="width: 95%;">
+                                                    <table style="border:none; width: 100%;">
+                                                        <tr>
+                                                            <td class="pt-4 pb-1" style="width: 60%;">
+                                                                <strong class="uppercase">
+                                                                    @matricula.Aluno.Nome
+                                                                </strong>
+                                                            </td>
+                                                            <td class="pt-4 pb-1" colspan="3" style="width: 40%;">
+                                                                Ass:___________________________________________________
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="width: 60%; font-size: 8pt;">
+                                                                @matricula.Curso.Codigo -
+                                                                @matricula.Curso.Nome
+                                                            </td>
+                                                            <td style="width: 10%;">
+                                                                CH: @matricula.Curso.CargaHoraria h
+                                                            </td>
+                                                            <td style="width: 18%;">
+                                                                Início:
+                                                                @($"{matricula.InicioCurso:dd/MM/yyyy}")
+                                                            </td>
+                                                            <td style="width: 12%;">
+                                                                Prova: _________
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    }
+                                </div>
+                                <br>
+                                <br>
+                                <div style="padding:  0.5cm;">
+                                    <table style="border:none; width: 100%;">
+                                        <tr>
+                                            <td style="text-align: center; width: 40%; padding: 5px;">
+                                                _________________________________________<br />
+                                                Funcionário da Escola CENED
+                                            </td>
+                                            <td style="text-align: center; width: 40%; padding: 5px;">
+                                                _________________________________________<br />
+                                                Servidor da Unidade Prisional
+                                            </td>
+                                            <td style="text-align: center; width: 20%; padding: 5px;">
+                                                ____________________<br />
+                                                Matrícula
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>
+                                <div class="footer-space">&nbsp;</div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div class="header">
+                    <CabecalhoPadraoDocument />
+                </div>
+                <div class="footer">
+                    <RodapePadraoDocument />
+                </div>
+            </div>
+        </div>
+    </div>
+}
