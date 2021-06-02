@@ -2,7 +2,7 @@
 
 @using CenedQualificando.Web.Admin.Shared.Components.Select
 
-@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.PageBase
+@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.DocumentPageBase
 
 @using Domain.Models.Dtos
 
@@ -28,7 +28,7 @@
                   Elevation="0"
                   SortLabel="Ordenar por"
                   MultiSelection="true"
-                  @bind-SelectedItems="Selecionados"
+                  @bind-SelectedItems="Selecionados" 
                   Filter="new Func<MatriculaDto,bool>(FilterFunc)">
             <ToolBarContent>
                 <MudToolBarSpacer />

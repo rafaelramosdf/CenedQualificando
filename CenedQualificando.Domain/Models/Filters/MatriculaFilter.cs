@@ -15,6 +15,7 @@ namespace CenedQualificando.Domain.Models.Filters
         }
 
         public int IdPenitenciaria { get; set; }
+        public IEnumerable<int> IdMatriculas { get; set; } = new List<int>();
         public MatriculaFilterEnum TipoFiltroPersonalizado { get; set; }
         public IEnumerable<int> StatusCurso { get; set; } = new List<int>();
         public DateRange PeriodoDataMatricula { get; set; } = new DateRange();

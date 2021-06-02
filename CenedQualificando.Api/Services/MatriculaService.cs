@@ -43,6 +43,9 @@ namespace CenedQualificando.Api.Services
                 if (filtro.IdPenitenciaria > 0)
                     queryList = queryList.Where(x => x.IdPenitenciaria == filtro.IdPenitenciaria);
 
+                if (filtro.IdMatriculas.Any())
+                    queryList = queryList.Where(x => filtro.IdMatriculas.Contains(x.IdMatricula));
+
                 if (filtro.StatusCurso.Any())
                     queryList = queryList.Where(x => filtro.StatusCurso.Contains(x.StatusCurso));
 
@@ -54,7 +57,7 @@ namespace CenedQualificando.Api.Services
 
             queryList = queryList.OrderByDescending(o => o.DataMatricula);
 
-            queryList = queryList.Take(500);
+            queryList = queryList.Take(100); // TODO: Implementar paginação parametrizada
 
             return Mapper.Map<IEnumerable<Matricula>, IEnumerable<MatriculaDto>>(queryList.ToList());
         }

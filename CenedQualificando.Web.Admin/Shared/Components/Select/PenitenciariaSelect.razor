@@ -34,15 +34,15 @@
     private void OnValueChanged(int id)
     {
         IdChanged.InvokeAsync(id);
-        SelecionarPenitenciariaAsync(id);
+        BuscarPenitenciariaSelecionadaAsync(id);
     }
 
-    private async Task SelecionarPenitenciariaAsync(int id)
+    private async Task BuscarPenitenciariaSelecionadaAsync(int id)
     {
-        if(id > 0)
+        if (id > 0)
         {
             var penitenciariaSelecionada = await PenitenciariaApiService.Buscar(id);
-            ItemChanged.InvokeAsync(penitenciariaSelecionada);
+            await ItemChanged.InvokeAsync(penitenciariaSelecionada);
         }
     }
 }

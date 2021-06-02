@@ -1,24 +1,31 @@
-﻿using CenedQualificando.Web.Admin.Shared.CodeBase.Pages;
+﻿using CenedQualificando.Domain.Models.Dtos;
+using CenedQualificando.Domain.Models.Filters;
+using CenedQualificando.Web.Admin.Services.RefitApiServices;
+using CenedQualificando.Web.Admin.Shared.CodeBase.Pages;
 using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CenedQualificando.Web.Admin.Pages.Documentos
 {
-    public partial class DocumentoAtaProvaImpressao : PageBase
+    public partial class DocumentoAtaProvaImpressao : PrintPageBase
     {
-        [Inject] IJSRuntime JSRun { get; set; }
+        [Inject] protected IConsultaApiService ConsultaApiService { get; set; }
 
         private DateTime DataRealizacaoProva = DateTime.Now;
+        private List<MatriculaDto> ListaMatriculas = new List<MatriculaDto>();
 
-        protected override async Task OnAfterRenderAsync(bool firstRender)
+        protected override async Task OnInitializedAsync()
         {
-            if (firstRender)
-            {
-                await Task.Delay(2500);
-                await JSRun.InvokeAsync<object>("print", null);
-            }
+            State.Carregando = true;
+
+            ListaMatriculas = (List<MatriculaDto>) await ConsultaApiService.Matriculas(new MatriculaFilter 
+            { 
+                IdMatriculas = IdMatriculasSelecionadas 
+            });
+
+            State.Carregando = false;
         }
     }
 }

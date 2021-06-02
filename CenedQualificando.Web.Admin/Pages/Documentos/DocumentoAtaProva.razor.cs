@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace CenedQualificando.Web.Admin.Pages.Documentos
 {
-    public partial class DocumentoAtaProva : PageBase
+    public partial class DocumentoAtaProva : DocumentPageBase
     {
         [Inject] protected IConsultaApiService ConsultaApiService { get; set; }
         [Inject] ISnackbar Snackbar { get; set; }
@@ -19,18 +19,7 @@ namespace CenedQualificando.Web.Admin.Pages.Documentos
 
         private IEnumerable<MatriculaDto> Lista = new List<MatriculaDto>();
 
-        private HashSet<MatriculaDto> selecionados { get; set; }
-        private HashSet<MatriculaDto> Selecionados { 
-            get 
-            {
-                return selecionados;
-            } 
-            set 
-            {
-                selecionados = value;
-                MatriculasSelecionadas = selecionados.ToList();
-            } 
-        }
+        private HashSet<MatriculaDto> Selecionados { get; set; }
 
         private void OnItemChanged(PenitenciariaDto penitenciaria)
         {
@@ -69,7 +58,8 @@ namespace CenedQualificando.Web.Admin.Pages.Documentos
 
         private void Imprimir()
         {
-            if (MatriculasSelecionadas != null && MatriculasSelecionadas.Any())
+            IdMatriculasSelecionadas = Selecionados.Select(s => s.Id).ToList();
+            if (IdMatriculasSelecionadas != null && IdMatriculasSelecionadas.Any())
             {
                 JSRun.InvokeAsync<object>("open", new object[] { "/documentos/ata-prova/impressao", "_blank" });
             }
