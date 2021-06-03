@@ -1,5 +1,5 @@
 ﻿using CenedQualificando.Domain.Models.Dtos;
-using CenedQualificando.Domain.Models.Objects;
+using CenedQualificando.Domain.Models.Utils;
 using Refit;
 using System.Threading.Tasks;
 

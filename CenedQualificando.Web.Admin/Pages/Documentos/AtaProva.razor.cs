@@ -1,17 +1,20 @@
 ﻿using CenedQualificando.Domain.Models.Dtos;
+using CenedQualificando.Domain.Models.Enumerations.Filters;
 using CenedQualificando.Domain.Models.Filters;
+using CenedQualificando.Domain.Models.Utils;
 using CenedQualificando.Web.Admin.Services.RefitApiServices;
 using CenedQualificando.Web.Admin.Shared.CodeBase.Pages;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using MudBlazor;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace CenedQualificando.Web.Admin.Pages.Documentos
 {
-    public partial class DocumentoAtaProva : DocumentPageBase
+    public partial class AtaProva : DocumentPageBase
     {
         [Inject] protected IConsultaApiService ConsultaApiService { get; set; }
         [Inject] ISnackbar Snackbar { get; set; }
@@ -26,10 +29,15 @@ namespace CenedQualificando.Web.Admin.Pages.Documentos
             PenitenciariaSelecionada = penitenciaria;
         }
 
-        private MatriculaFilter Filtro = new MatriculaFilter();
-
-        protected override void OnInit()
+        private MatriculaFilter Filtro = new MatriculaFilter 
         {
+            TipoFiltroPersonalizado = MatriculaFilterEnum.SomenteMatriculaComProvaAutorizada,
+            PeriodoDataPiso = new PeriodoData { Inicio = DateTime.Now, Final = DateTime.Now }
+        };
+
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
             State.TituloPagina = "Documentos / Ata de Prova";
         }
 
@@ -58,9 +66,9 @@ namespace CenedQualificando.Web.Admin.Pages.Documentos
 
         private void Imprimir()
         {
-            IdMatriculasSelecionadas = Selecionados.Select(s => s.Id).ToList();
-            if (IdMatriculasSelecionadas != null && IdMatriculasSelecionadas.Any())
+            if (Selecionados != null && Selecionados.Any())
             {
+                IdMatriculasSelecionadas = Selecionados.Select(s => s.Id).ToList();
                 JSRun.InvokeAsync<object>("open", new object[] { "/documentos/ata-prova/impressao", "_blank" });
             }
             else

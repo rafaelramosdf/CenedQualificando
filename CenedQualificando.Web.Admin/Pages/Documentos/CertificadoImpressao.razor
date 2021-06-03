@@ -1,0 +1,201 @@
+﻿@layout PrintCertificadoLayout
+
+@page "/documentos/certificado/impressao"
+
+@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.DocumentPrintPageBase
+
+<div class="row" style="visibility: hidden;">
+    <div class="col">
+        <div id="impressao">
+
+            <!--FRENTE-->
+            <page>
+                <img src="img/certificado-digital-cened-papel-frente.jpg"
+                     style="width: 100%; height: 100%;" />
+
+                <div class="conteudoFrente">
+                    <div class="divTextoJustificado">
+                        O(a) Diretor(a) da Escola CENED - Centro de Educação Profissional,
+                        no uso de suas atribuições e
+                        com fundamento na Lei de Diretrizes e Bases da Educação Nacional -
+                        Lei nº 9.394/96, artigos 39 e 42,
+                        Decreto Federal nº 5.154/2004, art. 1º, inciso I e nos termos do
+                        art. 77 da Resolução nº 1/2018-CEDF,
+                        <strong>CERTIFICA</strong> que o(a) cursista concluiu, com
+                        aproveitamento, o curso a seguir, de formação continuada ou de
+                        qualificação profissional.
+                    </div>
+                    <div class="clearfix"></div>
+                    <div>
+                        Cursista:
+                        <strong>@MatriculaSelecionada.Aluno.Nome.ToUpper()</strong><br />
+                        Curso:
+                        <strong>@MatriculaSelecionada.Curso.Nome</strong><br />
+                        Carga Horária: 
+                        <strong> @MatriculaSelecionada.Curso.CargaHoraria horas</strong>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        Período:
+                        <strong>@($"{MatriculaSelecionada.InicioCurso:dd/MM/yyyy}")</strong>
+                        &nbsp; a &nbsp;
+                        <strong>@($"{MatriculaSelecionada.TerminoCurso:dd/MM/yyyy}")</strong><br />
+                    </div>
+                    <div class="divTextoJustificado" style="margin-top: 0.5cm;">
+                        A identificação institucional, o aproveitamento, o conteúdo e
+                        registro constam no verso deste certificado.
+                    </div>
+                    <span class="pull-right" contenteditable="true">
+                        Brasília (DF), @DataImpressaoDocumento.Value.ToLongDateString()
+                    </span>
+                </div>
+            </page>
+
+            <!--VERSO-->
+            <page>
+                <img src="img/certificado-digital-cened-papel-verso.jpg"
+                     style="width: 100%; height: 100%;" />
+
+                <div class="conteudoVerso">
+
+                    Cursista:
+                    <strong>@MatriculaSelecionada.Aluno.Nome.ToUpper()</strong><br />
+                    Curso:
+                    <strong>@MatriculaSelecionada.Curso.Nome.ToUpper()</strong><br />
+                    Carga Horária: 
+                    <strong>@MatriculaSelecionada.Curso.CargaHoraria horas</strong>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    Período:
+                    <strong>@($"{MatriculaSelecionada.InicioCurso:dd/MM/yyyy}")</strong>
+                    &nbsp; a &nbsp;
+                    <strong>@($"{MatriculaSelecionada.TerminoCurso:dd/MM/yyyy}")</strong>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    Aproveitamento:
+                    <strong>TODO</strong><br />
+
+                    <div class="text-center" style="margin-top: 15px;">
+                        <strong>
+                            CONTEÚDO
+                            PROGRAMÁTICO
+                        </strong>
+                    </div>
+
+                    <span style="font-size: 9pt; max-height: 11cm; display: block; margin-top: 10px;"
+                          contenteditable="true">
+                        TODO
+                    </span>
+                </div>
+                <div class="rodapeVerso">
+                    <div style="font-size: 9pt;">
+                        <div style="width: 25%; height: 4.3cm; padding-right: 10px;"
+                             class="pull-left">
+                            <div style="width: 100%; height: 100%; text-align: center;">
+
+                                <img src="img/certificado-digital-cened-fundo-azul-claro.jpg"
+                                     style="width: 100%; height: 100%;" class="bordaRedonda" />
+
+                                <div style="position: absolute; top: 15px; padding-left: 15px;">
+                                    <span class="text-center"
+                                          style="font-size: 11pt;">
+                                        <strong>
+                                            REGISTRO
+                                            DIGITAL
+                                        </strong>
+                                    </span>
+                                    <br />
+                                    <br />
+                                    <table style="width: 100%; text-align: center;">
+                                        <tr>
+                                            <td colspan="2">
+                                                <br />
+                                                <span style="font-size: 14pt; letter-spacing: 5px;">@MatriculaSelecionada.Registro</span>
+                                                <br />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <br />
+                                                CONSULTE A AUTENTICIDADE<br />
+                                                <span style="font-size: 8pt;">www.cenedqualificando.com.br/documentos</span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div style="width: 40%; height: 4.3cm; " class="pull-left">
+                            <div style="width: 100%; height: 100%; text-align: center; font-size: 8pt;">
+
+                                <img src="img/certificado-digital-cened-fundo-azul-claro.jpg"
+                                     style="width: 100%; height: 100%;" class="bordaRedonda" />
+
+                                <div style="position: absolute; top: 15px; padding-left: 15px;">
+                                    <span style="font-size: 10pt;">
+                                        <strong>
+                                            CENED - CENTRO DE
+                                            EDUCAÇÃO PROFISSIONAL
+                                        </strong>
+                                    </span>
+                                    <br />
+                                    <strong>
+                                        CNPJ: 10.326.300/0001-19 CF/DF:
+                                        07.509.566/001-32
+                                    </strong>
+                                    <br />
+                                    Credenciado na Secretaria de Educação do Distrito Federal
+                                    <br />
+                                    Portaria nº 54/2018-SEDF Cadastrado no MEC/SISTEC – Reg. 43079
+                                    <br />
+                                    Avenida Transversal, Quadra 21, Conjunto “M”, Lotes 22/23
+                                    <br />
+                                    Edifício CENED, Brasília, Paranoá-DF CEP: 71.572-113
+                                    <br />
+                                    Fones: (61) 3369-6366 (61) 3408-1576 (61) 99951-8933
+                                    <br />
+                                    <span style="font-size: 8pt;">
+                                        www.cenedqualificando.com.br
+                                        &nbsp;&nbsp; e-mail: cenedqualificando@gmail.com
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="width: 35%; height: 4.3cm; padding-left: 10px; "
+                             class="pull-left">
+                            <div style="width: 100%; height: 100%; text-align: left; font-size: 11pt;">
+
+                                <img src="img/certificado-digital-cened-fundo-azul-claro.jpg"
+                                     style="width: 100%; height: 100%;" class="bordaRedonda" />
+
+                                <div style="position: absolute; top: 15px; padding-left: 15px;">
+                                    <span style="font-size: 10pt;">
+                                        <strong>
+                                            FUNDAMENTAÇÃO
+                                            LEGAL
+                                        </strong>
+                                    </span>
+                                    <br />
+                                    <span style="font-size: 9.5pt;">
+                                        Lei nº 9.394/96, artigos 39 e 42
+                                        <br />
+                                        Lei Federal nº 12.433/2011 - LEP
+                                        <br />
+                                        Decreto Federal nº 5.154/2004, art. 1º, inciso I.
+                                        <br />
+                                        Resolução MEC CNE/CEB nº 6/2012, art. 2º
+                                        <br />
+                                        Resolução nº 1/2018-CEDF, art. 77
+                                        <br />
+                                        Portaria nº 10/2016 - VEP/DF
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </page>
+        </div>
+    </div>
+</div>
+
+<MudOverlay @bind-Visible="State.Carregando" DarkBackground="true" ZIndex="9999" AutoClose="true">
+    <MudProgressCircular Color="Color.Primary" Indeterminate="true" />
+</MudOverlay>

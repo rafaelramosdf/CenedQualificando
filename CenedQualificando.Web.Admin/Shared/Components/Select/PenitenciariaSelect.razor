@@ -1,7 +1,7 @@
 ﻿@namespace CenedQualificando.Web.Admin.Shared.Components.Select
 
 @using CenedQualificando.Domain.Models.Dtos
-@using CenedQualificando.Domain.Models.Objects
+@using CenedQualificando.Domain.Models.Utils
 
 @inject CenedQualificando.Web.Admin.Services.RefitApiServices.IComboEntidadeApiService Service
 @inject CenedQualificando.Web.Admin.Services.RefitApiServices.IPenitenciariaApiService PenitenciariaApiService
@@ -10,7 +10,7 @@
                  ResetValueOnEmptyText="true" CoerceText="true"
                  ToStringFunc="@ToStringFunc"
                  MinCharacters="0"
-                 MaxItems="100" />
+                 MaxItems="@MaxItems" />
 
 @code {
 
@@ -21,13 +21,15 @@
 
     [Parameter] public EventCallback<PenitenciariaDto> ItemChanged { get; set; }
 
+    [Parameter] public int MaxItems { get; set; } = 20;
+
     private IEnumerable<SelectResult> Combo { get; set; } = new List<SelectResult>();
 
     private string ToStringFunc(int id) => Combo.FirstOrDefault(x => x.Id == id)?.Text;
 
     private async Task<IEnumerable<int>> Buscar(string pesquisa)
     {
-        Combo = await Service.Penitenciarias(new SelectSearchParam(pesquisa));
+        Combo = await Service.Penitenciarias(new SelectSearchParam(pesquisa, 20));
         return Combo.Select(x => x.Id);
     }
 

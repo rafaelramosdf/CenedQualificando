@@ -1,5 +1,5 @@
 ﻿using CenedQualificando.Domain.Models.Base;
-using CenedQualificando.Domain.Models.Objects;
+using CenedQualificando.Domain.Models.Utils;
 using System;
 using System.Linq;
 using System.Linq.Expressions;

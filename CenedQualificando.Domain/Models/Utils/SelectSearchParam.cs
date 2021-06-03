@@ -1,4 +1,4 @@
-﻿namespace CenedQualificando.Domain.Models.Objects
+﻿namespace CenedQualificando.Domain.Models.Utils
 {
     public class SelectSearchParam
     {
@@ -19,5 +19,6 @@
 
         public string Term { get; set; }
         public int Size { get; set; }
+        public int Selected { get; set; } = 0;
     }
 }

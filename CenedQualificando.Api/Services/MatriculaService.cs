@@ -40,6 +40,9 @@ namespace CenedQualificando.Api.Services
                 if (filtro.TipoFiltroPersonalizado != MatriculaFilterEnum.Null)
                     queryList = queryList.Where(Query.FiltroPersonalizado(filtro.TipoFiltroPersonalizado));
 
+                if (filtro.IdAluno > 0)
+                    queryList = queryList.Where(x => x.IdAluno == filtro.IdAluno);
+
                 if (filtro.IdPenitenciaria > 0)
                     queryList = queryList.Where(x => x.IdPenitenciaria == filtro.IdPenitenciaria);
 
@@ -50,7 +53,10 @@ namespace CenedQualificando.Api.Services
                     queryList = queryList.Where(x => filtro.StatusCurso.Contains(x.StatusCurso));
 
                 if (filtro.PeriodoDataMatricula.HasValue)
-                    queryList = queryList.Where(x => x.DataMatricula >= filtro.PeriodoDataMatricula.Start && x.DataMatricula <= filtro.PeriodoDataMatricula.End);
+                    queryList = queryList.Where(x => x.DataMatricula >= filtro.PeriodoDataMatricula.Inicio && x.DataMatricula <= filtro.PeriodoDataMatricula.Final);
+
+                if(filtro.PeriodoDataPiso.HasValue)
+                    queryList = queryList.Where(x => x.DataPiso >= filtro.PeriodoDataPiso.Inicio && x.DataPiso <= filtro.PeriodoDataPiso.Final);
             }
 
             queryList = queryList.Include(i => i.Aluno).Include(i => i.Curso);

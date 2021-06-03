@@ -1,4 +1,4 @@
-﻿namespace CenedQualificando.Domain.Models.Objects
+﻿namespace CenedQualificando.Domain.Models.Utils
 {
     public class SelectResult
     {

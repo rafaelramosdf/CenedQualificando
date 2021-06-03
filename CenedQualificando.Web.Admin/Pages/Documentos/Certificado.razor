@@ -1,0 +1,87 @@
+﻿@page "/documentos/certificado"
+
+@using CenedQualificando.Web.Admin.Shared.Components.Select
+
+@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.DocumentPageBase
+
+@using Domain.Models.Dtos
+
+<MudCard Elevation="0">
+    <MudCardContent>
+        <MudGrid>
+            <MudItem md="9" xs="12">
+                <AlunoSelect @bind-Id="Filtro.IdAluno" />
+            </MudItem>
+        </MudGrid>
+    </MudCardContent>
+    <MudCardActions>
+        <MudGrid>
+            <MudItem>
+                <MudButton Variant="Variant.Filled" Color="Color.Secondary" OnClick="@Buscar">
+                    Buscar Matrículas
+                </MudButton>
+            </MudItem>
+        </MudGrid>
+    </MudCardActions>
+</MudCard>
+    
+<MudGrid>
+    <MudItem md="12">
+        <MudTable Items="@Lista"
+                  Dense="true"
+                  Hover="true"
+                  ReadOnly="true"
+                  Striped="false"
+                  Elevation="0"
+                  SortLabel="Ordenar por"
+                  MultiSelection="false"
+                  @bind-SelectedItem="Selecionado"
+                  Filter="new Func<MatriculaDto,bool>(FilterFunc)">
+            <ToolBarContent>
+                <MudToolBarSpacer />
+                <MudTextField @bind-Value="FilterString"
+                              Placeholder="Pesquise por Nome, CPF ou Curso"
+                              Adornment="Adornment.Start"
+                              AdornmentIcon="@Icons.Material.Filled.Search"
+                              IconSize="Size.Medium"
+                              Class="mt-0">
+                </MudTextField>
+            </ToolBarContent>
+            <HeaderContent>
+                <MudTh>
+                    <MudText>
+                        Aluno / CPF
+                    </MudText>
+                </MudTh>
+                <MudTh>
+                    <MudText>
+                        Curso
+                    </MudText>
+                </MudTh>
+                <MudTh>
+                    <MudText>
+                        Data Conclusão
+                    </MudText>
+                </MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Aluno">@context.Aluno.Nome.ToUpper() / @context.Aluno.Cpf</MudTd>
+                <MudTd DataLabel="Curso">@context.Curso.Codigo / @context.Curso.Nome</MudTd>
+                <MudTd DataLabel="TerminoCurso">@($"{context.TerminoCurso:dd/MM/yyyy}")</MudTd>
+            </RowTemplate>
+            <PagerContent>
+                <MudTablePager Style="float: left;"
+                               RowsPerPageString="Itens por página: "
+                               PageSizeOptions="new int[] { 5, 10, 20, 50, 100 }"
+                               InfoFormat="{first_item}-{last_item} de {all_items}" />
+            </PagerContent>
+        </MudTable>
+    </MudItem>
+</MudGrid>
+
+<MudFab Color="Color.Success" Icon="@Icons.Material.Filled.Print" OnClick="@Imprimir"
+        Style="position: fixed; bottom: 45px; right: 30px;" />
+
+<MudOverlay @bind-Visible="State.Carregando" DarkBackground="true" ZIndex="9999" AutoClose="true">
+    <MudProgressCircular Color="Color.Primary" Indeterminate="true" />
+</MudOverlay>

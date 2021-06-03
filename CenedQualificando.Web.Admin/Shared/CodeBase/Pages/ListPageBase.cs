@@ -1,4 +1,4 @@
-﻿using CenedQualificando.Domain.Models.Objects;
+﻿using CenedQualificando.Domain.Models.Utils;
 using MudBlazor;
 using System.Collections.Generic;
 using System.Threading.Tasks;

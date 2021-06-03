@@ -1,6 +1,6 @@
 ﻿using CenedQualificando.Domain.Interfaces.Services;
 using CenedQualificando.Domain.Models.Base;
-using CenedQualificando.Domain.Models.Objects;
+using CenedQualificando.Domain.Models.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

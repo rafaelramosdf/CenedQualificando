@@ -8,7 +8,7 @@ using CenedQualificando.Domain.Interfaces.UoW;
 using CenedQualificando.Domain.Models.Dtos;
 using CenedQualificando.Domain.Models.Entities;
 using CenedQualificando.Domain.Models.Enumerations;
-using CenedQualificando.Domain.Models.Objects;
+using CenedQualificando.Domain.Models.Utils;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -26,7 +26,7 @@ namespace CenedQualificando.Api.Services
         {
         }
 
-        public IEnumerable<SelectResult> ObterComboSelecao(string pesquisa, int quantidade = 50)
+        public IEnumerable<SelectResult> ObterComboSelecao(string pesquisa, int quantidade = 10)
         {
             var selectList = new List<SelectResult>();
 
@@ -37,7 +37,12 @@ namespace CenedQualificando.Api.Services
             query
                 .Where(x => x.IdPenitenciaria > 1)
                 .OrderBy(o => o.Nome)
-                .Take(quantidade);
+                .Take(quantidade)
+                .Select(s => new { 
+                    s.IdPenitenciaria, 
+                    s.Nome, 
+                    s.Uf 
+                });
 
             var list = query.ToList();
 
@@ -47,7 +52,7 @@ namespace CenedQualificando.Api.Services
                 {
                     selectList.Add(new SelectResult 
                     {
-                        Id = item.Id,
+                        Id = item.IdPenitenciaria,
                         Text = $"{item.Nome} | {((UfEnum)item.Uf).EnumDescription()}"
                     });
                 }

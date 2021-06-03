@@ -4,7 +4,7 @@ using CenedQualificando.Domain.Interfaces.Repository.Base;
 using CenedQualificando.Domain.Interfaces.Services;
 using CenedQualificando.Domain.Interfaces.UoW;
 using CenedQualificando.Domain.Models.Base;
-using CenedQualificando.Domain.Models.Objects;
+using CenedQualificando.Domain.Models.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;

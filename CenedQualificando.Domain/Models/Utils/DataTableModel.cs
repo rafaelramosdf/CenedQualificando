@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace CenedQualificando.Domain.Models.Objects
+namespace CenedQualificando.Domain.Models.Utils
 {
     public class DataTableModel<TModel>
     {

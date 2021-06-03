@@ -2,7 +2,7 @@
 
 @page "/documentos/ata-prova/impressao"
 
-@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.PrintPageBase
+@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.DocumentPrintPageBase
 @using CenedQualificando.Web.Admin.Shared.Components.Document
 
 <div class="row" style="visibility: hidden;">
@@ -29,7 +29,7 @@
                                     <tr>
                                         <td style="width: 60%;">
                                             Data de aplicação:
-                                            <strong>@($"{DataRealizacaoProva:dd/MM/yyyy}")</strong><br />
+                                            <strong>@($"{DataImpressaoDocumento:dd/MM/yyyy}")</strong><br />
                                             Unidade Prisional:
                                             <strong>@PenitenciariaSelecionada.Nome</strong>
                                         </td>

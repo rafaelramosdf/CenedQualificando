@@ -39,7 +39,7 @@ namespace CenedQualificando.Domain.Queries
                         StatusCursoEnum.EmAndamento.ToInt32(),
                         StatusCursoEnum.NaoAprovado.ToInt32()
                     };
-                    return (x => x.DataPiso >= DateTime.Now && statusCurso.Contains(x.StatusCurso));
+                    return (x => statusCurso.Contains(x.StatusCurso));
 
                 default:
                     return x => true;

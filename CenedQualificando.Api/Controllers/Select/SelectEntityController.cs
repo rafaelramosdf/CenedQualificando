@@ -1,5 +1,5 @@
 ﻿using CenedQualificando.Domain.Interfaces.Services;
-using CenedQualificando.Domain.Models.Objects;
+using CenedQualificando.Domain.Models.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,6 +14,14 @@ namespace CenedQualificando.Api.Controllers.Select
         [HttpGet("penitenciarias")]
         public ActionResult<SelectResult> Penitenciarias(
             [FromServices] IPenitenciariaService service,
+            [FromQuery] SelectSearchParam param)
+        {
+            return Ok(service.ObterComboSelecao(param.Term, param.Size));
+        }
+
+        [HttpGet("alunos")]
+        public ActionResult<SelectResult> Alunos(
+            [FromServices] IAlunoService service,
             [FromQuery] SelectSearchParam param)
         {
             return Ok(service.ObterComboSelecao(param.Term, param.Size));

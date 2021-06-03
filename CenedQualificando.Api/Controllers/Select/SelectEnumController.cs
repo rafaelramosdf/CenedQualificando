@@ -1,6 +1,6 @@
 ﻿using CenedQualificando.Domain.Extensions;
 using CenedQualificando.Domain.Models.Enumerations;
-using CenedQualificando.Domain.Models.Objects;
+using CenedQualificando.Domain.Models.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
