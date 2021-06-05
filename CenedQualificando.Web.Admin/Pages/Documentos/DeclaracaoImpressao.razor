@@ -1,0 +1,113 @@
+﻿@layout PrintA4Layout
+
+@page "/documentos/declaracao/impressao"
+
+@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.DocumentPrintPageBase
+@using CenedQualificando.Web.Admin.Shared.Components.Document
+
+<div class="row" style="visibility: hidden;">
+    <div class="col">
+        <div id="impressao">
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            <div class="header-space">&nbsp;</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="text-center pt-4">
+                                <h4>
+                                    <strong style="letter-spacing: 5px;">DECLARAÇÃO</strong>
+                                </h4>
+                            </div>
+                            <div class="p-5 w-100">
+                                <div class="font-10 text-right w-100">
+                                    Registro Digital <br />
+                                    <strong>DC-202007311436123</strong> <br />
+                                    Consulte a autenticidade <br />
+                                    www.cenedqualificando.com.br/documentos
+                                </div>
+                                <br />
+                                <br />
+                                @{
+                                    if (TipoDeclaracao == Domain.Models.Enumerations.TipoDeclaracaoEnum.DeclaracaoCursoEmAndamento)
+                                    {
+
+
+                                        <p class="font-12">
+                                            <strong>DECLARAMOS</strong> para os devidos fins que o(a)
+                                            aluno(a) abaixo identificado(a), está
+                                            <strong>CURSANDO</strong>, nesta Instituição Educacional, o
+                                            curso de Qualificação Profissional a seguir relacionado:
+                                        </p>
+                                    }
+                                    else
+                                    {
+                                        <p class="font-12">
+                                            <strong>DECLARAMOS</strong> para os devidos fins que o(a)
+                                            aluno(a) abaixo identificado(a), <strong>CONCLUIU</strong>,
+                                            com aproveitamento, nesta Instituição Educacional, o(s)
+                                            curso(s) de Qualificação Profissional a seguir relacionado(s):
+                                        </p>
+                                    }
+                                }
+                                <br />
+                                <p class="font-12">
+                                    ALUNO(A): <strong>@AlunoSelecionado.Nome.ToUpper()</strong> <br /><br />
+                                    FILIAÇÃO:
+                                    <strong>_________________________________________________________________</strong>
+                                </p>
+                                <br />
+                                @foreach (var matricula in ListaMatriculas)
+                                {
+                                    <p class="font-12 pb-2">
+                                        Curso:
+                                        <strong>
+                                            @matricula.Curso.Codigo - @matricula.Curso.Nome -
+                                            @matricula.Curso.CargaHoraria horas
+                                        </strong>
+                                        <br />
+                                        Matrícula:
+                                        <strong>@matricula.NumeroMatricula</strong>
+                                        &nbsp;&nbsp;
+                                        Início do curso:
+                                        <strong>@($"{matricula.InicioCurso:dd/MM/yyyy}")</strong>
+                                    </p>
+                                }
+                                <br />
+                                <br />
+                                <br />
+                                <div class="font-12 text-right w-100">
+                                    Brasília(DF), @DataImpressaoDocumento.Value.ToLongDateString()
+                                </div>
+                                <br />
+                                <br />
+                                <div class="text-center w-100 p-5">
+                                    <img src="img/assinatura-bruna.png"
+                                         alt="Assinatura Escola CENED" style="width: 300px;">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>
+                            <div class="footer-space">&nbsp;</div>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+            <div class="header">
+                <CabecalhoPadraoDocument />
+            </div>
+            <div class="footer">
+                <RodapePadraoDocument />
+            </div>
+        </div>
+    </div>
+</div>

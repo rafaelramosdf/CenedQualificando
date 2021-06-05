@@ -1,19 +1,18 @@
-﻿using CenedQualificando.Domain.Models.Dtos;
-using CenedQualificando.Domain.Models.Enumerations.Filters;
+﻿using CenedQualificando.Domain.Extensions;
+using CenedQualificando.Domain.Models.Dtos;
+using CenedQualificando.Domain.Models.Enumerations;
 using CenedQualificando.Domain.Models.Filters;
-using CenedQualificando.Domain.Models.Utils;
 using CenedQualificando.Web.Admin.Services.RefitApiServices;
 using CenedQualificando.Web.Admin.Shared.CodeBase.Pages;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace CenedQualificando.Web.Admin.Pages.Documentos
 {
-    public partial class AtaProva : DocumentPageBase
+    public partial class Declaracao : DocumentPageBase
     {
         [Inject] protected IConsultaApiService ConsultaApiService { get; set; }
         [Inject] ISnackbar Snackbar { get; set; }
@@ -22,26 +21,38 @@ namespace CenedQualificando.Web.Admin.Pages.Documentos
 
         private HashSet<MatriculaDto> Selecionados { get; set; }
 
-        private void OnPenitenciariaSelected(PenitenciariaDto penitenciaria)
-        {
-            PenitenciariaSelecionada = penitenciaria;
-        }
-
-        private MatriculaFilter Filtro = new MatriculaFilter 
-        {
-            TipoFiltroPersonalizado = MatriculaFilterEnum.SomenteMatriculaComProvaAutorizada
-        };
+        private MatriculaFilter Filtro = new MatriculaFilter();
 
         protected override void OnInitialized()
         {
             base.OnInitialized();
-            State.TituloPagina = "Documentos / Ata de Prova";
+            State.TituloPagina = "Documentos / Declaração";
         }
 
         protected async Task Buscar()
         {
             State.Carregando = true;
+
+            switch (TipoDeclaracao)
+            {
+                case TipoDeclaracaoEnum.DeclaracaoCursosConcluidos:
+                    Filtro.StatusCurso = new List<int> 
+                    { 
+                        StatusCursoEnum.Aprovado.ToInt32() 
+                    };
+                    break;
+                case TipoDeclaracaoEnum.DeclaracaoCursoEmAndamento:
+                    Filtro.StatusCurso = new List<int>
+                    {
+                        StatusCursoEnum.EmAndamento.ToInt32(),
+                        StatusCursoEnum.NaoAprovado.ToInt32(),
+                        StatusCursoEnum.ReProva.ToInt32()
+                    };
+                    break;
+            }
+
             Lista = await ConsultaApiService.Matriculas(Filtro);
+            
             State.Carregando = false;
         }
 
@@ -61,12 +72,17 @@ namespace CenedQualificando.Web.Admin.Pages.Documentos
             return false;
         }
 
+        private void OnAlunoSelected(AlunoDto aluno)
+        {
+            AlunoSelecionado = aluno;
+        }
+
         private void Imprimir()
         {
             if (Selecionados != null && Selecionados.Any())
             {
                 IdMatriculasSelecionadas = Selecionados.Select(s => s.Id).ToList();
-                NavigationManager.NavigateTo("/documentos/ata-prova/impressao");
+                NavigationManager.NavigateTo("/documentos/declaracao/impressao");
             }
             else
             {

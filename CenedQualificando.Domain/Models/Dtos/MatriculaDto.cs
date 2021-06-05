@@ -54,6 +54,10 @@ namespace CenedQualificando.Domain.Models.Dtos
         public string EnvioMaterialDescricao => EnvioMaterial.EnumDescription();
         public bool PossuiBolsaParceria { get; set; }
 
+        public ProvaDto UltimaProvaRealizada => Provas != null && Provas.Any() 
+            ? Provas.OrderByDescending(o => o.DataRecebidaProva).FirstOrDefault(x => x.DataRecebidaProva.HasValue) 
+            : null;
+
         public AlunoDto Aluno { get; set; } = new AlunoDto();
         public CursoDto Curso { get; set; } = new CursoDto();
         public IEnumerable<ProvaDto> Provas { get; set; } = new List<ProvaDto>();

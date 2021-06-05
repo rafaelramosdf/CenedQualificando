@@ -10,49 +10,10 @@
                  Value="@Value"
                  SearchFunc="@Search"
                  ValueChanged="@OnValueChanged"
-                 ResetValueOnEmptyText="true" CoerceText="true"
+                 ResetValueOnEmptyText="true" 
+                 CoerceText="true"
+                 Clearable="true"
                  ToStringFunc="@ToStringFunc"
                  Placeholder="Digite o Nome ou CPF do Aluno"
                  MinCharacters="3"
                  MaxItems="20" />
-
-@code
-{
-    [Parameter]
-    public int Id
-    {
-        get => Value;
-        set
-        {
-            Value = value;
-        }
-    }
-
-    [Parameter] public EventCallback<int> IdChanged { get; set; }
-
-    [Parameter] public EventCallback<AlunoDto> OnSelected { get; set; }
-
-    private IEnumerable<SelectResult> Items { get; set; }
-
-    private string ToStringFunc(int id) => Items.FirstOrDefault(x => x.Id == id)?.Text;
-
-    private async Task<IEnumerable<int>> Search(string pesquisa)
-    {
-        Items = await Service.Alunos(new SelectSearchParam(pesquisa, 20));
-        return Items.Select(x => x.Id);
-    }
-
-    private int Value { get; set; }
-
-    private void OnValueChanged(int id)
-    {
-        IdChanged.InvokeAsync(id);
-        GetSelectedAsync(id);
-    }
-
-    private async Task GetSelectedAsync(int id)
-    {
-        var result = await AlunoApiService.Buscar(id);
-        await OnSelected.InvokeAsync(result);
-    }
-}

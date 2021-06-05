@@ -1,50 +1,17 @@
 ﻿@namespace CenedQualificando.Web.Admin.Shared.Components.Select
 
-@using CenedQualificando.Domain.Models.Dtos
-@using CenedQualificando.Domain.Models.Utils
-
 @inject CenedQualificando.Web.Admin.Services.RefitApiServices.IComboEntidadeApiService Service
 @inject CenedQualificando.Web.Admin.Services.RefitApiServices.IPenitenciariaApiService PenitenciariaApiService
 
-<MudAutocomplete T="int" Label="Penitenciária" Value="@Id" SearchFunc="@Buscar" ValueChanged="@OnValueChanged"
-                 ResetValueOnEmptyText="true" CoerceText="true"
+<MudAutocomplete T="int" 
+                 Label="Penitenciária"
+                 Value="@Value"
+                 SearchFunc="@Search"
+                 ValueChanged="@OnValueChanged"
+                 ResetValueOnEmptyText="true"
+                 CoerceText="true"
+                 Clearable="true"
                  ToStringFunc="@ToStringFunc"
-                 MinCharacters="0"
-                 MaxItems="@MaxItems" />
-
-@code {
-
-    [Parameter]
-    public int Id { get; set; } = 0;
-
-    [Parameter] public EventCallback<int> IdChanged { get; set; }
-
-    [Parameter] public EventCallback<PenitenciariaDto> ItemChanged { get; set; }
-
-    [Parameter] public int MaxItems { get; set; } = 20;
-
-    private IEnumerable<SelectResult> Combo { get; set; } = new List<SelectResult>();
-
-    private string ToStringFunc(int id) => Combo.FirstOrDefault(x => x.Id == id)?.Text;
-
-    private async Task<IEnumerable<int>> Buscar(string pesquisa)
-    {
-        Combo = await Service.Penitenciarias(new SelectSearchParam(pesquisa, 20));
-        return Combo.Select(x => x.Id);
-    }
-
-    private void OnValueChanged(int id)
-    {
-        IdChanged.InvokeAsync(id);
-        BuscarPenitenciariaSelecionadaAsync(id);
-    }
-
-    private async Task BuscarPenitenciariaSelecionadaAsync(int id)
-    {
-        if (id > 0)
-        {
-            var penitenciariaSelecionada = await PenitenciariaApiService.Buscar(id);
-            await ItemChanged.InvokeAsync(penitenciariaSelecionada);
-        }
-    }
-}
+                 Placeholder="Digite o Nome da Penitenciária"
+                 MinCharacters="3"
+                 MaxItems="20" />

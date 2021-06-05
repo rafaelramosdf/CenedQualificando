@@ -1,0 +1,338 @@
+﻿@layout PrintA4Layout
+
+@page "/documentos/ficha-matricula-contrato/impressao"
+
+@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.DocumentPrintPageBase
+@using CenedQualificando.Web.Admin.Shared.Components.Document
+
+<div class="row" style="visibility: hidden;">
+    <div class="col">
+        <div id="impressao">
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            <div class="header-space">&nbsp;</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var matricula in ListaMatriculas)
+                    {
+                        <tr>
+                            <td class="p-4">
+                                @if (ListaMatriculas.FindIndex(m => m.IdMatricula == matricula.IdMatricula) > 0)
+                                {
+                                    <div class="page-break"></div><br />
+                                }
+                                <table class="w-100" style="border: none;">
+                                    <tr>
+                                        <td>
+                                            <div style="padding: 10px; text-align: center;">
+                                                <strong>
+                                                    CONTRATO DE PRESTAÇÃO DE SERVIÇOS
+                                                    EDUCACIONAIS
+                                                </strong>
+                                            </div>
+                                            <div style="float: right; font-size: 10px; margin-top: -15px;">
+                                                FICHA DE MATRÍCULA
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <br />
+                                            <table class="w-100 borda-suave">
+                                                <tr>
+                                                    <td style="width: 70%;">
+                                                        <strong>1. DADOS DO CONTRATANTE - CURSISTA</strong>
+                                                    </td>
+                                                    <td style="width: 30%; text-align: right;">
+                                                        MATRÍCULA:
+                                                        <strong>@matricula.NumeroMatricula</strong>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <table class="w-100 borda-suave">
+                                                <tr>
+                                                    <td style="width: 100%;">
+                                                        CURSISTA: <strong style="text-transform: uppercase;">@matricula.Aluno.Nome.ToUpper()</strong>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <table class="w-100 borda-suave">
+                                                <tr>
+                                                    <td style="width: 25%;">
+                                                        CPF:
+                                                        <strong>@matricula.Aluno.Cpf</strong>
+                                                    </td>
+                                                    <td style="width: 25%;">
+                                                        SEXO:
+                                                        <strong>@matricula.Aluno.SexoDescricao</strong>
+                                                    </td>
+                                                    <td style="width: 25%;">
+                                                        CI RG:
+                                                        <strong>@matricula.Aluno.Rg</strong>
+                                                    </td>
+                                                    <td style="width: 25%;">
+                                                        ORGÃO EXP.: <strong style="text-transform: uppercase;">@matricula.Aluno.OrgaoExpedidor</strong>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <table class="w-100 borda-suave">
+                                                <tr>
+                                                    <td>
+                                                        DT NASC:
+                                                        <strong>@($"{matricula.Aluno.DataNascimento:dd/MM/yyyy}")</strong>
+                                                    </td>
+                                                    <td>
+                                                        NATURAL.: <strong style="text-transform: uppercase;">@matricula.Aluno.Naturalidade</strong>
+                                                    </td>
+                                                    <td>
+                                                        UF:
+                                                        <strong>@matricula.Aluno.UfNaturalidadeDescricao</strong>
+                                                    </td>
+                                                    <td>
+                                                        NACIONALIDADE: <strong style="text-transform: uppercase;">@matricula.Aluno.Nacionalidade</strong>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <table class="w-100 borda-suave">
+                                                <tr>
+                                                    <td>
+                                                        ENDEREÇO RESIDENCIAL: <strong style="text-transform: uppercase;">@matricula.Aluno.Endereco</strong>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <table class="w-100 borda-suave">
+                                                <tr>
+                                                    <td>
+                                                        BAIRRO: <strong style="text-transform: uppercase;">@matricula.Aluno.Bairro</strong>
+                                                    </td>
+                                                    <td>
+                                                        CIDADE: <strong style="text-transform: uppercase;">@matricula.Aluno.Cidade</strong>
+                                                    </td>
+                                                    <td>
+                                                        UF:
+                                                        <strong>@matricula.Aluno.UfResidencialDescricao</strong>
+                                                    </td>
+                                                    <td>
+                                                        CEP:
+                                                        <strong>@matricula.Aluno.Cep</strong>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <table class="w-100 borda-suave">
+                                                <tr>
+                                                    <td>
+                                                        FONE RESIDENCIAL:
+                                                        <strong>@matricula.Aluno.FoneResidencial</strong>
+                                                    </td>
+                                                    <td>
+                                                        CELULAR:
+                                                        <strong>@matricula.Aluno.Celular</strong>
+                                                    </td>
+                                                    <td>
+                                                        FONE TRABALHO:
+                                                        <strong>@matricula.Aluno.FoneComercial</strong>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <table class="w-100 borda-suave">
+                                                <tr>
+                                                    <td>
+                                                        ESCOLARIDADE: <strong style="text-transform: uppercase;">@matricula.Aluno.GrauInstrucao</strong>
+                                                    </td>
+                                                    <td>
+                                                        PROFISSÃO: <strong style="text-transform: uppercase;">@matricula.Aluno.Profissao</strong>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <table class="w-100 borda-suave">
+                                                <tr>
+                                                    <td>
+                                                        UNIDADE PRISIONAL: <strong style="text-transform: uppercase;">TODO</strong>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <br />
+                                            <table class="w-100 borda-suave">
+                                                <tr>
+                                                    <td>
+                                                        <strong>2. PREPOSTO, PROCURADOR OU ADVOGADO</strong>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <table class="w-100 borda-suave">
+                                                <tr>
+                                                    <td>
+                                                        NOME: <strong style="text-transform: uppercase;">@matricula.Aluno.NomePreposto</strong>
+                                                    </td>
+                                                    <td>
+                                                        CPF:
+                                                        <strong>@matricula.Aluno.CpfPreposto</strong>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <table class="w-100 borda-suave">
+                                                <tr>
+                                                    <td>
+                                                        SEXO:
+                                                        <strong>@matricula.Aluno.SexoPrepostoDescricao</strong>
+                                                    </td>
+                                                    <td>
+                                                        CI RG:
+                                                        <strong>@matricula.Aluno.RgPreposto</strong>
+                                                    </td>
+                                                    <td>
+                                                        ORGÃO EXP.: <strong style="text-transform: uppercase;">@matricula.Aluno.OrgaoExpedidorPreposto</strong>
+                                                    </td>
+                                                    <td>
+                                                        FONE:
+                                                        <strong>@matricula.Aluno.Celular</strong>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <table class="w-100 borda-suave">
+                                                <tr>
+                                                    <td>
+                                                        <strong>3. CONTRATADA: </strong> Escola CENED - Centro
+                                                        de Educação Profissional LTDA ME CNPJ:
+                                                        10.326.300/0001-19
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <br />
+                                            <table class="w-100 borda-suave">
+                                                <tr>
+                                                    <td>
+                                                        <strong>4. CURSO SOLICITADO - OBJETO</strong>
+                                                        <div style="float: right;">
+                                                            (Curso de Formação Inicial
+                                                            e Continuada - Qualificação Profissional)
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <table class="w-100 borda-suave">
+                                                <tr>
+                                                    <td>
+                                                        CURSO: <strong>
+                                                            @matricula.Curso.Codigo -
+                                                            @matricula.Curso.Nome
+                                                        </strong>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <table class="w-100 borda-suave">
+                                                <tr>
+                                                    <td>
+                                                        CARGA HORÁRIA:
+                                                        <strong>@matricula.Curso.CargaHoraria</strong>
+                                                    </td>
+                                                    <td>
+                                                        STATUS:
+                                                        <strong>@matricula.StatusCursoDescricao</strong>
+                                                    </td>
+                                                    <td>
+                                                        INÍCIO:
+                                                        <strong>@($"{matricula.InicioCurso:dd/MM/yyyy}")</strong>
+                                                    </td>
+                                                    <td>
+                                                        TÉRMINO:
+                                                        <strong>
+                                                            @{
+                                                                var termino = matricula.TerminoCurso == null ? matricula.DataPrescricao : matricula.TerminoCurso;
+                                                            }
+                                                            @($"{termino:dd/MM/yyyy}")
+                                                        </strong>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <table class="w-100 borda-suave">
+                                                <tr>
+                                                    <td>
+                                                        <strong>
+                                                            5. VALOR DO CONTRATO E FORMA DE
+                                                            PAGAMENTO
+                                                        </strong>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <table class="w-100 borda-suave">
+                                                <tr>
+                                                    <td>
+                                                        VALOR:
+                                                        <strong>
+                                                            R$
+                                                            @($"{matricula.ValorTotal:n2}")
+                                                        </strong>
+                                                    </td>
+                                                    <td>
+                                                        FORMA DE PAGAMENTO:
+                                                        <strong>@matricula.FormaPagamentoDescricao</strong>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <br />
+                                            <table class="w-100 borda-suave">
+                                                <tr>
+                                                    <td>
+                                                        <strong>6. CLÁUSULAS GERAIS</strong>
+                                                        <p>
+                                                            O Cursista e/ou Preposto declara(m) estar ciente(s)
+                                                            e concorda(m) com as cláusulas gerais constantes nas
+                                                            páginas seguintes,
+                                                            apresentadas no ato da matrícula e publicadas no
+                                                            link:
+                                                            www.cenedqualificando.com.br/Arquivos/clausulas-gerais.pdf
+                                                        </p>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <br />
+                                            <br />
+                                            <div style="width: 100%; text-align: right;">
+                                                Brasília (DF) @DataImpressaoDocumento.Value.ToLongDateString()
+                                            </div>
+                                            <br />
+                                            <br />
+                                            <div style="width: 100%; text-align: center;">
+                                                Escola CENED<br />
+                                                Centro de Educação Profissional<br />
+                                                CONTRATANTE
+                                            </div>
+                                            <br />
+                                            <br />
+                                            <div style="width: 100%; text-align: center;">
+                                                @matricula.Aluno.Nome.ToUpper()<br />
+                                                @matricula.Aluno.NomePreposto.ToUpper()<br />
+                                                Contratante-Cursista e Preposto
+                                            </div>
+
+                                            <div class="page-break"></div>
+
+                                            <br />
+
+                                            <ClausulasGeraisContratoDocument />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>
+                            <div class="footer-space">&nbsp;</div>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+            <div class="header">
+                <CabecalhoPadraoDocument />
+            </div>
+            <div class="footer">
+                <RodapePadraoDocument />
+            </div>
+        </div>
+    </div>
+</div>

@@ -4,6 +4,10 @@
 @inject ISnackbar Snackbar
 @using Domain.Models.Dtos
 
+<MudOverlay @bind-Visible="State.Carregando" DarkBackground="false" ZIndex="999999" AutoClose="true">
+    <MudProgressCircular Color="Color.Success" Indeterminate="true" />
+</MudOverlay>
+
 <MudTable ServerData="@(new Func<TableState, Task<TableData<AlunoDto>>>(ServerReload))"
           @ref="Table"
           Dense="true"
@@ -58,7 +62,3 @@
 
 <MudFab Color="Color.Success" Icon="@Icons.Material.Filled.Add"
         Style="position: fixed; bottom: 45px; right: 30px;" />
-
-<MudOverlay @bind-Visible="State.Carregando" DarkBackground="true" ZIndex="9999" AutoClose="true">
-    <MudProgressCircular Color="Color.Primary" Indeterminate="true" />
-</MudOverlay>

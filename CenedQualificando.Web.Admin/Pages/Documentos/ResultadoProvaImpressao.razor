@@ -1,0 +1,112 @@
+﻿@layout PrintA4Layout
+
+@page "/documentos/resultado-prova/impressao"
+
+@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.DocumentPrintPageBase
+@using CenedQualificando.Web.Admin.Shared.Components.Document
+
+<div class="row" style="visibility: hidden;">
+    <div class="col">
+        <div id="impressao">
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            <div class="header-space">&nbsp;</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="text-center pt-4 pb-4">
+                                <h4>
+                                    <strong>RESULTADO DE PROVAS</strong>
+                                </h4>
+                            </div>
+                            <div class="p-4">
+                                <table style="border: none; width: 100%;">
+                                    <tr>
+                                        <td style="width: 100%; text-align: right;">
+                                            Brasília (DF), <strong>@DataImpressaoDocumento.Value.ToShortDateString()</strong>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <p>
+                                    A(o)<br />
+                                    <strong>@PenitenciariaSelecionada.Nome</strong><br />
+                                    NÚCLEO DE ENSINO
+                                </p>
+                            </div>
+                            <div class="pl-4 pr-4">
+                                @foreach (var matricula in ListaMatriculas)
+                                {
+                                    <table style="border:none; width: 100%;">
+                                        <tr>
+                                            <td class="pb-3" style="width: 5%; text-align: center;">
+                                                @(ListaMatriculas.FindIndex(x => x.Id == matricula.Id) + 1)
+                                            </td>
+                                            <td class="pb-3" style="width: 95%;">
+                                                <table style="border:none; width: 100%;">
+                                                    <tr>
+                                                        <td style="width: 50%;">
+                                                            <strong>@matricula.Aluno.Nome.ToUpper()</strong>
+                                                        </td>
+                                                        <td colspan="2" style="width: 50%;">
+                                                            @matricula.Curso.Codigo -
+                                                            @matricula.Curso.Nome
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 50%;">
+                                                            CH: @matricula.Curso.CargaHoraria h &nbsp;&nbsp;
+                                                            DT Início:
+                                                            @($"{matricula.InicioCurso:dd/MM/yyyy}")
+                                                            &nbsp;&nbsp;
+                                                            DT Término:
+                                                            @($"{matricula.UltimaProvaRealizada?.DataRecebidaProva:dd/MM/yyyy}")
+                                                        </td>
+                                                        <td style="width: 50%;">
+                                                            <strong>
+                                                                Nota: @($"{matricula.UltimaProvaRealizada?.Nota:n1}")
+                                                                &nbsp;&nbsp;-&nbsp;&nbsp;
+                                                                @matricula.StatusCursoDescricao
+                                                            </strong>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                }
+                            </div>
+                            <br>
+                            <br>
+                            <div style="padding:  0.5cm;">
+                                <div style="text-align: center;">
+                                    Atenciosamente,<br /><br />
+                                    Profª. Christiane Ramalho<br />
+                                    Escola CENED<br />
+                                    Diretora
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>
+                            <div class="footer-space">&nbsp;</div>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+            <div class="header">
+                <CabecalhoPadraoDocument />
+            </div>
+            <div class="footer">
+                <RodapePadraoDocument />
+            </div>
+        </div>
+    </div>
+</div>

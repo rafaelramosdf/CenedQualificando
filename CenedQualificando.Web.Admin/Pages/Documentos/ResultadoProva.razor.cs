@@ -1,5 +1,4 @@
 ﻿using CenedQualificando.Domain.Models.Dtos;
-using CenedQualificando.Domain.Models.Enumerations.Filters;
 using CenedQualificando.Domain.Models.Filters;
 using CenedQualificando.Domain.Models.Utils;
 using CenedQualificando.Web.Admin.Services.RefitApiServices;
@@ -13,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace CenedQualificando.Web.Admin.Pages.Documentos
 {
-    public partial class AtaProva : DocumentPageBase
+    public partial class ResultadoProva : DocumentPageBase
     {
         [Inject] protected IConsultaApiService ConsultaApiService { get; set; }
         [Inject] ISnackbar Snackbar { get; set; }
@@ -27,15 +26,12 @@ namespace CenedQualificando.Web.Admin.Pages.Documentos
             PenitenciariaSelecionada = penitenciaria;
         }
 
-        private MatriculaFilter Filtro = new MatriculaFilter 
-        {
-            TipoFiltroPersonalizado = MatriculaFilterEnum.SomenteMatriculaComProvaAutorizada
-        };
+        private MatriculaFilter Filtro = new MatriculaFilter();
 
         protected override void OnInitialized()
         {
             base.OnInitialized();
-            State.TituloPagina = "Documentos / Ata de Prova";
+            State.TituloPagina = "Documentos / Resultado de Prova";
         }
 
         protected async Task Buscar()
@@ -66,7 +62,7 @@ namespace CenedQualificando.Web.Admin.Pages.Documentos
             if (Selecionados != null && Selecionados.Any())
             {
                 IdMatriculasSelecionadas = Selecionados.Select(s => s.Id).ToList();
-                NavigationManager.NavigateTo("/documentos/ata-prova/impressao");
+                NavigationManager.NavigateTo("/documentos/resultado-prova/impressao");
             }
             else
             {

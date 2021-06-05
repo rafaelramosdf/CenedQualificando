@@ -6,7 +6,7 @@ namespace CenedQualificando.Web.Admin.Shared.CodeBase.Pages
     public abstract partial class PageBase : ComponentBase, IDisposable
     {
         [Inject] protected StateContainer State { get; set; }
-        [Inject] Blazored.LocalStorage.ISyncLocalStorageService LocalStorage { get; set; }
+        [Inject] protected NavigationManager NavigationManager { get; set; }
 
         protected virtual void OnInit() { }
 

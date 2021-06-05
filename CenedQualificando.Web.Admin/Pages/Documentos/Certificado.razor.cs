@@ -5,7 +5,6 @@ using CenedQualificando.Domain.Models.Filters;
 using CenedQualificando.Web.Admin.Services.RefitApiServices;
 using CenedQualificando.Web.Admin.Shared.CodeBase.Pages;
 using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
 using MudBlazor;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -16,7 +15,6 @@ namespace CenedQualificando.Web.Admin.Pages.Documentos
     {
         [Inject] protected IConsultaApiService ConsultaApiService { get; set; }
         [Inject] ISnackbar Snackbar { get; set; }
-        [Inject] IJSRuntime JSRun { get; set; }
 
         private IEnumerable<MatriculaDto> Lista = new List<MatriculaDto>();
 
@@ -61,7 +59,7 @@ namespace CenedQualificando.Web.Admin.Pages.Documentos
             if (Selecionado != null)
             {
                 MatriculaSelecionada = Selecionado;
-                JSRun.InvokeAsync<object>("open", new object[] { "/documentos/certificado/impressao", "_blank" });
+                NavigationManager.NavigateTo("/documentos/certificado/impressao");
             }
             else
             {

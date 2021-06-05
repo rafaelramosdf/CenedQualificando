@@ -1,4 +1,4 @@
-﻿@page "/documentos/certificado"
+﻿@page "/documentos/declaracao"
 
 @using CenedQualificando.Web.Admin.Shared.Components.Select
 
@@ -9,8 +9,11 @@
 <MudCard Elevation="0">
     <MudCardContent>
         <MudGrid>
-            <MudItem md="9" xs="12">
-                <AlunoSelect @bind-Id="Filtro.IdAluno" />
+            <MudItem md="8" xs="12">
+                <AlunoSelect @bind-Id="Filtro.IdAluno" OnSelected="OnAlunoSelected" />
+            </MudItem>
+            <MudItem md="4" xs="12">
+                <TipoDeclaracaoSelect @bind-Value="TipoDeclaracao" />
             </MudItem>
         </MudGrid>
     </MudCardContent>
@@ -24,7 +27,7 @@
         </MudGrid>
     </MudCardActions>
 </MudCard>
-    
+
 <MudGrid>
     <MudItem md="12">
         <MudTable Items="@Lista"
@@ -34,8 +37,8 @@
                   Striped="false"
                   Elevation="0"
                   SortLabel="Ordenar por"
-                  MultiSelection="false"
-                  @bind-SelectedItem="Selecionado"
+                  MultiSelection="true"
+                  @bind-SelectedItems="Selecionados"
                   Filter="new Func<MatriculaDto,bool>(FilterFunc)">
             <ToolBarContent>
                 <MudToolBarSpacer />
@@ -60,14 +63,24 @@
                 </MudTh>
                 <MudTh>
                     <MudText>
-                        Data Conclusão
+                        Data Matrícula
+                    </MudText>
+                </MudTh>
+                <MudTh>
+                    <MudText>
+                        Situação
                     </MudText>
                 </MudTh>
             </HeaderContent>
             <RowTemplate>
                 <MudTd DataLabel="Aluno">@context.Aluno.Nome.ToUpper() / @context.Aluno.Cpf</MudTd>
                 <MudTd DataLabel="Curso">@context.Curso.Codigo / @context.Curso.Nome</MudTd>
-                <MudTd DataLabel="TerminoCurso">@($"{context.TerminoCurso:dd/MM/yyyy}")</MudTd>
+                <MudTd DataLabel="DataMatricula">@($"{context.DataMatricula:dd/MM/yyyy}")</MudTd>
+                <MudTd DataLabel="StatusCurso">
+                    <MudText Color="@StyleHelper.ClasseCssStatusCurso(context.StatusCurso)" Typo="MudBlazor.Typo.caption" Style="font-weight: bold;">
+                        @context.StatusCursoDescricao
+                    </MudText>
+                </MudTd>
             </RowTemplate>
             <PagerContent>
                 <MudTablePager Style="float: left;"

@@ -1,0 +1,112 @@
+﻿@layout PrintA4Layout
+
+@page "/documentos/oficio/impressao"
+
+@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.DocumentPrintPageBase
+@using CenedQualificando.Web.Admin.Shared.Components.Document
+
+<div class="row" style="visibility: hidden;">
+    <div class="col">
+        <div id="impressao">
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            <div class="header-space">&nbsp;</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="mt-5 text-center">
+                                <h3>
+                                    OFÍCIO <br />
+                                    <small>
+                                        <span class="font-10">OF1720570820126852</span> <br />
+                                        <span class="font-8" style="font-style: italic;">
+                                            Registro Digital
+                                        </span>
+                                    </small>
+                                </h3>
+                            </div>
+                            <div class="p-5">
+                                <div style="width: 100%; text-align: right;">
+                                    Brasília (DF), @DataImpressaoDocumento.Value.ToLongDateString()
+                                </div>
+                                <br />
+                                A(o) Senhor(a) <br />
+                                <strong>@PenitenciariaSelecionada.ResponsavelDepartamentoEnsino</strong>
+                                <br />
+                                <span>@PenitenciariaSelecionada.TituloCargoDepartamentoEnsino</span>
+                                / @PenitenciariaSelecionada.Nome
+                                <br />
+                                @PenitenciariaSelecionada.Cidade -
+                                @PenitenciariaSelecionada.UfDescricao
+                                <br />
+                                <br />
+                                <strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Senhor(a)</strong>
+                                <span>
+                                    @PenitenciariaSelecionada.TituloCargoDepartamentoEnsino
+                                </span>,
+                                <br />
+                                <span>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    Informamos a relação dos Internos desse Estabelecimento
+                                    Prisional que estão(arão) aptos a realizar
+                                    PROVA PRESENCIAL (na/a partir da) data autorizada, informada a
+                                    seguir.
+                                </span>
+                                <br />
+                                <br />
+                                <table>
+                                    @foreach (var m in ListaMatriculas)
+                                    {
+                                        <tr>
+                                            <td>
+                                                Cursista:
+                                                <strong>@m.Aluno.Nome.ToUpper()</strong><br />
+                                                Curso: <strong>
+                                                    @m.Curso.Codigo - @m.Curso.Nome
+                                                </strong><br />
+                                                Carga horária: <strong>@m.Curso.CargaHoraria h</strong>
+                                                &nbsp;&nbsp;&nbsp; Início:
+                                                <strong>@($"{m.InicioCurso:dd/MM/yyyy}")</strong>
+                                                &nbsp;&nbsp;&nbsp; Data Autorizada:
+                                                <strong>@($"{m.DataPiso:dd/MM/yyyy}")</strong>
+                                                <br />
+                                                <br />
+                                            </td>
+                                        </tr>
+                                    }
+                                </table>
+                                <br />
+                                <br />
+                                <br />
+                                <div style="text-align: center;">
+                                    Atenciosamente,<br /><br />
+                                    Profª. Christiane Ramalho<br />
+                                    Escola CENED<br />
+                                    Diretora
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>
+                            <div class="footer-space">&nbsp;</div>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+            <div class="header">
+                <CabecalhoPadraoDocument />
+            </div>
+            <div class="footer">
+                <RodapePadraoDocument />
+            </div>
+        </div>
+    </div>
+</div>

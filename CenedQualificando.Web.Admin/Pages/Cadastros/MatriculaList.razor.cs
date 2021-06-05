@@ -26,24 +26,5 @@ namespace CenedQualificando.Web.Admin.Pages.Cadastros
             State.Carregando = false;
             return dataTable;
         }
-
-        protected MudBlazor.Color ObterClasseStatusCurso(StatusCursoEnum status)
-        {
-            switch (status)
-            {
-                case StatusCursoEnum.EmAndamento:
-                    return MudBlazor.Color.Success;
-                case StatusCursoEnum.Aprovado:
-                    return MudBlazor.Color.Primary;
-                case StatusCursoEnum.NaoAprovado:
-                    return MudBlazor.Color.Warning;
-                case StatusCursoEnum.Agendado:
-                    return MudBlazor.Color.Info;
-                case StatusCursoEnum.ReProva:
-                    return MudBlazor.Color.Error;
-                default:
-                    return MudBlazor.Color.Dark;
-            }
-        }
     }
 }

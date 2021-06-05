@@ -41,6 +41,9 @@
     <Compile Update="Pages\Documentos\AtaProvaImpressao - Copy.razor.cs">
       <DependentUpon>AtaProvaImpressao.razor.cs</DependentUpon>
     </Compile>
+    <Compile Update="Shared\Components\Select\TipoDeclaracaoSelect - Copy.razor.cs">
+      <DependentUpon>TipoDeclaracaoSelect.razor.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 </Project>

@@ -69,7 +69,7 @@
                     <strong>@($"{MatriculaSelecionada.TerminoCurso:dd/MM/yyyy}")</strong>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     Aproveitamento:
-                    <strong>TODO</strong><br />
+                    <strong>@($"{MatriculaSelecionada.UltimaProvaRealizada?.Nota:n1}")</strong><br />
 
                     <div class="text-center" style="margin-top: 15px;">
                         <strong>
@@ -80,7 +80,7 @@
 
                     <span style="font-size: 9pt; max-height: 11cm; display: block; margin-top: 10px;"
                           contenteditable="true">
-                        TODO
+                        @MatriculaSelecionada.Curso.Conteudo
                     </span>
                 </div>
                 <div class="rodapeVerso">
@@ -195,7 +195,3 @@
         </div>
     </div>
 </div>
-
-<MudOverlay @bind-Visible="State.Carregando" DarkBackground="true" ZIndex="9999" AutoClose="true">
-    <MudProgressCircular Color="Color.Primary" Indeterminate="true" />
-</MudOverlay>

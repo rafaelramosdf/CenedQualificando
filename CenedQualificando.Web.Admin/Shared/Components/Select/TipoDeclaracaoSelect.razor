@@ -1,0 +1,12 @@
+﻿@namespace CenedQualificando.Web.Admin.Shared.Components.Select
+
+@using CenedQualificando.Domain.Models.Enumerations
+
+<MudSelect T="TipoDeclaracaoEnum" Value="@Value" Label="Tipo de Declaração" ValueChanged="@OnValueChanged">
+    @{ 
+        foreach (var item in Enum.GetValues<TipoDeclaracaoEnum>())
+        {
+            <MudSelectItem Value="@item">@item.EnumDescription()</MudSelectItem>
+        }
+    }
+</MudSelect>

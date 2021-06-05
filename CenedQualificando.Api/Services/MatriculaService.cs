@@ -9,6 +9,7 @@ using CenedQualificando.Domain.Models.Entities;
 using CenedQualificando.Domain.Models.Enumerations.Filters;
 using CenedQualificando.Domain.Models.Filters;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -35,7 +36,7 @@ namespace CenedQualificando.Api.Services
         {
             var queryList = Repository.List();
 
-            if(filtro != null)
+            if (filtro != null)
             {
                 if (filtro.TipoFiltroPersonalizado != MatriculaFilterEnum.Null)
                     queryList = queryList.Where(Query.FiltroPersonalizado(filtro.TipoFiltroPersonalizado));
@@ -52,20 +53,48 @@ namespace CenedQualificando.Api.Services
                 if (filtro.StatusCurso.Any())
                     queryList = queryList.Where(x => filtro.StatusCurso.Contains(x.StatusCurso));
 
-                if (filtro.PeriodoDataMatricula.HasValue)
-                    queryList = queryList.Where(x => x.DataMatricula >= filtro.PeriodoDataMatricula.Inicio && x.DataMatricula <= filtro.PeriodoDataMatricula.Final);
+                if (filtro.PeriodoDataMatricula.Inicio.HasValue)
+                    queryList = queryList.Where(x => x.DataMatricula >= filtro.PeriodoDataMatricula.Inicio);
+                if (filtro.PeriodoDataMatricula.Final.HasValue)
+                    queryList = queryList.Where(x => x.DataMatricula <= filtro.PeriodoDataMatricula.Final);
 
-                if(filtro.PeriodoDataPiso.HasValue)
-                    queryList = queryList.Where(x => x.DataPiso >= filtro.PeriodoDataPiso.Inicio && x.DataPiso <= filtro.PeriodoDataPiso.Final);
+                if (filtro.PeriodoDataPiso.Inicio.HasValue)
+                    queryList = queryList.Where(x => x.DataPiso >= filtro.PeriodoDataPiso.Inicio);
+                if (filtro.PeriodoDataPiso.Final.HasValue)
+                    queryList = queryList.Where(x => x.DataPiso <= filtro.PeriodoDataPiso.Final);
+
+                if (filtro.PeriodoDataCertificadoExpedido.Inicio.HasValue)
+                    queryList = queryList.Where(x => x.CertificadoExpedido >= filtro.PeriodoDataCertificadoExpedido.Inicio);
+                if (filtro.PeriodoDataCertificadoExpedido.Final.HasValue)
+                    queryList = queryList.Where(x => x.CertificadoExpedido <= filtro.PeriodoDataCertificadoExpedido.Final);
+
+                if (filtro.PeriodoDataProvaRecebida.Inicio.HasValue || filtro.PeriodoDataProvaRecebida.Final.HasValue)
+                {
+                    var dtInicioProvaRecebida = filtro.PeriodoDataProvaRecebida.Inicio ?? DateTime.MinValue;
+                    var dtFinalProvaRecebida = filtro.PeriodoDataProvaRecebida.Final ?? DateTime.MaxValue;
+                    queryList = queryList.Where(x => x.Provas.Where(p => p.DataRecebidaProva >= dtInicioProvaRecebida
+                                                    && p.DataRecebidaProva <= dtFinalProvaRecebida).Any());
+                }
             }
 
-            queryList = queryList.Include(i => i.Aluno).Include(i => i.Curso);
+            queryList = queryList.Include(i => i.Aluno).Include(i => i.Curso).Include(i => i.Provas);
 
             queryList = queryList.OrderByDescending(o => o.DataMatricula);
 
             queryList = queryList.Take(100); // TODO: Implementar paginação parametrizada
 
-            return Mapper.Map<IEnumerable<Matricula>, IEnumerable<MatriculaDto>>(queryList.ToList());
+            var dtoList = Mapper.Map<IEnumerable<Matricula>, IEnumerable<MatriculaDto>>(queryList.ToList());
+
+            if (filtro.PeriodoDataProvaRecebida.Inicio.HasValue || filtro.PeriodoDataProvaRecebida.Final.HasValue)
+            {
+                var dtInicioProvaRecebida = filtro.PeriodoDataProvaRecebida.Inicio ?? DateTime.MinValue;
+                var dtFinalProvaRecebida = filtro.PeriodoDataProvaRecebida.Final ?? DateTime.MaxValue;
+                dtoList = dtoList.Where(x => x.UltimaProvaRealizada != null
+                            && x.UltimaProvaRealizada.DataRecebidaProva >= dtInicioProvaRecebida
+                            && x.UltimaProvaRealizada.DataRecebidaProva <= dtFinalProvaRecebida);
+            }
+
+            return dtoList;
         }
     }
 }

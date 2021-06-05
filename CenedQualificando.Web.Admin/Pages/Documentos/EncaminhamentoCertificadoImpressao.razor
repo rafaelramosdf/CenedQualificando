@@ -1,6 +1,6 @@
 ﻿@layout PrintA4Layout
 
-@page "/documentos/ata-prova/impressao"
+@page "/documentos/encaminhamento-certificado/impressao"
 
 @inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.DocumentPrintPageBase
 @using CenedQualificando.Web.Admin.Shared.Components.Document
@@ -21,24 +21,25 @@
                         <td>
                             <div class="text-center pt-4 pb-4">
                                 <h4>
-                                    <strong>ATA DE APLICAÇÃO DE PROVAS</strong>
+                                    <strong>
+                                        ENCAMINHAMENTO DE CERTIFICADO <br />
+                                        CONCLUSÃO DE CURSO
+                                    </strong>
                                 </h4>
                             </div>
                             <div class="p-4">
                                 <table style="border: none; width: 100%;">
                                     <tr>
-                                        <td style="width: 60%;">
-                                            Data de aplicação:
-                                            <strong>@($"{DataImpressaoDocumento:dd/MM/yyyy}")</strong><br />
-                                            Unidade Prisional:
-                                            <strong>@PenitenciariaSelecionada.Nome</strong>
-                                        </td>
-                                        <td style="width: 40%; text-align: right;">
-                                            Inicio: <strong>____:____ h</strong>&nbsp;&nbsp;
-                                            Término: <strong>____:____ h</strong>
+                                        <td style="width: 100%; text-align: right;">
+                                            Brasília (DF), <strong>@DataImpressaoDocumento.Value.ToShortDateString()</strong>
                                         </td>
                                     </tr>
                                 </table>
+                                <p>
+                                    A(o)<br />
+                                    <strong>@PenitenciariaSelecionada.Nome.ToUpper()</strong><br />
+                                    NÚCLEO DE ENSINO
+                                </p>
                                 <br />
                                 <div>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Nesta data, na presença do
@@ -54,35 +55,35 @@
                                 {
                                     <table style="border:none; width: 100%;">
                                         <tr>
-                                            <td class="text-center" style="width: 5%;">
+                                            <td class="pb-3" style="width: 5%; text-align: center;">
                                                 @(ListaMatriculas.FindIndex(x => x.Id == matricula.Id) + 1)
                                             </td>
-                                            <td style="width: 95%;">
+                                            <td class="pb-3" style="width: 95%;">
                                                 <table style="border:none; width: 100%;">
                                                     <tr>
-                                                        <td class="pt-4 pb-1" style="width: 60%;">
-                                                            <strong class="uppercase">
-                                                                @matricula.Aluno.Nome
-                                                            </strong>
+                                                        <td style="width: 50%;">
+                                                            <strong>@matricula.Aluno.Nome.ToUpper()</strong>
                                                         </td>
-                                                        <td class="pt-4 pb-1" colspan="3" style="width: 40%;">
-                                                            Ass:___________________________________________________
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td style="width: 60%; font-size: 8pt;">
+                                                        <td colspan="2" style="width: 50%;">
                                                             @matricula.Curso.Codigo -
                                                             @matricula.Curso.Nome
                                                         </td>
-                                                        <td style="width: 10%;">
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 50%;">
                                                             CH: @matricula.Curso.CargaHoraria h
-                                                        </td>
-                                                        <td style="width: 18%;">
-                                                            Início:
+                                                            &nbsp;&nbsp;&nbsp;&nbsp;
+                                                            DT Início:
                                                             @($"{matricula.InicioCurso:dd/MM/yyyy}")
+                                                            &nbsp;&nbsp;&nbsp;&nbsp;
                                                         </td>
-                                                        <td style="width: 12%;">
-                                                            Prova: _________
+                                                        <td style="width: 50%;">
+                                                            DT Término:
+                                                            TODO (DATA ULTIMA PROVA)
+                                                            &nbsp;&nbsp;&nbsp;&nbsp;
+                                                            <strong>
+                                                                Reg. Certificado: @matricula.Registro
+                                                            </strong>
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -97,12 +98,11 @@
                                 <table style="border:none; width: 100%;">
                                     <tr>
                                         <td style="text-align: center; width: 40%; padding: 5px;">
-                                            _________________________________________<br />
-                                            Funcionário da Escola CENED
+                                            RECEBIDO Data: ______/______/______
                                         </td>
                                         <td style="text-align: center; width: 40%; padding: 5px;">
                                             _________________________________________<br />
-                                            Servidor da Unidade Prisional
+                                            Servidor
                                         </td>
                                         <td style="text-align: center; width: 20%; padding: 5px;">
                                             ____________________<br />

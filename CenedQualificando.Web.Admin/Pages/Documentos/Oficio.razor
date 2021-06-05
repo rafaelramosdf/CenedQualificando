@@ -1,4 +1,4 @@
-﻿@page "/documentos/certificado"
+﻿@page "/documentos/oficio"
 
 @using CenedQualificando.Web.Admin.Shared.Components.Select
 
@@ -10,12 +10,21 @@
     <MudCardContent>
         <MudGrid>
             <MudItem md="9" xs="12">
-                <AlunoSelect @bind-Id="Filtro.IdAluno" />
+                <PenitenciariaSelect @bind-Id="Filtro.IdPenitenciaria" OnSelected="@OnPenitenciariaSelected" />
+            </MudItem>
+            <MudItem md="3" xs="12">
+                <MudDatePicker @bind-Date="DataImpressaoDocumento" Label="Data Aplicação" DateFormat="dd/MM/yyyy" />
             </MudItem>
         </MudGrid>
     </MudCardContent>
     <MudCardActions>
         <MudGrid>
+            <MudItem md="3" xs="12">
+                <MudDatePicker @bind-Date="Filtro.PeriodoDataPiso.Inicio" Label="Prova Autorizada (a partir)" DateFormat="dd/MM/yyyy" />
+            </MudItem>
+            <MudItem md="3" xs="12">
+                <MudDatePicker @bind-Date="Filtro.PeriodoDataPiso.Final" Label="Prova Autorizada (até)" DateFormat="dd/MM/yyyy" />
+            </MudItem>
             <MudItem>
                 <MudButton Variant="Variant.Filled" Color="Color.Secondary" OnClick="@Buscar">
                     Buscar Matrículas
@@ -24,9 +33,9 @@
         </MudGrid>
     </MudCardActions>
 </MudCard>
-    
+
 <MudGrid>
-    <MudItem md="12">
+    <MudItem md="12" xs="12">
         <MudTable Items="@Lista"
                   Dense="true"
                   Hover="true"
@@ -34,8 +43,8 @@
                   Striped="false"
                   Elevation="0"
                   SortLabel="Ordenar por"
-                  MultiSelection="false"
-                  @bind-SelectedItem="Selecionado"
+                  MultiSelection="true"
+                  @bind-SelectedItems="Selecionados"
                   Filter="new Func<MatriculaDto,bool>(FilterFunc)">
             <ToolBarContent>
                 <MudToolBarSpacer />
@@ -60,14 +69,14 @@
                 </MudTh>
                 <MudTh>
                     <MudText>
-                        Data Conclusão
+                        Data Autorizada
                     </MudText>
                 </MudTh>
             </HeaderContent>
             <RowTemplate>
                 <MudTd DataLabel="Aluno">@context.Aluno.Nome.ToUpper() / @context.Aluno.Cpf</MudTd>
                 <MudTd DataLabel="Curso">@context.Curso.Codigo / @context.Curso.Nome</MudTd>
-                <MudTd DataLabel="TerminoCurso">@($"{context.TerminoCurso:dd/MM/yyyy}")</MudTd>
+                <MudTd DataLabel="DataPiso">@($"{context.DataPiso:dd/MM/yyyy}")</MudTd>
             </RowTemplate>
             <PagerContent>
                 <MudTablePager Style="float: left;"

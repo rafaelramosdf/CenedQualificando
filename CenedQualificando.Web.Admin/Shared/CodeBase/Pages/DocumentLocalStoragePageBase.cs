@@ -1,5 +1,6 @@
 ﻿using Blazored.LocalStorage;
 using CenedQualificando.Domain.Models.Dtos;
+using CenedQualificando.Domain.Models.Enumerations;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ namespace CenedQualificando.Web.Admin.Shared.CodeBase.Pages
     {
         [Inject] protected StateContainer State { get; set; }
         [Inject] protected ISyncLocalStorageService LocalStorage { get; set; }
+        [Inject] protected NavigationManager NavigationManager { get; set; }
 
         protected override void OnInitialized()
         {
@@ -17,11 +19,13 @@ namespace CenedQualificando.Web.Admin.Shared.CodeBase.Pages
             State.OnChange += StateHasChanged;
         }
 
-        protected const string DATA_IMPRESSAO_DOCUMENTO_KEY = "DataImpressaoDocumento";
-        protected const string PENITENCIARIA_SELECIONADA_KEY = "PenitenciariaSelecionada";
-        protected const string MATRICULA_SELECIONADA_KEY = "MatriculaSelecionada";
-        protected const string MATRICULAS_SELECIONADAS_KEY = "MatriculasSelecionadas";
-        protected const string ID_MATRICULAS_SELECIONADAS_KEY = "IdMatriculasSelecionadas";
+        protected const string DATA_IMPRESSAO_DOCUMENTO_KEY = "DOC_DATA_IMPRESSAO";
+        protected const string ALUNO_SELECIONADO_KEY = "DOC_ALUNO_SELECIONADO";
+        protected const string PENITENCIARIA_SELECIONADA_KEY = "DOC_PENITENCIARIA_SELECIONADA";
+        protected const string MATRICULA_SELECIONADA_KEY = "DOC_MATRICULA_SELECIONADA";
+        protected const string MATRICULAS_SELECIONADAS_KEY = "DOC_MATRICULAS_SELECIONADAS";
+        protected const string ID_MATRICULAS_SELECIONADAS_KEY = "DOC_ID_MATRICULAS_SELECIONADAS";
+        protected const string TIPO_DECLARACAO_KEY = "DOC_TIPO_DECLARACAO";
 
         protected DateTime? DataImpressaoDocumento
         {
@@ -30,6 +34,15 @@ namespace CenedQualificando.Web.Admin.Shared.CodeBase.Pages
                 : null;
 
             set => LocalStorage.SetItem(DATA_IMPRESSAO_DOCUMENTO_KEY, value);
+        }
+
+        protected AlunoDto AlunoSelecionado
+        {
+            get => LocalStorage.ContainKey(ALUNO_SELECIONADO_KEY)
+                ? LocalStorage.GetItem<AlunoDto>(ALUNO_SELECIONADO_KEY)
+                : null;
+
+            set => LocalStorage.SetItem(ALUNO_SELECIONADO_KEY, value);
         }
 
         protected PenitenciariaDto PenitenciariaSelecionada
@@ -66,6 +79,15 @@ namespace CenedQualificando.Web.Admin.Shared.CodeBase.Pages
                 : null;
 
             set => LocalStorage.SetItem(ID_MATRICULAS_SELECIONADAS_KEY, value);
+        }
+
+        protected TipoDeclaracaoEnum TipoDeclaracao
+        {
+            get => LocalStorage.ContainKey(TIPO_DECLARACAO_KEY)
+                ? LocalStorage.GetItem<TipoDeclaracaoEnum>(TIPO_DECLARACAO_KEY)
+                : TipoDeclaracaoEnum.DeclaracaoCursosConcluidos;
+
+            set => LocalStorage.SetItem(TIPO_DECLARACAO_KEY, value);
         }
 
         public void Dispose()

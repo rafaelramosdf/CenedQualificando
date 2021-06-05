@@ -1,4 +1,4 @@
-﻿@page "/documentos/certificado"
+﻿@page "/documentos/encaminhamento-material"
 
 @using CenedQualificando.Web.Admin.Shared.Components.Select
 
@@ -9,8 +9,14 @@
 <MudCard Elevation="0">
     <MudCardContent>
         <MudGrid>
-            <MudItem md="9" xs="12">
-                <AlunoSelect @bind-Id="Filtro.IdAluno" />
+            <MudItem md="6" xs="12">
+                <PenitenciariaSelect @bind-Id="Filtro.IdPenitenciaria" OnSelected="@OnPenitenciariaSelected" />
+            </MudItem>
+            <MudItem md="3" xs="12">
+                <MudDatePicker @bind-Date="Filtro.PeriodoDataMatricula.Inicio" Label="Data Matrícula (a partir)" DateFormat="dd/MM/yyyy" />
+            </MudItem>
+            <MudItem md="3" xs="12">
+                <MudDatePicker @bind-Date="Filtro.PeriodoDataMatricula.Final" Label="Data Matrícula (até)" DateFormat="dd/MM/yyyy" />
             </MudItem>
         </MudGrid>
     </MudCardContent>
@@ -24,9 +30,9 @@
         </MudGrid>
     </MudCardActions>
 </MudCard>
-    
+
 <MudGrid>
-    <MudItem md="12">
+    <MudItem md="12" xs="12">
         <MudTable Items="@Lista"
                   Dense="true"
                   Hover="true"
@@ -34,8 +40,8 @@
                   Striped="false"
                   Elevation="0"
                   SortLabel="Ordenar por"
-                  MultiSelection="false"
-                  @bind-SelectedItem="Selecionado"
+                  MultiSelection="true"
+                  @bind-SelectedItems="Selecionados"
                   Filter="new Func<MatriculaDto,bool>(FilterFunc)">
             <ToolBarContent>
                 <MudToolBarSpacer />
@@ -60,14 +66,14 @@
                 </MudTh>
                 <MudTh>
                     <MudText>
-                        Data Conclusão
+                        Data Matrícula
                     </MudText>
                 </MudTh>
             </HeaderContent>
             <RowTemplate>
                 <MudTd DataLabel="Aluno">@context.Aluno.Nome.ToUpper() / @context.Aluno.Cpf</MudTd>
                 <MudTd DataLabel="Curso">@context.Curso.Codigo / @context.Curso.Nome</MudTd>
-                <MudTd DataLabel="TerminoCurso">@($"{context.TerminoCurso:dd/MM/yyyy}")</MudTd>
+                <MudTd DataLabel="DataMatricula">@($"{context.DataMatricula:dd/MM/yyyy}")</MudTd>
             </RowTemplate>
             <PagerContent>
                 <MudTablePager Style="float: left;"

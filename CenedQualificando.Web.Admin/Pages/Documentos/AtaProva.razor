@@ -10,7 +10,7 @@
     <MudCardContent>
         <MudGrid>
             <MudItem md="9" xs="12">
-                <PenitenciariaSelect @bind-Id="Filtro.IdPenitenciaria" ItemChanged="@OnItemChanged" />
+                <PenitenciariaSelect @bind-Id="Filtro.IdPenitenciaria" OnSelected="@OnPenitenciariaSelected" />
             </MudItem>
             <MudItem md="3" xs="12">
                 <MudDatePicker @bind-Date="DataImpressaoDocumento" Label="Data Aplicação" DateFormat="dd/MM/yyyy" />
@@ -33,9 +33,9 @@
         </MudGrid>
     </MudCardActions>
 </MudCard>
-    
+
 <MudGrid>
-    <MudItem md="12">
+    <MudItem md="12" xs="12">
         <MudTable Items="@Lista"
                   Dense="true"
                   Hover="true"
@@ -44,7 +44,7 @@
                   Elevation="0"
                   SortLabel="Ordenar por"
                   MultiSelection="true"
-                  @bind-SelectedItems="Selecionados" 
+                  @bind-SelectedItems="Selecionados"
                   Filter="new Func<MatriculaDto,bool>(FilterFunc)">
             <ToolBarContent>
                 <MudToolBarSpacer />
@@ -91,6 +91,6 @@
 <MudFab Color="Color.Success" Icon="@Icons.Material.Filled.Print" OnClick="@Imprimir"
         Style="position: fixed; bottom: 45px; right: 30px;" />
 
-<MudOverlay @bind-Visible="State.Carregando" DarkBackground="true" ZIndex="9999" AutoClose="true">
+<MudOverlay @bind-Visible="State.Carregando" ZIndex="9999" AutoClose="true">
     <MudProgressCircular Color="Color.Primary" Indeterminate="true" />
 </MudOverlay>

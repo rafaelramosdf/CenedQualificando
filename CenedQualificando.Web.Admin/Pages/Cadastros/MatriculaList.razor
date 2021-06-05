@@ -4,6 +4,10 @@
 @inject ISnackbar Snackbar
 @using Domain.Models.Dtos
 
+<MudOverlay @bind-Visible="State.Carregando" DarkBackground="false" ZIndex="999999" AutoClose="true">
+    <MudProgressCircular Color="Color.Success" Indeterminate="true" />
+</MudOverlay>
+
 <MudTable ServerData="@(new Func<TableState, Task<TableData<MatriculaDto>>>(ServerReload))"
           @ref="Table"
           Dense="true"
@@ -60,7 +64,7 @@
         <MudTd DataLabel="Aluno">@context.Aluno.Nome.ToUpper() / @context.Aluno.Cpf</MudTd>
         <MudTd DataLabel="Curso">@context.Curso.Codigo / @context.Curso.Nome</MudTd>
         <MudTd DataLabel="StatusCurso">
-            <MudText Color="@ObterClasseStatusCurso(context.StatusCurso)" Typo="MudBlazor.Typo.caption" Style="font-weight: bold;">
+            <MudText Color="@StyleHelper.ClasseCssStatusCurso(context.StatusCurso)" Typo="MudBlazor.Typo.caption" Style="font-weight: bold;">
                 @context.StatusCursoDescricao
             </MudText>
         </MudTd>
@@ -76,7 +80,3 @@
 
 <MudFab Color="Color.Success" Icon="@Icons.Material.Filled.Add"
         Style="position: fixed; bottom: 45px; right: 30px;" />
-
-<MudOverlay @bind-Visible="State.Carregando" DarkBackground="true" ZIndex="9999" AutoClose="true">
-    <MudProgressCircular Color="Color.Primary" Indeterminate="true" />
-</MudOverlay>

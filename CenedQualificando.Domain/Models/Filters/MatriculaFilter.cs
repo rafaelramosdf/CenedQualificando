@@ -21,5 +21,7 @@ namespace CenedQualificando.Domain.Models.Filters
         public IEnumerable<int> StatusCurso { get; set; } = new List<int>();
         public PeriodoData PeriodoDataMatricula { get; set; } = new PeriodoData();
         public PeriodoData PeriodoDataPiso { get; set; } = new PeriodoData();
+        public PeriodoData PeriodoDataCertificadoExpedido { get; set; } = new PeriodoData();
+        public PeriodoData PeriodoDataProvaRecebida { get; set; } = new PeriodoData();
     }
 }
