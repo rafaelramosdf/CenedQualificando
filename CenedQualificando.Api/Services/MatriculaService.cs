@@ -77,7 +77,10 @@ namespace CenedQualificando.Api.Services
                 }
             }
 
-            queryList = queryList.Include(i => i.Aluno).Include(i => i.Curso).Include(i => i.Provas);
+            queryList = queryList
+                .Include(i => i.Aluno)
+                .Include(i => i.Curso).ThenInclude(i => i.ImpressaoCertificado)
+                .Include(i => i.Provas);
 
             queryList = queryList.OrderByDescending(o => o.DataMatricula);
 

@@ -2,6 +2,8 @@
 using CenedQualificando.Domain.Models.Base;
 using CenedQualificando.Domain.Models.Entities;
 using CenedQualificando.Domain.Models.Enumerations;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CenedQualificando.Domain.Models.Dtos
 {
@@ -19,6 +21,8 @@ namespace CenedQualificando.Domain.Models.Dtos
         public string Conteudo { get; set; }
         public AtivoEnum Ativo { get; set; }
         public string AtivoDescricao => Ativo.EnumDescription();
+
+        public ICollection<ImpressaoCertificadoDto> ImpressaoCertificado { get; set; }
 
         public override void Validate()
         {

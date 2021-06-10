@@ -10,17 +10,13 @@ namespace CenedQualificando.Web.Admin.Shared.CodeBase.Pages
 
         protected bool Impresso = false;
 
-        protected override async Task OnInitializedAsync()
-        {
-            await Task.Delay(1500);
-        }
-
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             await base.OnAfterRenderAsync(firstRender);
 
             if (!firstRender && !Impresso)
             {
+                await Task.Delay(1500);
                 Impresso = true;
                 Imprimir();
             }
@@ -29,6 +25,7 @@ namespace CenedQualificando.Web.Admin.Shared.CodeBase.Pages
         protected void Imprimir()
         {
             JSRun.InvokeAsync<object>("print", null);
+            JSRun.InvokeAsync<object>("history.back", null);
         }
     }
 }

@@ -1,12 +1,10 @@
 ﻿using CenedQualificando.Domain.Models.Dtos;
 using CenedQualificando.Domain.Models.Enumerations.Filters;
 using CenedQualificando.Domain.Models.Filters;
-using CenedQualificando.Domain.Models.Utils;
 using CenedQualificando.Web.Admin.Services.RefitApiServices;
 using CenedQualificando.Web.Admin.Shared.CodeBase.Pages;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -66,7 +64,7 @@ namespace CenedQualificando.Web.Admin.Pages.Documentos
             if (Selecionados != null && Selecionados.Any())
             {
                 IdMatriculasSelecionadas = Selecionados.Select(s => s.Id).ToList();
-                NavigationManager.NavigateTo("/documentos/ata-prova/impressao");
+                OpenRoute("/documentos/ata-prova/impressao", true);
             }
             else
             {

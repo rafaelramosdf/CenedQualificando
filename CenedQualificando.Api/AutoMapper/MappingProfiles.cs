@@ -16,6 +16,7 @@ namespace Cened.Penitenciario.Api.AutoMapper
             CreateMap<Curso, CursoDto>().ReverseMap();
             CreateMap<FiscalSala, FiscalSalaDto>().ReverseMap();
             CreateMap<GrupoDePermissao, GrupoDePermissaoDto>().ReverseMap();
+            CreateMap<ImpressaoCertificado, ImpressaoCertificadoDto>().ReverseMap();
             CreateMap<Matricula, MatriculaDto>().ReverseMap();
             CreateMap<Penitenciaria, PenitenciariaDto>().ReverseMap();
             CreateMap<Permissao, PermissaoDto>().ReverseMap();

@@ -27,6 +27,17 @@ namespace CenedQualificando.Web.Admin.Shared.CodeBase.Pages
         protected const string ID_MATRICULAS_SELECIONADAS_KEY = "DOC_ID_MATRICULAS_SELECIONADAS";
         protected const string TIPO_DECLARACAO_KEY = "DOC_TIPO_DECLARACAO";
 
+        protected void LimparLocalStorage()
+        {
+            DataImpressaoDocumento = DateTime.Now;
+            LocalStorage.RemoveItem(ALUNO_SELECIONADO_KEY);
+            LocalStorage.RemoveItem(PENITENCIARIA_SELECIONADA_KEY);
+            LocalStorage.RemoveItem(MATRICULA_SELECIONADA_KEY);
+            LocalStorage.RemoveItem(MATRICULAS_SELECIONADAS_KEY);
+            LocalStorage.RemoveItem(ID_MATRICULAS_SELECIONADAS_KEY);
+            LocalStorage.RemoveItem(TIPO_DECLARACAO_KEY);
+        }
+
         protected DateTime? DataImpressaoDocumento
         {
             get => LocalStorage.ContainKey(DATA_IMPRESSAO_DOCUMENTO_KEY)

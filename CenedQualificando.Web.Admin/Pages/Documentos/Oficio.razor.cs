@@ -70,7 +70,7 @@ namespace CenedQualificando.Web.Admin.Pages.Documentos
             if (Selecionados != null && Selecionados.Any())
             {
                 IdMatriculasSelecionadas = Selecionados.Select(s => s.Id).ToList();
-                NavigationManager.NavigateTo("/documentos/oficio/impressao");
+                OpenRoute("/documentos/oficio/impressao", true);
             }
             else
             {

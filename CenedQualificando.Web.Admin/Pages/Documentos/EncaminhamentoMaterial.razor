@@ -6,6 +6,10 @@
 
 @using Domain.Models.Dtos
 
+<MudOverlay @bind-Visible="State.Carregando" ZIndex="999" AutoClose="true">
+    <MudProgressCircular Color="Color.Primary" Indeterminate="true" />
+</MudOverlay>
+
 <MudCard Elevation="0">
     <MudCardContent>
         <MudGrid>
@@ -34,7 +38,7 @@
 <MudGrid>
     <MudItem md="12" xs="12">
         <MudTable Items="@Lista"
-                  Dense="true"
+                  Dense="false"
                   Hover="true"
                   ReadOnly="true"
                   Striped="false"
@@ -87,7 +91,3 @@
 
 <MudFab Color="Color.Success" Icon="@Icons.Material.Filled.Print" OnClick="@Imprimir"
         Style="position: fixed; bottom: 45px; right: 30px;" />
-
-<MudOverlay @bind-Visible="State.Carregando" ZIndex="9999" AutoClose="true">
-    <MudProgressCircular Color="Color.Primary" Indeterminate="true" />
-</MudOverlay>

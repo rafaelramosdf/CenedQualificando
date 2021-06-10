@@ -7,6 +7,7 @@ using CenedQualificando.Web.Admin.Shared.CodeBase.Pages;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CenedQualificando.Web.Admin.Pages.Documentos
@@ -18,7 +19,7 @@ namespace CenedQualificando.Web.Admin.Pages.Documentos
 
         private IEnumerable<MatriculaDto> Lista = new List<MatriculaDto>();
 
-        private MatriculaDto Selecionado { get; set; }
+        private HashSet<MatriculaDto> Selecionados { get; set; }
 
         private MatriculaFilter Filtro = new MatriculaFilter 
         {
@@ -56,14 +57,14 @@ namespace CenedQualificando.Web.Admin.Pages.Documentos
 
         private void Imprimir()
         {
-            if (Selecionado != null)
+            if (Selecionados != null && Selecionados.Any())
             {
-                MatriculaSelecionada = Selecionado;
-                NavigationManager.NavigateTo("/documentos/certificado/impressao");
+                IdMatriculasSelecionadas = Selecionados.Select(s => s.Id).ToList();
+                OpenRoute("/documentos/certificado/impressao", true);
             }
             else
             {
-                Snackbar.Add("Selecione uma Matrícula!");
+                Snackbar.Add("Selecione pelo menos uma Matrícula!");
             }
         }
     }
