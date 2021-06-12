@@ -13,12 +13,11 @@
           @ref="Table"
           Dense="true"
           Hover="true"
-          ReadOnly="@SomenteLeitura"
+          ReadOnly="true"
           Striped="false"
           @bind-SelectedItem="ItemSelecionado"
           SortLabel="Ordenar por"
-          CommitEditTooltip="Salvar"
-          OnCommitEditClick="@(() => Snackbar.Add("Commit Edit Handler Invoked"))">
+          Elevation="0">
 
     <ToolBarContent>
         <MudToolBarSpacer />
@@ -76,5 +75,6 @@
     </PagerContent>
 </MudTable>
 
-<MudFab Color="Color.Success" Icon="@Icons.Material.Filled.Add"
-        Style="position: fixed; bottom: 45px; right: 30px;" />
+<MudFab Style="position: fixed; bottom: 30px; right: 30px;"
+        Color="Color.Success" Icon="@Icons.Material.Filled.Add" 
+        OnClick="@(() => OpenRoute("/cadastros/formularios/fiscais-salas"))" />

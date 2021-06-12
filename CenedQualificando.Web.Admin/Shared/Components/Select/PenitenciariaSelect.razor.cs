@@ -36,10 +36,10 @@ namespace CenedQualificando.Web.Admin.Shared.Components.Select
 
         private int Value { get; set; }
 
-        private void OnValueChanged(int id)
+        private async Task OnValueChanged(int id)
         {
-            IdChanged.InvokeAsync(id);
-            GetSelectedAsync(id);
+            await IdChanged .InvokeAsync(id);
+            await GetSelectedAsync(id);
         }
 
         private async Task GetSelectedAsync(int id)

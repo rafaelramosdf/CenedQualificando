@@ -6,9 +6,9 @@
 
   <ItemGroup>
     <PackageReference Include="Blazored.LocalStorage" Version="4.1.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.6" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.6" PrivateAssets="all" />
-    <PackageReference Include="MudBlazor" Version="5.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.7" PrivateAssets="all" />
+    <PackageReference Include="MudBlazor" Version="5.0.11" />
     <PackageReference Include="Refit" Version="6.0.38" />
     <PackageReference Include="Refit.HttpClientFactory" Version="6.0.38" />
     <PackageReference Include="Refit.Newtonsoft.Json" Version="6.0.38" />
@@ -17,33 +17,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CenedQualificando.Domain\CenedQualificando.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Pages\Documentos\AtaProvaImpressao - Copy %282%29 - Copy.razor.cs">
-      <DependentUpon>AtaProvaImpressao - Copy (2).razor.cs</DependentUpon>
-    </Compile>
-    <Compile Update="Pages\Documentos\AtaProvaImpressao - Copy %282%29.razor.cs">
-      <DependentUpon>AtaProvaImpressao.razor.cs</DependentUpon>
-    </Compile>
-    <Compile Update="Pages\Documentos\AtaProvaImpressao - Copy %283%29.razor.cs">
-      <DependentUpon>AtaProvaImpressao.razor.cs</DependentUpon>
-    </Compile>
-    <Compile Update="Pages\Documentos\AtaProvaImpressao - Copy - Copy %282%29.razor.cs">
-      <DependentUpon>AtaProvaImpressao - Copy.razor.cs</DependentUpon>
-    </Compile>
-    <Compile Update="Pages\Documentos\AtaProvaImpressao - Copy - Copy - Copy.razor.cs">
-      <DependentUpon>AtaProvaImpressao - Copy - Copy.razor.cs</DependentUpon>
-    </Compile>
-    <Compile Update="Pages\Documentos\AtaProvaImpressao - Copy - Copy.razor.cs">
-      <DependentUpon>AtaProvaImpressao - Copy.razor.cs</DependentUpon>
-    </Compile>
-    <Compile Update="Pages\Documentos\AtaProvaImpressao - Copy.razor.cs">
-      <DependentUpon>AtaProvaImpressao.razor.cs</DependentUpon>
-    </Compile>
-    <Compile Update="Shared\Components\Select\TipoDeclaracaoSelect - Copy.razor.cs">
-      <DependentUpon>TipoDeclaracaoSelect.razor.cs</DependentUpon>
-    </Compile>
   </ItemGroup>
 
 </Project>

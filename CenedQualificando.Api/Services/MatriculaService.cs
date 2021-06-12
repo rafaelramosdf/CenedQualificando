@@ -80,7 +80,8 @@ namespace CenedQualificando.Api.Services
             queryList = queryList
                 .Include(i => i.Aluno)
                 .Include(i => i.Curso).ThenInclude(i => i.ImpressaoCertificado)
-                .Include(i => i.Provas);
+                .Include(i => i.Provas)
+                .AsSplitQuery();
 
             queryList = queryList.OrderByDescending(o => o.DataMatricula);
 

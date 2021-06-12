@@ -25,7 +25,7 @@ namespace CenedQualificando.Api.Controllers.Base
         public virtual ActionResult<TDto> Incluir([FromBody] TDto model)
         {
             if (model == null)
-                return NotFound();
+                return BadRequest("O body request não pode ser nulo");
 
             model.Validate();
             if (!model.IsValid)
@@ -38,7 +38,7 @@ namespace CenedQualificando.Api.Controllers.Base
         public virtual ActionResult Alterar(int id, [FromBody] TDto model)
         {
             if (model == null)
-                return BadRequest();
+                return BadRequest("O body request não pode ser nulo");
 
             if (id != model.Id)
                 return BadRequest("ID inválido");
@@ -49,7 +49,7 @@ namespace CenedQualificando.Api.Controllers.Base
 
             var vm = Service.Buscar(id);
             if (vm == null)
-                return NotFound();
+                return NotFound("Nenhum recurso encontrado para o id informado");
 
             Service.Alterar(model);
 
@@ -62,7 +62,7 @@ namespace CenedQualificando.Api.Controllers.Base
             var model = Service.Buscar(id);
 
             if (model == null)
-                return NotFound();
+                return NotFound("Nenhum recurso encontrado para o id informado");
 
             Service.Excluir(model);
 
@@ -75,9 +75,7 @@ namespace CenedQualificando.Api.Controllers.Base
             var result = Service.Buscar(id);
 
             if (result == null)
-            {
-                return NotFound();
-            }
+                return NotFound("Nenhum recurso encontrado para o id informado");
 
             return Ok(result);
         }

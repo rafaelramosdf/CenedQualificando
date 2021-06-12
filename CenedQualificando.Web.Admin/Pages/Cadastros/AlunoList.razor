@@ -1,8 +1,8 @@
 ﻿@page "/cadastros/alunos"
 
+@using Domain.Models.Dtos
 @inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.ListPageBase<AlunoDto>
 @inject ISnackbar Snackbar
-@using Domain.Models.Dtos
 
 <MudOverlay @bind-Visible="State.Carregando" DarkBackground="false" ZIndex="999999" AutoClose="true">
     <MudProgressCircular Color="Color.Success" Indeterminate="true" />
@@ -12,10 +12,12 @@
           @ref="Table"
           Dense="true"
           Hover="true"
-          ReadOnly="@SomenteLeitura"
+          ReadOnly="true"
           Striped="false"
           @bind-SelectedItem="ItemSelecionado"
-          SortLabel="Ordenar por">
+          SortLabel="Ordenar por"
+          Elevation="0">
+
     <ToolBarContent>
         <MudToolBarSpacer />
         <MudTextField T="string" ValueChanged="@(s => OnSearch(s))"
@@ -60,5 +62,6 @@
     </PagerContent>
 </MudTable>
 
-<MudFab Color="Color.Success" Icon="@Icons.Material.Filled.Add"
-        Style="position: fixed; bottom: 45px; right: 30px;" />
+<MudFab Style="position: fixed; bottom: 30px; right: 30px;"
+        Color="Color.Success" Icon="@Icons.Material.Filled.Add" 
+        OnClick="@(() => OpenRoute("/cadastros/formularios/alunos"))" />

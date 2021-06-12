@@ -13,12 +13,11 @@
           @ref="Table"
           Dense="true"
           Hover="true"
-          ReadOnly="@SomenteLeitura"
+          ReadOnly="true"
           Striped="false"
           @bind-SelectedItem="ItemSelecionado"
           SortLabel="Ordenar por"
-          CommitEditTooltip="Salvar"
-          OnCommitEditClick="@(() => Snackbar.Add("Commit Edit Handler Invoked"))">
+          Elevation="0">
 
     <ToolBarContent>
         <MudToolBarSpacer />
@@ -54,21 +53,6 @@
         <MudTd DataLabel="UF">@context.UfDescricao</MudTd>
         <MudTd DataLabel="Ativo">@context.AtivoDescricao</MudTd>
     </RowTemplate>
-    <RowEditingTemplate>
-        <MudTd></MudTd>
-        <MudTd DataLabel="Nome">
-            <MudTextField @bind-Value="@context.Nome" Required />
-        </MudTd>
-        <MudTd DataLabel="Email">
-            <MudTextField @bind-Value="@context.Email" />
-        </MudTd>
-        <MudTd DataLabel="UF">
-            <MudTextField @bind-Value="@context.Uf" />
-        </MudTd>
-        <MudTd DataLabel="Ativo">
-            <MudNumericField @bind-Value="@context.Ativo" />
-        </MudTd>
-    </RowEditingTemplate>
     <PagerContent>
         <MudTablePager Style="float: left;"
                        RowsPerPageString="Itens por página: " 
@@ -77,5 +61,6 @@
     </PagerContent>
 </MudTable>
 
-<MudFab Color="Color.Success" Icon="@Icons.Material.Filled.Add"
-        Style="position: fixed; bottom: 45px; right: 30px;" />
+<MudFab Style="position: fixed; bottom: 30px; right: 30px;"
+        Color="Color.Success" Icon="@Icons.Material.Filled.Add" 
+        OnClick="@(() => OpenRoute("/cadastros/formularios/representantes"))" />
