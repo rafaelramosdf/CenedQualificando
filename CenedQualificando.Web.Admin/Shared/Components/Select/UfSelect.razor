@@ -1,0 +1,36 @@
+﻿@namespace CenedQualificando.Web.Admin.Shared.Components.Select
+
+@using CenedQualificando.Domain.Models.Enumerations
+
+<MudSelect T="UfEnum"
+           Value="@Value"
+           Label="@Label"
+           ValueChanged="@OnValueChanged"
+           Variant="@Variant"
+           Dense="@Dense"
+           Clearable="false">
+    <MudSelectItem Value="UfEnum.Null">Selecione...</MudSelectItem>
+    @{
+        foreach (var item in Enum.GetValues<UfEnum>())
+        {
+            if (item != UfEnum.Null)
+            {
+                <MudSelectItem Value="@item">@item.EnumDescription()</MudSelectItem>
+            }
+
+        }
+    }
+</MudSelect>
+
+@code {
+    [Parameter] public UfEnum Value { get; set; }
+    [Parameter] public string Label { get; set; } = "UF";
+    [Parameter] public Variant Variant { get; set; } = Variant.Outlined;
+    [Parameter] public bool Dense { get; set; } = false;
+    [Parameter] public EventCallback<UfEnum> ValueChanged { get; set; }
+
+    private void OnValueChanged(UfEnum value)
+    {
+        ValueChanged.InvokeAsync(value);
+    }
+}

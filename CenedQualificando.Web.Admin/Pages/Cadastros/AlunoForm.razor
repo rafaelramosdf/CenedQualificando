@@ -1,321 +1,297 @@
-﻿@page "/cadastros/formularios/alunos/{id:int?}"
+﻿@page "/cadastros/formularios/alunos/{id:int?}" 
+
+@using CenedQualificando.Web.Admin.Shared.Components.Select
 
 @inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.FormPageBase
 
-<MudCard Elevation="0">
-    <MudCardHeader>
-        <CardHeaderContent>
-            <MudText Color="Color.Primary">Dados Pessoais</MudText>
-        </CardHeaderContent>
-    </MudCardHeader>
-    <MudCardContent>
-        <MudGrid>
-            <MudItem md="10" xs="12">
-                <MudTextField Label="Nome" Placeholder="Nome completo do cursista"
-                              @bind-Value="Model.Nome"
-                              Variant="Variant.Outlined"
-                              Margin="Margin.Dense" />
-            </MudItem>
-            <MudItem md="2" xs="12">
-                <MudTextField Label="Sexo" Placeholder="Selecione..."
-                              @bind-Value="Model.Nome"
-                              Variant="Variant.Outlined"
-                              Margin="Margin.Dense" />
-            </MudItem>
+<EditForm Model="@Model" OnValidSubmit="OnValidSubmit">
+
+    <MudCard Elevation="0">
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText Color="Color.Primary">Dados Pessoais</MudText>
+            </CardHeaderContent>
+        </MudCardHeader>
+        <MudCardContent>
+            <MudGrid>
+                <MudItem md="10" xs="12">
+                    <MudTextField Label="Nome" Placeholder="Nome completo do cursista"
+                                  @bind-Value="Model.Nome" 
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense" />
+                </MudItem>
+                <MudItem md="2" xs="12">
+                    <SexoSelect @bind-Value="Model.Sexo" Dense="true" />
+                </MudItem>
 
 
-            <MudItem md="3" xs="12">
-                <MudTextField Label="Dt. Nascimento" Placeholder="dd/MM/yyyy" UserAttributes="@(new Dictionary<string, object> { { "autocomplete", "off" } })"
-                              @bind-Value="Model.Nome"
-                              Variant="Variant.Outlined"
-                              Margin="Margin.Dense" />
-            </MudItem>
-            <MudItem md="3" xs="12">
-                <MudTextField Label="CPF" Placeholder="CPF do cursista"
-                              @bind-Value="Model.Nome"
-                              Variant="Variant.Outlined"
-                              Margin="Margin.Dense" />
-            </MudItem>
-            <MudItem md="3" xs="12">
-                <MudTextField Label="Identidade" Placeholder="Número do RG"
-                              @bind-Value="Model.Nome"
-                              Variant="Variant.Outlined"
-                              Margin="Margin.Dense" />
-            </MudItem>
-            <MudItem md="3" xs="12">
-                <MudTextField Label="Ôrg. Expedidor" Placeholder="Ôrgão que expediu o RG"
-                              @bind-Value="Model.Nome"
-                              Variant="Variant.Outlined"
-                              Margin="Margin.Dense" />
-            </MudItem>
+                <MudItem md="3" xs="12">
+                    <MudDatePicker @bind-Date="Model.DataNascimento"
+                                   Label="Dt. Nascimento"
+                                   InputVariant="Variant.Outlined"
+                                   Margin="Margin.Dense"
+                                   DateFormat="dd/MM/yyyy" />
+                </MudItem>
+                <MudItem md="3" xs="12">
+                    <MudTextField Label="CPF" Placeholder="CPF do cursista"
+                                  @bind-Value="Model.Cpf"
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense" />
+                </MudItem>
+                <MudItem md="3" xs="12">
+                    <MudTextField Label="Identidade" Placeholder="Número do RG"
+                                  @bind-Value="Model.Rg"
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense" />
+                </MudItem>
+                <MudItem md="3" xs="12">
+                    <MudTextField Label="Ôrg. Expedidor" Placeholder="Ôrgão que expediu o RG"
+                                  @bind-Value="Model.OrgaoExpedidor"
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense" />
+                </MudItem>
 
 
-            <MudItem md="4" xs="12">
-                <MudTextField Label="Nacionalidade" Placeholder="País em que nasceu"
-                              @bind-Value="Model.Nome"
-                              Variant="Variant.Outlined"
-                              Margin="Margin.Dense" />
-            </MudItem>
-            <MudItem md="6" xs="12">
-                <MudTextField Label="Naturalidade" Placeholder="Cidade em que nasceu"
-                              @bind-Value="Model.Nome"
-                              Variant="Variant.Outlined"
-                              Margin="Margin.Dense" />
-            </MudItem>
-            <MudItem md="2" xs="12">
-                <MudTextField Label="UF" Placeholder="Selecione..."
-                              @bind-Value="Model.Nome"
-                              Variant="Variant.Outlined"
-                              Margin="Margin.Dense" />
-            </MudItem>
+                <MudItem md="4" xs="12">
+                    <MudTextField Label="Nacionalidade" Placeholder="País em que nasceu"
+                                  @bind-Value="Model.Nacionalidade"
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense" />
+                </MudItem>
+                <MudItem md="6" xs="12">
+                    <MudTextField Label="Naturalidade" Placeholder="Cidade em que nasceu"
+                                  @bind-Value="Model.Naturalidade"
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense" />
+                </MudItem>
+                <MudItem md="2" xs="12">
+                    <UfSelect @bind-Value="Model.UfNaturalidade" Dense="true" />
+                </MudItem>
 
 
-            <MudItem md="3" xs="12">
-                <MudTextField Label="CEP" Placeholder="CEP residencial"
-                              @bind-Value="Model.Nome"
-                              Variant="Variant.Outlined"
-                              Margin="Margin.Dense" />
-            </MudItem>
-            <MudItem md="9" xs="12">
-                <MudTextField Label="Endereço Residencial" Placeholder="Endereço residencial do cursista"
-                              @bind-Value="Model.Nome"
-                              Variant="Variant.Outlined"
-                              Margin="Margin.Dense" />
-            </MudItem>
+                <MudItem md="3" xs="12">
+                    <MudTextField Label="CEP" Placeholder="CEP residencial"
+                                  @bind-Value="Model.Cep"
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense" />
+                </MudItem>
+                <MudItem md="9" xs="12">
+                    <MudTextField Label="Endereço Residencial" Placeholder="Endereço residencial do cursista"
+                                  @bind-Value="Model.Endereco"
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense" />
+                </MudItem>
 
 
-            <MudItem md="5" xs="12">
-                <MudTextField Label="Bairro" Placeholder="Bairro residencial"
-                              @bind-Value="Model.Nome"
-                              Variant="Variant.Outlined"
-                              Margin="Margin.Dense" />
-            </MudItem>
-            <MudItem md="5" xs="12">
-                <MudTextField Label="Cidade" Placeholder="Cidade residencial"
-                              @bind-Value="Model.Nome"
-                              Variant="Variant.Outlined"
-                              Margin="Margin.Dense" />
-            </MudItem>
-            <MudItem md="2" xs="12">
-                <MudTextField Label="UF" Placeholder="Selecione..."
-                              @bind-Value="Model.Nome"
-                              Variant="Variant.Outlined"
-                              Margin="Margin.Dense" />
-            </MudItem>
-        </MudGrid>
-    </MudCardContent>
-</MudCard>
+                <MudItem md="5" xs="12">
+                    <MudTextField Label="Bairro" Placeholder="Bairro residencial"
+                                  @bind-Value="Model.Bairro"
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense" />
+                </MudItem>
+                <MudItem md="5" xs="12">
+                    <MudTextField Label="Cidade" Placeholder="Cidade residencial"
+                                  @bind-Value="Model.Cidade"
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense" />
+                </MudItem>
+                <MudItem md="2" xs="12">
+                    <UfSelect @bind-Value="Model.UfResidencial" Dense="true" />
+                </MudItem>
+            </MudGrid>
+        </MudCardContent>
+    </MudCard>
 
-<br />
+    <br />
 
-<MudCard Elevation="0">
-    <MudCardHeader>
-        <CardHeaderContent>
-            <MudText Color="Color.Primary">Dados Prisionais</MudText>
-        </CardHeaderContent>
-    </MudCardHeader>
-    <MudCardContent>
-        <MudGrid>
-            <MudItem md="6" xs="12">
-                <MudTextField Label="Penitenciária" Placeholder="Penitenciária onde cumpre pena"
-                              @bind-Value="Model.Nome"
-                              Variant="Variant.Outlined"
-                              Margin="Margin.Dense" />
-            </MudItem>
-            <MudItem md="3" xs="12">
-                <MudTextField Label="Condição" Placeholder="Selecione..."
-                              @bind-Value="Model.Nome"
-                              Variant="Variant.Outlined"
-                              Margin="Margin.Dense" />
-            </MudItem>
-            <MudItem md="3" xs="12">
-                <MudTextField Label="Regime" Placeholder="Selecione..."
-                              @bind-Value="Model.Nome"
-                              Variant="Variant.Outlined"
-                              Margin="Margin.Dense" />
-            </MudItem>
+    <MudCard Elevation="0">
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText Color="Color.Primary">Dados Prisionais</MudText>
+            </CardHeaderContent>
+        </MudCardHeader>
+        <MudCardContent>
+            <MudGrid>
+                <MudItem md="9" xs="12">
+                    <PenitenciariaSelect @bind-Id="Model.IdPenitenciaria" Dense="true" />
+                </MudItem>
+                <MudItem md="3" xs="12">
+                    <CondicaoPresoSelect @bind-Value="Model.CondicaoPreso" Dense="true" />
+                </MudItem>
 
+                <MudItem md="3" xs="12">
+                    <RegimeSelect @bind-Value="Model.Regime" Dense="true" />
+                </MudItem>
+                <MudItem md="3" xs="12">
+                    <MudTextField Label="Bloco" Placeholder="Bloco..."
+                                  @bind-Value="Model.Bloco"
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense" />
+                </MudItem>
+                <MudItem md="3" xs="12">
+                    <MudTextField Label="Ala" Placeholder="Ala..."
+                                  @bind-Value="Model.Ala"
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense" />
+                </MudItem>
+                <MudItem md="3" xs="12">
+                    <MudTextField Label="Cela" Placeholder="Cela..."
+                                  @bind-Value="Model.Cela"
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense" />
+                </MudItem>
+            </MudGrid>
+        </MudCardContent>
+    </MudCard>
 
-            <MudItem md="4" xs="12">
-                <MudTextField Label="Bloco" Placeholder="Bloco..."
-                              @bind-Value="Model.Nome"
-                              Variant="Variant.Outlined"
-                              Margin="Margin.Dense" />
-            </MudItem>
-            <MudItem md="4" xs="12">
-                <MudTextField Label="Ala" Placeholder="Ala..."
-                              @bind-Value="Model.Nome"
-                              Variant="Variant.Outlined"
-                              Margin="Margin.Dense" />
-            </MudItem>
-            <MudItem md="4" xs="12">
-                <MudTextField Label="Cela" Placeholder="Cela..."
-                              @bind-Value="Model.Nome"
-                              Variant="Variant.Outlined"
-                              Margin="Margin.Dense" />
-            </MudItem>
-        </MudGrid>
-    </MudCardContent>
-</MudCard>
+    <br />
 
-<br />
-
-<MudCard Elevation="0">
-    <MudCardHeader>
-        <CardHeaderContent>
-            <MudText Color="Color.Primary">Contatos e Preposto</MudText>
-        </CardHeaderContent>
-    </MudCardHeader>
-    <MudCardContent>
-        <MudGrid>
-            <MudItem md="2" xs="12">
-                <MudTextField Label="Celular" Placeholder="(99) 9999-9999"
-                              @bind-Value="Model.Nome"
-                              Variant="Variant.Outlined"
-                              Margin="Margin.Dense" />
-            </MudItem>
-            <MudItem md="2" xs="12">
-                <MudTextField Label="Tel. Residencial" Placeholder="(99) 9999-9999"
-                              @bind-Value="Model.Nome"
-                              Variant="Variant.Outlined"
-                              Margin="Margin.Dense" />
-            </MudItem>
-            <MudItem md="2" xs="12">
-                <MudTextField Label="Tel. Trabalho" Placeholder="(99) 9999-9999"
-                              @bind-Value="Model.Nome"
-                              Variant="Variant.Outlined"
-                              Margin="Margin.Dense" />
-            </MudItem>
-            <MudItem md="6" xs="12">
-                <MudTextField Label="E-mail" Placeholder="E-mail para contato"
-                              @bind-Value="Model.Nome"
-                              Variant="Variant.Outlined"
-                              Margin="Margin.Dense" />
-            </MudItem>
+    <MudCard Elevation="0">
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText Color="Color.Primary">Contatos e Preposto</MudText>
+            </CardHeaderContent>
+        </MudCardHeader>
+        <MudCardContent>
+            <MudGrid>
+                <MudItem md="2" xs="12">
+                    <MudTextField Label="Celular" Placeholder="(99) 9999-9999"
+                                  @bind-Value="Model.Celular"
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense" />
+                </MudItem>
+                <MudItem md="2" xs="12">
+                    <MudTextField Label="Tel. Residencial" Placeholder="(99) 9999-9999"
+                                  @bind-Value="Model.FoneResidencial"
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense" />
+                </MudItem>
+                <MudItem md="2" xs="12">
+                    <MudTextField Label="Tel. Trabalho" Placeholder="(99) 9999-9999"
+                                  @bind-Value="Model.FoneComercial"
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense" />
+                </MudItem>
+                <MudItem md="6" xs="12">
+                    <MudTextField Label="E-mail" Placeholder="E-mail para contato"
+                                  @bind-Value="Model.Email"
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense" />
+                </MudItem>
 
 
-            <MudItem md="8" xs="12">
-                <MudTextField Label="Preposto / Responsável pela Matrícula" Placeholder="Nome completo do responsável"
-                              @bind-Value="Model.Nome"
-                              Variant="Variant.Outlined"
-                              Margin="Margin.Dense" />
-            </MudItem>
-            <MudItem md="4" xs="12">
-                <MudTextField Label="Vinculo com o Reeducando" Placeholder="Selecione..."
-                              @bind-Value="Model.Nome"
-                              Variant="Variant.Outlined"
-                              Margin="Margin.Dense" />
-            </MudItem>
+                <MudItem md="8" xs="12">
+                    <MudTextField Label="Preposto / Responsável pela Matrícula" Placeholder="Nome completo do responsável"
+                                  @bind-Value="Model.NomePreposto"
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense" />
+                </MudItem>
+                <MudItem md="4" xs="12">
+                    <VinculoSelect @bind-Value="Model.Vinculo" Label="Vínculo com o Reeducando" Dense="true" />
+                </MudItem>
 
 
-            <MudItem md="2" xs="12">
-                <MudTextField Label="Sexo" Placeholder="Selecione..."
-                              @bind-Value="Model.Nome"
-                              Variant="Variant.Outlined"
-                              Margin="Margin.Dense" />
-            </MudItem>
-            <MudItem md="3">
-                <MudTextField Label="CPF" Placeholder="CPF do responsável"
-                              @bind-Value="Model.Nome"
-                              Variant="Variant.Outlined"
-                              Margin="Margin.Dense" />
-            </MudItem>
-            <MudItem md="3" xs="12">
-                <MudTextField Label="Identidade" Placeholder="RG do responsável"
-                              @bind-Value="Model.Nome"
-                              Variant="Variant.Outlined"
-                              Margin="Margin.Dense" />
-            </MudItem>
-            <MudItem md="4" xs="12">
-                <MudTextField Label="Ôrg. Expedidor" Placeholder="Ôrgão expedidor do RG"
-                              @bind-Value="Model.Nome"
-                              Variant="Variant.Outlined"
-                              Margin="Margin.Dense" />
-            </MudItem>
-        </MudGrid>
-    </MudCardContent>
-</MudCard>
+                <MudItem md="2" xs="12">
+                    <SexoSelect @bind-Value="Model.SexoPreposto" Dense="true" />
+                </MudItem>
+                <MudItem md="3">
+                    <MudTextField Label="CPF" Placeholder="CPF do responsável"
+                                  @bind-Value="Model.CpfPreposto"
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense" />
+                </MudItem>
+                <MudItem md="3" xs="12">
+                    <MudTextField Label="Identidade" Placeholder="RG do responsável"
+                                  @bind-Value="Model.RgPreposto"
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense" />
+                </MudItem>
+                <MudItem md="4" xs="12">
+                    <MudTextField Label="Ôrg. Expedidor" Placeholder="Ôrgão expedidor do RG"
+                                  @bind-Value="Model.OrgaoExpedidorPreposto"
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense" />
+                </MudItem>
+            </MudGrid>
+        </MudCardContent>
+    </MudCard>
 
-<br />
+    <br />
 
-<MudCard Elevation="0">
-    <MudCardHeader>
-        <CardHeaderContent>
-            <MudText Color="Color.Primary">Formação e Trabalho</MudText>
-        </CardHeaderContent>
-    </MudCardHeader>
-    <MudCardContent>
-        <MudGrid>
-            <MudItem md="4" xs="12">
-                <MudTextField Label="Grau de Instrução" Placeholder="Selecione..."
-                              @bind-Value="Model.Nome"
-                              Variant="Variant.Outlined"
-                              Margin="Margin.Dense" />
-            </MudItem>
-            <MudItem md="4" xs="12">
-                <MudTextField Label="Área de atuação ou habilitação" Placeholder="Selecione ou digite..."
-                              @bind-Value="Model.Nome"
-                              Variant="Variant.Outlined"
-                              Margin="Margin.Dense" />
-            </MudItem>
-            <MudItem md="4" xs="12">
-                <MudTextField Label="Profissão, Cargo ou Função" Placeholder="Selecione ou digite..."
-                              @bind-Value="Model.Nome"
-                              Variant="Variant.Outlined"
-                              Margin="Margin.Dense" />
-            </MudItem>
+    <MudCard Elevation="0">
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText Color="Color.Primary">Formação e Trabalho</MudText>
+            </CardHeaderContent>
+        </MudCardHeader>
+        <MudCardContent>
+            <MudGrid>
+                <MudItem md="4" xs="12">
+                    <GrauEscolaridadeSelect @bind-Value="Model.GrauInstrucao" Label="Grau de Instrução" Dense="true" />
+                </MudItem>
+                <MudItem md="4" xs="12">
+                    <MudTextField Label="Área de atuação ou habilitação" Placeholder="Selecione ou digite..."
+                                  @bind-Value="Model.AtuacaoHabilitacao"
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense" />
+                </MudItem>
+                <MudItem md="4" xs="12">
+                    <MudTextField Label="Profissão, Cargo ou Função" Placeholder="Selecione ou digite..."
+                                  @bind-Value="Model.Profissao"
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense" />
+                </MudItem>
 
 
-            <MudItem md="6" xs="12">
-                <MudTextField Label="Local de trabalho" Placeholder="Local onde trabalha..."
-                              @bind-Value="Model.Nome"
-                              Variant="Variant.Outlined"
-                              Margin="Margin.Dense" />
-            </MudItem>
-            <MudItem md="4" xs="12">
-                <MudTextField Label="Cidade" Placeholder="Cidade onde trabalha..."
-                              @bind-Value="Model.Nome"
-                              Variant="Variant.Outlined"
-                              Margin="Margin.Dense" />
-            </MudItem>
-            <MudItem md="2" xs="12">
-                <MudTextField Label="UF" Placeholder="Selecione..."
-                              @bind-Value="Model.Nome"
-                              Variant="Variant.Outlined"
-                              Margin="Margin.Dense" />
-            </MudItem>
-        </MudGrid>
-    </MudCardContent>
-</MudCard>
+                <MudItem md="6" xs="12">
+                    <MudTextField Label="Local de trabalho" Placeholder="Local onde trabalha..."
+                                  @bind-Value="Model.LocalTrabalho"
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense" />
+                </MudItem>
+                <MudItem md="4" xs="12">
+                    <MudTextField Label="Cidade" Placeholder="Cidade onde trabalha..."
+                                  @bind-Value="Model.CidadeTrabalho"
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense" />
+                </MudItem>
+                <MudItem md="2" xs="12">
+                    <UfSelect @bind-Value="Model.UfTrabalho" Dense="true" />
+                </MudItem>
+            </MudGrid>
+        </MudCardContent>
+    </MudCard>
 
-<br />
+    <br />
 
-<MudCard Elevation="0">
-    <MudCardHeader>
-        <CardHeaderContent>
-            <MudText Color="Color.Primary">Informações Gerais</MudText>
-        </CardHeaderContent>
-    </MudCardHeader>
-    <MudCardContent>
-        <MudGrid>
-            <MudItem md="12" xs="12">
-                <MudTextField Label="Observações" Placeholder="Observações e anotações gerais..."
-                              @bind-Value="Model.Nome"
-                              Variant="Variant.Outlined"
-                              Margin="Margin.Dense"
-                              Lines="3"/>
-            </MudItem>
-        </MudGrid>
-    </MudCardContent>
-</MudCard>
+    <MudCard Elevation="0">
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText Color="Color.Primary">Informações Gerais</MudText>
+            </CardHeaderContent>
+        </MudCardHeader>
+        <MudCardContent>
+            <MudGrid>
+                <MudItem md="12" xs="12">
+                    <MudTextField Label="Observações" Placeholder="Observações e anotações gerais..."
+                                  @bind-Value="Model.Observacoes"
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense"
+                                  Lines="3" />
+                </MudItem>
+            </MudGrid>
+        </MudCardContent>
+    </MudCard>
 
-<div style="position: fixed; bottom: 30px; right: 30px;">
-    <MudTooltip Text="Cancelar" Placement="Placement.Top">
-        <MudFab Icon="@Icons.Material.Filled.Close" Color="Color.Default" Size="Size.Small" 
-                OnClick="@(() => OpenRoute("/cadastros/alunos"))"
-                DisableElevation="true" />
-    </MudTooltip>
-    <MudTooltip Text="Salvar" Placement="Placement.Top">
-        <MudFab Icon="@Icons.Material.Filled.Save" Color="Color.Success" Size="Size.Large" />
-    </MudTooltip>
-</div>
+    <div style="position: fixed; bottom: 30px; right: 30px;">
+        <MudTooltip Text="Cancelar" Placement="Placement.Top">
+            <MudFab Icon="@Icons.Material.Filled.Close" Color="Color.Default" Size="Size.Small"
+                    OnClick="@(() => OpenRoute("/cadastros/alunos"))"
+                    DisableElevation="true" />
+        </MudTooltip>
+        <MudTooltip Text="Salvar" Placement="Placement.Top">
+            <MudFab Icon="@Icons.Material.Filled.Save" Color="Color.Success" Size="Size.Large" />
+        </MudTooltip>
+    </div>
+
+</EditForm>

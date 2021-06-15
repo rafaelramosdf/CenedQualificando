@@ -43,8 +43,7 @@
     <RowTemplate>
         <MudTd>
             <MudMenu Icon="@Icons.Material.Filled.MoreVert">
-                <MudMenuItem>Alterar</MudMenuItem>
-                <MudMenuItem>Consultar</MudMenuItem>
+                <MudMenuItem OnClick="@(() => OpenRoute($"/cadastros/formularios/alunos/{context.Id}"))">Abrir</MudMenuItem>
                 <MudMenuItem>Excluir</MudMenuItem>
             </MudMenu>
         </MudTd>

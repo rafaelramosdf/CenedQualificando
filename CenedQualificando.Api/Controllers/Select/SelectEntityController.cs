@@ -16,7 +16,7 @@ namespace CenedQualificando.Api.Controllers.Select
             [FromServices] IPenitenciariaService service,
             [FromQuery] SelectSearchParam param)
         {
-            return Ok(service.ObterComboSelecao(param.Term, param.Size));
+            return Ok(service.ObterComboSelecao(param.Term, param.Size, param.Selected));
         }
 
         [HttpGet("alunos")]

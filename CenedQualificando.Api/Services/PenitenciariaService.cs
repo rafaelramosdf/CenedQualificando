@@ -26,7 +26,7 @@ namespace CenedQualificando.Api.Services
         {
         }
 
-        public IEnumerable<SelectResult> ObterComboSelecao(string pesquisa, int quantidade = 10)
+        public IEnumerable<SelectResult> ObterComboSelecao(string pesquisa, int quantidade = 10, int selecionado = 0)
         {
             var selectList = new List<SelectResult>();
 
@@ -52,10 +52,22 @@ namespace CenedQualificando.Api.Services
                 {
                     selectList.Add(new SelectResult 
                     {
-                        Id = item.IdPenitenciaria,
+                        Id = item.Id,
                         Text = $"{item.Nome} | {((UfEnum)item.Uf).EnumDescription()}"
                     });
                 }
+            }
+
+            if(selecionado > 0)
+            {
+                var entity = Repository.Get(selecionado);
+                selectList.Add(new SelectResult 
+                { 
+                    Id = entity.Id, 
+                    Text = $"{entity.Nome} | {((UfEnum)entity.Uf).EnumDescription()}" 
+                });
+
+                selectList = selectList.OrderBy(o => o.Text).ToList();
             }
 
             return selectList;

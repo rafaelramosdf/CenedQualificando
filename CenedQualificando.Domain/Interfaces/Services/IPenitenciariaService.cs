@@ -7,6 +7,6 @@ namespace CenedQualificando.Domain.Interfaces.Services
 {
     public interface IPenitenciariaService : IBaseService<Penitenciaria, PenitenciariaDto>
     {
-        IEnumerable<SelectResult> ObterComboSelecao(string pesquisa, int quantidade);
+        IEnumerable<SelectResult> ObterComboSelecao(string pesquisa, int quantidade = 10, int selecionado = 0);
     }
 }

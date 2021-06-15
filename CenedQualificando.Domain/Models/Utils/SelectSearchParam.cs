@@ -17,6 +17,13 @@
             Size = size;
         }
 
+        public SelectSearchParam(string term, int size, int selected)
+        {
+            Term = term;
+            Size = size;
+            Selected = selected;
+        }
+
         public string Term { get; set; }
         public int Size { get; set; }
         public int Selected { get; set; } = 0;

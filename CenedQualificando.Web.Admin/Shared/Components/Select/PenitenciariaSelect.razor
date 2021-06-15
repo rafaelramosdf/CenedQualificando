@@ -1,11 +1,16 @@
-﻿@namespace CenedQualificando.Web.Admin.Shared.Components.Select
+﻿@using CenedQualificando.Domain.Models.Dtos
+@using CenedQualificando.Domain.Models.Utils
+@using CenedQualificando.Domain.Models.Enumerations
+
+@namespace CenedQualificando.Web.Admin.Shared.Components.Select
 
 @inject CenedQualificando.Web.Admin.Services.RefitApiServices.IComboEntidadeApiService Service
 @inject CenedQualificando.Web.Admin.Services.RefitApiServices.IPenitenciariaApiService PenitenciariaApiService
 
-<MudAutocomplete T="int" 
-                 Label="Penitenciária"
+<MudAutocomplete T="int"
+                 Label="@Label"
                  Value="@Value"
+                 @bind-Text="SelectedText"
                  SearchFunc="@Search"
                  ValueChanged="@OnValueChanged"
                  ResetValueOnEmptyText="true"
@@ -13,5 +18,64 @@
                  Clearable="true"
                  ToStringFunc="@ToStringFunc"
                  Placeholder="Digite o Nome da Penitenciária"
+                 Variant="@Variant"
+                 Dense="@Dense"
                  MinCharacters="3"
                  MaxItems="20" />
+
+@code{
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Id > 0)
+            await ObterSelecionado(Id);
+    }
+
+    [Parameter]
+    public int Id
+    {
+        get => Value;
+        set
+        {
+            Value = value;
+        }
+    }
+
+    [Parameter] public EventCallback<int> IdChanged { get; set; }
+    [Parameter] public EventCallback<PenitenciariaDto> OnSelected { get; set; }
+    [Parameter] public string Label { get; set; } = "Penitenciária";
+    [Parameter] public Variant Variant { get; set; } = Variant.Outlined;
+    [Parameter] public bool Dense { get; set; } = false;
+
+    private IEnumerable<SelectResult> Items { get; set; }
+    private PenitenciariaDto Selected { get; set; }
+    private string SelectedText { get; set; }
+
+    private string ToStringFunc(int id) => Items.FirstOrDefault(x => x.Id == id)?.Text;
+
+    private async Task<IEnumerable<int>> Search(string pesquisa)
+    {
+        Items = await Service.Penitenciarias(new SelectSearchParam(pesquisa, 20, Id));
+        return Items.Select(x => x.Id);
+    }
+
+    private int Value { get; set; }
+
+    private async Task OnValueChanged(int id)
+    {
+        await IdChanged.InvokeAsync(id);
+        await GetSelectedAsync(id);
+    }
+
+    private async Task GetSelectedAsync(int id)
+    {
+        await ObterSelecionado(id);
+        await OnSelected.InvokeAsync(Selected);
+    }
+
+    private async Task ObterSelecionado(int id)
+    {
+        Selected = await PenitenciariaApiService.Buscar(id);
+        SelectedText = $"{Selected.Nome} | {((UfEnum)Selected.Uf).EnumDescription()}";
+    }
+}
