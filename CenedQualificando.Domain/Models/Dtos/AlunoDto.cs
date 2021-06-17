@@ -1,8 +1,10 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using CenedQualificando.Domain.Extensions;
 using CenedQualificando.Domain.Models.Base;
 using CenedQualificando.Domain.Models.Entities;
 using CenedQualificando.Domain.Models.Enumerations;
+using CenedQualificando.Domain.Resources;
 
 namespace CenedQualificando.Domain.Models.Dtos
 {
@@ -11,13 +13,27 @@ namespace CenedQualificando.Domain.Models.Dtos
         public override int Id => IdAluno;
 
         public int IdAluno { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(ErrorMessageResource),
+            ErrorMessageResourceName = nameof(ErrorMessageResource.CampoObrigatorio))]
         public string Nome { get; set; }
+
         public SexoEnum Sexo { get; set; }
+
         public string SexoDescricao => Sexo.EnumDescription();
+
+        [Required(ErrorMessageResourceType = typeof(ErrorMessageResource),
+            ErrorMessageResourceName = nameof(ErrorMessageResource.CampoObrigatorio))]
         public string Cpf { get; set; }
+
         public string Rg { get; set; }
+
         public string OrgaoExpedidor { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(ErrorMessageResource), 
+            ErrorMessageResourceName = nameof(ErrorMessageResource.CampoObrigatorio))]
         public DateTime? DataNascimento { get; set; }
+
         public string Naturalidade { get; set; }
         public UfEnum UfNaturalidade { get; set; }
         public string UfNaturalidadeDescricao => UfNaturalidade.EnumDescription();
@@ -63,6 +79,8 @@ namespace CenedQualificando.Domain.Models.Dtos
 
         public override void Validate()
         {
+            Requires()
+            .IsNotEmpty(Nome, GetRequiredMessage(nameof(Nome)));
         }
     }
 }

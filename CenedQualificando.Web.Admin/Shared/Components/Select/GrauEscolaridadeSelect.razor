@@ -6,7 +6,7 @@
                  Label="@Label" 
                  Value="@Value" 
                  ValueChanged="@ValueChanged" 
-                 SearchFunc="@OnSearch" 
+                 SearchFunc="@Search" 
                  ResetValueOnEmptyText="true"
                  CoerceText="true" 
                  CoerceValue="true" 
@@ -31,11 +31,15 @@
         ValueChanged.InvokeAsync(value);
     }
 
-    private async Task<IEnumerable<string>> OnSearch(string value)
+    private async Task<IEnumerable<string>> Search(string value)
     {
-        if (string.IsNullOrEmpty(value))
-            return Items;
+        var result = Items;
 
-        return Items.Where(x => x.Contains(value));
+        await Task.Run(() => {
+            if (!string.IsNullOrEmpty(value))
+                result = result.Where(x => x.Contains(value));
+        });
+
+        return result;
     }
 }

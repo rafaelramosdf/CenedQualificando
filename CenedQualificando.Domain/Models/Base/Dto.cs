@@ -9,7 +9,12 @@ namespace CenedQualificando.Domain.Models.Base
 
         public virtual void Validate()
         {
-            // Implementar na classe filha
+            // Implementar na classe filho
+        }
+
+        protected string GetRequiredMessage(string propName)
+        {
+            return $"O campo \"{propName}\" é obrigatório";
         }
     }
 }

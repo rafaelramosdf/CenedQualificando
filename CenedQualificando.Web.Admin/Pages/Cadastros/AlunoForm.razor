@@ -1,11 +1,12 @@
-﻿@page "/cadastros/formularios/alunos/{id:int?}" 
+﻿@page "/cadastros/formularios/alunos/{id:int?}"
 
 @using CenedQualificando.Web.Admin.Shared.Components.Select
+@using System.ComponentModel.DataAnnotations
 
 @inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.FormPageBase
 
 <EditForm Model="@Model" OnValidSubmit="OnValidSubmit">
-
+    <DataAnnotationsValidator />
     <MudCard Elevation="0">
         <MudCardHeader>
             <CardHeaderContent>
@@ -16,7 +17,8 @@
             <MudGrid>
                 <MudItem md="10" xs="12">
                     <MudTextField Label="Nome" Placeholder="Nome completo do cursista"
-                                  @bind-Value="Model.Nome" 
+                                  @bind-Value="Model.Nome"
+                                  For="@(() => Model.Nome)"
                                   Variant="Variant.Outlined"
                                   Margin="Margin.Dense" />
                 </MudItem>
@@ -26,7 +28,8 @@
 
 
                 <MudItem md="3" xs="12">
-                    <MudDatePicker @bind-Date="Model.DataNascimento"
+                    <MudDatePicker @bind-Date="Model.DataNascimento" 
+                                   For="@(() => Model.DataNascimento)"
                                    Label="Dt. Nascimento"
                                    InputVariant="Variant.Outlined"
                                    Margin="Margin.Dense"
@@ -35,8 +38,10 @@
                 <MudItem md="3" xs="12">
                     <MudTextField Label="CPF" Placeholder="CPF do cursista"
                                   @bind-Value="Model.Cpf"
+                                  For="@(() => Model.Cpf)"
                                   Variant="Variant.Outlined"
-                                  Margin="Margin.Dense" />
+                                  Margin="Margin.Dense"
+                                  UserAttributes="@(new Dictionary<string, object> { { "mask", "cpf" } })" />
                 </MudItem>
                 <MudItem md="3" xs="12">
                     <MudTextField Label="Identidade" Placeholder="Número do RG"
@@ -73,7 +78,8 @@
                     <MudTextField Label="CEP" Placeholder="CEP residencial"
                                   @bind-Value="Model.Cep"
                                   Variant="Variant.Outlined"
-                                  Margin="Margin.Dense" />
+                                  Margin="Margin.Dense"
+                                  UserAttributes="@(new Dictionary<string, object> { { "mask", "cep" } })" />
                 </MudItem>
                 <MudItem md="9" xs="12">
                     <MudTextField Label="Endereço Residencial" Placeholder="Endereço residencial do cursista"
@@ -158,19 +164,22 @@
                     <MudTextField Label="Celular" Placeholder="(99) 9999-9999"
                                   @bind-Value="Model.Celular"
                                   Variant="Variant.Outlined"
-                                  Margin="Margin.Dense" />
+                                  Margin="Margin.Dense"
+                                  UserAttributes="@(new Dictionary<string, object> { { "mask", "phone" } })" />
                 </MudItem>
                 <MudItem md="2" xs="12">
                     <MudTextField Label="Tel. Residencial" Placeholder="(99) 9999-9999"
                                   @bind-Value="Model.FoneResidencial"
                                   Variant="Variant.Outlined"
-                                  Margin="Margin.Dense" />
+                                  Margin="Margin.Dense"
+                                  UserAttributes="@(new Dictionary<string, object> { { "mask", "phone" } })" />
                 </MudItem>
                 <MudItem md="2" xs="12">
                     <MudTextField Label="Tel. Trabalho" Placeholder="(99) 9999-9999"
                                   @bind-Value="Model.FoneComercial"
                                   Variant="Variant.Outlined"
-                                  Margin="Margin.Dense" />
+                                  Margin="Margin.Dense"
+                                  UserAttributes="@(new Dictionary<string, object> { { "mask", "phone" } })" />
                 </MudItem>
                 <MudItem md="6" xs="12">
                     <MudTextField Label="E-mail" Placeholder="E-mail para contato"
@@ -198,7 +207,8 @@
                     <MudTextField Label="CPF" Placeholder="CPF do responsável"
                                   @bind-Value="Model.CpfPreposto"
                                   Variant="Variant.Outlined"
-                                  Margin="Margin.Dense" />
+                                  Margin="Margin.Dense"
+                                  UserAttributes="@(new Dictionary<string, object> { { "mask", "cpf" } })" />
                 </MudItem>
                 <MudItem md="3" xs="12">
                     <MudTextField Label="Identidade" Placeholder="RG do responsável"

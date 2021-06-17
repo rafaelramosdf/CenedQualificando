@@ -28,7 +28,7 @@
     protected override async Task OnInitializedAsync()
     {
         if (Id > 0)
-            await ObterSelecionado(Id);
+            await GetSelectedText(Id);
     }
 
     [Parameter]
@@ -69,11 +69,11 @@
 
     private async Task GetSelectedAsync(int id)
     {
-        await ObterSelecionado(id);
+        await GetSelectedText(id);
         await OnSelected.InvokeAsync(Selected);
     }
 
-    private async Task ObterSelecionado(int id)
+    private async Task GetSelectedText(int id)
     {
         Selected = await PenitenciariaApiService.Buscar(id);
         SelectedText = $"{Selected.Nome} | {((UfEnum)Selected.Uf).EnumDescription()}";
