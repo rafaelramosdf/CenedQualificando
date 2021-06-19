@@ -24,12 +24,8 @@ namespace CenedQualificando.Api.Controllers.Base
         [HttpPost]
         public virtual ActionResult<TDto> Incluir([FromBody] TDto model)
         {
-            if (model == null)
-                return BadRequest("O body request não pode ser nulo");
-
-            model.Validate();
-            if (!model.IsValid)
-                return BadRequest(model.Notifications);
+            if (!ModelState.IsValid)
+                return BadRequest();
 
             return Created(nameof(TEntity), Service.Incluir(model));
         }
@@ -37,15 +33,11 @@ namespace CenedQualificando.Api.Controllers.Base
         [HttpPut("{id:int}")]
         public virtual ActionResult Alterar(int id, [FromBody] TDto model)
         {
-            if (model == null)
-                return BadRequest("O body request não pode ser nulo");
+            if (!ModelState.IsValid)
+                return BadRequest();
 
             if (id != model.Id)
                 return BadRequest("ID inválido");
-
-            model.Validate();
-            if (!model.IsValid)
-                return BadRequest(model.Notifications);
 
             var vm = Service.Buscar(id);
             if (vm == null)
