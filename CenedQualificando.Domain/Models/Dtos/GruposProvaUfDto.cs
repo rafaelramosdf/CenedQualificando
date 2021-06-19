@@ -10,9 +10,5 @@ namespace CenedQualificando.Domain.Models.Dtos
         public int IdGruposProvaUf { get; set; }
         public int IdGrupoProva { get; set; }
         public int Uf { get; set; }
-
-        public override void Validate()
-        {
-        }
     }
 }

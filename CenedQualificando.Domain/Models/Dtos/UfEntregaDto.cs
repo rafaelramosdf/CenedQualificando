@@ -10,9 +10,5 @@ namespace CenedQualificando.Domain.Models.Dtos
         public int IdUf { get; set; }
         public int Uf { get; set; }
         public decimal Taxa { get; set; }
-
-        public override void Validate()
-        {
-        }
     }
 }

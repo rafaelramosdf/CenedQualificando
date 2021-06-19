@@ -13,9 +13,5 @@ namespace CenedQualificando.Domain.Models.Dtos
         public string NomeCurso { get; set; }
         public decimal ValorTotal { get; set; }
         public string Referencia { get; set; }
-
-        public override void Validate()
-        {
-        }
     }
 }

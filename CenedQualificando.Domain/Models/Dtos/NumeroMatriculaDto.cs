@@ -10,9 +10,5 @@ namespace CenedQualificando.Domain.Models.Dtos
         public int IdNumeroMatricula { get; set; }
         public string Prefixo { get; set; }
         public int Numero { get; set; }
-
-        public override void Validate()
-        {
-        }
     }
 }

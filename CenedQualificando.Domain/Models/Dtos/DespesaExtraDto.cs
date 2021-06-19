@@ -16,9 +16,5 @@ namespace CenedQualificando.Domain.Models.Dtos
         public int FormaPagamento { get; set; }
         public decimal Valor { get; set; }
         public DateTime? DataPagamento { get; set; }
-
-        public override void Validate()
-        {
-        }
     }
 }

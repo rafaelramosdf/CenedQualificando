@@ -12,9 +12,5 @@ namespace CenedQualificando.Domain.Models.Dtos
         public int IdAgentePenitenciario { get; set; }
         public int IdPenitenciaria { get; set; }
         public DateTime? DataInicioParceria { get; set; }
-
-        public override void Validate()
-        {
-        }
     }
 }

@@ -5,8 +5,10 @@
 
 @inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.FormPageBase
 
-<EditForm Model="@Model" OnValidSubmit="OnValidSubmit">
+<EditForm Model="@Model" OnSubmit="OnSubmit">
+
     <DataAnnotationsValidator />
+
     <MudCard Elevation="0">
         <MudCardHeader>
             <CardHeaderContent>
@@ -300,8 +302,8 @@
                     DisableElevation="true" />
         </MudTooltip>
         <MudTooltip Text="Salvar" Placement="Placement.Top">
-            <MudFab Icon="@Icons.Material.Filled.Save" Color="Color.Success" Size="Size.Large" />
+            <MudFab Icon="@Icons.Material.Filled.Save" Color="Color.Success" Size="Size.Large" ButtonType="ButtonType.Submit" />
         </MudTooltip>
-    </div>
+    </div> 
 
 </EditForm>

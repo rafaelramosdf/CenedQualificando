@@ -25,9 +25,5 @@ namespace CenedQualificando.Domain.Models.Dtos
         public string Nome { get; set; }
         public bool Selecionado { get; set; }
         public int IdGrupoDePermissao { get; set; }
-
-        public override void Validate()
-        {
-        }
     }
 }

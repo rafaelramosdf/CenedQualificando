@@ -23,9 +23,5 @@ namespace CenedQualificando.Domain.Models.Dtos
         public string AtivoDescricao => Ativo.EnumDescription();
 
         public ICollection<ImpressaoCertificadoDto> ImpressaoCertificado { get; set; }
-
-        public override void Validate()
-        {
-        }
     }
 }

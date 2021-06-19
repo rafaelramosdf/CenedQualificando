@@ -16,9 +16,5 @@ namespace CenedQualificando.Domain.Models.Dtos
         public int Autor { get; set; }
         public string UsuarioEmitente { get; set; }
         public int CopiaPara { get; set; }
-
-        public override void Validate()
-        {
-        }
     }
 }

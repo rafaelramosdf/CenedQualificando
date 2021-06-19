@@ -20,12 +20,5 @@ namespace CenedQualificando.Domain.Models.Dtos
         public string Rg { get; set; }
         public UfEnum Uf { get; set; }
         public string UfDescricao => Uf.EnumDescription();
-
-        public override void Validate()
-        {
-            Requires()
-                .IsNotNullOrEmpty(Nome, nameof(Nome), "Preencha o campo 'Nome'")
-                .IsCpf(Cpf, nameof(Cpf), "CPF inválido");
-        }
     }
 }

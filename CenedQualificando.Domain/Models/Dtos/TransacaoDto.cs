@@ -39,9 +39,5 @@ namespace CenedQualificando.Domain.Models.Dtos
         public string Cidade { get; set; }
         public string UfEntrega { get; set; }
         public string Cep { get; set; }
-
-        public override void Validate()
-        {
-        }
     }
 }

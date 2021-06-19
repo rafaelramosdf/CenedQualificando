@@ -16,9 +16,5 @@ namespace CenedQualificando.Domain.Models.Dtos
         public decimal? Nota { get; set; }
         public int ResultadoProva { get; set; }
         public int IdMatricula { get; set; }
-
-        public override void Validate()
-        {
-        }
     }
 }

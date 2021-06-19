@@ -13,9 +13,5 @@ namespace CenedQualificando.Domain.Models.Dtos
         public int QuantidadeProva { get; set; }
         public int EstoqueMinimo { get; set; }
         public int IdCurso { get; set; }
-
-        public override void Validate()
-        {
-        }
     }
 }

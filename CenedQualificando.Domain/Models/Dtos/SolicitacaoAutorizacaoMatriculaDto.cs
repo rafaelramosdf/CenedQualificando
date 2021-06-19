@@ -27,9 +27,5 @@ namespace CenedQualificando.Domain.Models.Dtos
         public string EnderecoIp { get; set; }
         public DateTime DataHora { get; set; }
         public string ListaDeCursos { get; set; }
-
-        public override void Validate()
-        {
-        }
     }
 }

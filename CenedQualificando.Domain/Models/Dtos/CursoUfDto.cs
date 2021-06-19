@@ -9,9 +9,5 @@ namespace CenedQualificando.Domain.Models.Dtos
 
         public int IdCursoUf { get; set; }
         public int Uf { get; set; }
-
-        public override void Validate()
-        {
-        }
     }
 }

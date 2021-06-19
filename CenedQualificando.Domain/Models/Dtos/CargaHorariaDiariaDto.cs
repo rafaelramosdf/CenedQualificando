@@ -10,9 +10,5 @@ namespace CenedQualificando.Domain.Models.Dtos
         public int IdCargaHorariaDiaria { get; set; }
         public int CargaHoraria { get; set; }
         public int Uf { get; set; }
-
-        public override void Validate()
-        {
-        }
     }
 }

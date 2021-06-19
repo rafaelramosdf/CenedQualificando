@@ -14,9 +14,5 @@ namespace CenedQualificando.Domain.Models.Dtos
         public DateTime? DataUltimaSituacao { get; set; }
         public int IdSolicitacaoAutorizacaoMatricula { get; set; }
         public int IdCurso { get; set; }
-
-        public override void Validate()
-        {
-        }
     }
 }

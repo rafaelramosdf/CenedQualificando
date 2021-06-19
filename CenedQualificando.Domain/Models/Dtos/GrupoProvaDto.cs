@@ -15,9 +15,5 @@ namespace CenedQualificando.Domain.Models.Dtos
         public string Prova3 { get; set; }
         public string Prova4 { get; set; }
         public string Prova5 { get; set; }
-
-        public override void Validate()
-        {
-        }
     }
 }

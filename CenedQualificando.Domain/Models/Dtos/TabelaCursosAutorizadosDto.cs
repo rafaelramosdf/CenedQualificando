@@ -17,9 +17,5 @@ namespace CenedQualificando.Domain.Models.Dtos
         public string Curso { get; set; }
         public string Status { get; set; }
         public DateTime? DataCadastro { get; set; }
-
-        public override void Validate()
-        {
-        }
     }
 }

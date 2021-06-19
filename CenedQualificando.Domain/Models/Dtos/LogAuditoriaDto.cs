@@ -21,9 +21,5 @@ namespace CenedQualificando.Domain.Models.Dtos
         public int SituacaoFinanceiraAnterior { get; set; }
         public int SituacaoCurso { get; set; }
         public int SituacaoFinanceira { get; set; }
-
-        public override void Validate()
-        {
-        }
     }
 }

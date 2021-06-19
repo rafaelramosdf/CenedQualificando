@@ -17,9 +17,5 @@ namespace CenedQualificando.Domain.Models.Dtos
         public string UfDescricao => Uf.EnumDescription();
         public AtivoEnum Ativo { get; set; }
         public string AtivoDescricao => Ativo.EnumDescription();
-
-        public override void Validate()
-        {
-        }
     }
 }

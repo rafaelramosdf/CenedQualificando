@@ -51,9 +51,5 @@ namespace CenedQualificando.Domain.Models.Dtos
             Ativo = ativo;
             IdGrupoDePermissao = idGrupoPermissao;
         }
-
-        public override void Validate()
-        {
-        }
     }
 }

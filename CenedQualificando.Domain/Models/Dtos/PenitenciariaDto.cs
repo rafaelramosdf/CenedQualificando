@@ -26,9 +26,5 @@ namespace CenedQualificando.Domain.Models.Dtos
         public bool PossuiBolsaParceria { get; set; }
         public DateTime? DataInicioBolsaParceria { get; set; }
         public int BolsasConcedidas { get; set; }
-
-        public override void Validate()
-        {
-        }
     }
 }

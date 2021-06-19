@@ -61,9 +61,5 @@ namespace CenedQualificando.Domain.Models.Dtos
         public AlunoDto Aluno { get; set; } = new AlunoDto();
         public CursoDto Curso { get; set; } = new CursoDto();
         public IEnumerable<ProvaDto> Provas { get; set; } = new List<ProvaDto>();
-
-        public override void Validate()
-        {
-        }
     }
 }

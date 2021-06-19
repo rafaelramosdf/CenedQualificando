@@ -30,7 +30,7 @@ namespace CenedQualificando.Domain.Models.Dtos
 
         public string OrgaoExpedidor { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(ErrorMessageResource), 
+        [Required(ErrorMessageResourceType = typeof(ErrorMessageResource),
             ErrorMessageResourceName = nameof(ErrorMessageResource.CampoObrigatorio))]
         public DateTime? DataNascimento { get; set; }
 
@@ -76,11 +76,5 @@ namespace CenedQualificando.Domain.Models.Dtos
         public string Observacoes { get; set; }
 
         public PenitenciariaDto Penitenciaria { get; set; } = new PenitenciariaDto();
-
-        public override void Validate()
-        {
-            Requires()
-            .IsNotEmpty(Nome, GetRequiredMessage(nameof(Nome)));
-        }
     }
 }

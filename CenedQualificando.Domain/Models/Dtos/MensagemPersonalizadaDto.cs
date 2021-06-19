@@ -10,9 +10,5 @@ namespace CenedQualificando.Domain.Models.Dtos
         public int IdMensagemPersonalizada { get; set; }
         public string Codigo { get; set; }
         public string Mensagem { get; set; }
-
-        public override void Validate()
-        {
-        }
     }
 }

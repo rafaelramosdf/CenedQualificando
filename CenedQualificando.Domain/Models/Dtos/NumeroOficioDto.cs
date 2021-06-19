@@ -10,9 +10,5 @@ namespace CenedQualificando.Domain.Models.Dtos
         public int IdNumeroOficio { get; set; }
         public int Numero { get; set; }
         public int Ano { get; set; }
-
-        public override void Validate()
-        {
-        }
     }
 }

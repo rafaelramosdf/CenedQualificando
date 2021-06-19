@@ -42,9 +42,5 @@ namespace CenedQualificando.Domain.Models.Dtos
 
             return todasPermissoes;
         }
-
-        public override void Validate()
-        {
-        }
     }
 }

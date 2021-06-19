@@ -25,9 +25,5 @@ namespace CenedQualificando.Domain.Models.Dtos
         public string CpfUsuario { get; set; }
 
         public GrupoDePermissaoDto GrupoDePermissao { get; set; }
-
-        public override void Validate()
-        {
-        }
     }
 }

@@ -16,9 +16,5 @@ namespace CenedQualificando.Domain.Models.Dtos
         public string NomePai { get; set; }
         public string NomeMae { get; set; }
         public DateTime? DataGeracao { get; set; }
-
-        public override void Validate()
-        {
-        }
     }
 }

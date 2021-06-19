@@ -26,9 +26,5 @@ namespace CenedQualificando.Domain.Models.Dtos
         public Guid CodigoPagamento { get; set; }
         public string Telefone { get; set; }
         public int PrazoEntrega { get; set; }
-
-        public override void Validate()
-        {
-        }
     }
 }

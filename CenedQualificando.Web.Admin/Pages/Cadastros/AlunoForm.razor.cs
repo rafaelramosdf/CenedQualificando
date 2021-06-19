@@ -30,9 +30,21 @@ namespace CenedQualificando.Web.Admin.Pages.Cadastros
             State.Carregando = false;
         }
 
-        protected void OnValidSubmit(EditContext context)
+        protected void OnSubmit(EditContext context)
         {
-            FormValid = true;
+            FormValid = context.Validate();
+
+            if (FormValid)
+            {
+                OpenRoute("/cadastros/alunos");
+                Alert(MudBlazor.Severity.Success, "Dados salvos com sucesso!");
+            }
+            else
+            {
+                Alert(MudBlazor.Severity.Error, $"Formulário inválido: <br />" +
+                    $"• {string.Join("<br />• ", context.GetValidationMessages())}");
+            }
+
             StateHasChanged();
         }
     }

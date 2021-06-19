@@ -13,9 +13,5 @@ namespace CenedQualificando.Domain.Models.Dtos
         public int IdTabelaHistoricoCurso { get; set; }
         public DateTime DataHora { get; set; }
         public string Valor { get; set; }
-
-        public override void Validate()
-        {
-        }
     }
 }

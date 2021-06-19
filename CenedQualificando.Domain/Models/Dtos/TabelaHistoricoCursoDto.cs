@@ -14,9 +14,5 @@ namespace CenedQualificando.Domain.Models.Dtos
         public int Tipo { get; set; }
         public bool PreDefinido { get; set; }
         public int Ativo { get; set; }
-
-        public override void Validate()
-        {
-        }
     }
 }
