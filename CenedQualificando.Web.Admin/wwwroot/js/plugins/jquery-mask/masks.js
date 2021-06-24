@@ -1,17 +1,17 @@
 ﻿// using jQuery Mask Plugin v1.7.5
 // http://jsfiddle.net/d29m6enx/2/
 
-window.maskBehavior = (val) => {
+var maskBehavior = (val) => {
     return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
 };
 
-window.maskBehaviorOptions = {
+var maskBehaviorOptions = {
     onKeyPress: function (val, e, field, options) {
         field.mask(maskBehavior.apply({}, arguments), options);
     }
 };
 
-window.setMaskInput = () => {
+var setMaskInput = () => {
     $('[mask=date]').mask('11/11/1111');
     $('[mask=time]').mask('00:00:00');
     $('[mask=date_time]').mask('00/00/0000 00:00:00');
