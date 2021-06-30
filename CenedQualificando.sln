@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CenedQualificando.Domain", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CenedQualificando.Api", "CenedQualificando.Api\CenedQualificando.Api.csproj", "{99F7A302-209F-4BFD-9E14-2EC6EE1F49BA}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CenedQualificando.CrossCutting", "CenedQualificando.CrossCutting\CenedQualificando.CrossCutting.csproj", "{9ACC9371-B72E-46E1-999F-3F4AD0749D27}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{99F7A302-209F-4BFD-9E14-2EC6EE1F49BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99F7A302-209F-4BFD-9E14-2EC6EE1F49BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99F7A302-209F-4BFD-9E14-2EC6EE1F49BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9ACC9371-B72E-46E1-999F-3F4AD0749D27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9ACC9371-B72E-46E1-999F-3F4AD0749D27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9ACC9371-B72E-46E1-999F-3F4AD0749D27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9ACC9371-B72E-46E1-999F-3F4AD0749D27}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

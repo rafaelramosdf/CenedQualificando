@@ -1,4 +1,5 @@
-﻿using CenedQualificando.Domain.Interfaces.Services;
+﻿using CenedQualificando.Api.Services.Contracts;
+using CenedQualificando.CrossCutting.Dtos.Base;
 using CenedQualificando.Domain.Models.Base;
 using CenedQualificando.Domain.Models.Utils;
 using Microsoft.AspNetCore.Authorization;

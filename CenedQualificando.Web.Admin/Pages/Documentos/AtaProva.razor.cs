@@ -1,4 +1,4 @@
-﻿using CenedQualificando.Domain.Models.Dtos;
+﻿using CenedQualificando.CrossCutting.Dtos;
 using CenedQualificando.Domain.Models.Enumerations.Filters;
 using CenedQualificando.Domain.Models.Filters;
 using CenedQualificando.Web.Admin.Services.RefitApiServices;

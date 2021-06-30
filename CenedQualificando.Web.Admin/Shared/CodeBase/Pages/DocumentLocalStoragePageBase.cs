@@ -1,5 +1,5 @@
 ﻿using Blazored.LocalStorage;
-using CenedQualificando.Domain.Models.Dtos;
+using CenedQualificando.CrossCutting.Dtos;
 using CenedQualificando.Domain.Models.Enumerations;
 using Microsoft.AspNetCore.Components;
 using System;

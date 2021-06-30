@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CenedQualificando.CrossCutting\CenedQualificando.CrossCutting.csproj" />
     <ProjectReference Include="..\CenedQualificando.Domain\CenedQualificando.Domain.csproj" />
     <ProjectReference Include="..\CenedQualificando.Infra\CenedQualificando.Infra.csproj" />
   </ItemGroup>

@@ -4,8 +4,8 @@ using CenedQualificando.Domain.Interfaces.Repository;
 using CenedQualificando.Domain.Interfaces.UoW;
 using CenedQualificando.Api.Services.Base;
 using CenedQualificando.Domain.Models.Entities;
-using CenedQualificando.Domain.Models.Dtos;
-using CenedQualificando.Domain.Interfaces.Services;
+using CenedQualificando.CrossCutting.Dtos;
+using CenedQualificando.Api.Services.Contracts;
 
 namespace CenedQualificando.Api.Services
 {

@@ -3,7 +3,7 @@
 
 @inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.ListPageBase<CursoDto>
 @inject ISnackbar Snackbar
-@using Domain.Models.Dtos
+@using CrossCutting.Dtos
 
 <MudOverlay @bind-Visible="State.Carregando" DarkBackground="false" ZIndex="999999" AutoClose="true">
     <MudProgressCircular Color="Color.Success" Indeterminate="true" />
