@@ -1,5 +1,5 @@
 ﻿using CenedQualificando.Domain.Extensions;
-using CenedQualificando.CrossCutting.Dtos;
+using CenedQualificando.Domain.Models.Dtos;
 using CenedQualificando.Domain.Models.Enumerations;
 using CenedQualificando.Domain.Models.Filters;
 using CenedQualificando.Web.Admin.Services.RefitApiServices;

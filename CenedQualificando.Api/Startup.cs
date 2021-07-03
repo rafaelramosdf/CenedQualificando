@@ -1,7 +1,7 @@
 using CenedQualificando.Api.Services;
 using CenedQualificando.Domain.Interfaces.Queries;
 using CenedQualificando.Domain.Interfaces.Repository;
-using CenedQualificando.Api.Services.Contracts;
+using CenedQualificando.Domain.Interfaces.Services;
 using CenedQualificando.Domain.Interfaces.UoW;
 using CenedQualificando.Domain.Queries;
 using CenedQualificando.Infra.Context;

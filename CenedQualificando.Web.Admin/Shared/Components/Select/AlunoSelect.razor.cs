@@ -1,4 +1,4 @@
-﻿using CenedQualificando.CrossCutting.Dtos;
+﻿using CenedQualificando.Domain.Models.Dtos;
 using CenedQualificando.Domain.Models.Utils;
 using Microsoft.AspNetCore.Components;
 using System;

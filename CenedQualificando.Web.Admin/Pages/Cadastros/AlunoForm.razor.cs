@@ -1,4 +1,4 @@
-﻿using CenedQualificando.CrossCutting.Dtos;
+﻿using CenedQualificando.Domain.Models.Dtos;
 using CenedQualificando.Web.Admin.Services.RefitApiServices;
 using CenedQualificando.Web.Admin.Shared.CodeBase.Pages;
 using Microsoft.AspNetCore.Components;

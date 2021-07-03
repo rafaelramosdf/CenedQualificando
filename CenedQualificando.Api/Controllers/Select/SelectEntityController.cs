@@ -1,4 +1,4 @@
-﻿using CenedQualificando.Api.Services.Contracts;
+﻿using CenedQualificando.Domain.Interfaces.Services;
 using CenedQualificando.Domain.Models.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

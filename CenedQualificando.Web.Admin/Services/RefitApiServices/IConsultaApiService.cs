@@ -1,4 +1,4 @@
-﻿using CenedQualificando.CrossCutting.Dtos;
+﻿using CenedQualificando.Domain.Models.Dtos;
 using CenedQualificando.Domain.Models.Filters;
 using Refit;
 using System.Collections.Generic;

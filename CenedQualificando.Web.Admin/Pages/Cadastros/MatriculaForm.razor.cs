@@ -1,4 +1,4 @@
-﻿using CenedQualificando.CrossCutting.Dtos;
+﻿using CenedQualificando.Domain.Models.Dtos;
 using CenedQualificando.Web.Admin.Shared.CodeBase.Pages;
 
 namespace CenedQualificando.Web.Admin.Pages.Cadastros

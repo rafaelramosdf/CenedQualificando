@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using AutoMapper;
-using CenedQualificando.CrossCutting.Dtos;
+using CenedQualificando.Domain.Models.Dtos;
 using CenedQualificando.Domain.Models.Entities;
 
 namespace Cened.Penitenciario.Api.AutoMapper
