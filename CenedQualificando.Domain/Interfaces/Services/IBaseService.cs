@@ -1,6 +1,7 @@
 ﻿using CenedQualificando.Domain.Models.Base;
 using CenedQualificando.Domain.Models.Utils;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -17,8 +18,13 @@ namespace CenedQualificando.Domain.Interfaces.Services
         IQueryable<TEntity> OrdenarConsulta(IQueryable<TEntity> queryList, DataTableSortingModel<TDto> sortingModel);
         IQueryable<TEntity> PaginarConsulta(IQueryable<TEntity> queryList, DataTablePaginationModel paginationModel);
 
-        TDto Incluir(TDto vm);
-        void Alterar(TDto vm);
-        void Excluir(TDto vm);
+        CommandResult Incluir(TDto vm);
+        CommandResult Incluir(IEnumerable<TDto> vmList);
+
+        CommandResult Alterar(TDto vm);
+        CommandResult Alterar(IEnumerable<TDto> vmList);
+
+        CommandResult Excluir(TDto vm);
+        CommandResult Excluir(IEnumerable<TDto> vmList);
     }
 }

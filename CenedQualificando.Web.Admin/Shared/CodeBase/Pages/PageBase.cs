@@ -2,6 +2,7 @@
 using Microsoft.JSInterop;
 using MudBlazor;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CenedQualificando.Web.Admin.Shared.CodeBase.Pages
@@ -46,6 +47,12 @@ namespace CenedQualificando.Web.Admin.Shared.CodeBase.Pages
             Snackbar.Configuration.SnackbarVariant = Variant.Filled;
 
             Snackbar.Add(message, severity);
+        }
+
+        protected void Alert(Severity severity, List<string> messages)
+        {
+            Alert(severity, $"Formulário inválido: <br />" + 
+                $"• {string.Join("<br />• ", messages)}");
         }
 
         public void Dispose()

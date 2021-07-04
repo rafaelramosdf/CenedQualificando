@@ -9,11 +9,13 @@ namespace CenedQualificando.Web.Admin.Shared.CodeBase.Pages
         [Parameter] public int? Id { get; set; }
         protected bool FormValid { get; set; } = false;
 
+        protected bool IsNewRegister => Id == null;
+
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
             {
-                await Task.Delay(1500);
+                await Task.Delay(2000);
                 await JSRun.InvokeVoidAsync("setMaskInput");
             }
         }

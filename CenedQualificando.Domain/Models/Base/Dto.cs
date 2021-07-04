@@ -1,5 +1,3 @@
-using Flunt.Validations;
-
 namespace CenedQualificando.Domain.Models.Base
 {
     public abstract class Dto<TEntity> : IDto

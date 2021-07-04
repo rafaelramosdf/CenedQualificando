@@ -1,16 +1,10 @@
 ﻿using CenedQualificando.Domain.Models.Dtos;
-using CenedQualificando.Domain.Models.Utils;
-using Refit;
-using System.Threading.Tasks;
+using CenedQualificando.Domain.Models.Entities;
+using CenedQualificando.Web.Admin.Services.RefitApiServices.Base;
 
 namespace CenedQualificando.Web.Admin.Services.RefitApiServices
 {
-    public interface IPenitenciariaApiService
+    public interface IPenitenciariaApiService : ICRUDService<Penitenciaria, PenitenciariaDto>
     {
-        [Get("/penitenciarias/{id}")]
-        Task<PenitenciariaDto> Buscar([AliasAs("id")] int id);
-
-        [Post("/penitenciarias/filtros")]
-        Task<DataTableModel<PenitenciariaDto>> Filtrar([Body] DataTableModel<PenitenciariaDto> dataTableModel);
     }
 }

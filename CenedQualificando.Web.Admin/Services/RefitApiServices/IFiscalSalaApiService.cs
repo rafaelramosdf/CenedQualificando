@@ -1,13 +1,10 @@
 ﻿using CenedQualificando.Domain.Models.Dtos;
-using CenedQualificando.Domain.Models.Utils;
-using Refit;
-using System.Threading.Tasks;
+using CenedQualificando.Domain.Models.Entities;
+using CenedQualificando.Web.Admin.Services.RefitApiServices.Base;
 
 namespace CenedQualificando.Web.Admin.Services.RefitApiServices
 {
-    public interface IFiscalSalaApiService
+    public interface IFiscalSalaApiService : ICRUDService<FiscalSala, FiscalSalaDto>
     {
-        [Post("/fiscais-salas/filtros")]
-        Task<DataTableModel<FiscalSalaDto>> Filtrar([Body] DataTableModel<FiscalSalaDto> dataTableModel);
     }
 }

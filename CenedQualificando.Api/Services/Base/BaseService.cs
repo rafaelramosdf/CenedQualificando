@@ -5,6 +5,7 @@ using CenedQualificando.Domain.Interfaces.Services;
 using CenedQualificando.Domain.Interfaces.UoW;
 using CenedQualificando.Domain.Models.Base;
 using CenedQualificando.Domain.Models.Utils;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,76 +36,122 @@ namespace CenedQualificando.Api.Services.Base
             Repository = repository;
         }
 
-        public virtual TDto Incluir(TDto vm)
+        public virtual CommandResult Incluir(TDto vm)
         {
-            var entity = Mapper.Map<TEntity>(vm);
-            Repository.Add(entity);
-            UnitOfWork.Commit();
-            return Mapper.Map<TDto>(entity);
+            try
+            {
+                var entity = Mapper.Map<TEntity>(vm);
+                Repository.Add(entity);
+                UnitOfWork.Commit();
+                return new CommandResult(StatusCodes.Status200OK, Mapper.Map<TDto>(entity));
+            }
+            catch (Exception ex)
+            {
+                var commandResult = new CommandResult(StatusCodes.Status500InternalServerError, vm);
+                commandResult.SetError(ex.Message);
+                return commandResult;
+            }
         }
-        public IEnumerable<TDto> Incluir(IEnumerable<TDto> vm)
+        public CommandResult Incluir(IEnumerable<TDto> vmList)
         {
             try
             {
                 UnitOfWork.BeginTransaction();
-                foreach (var item in vm)
+                
+                foreach (var item in vmList)
                 {
                     Incluir(item);
                 }
+                
                 UnitOfWork.CommitTransaction();
-                return vm;
+
+                return new CommandResult(StatusCodes.Status200OK, vmList);
             }
-            catch (System.Exception)
+            catch (Exception ex)
             {
                 UnitOfWork.Rollback();
-                throw;
+                var commandResult = new CommandResult(StatusCodes.Status500InternalServerError, vmList);
+                commandResult.SetError(ex.Message);
+                return commandResult;
             }
         }
 
-        public virtual void Alterar(TDto vm)
+        public virtual CommandResult Alterar(TDto vm)
         {
-            var entity = Mapper.Map<TEntity>(vm);
-            Repository.Update(entity);
-            UnitOfWork.Commit();
+            try
+            {
+                var entity = Mapper.Map<TEntity>(vm);
+                Repository.Update(entity);
+                UnitOfWork.Commit();
+                return new CommandResult(StatusCodes.Status204NoContent, null);
+            }
+            catch (Exception ex)
+            {
+                var commandResult = new CommandResult(StatusCodes.Status500InternalServerError, vm);
+                commandResult.SetError(ex.Message);
+                return commandResult;
+            }
         }
-        public void Alterar(IEnumerable<TDto> vm)
+        public CommandResult Alterar(IEnumerable<TDto> vmList)
         {
             try
             {
                 UnitOfWork.BeginTransaction();
-                foreach (var item in vm)
+                
+                foreach (var item in vmList)
                 {
                     Alterar(item);
                 }
+
                 UnitOfWork.CommitTransaction();
+
+                return new CommandResult(StatusCodes.Status204NoContent, null);
             }
-            catch (System.Exception)
+            catch (Exception ex)
             {
                 UnitOfWork.Rollback();
-                throw;
+                var commandResult = new CommandResult(StatusCodes.Status500InternalServerError, vmList);
+                commandResult.SetError(ex.Message);
+                return commandResult;
             }
         }
 
-        public virtual void Excluir(TDto vm)
+        public virtual CommandResult Excluir(TDto vm)
         {
-            Repository.Remove(Mapper.Map<TEntity>(vm));
-            UnitOfWork.Commit();
+            try
+            {
+                Repository.Remove(Mapper.Map<TEntity>(vm));
+                UnitOfWork.Commit();
+                return new CommandResult(StatusCodes.Status204NoContent, null);
+            }
+            catch (Exception ex)
+            {
+                var commandResult = new CommandResult(StatusCodes.Status500InternalServerError, vm);
+                commandResult.SetError(ex.Message);
+                return commandResult;
+            }
         }
-        public void Excluir(IEnumerable<TDto> vm)
+        public CommandResult Excluir(IEnumerable<TDto> vmList)
         {
             try
             {
                 UnitOfWork.BeginTransaction();
-                foreach (var item in vm)
+                
+                foreach (var item in vmList)
                 {
                     Excluir(item);
                 }
+
                 UnitOfWork.CommitTransaction();
+
+                return new CommandResult(StatusCodes.Status204NoContent, null);
             }
-            catch (System.Exception)
+            catch (Exception ex)
             {
                 UnitOfWork.Rollback();
-                throw;
+                var commandResult = new CommandResult(StatusCodes.Status500InternalServerError, vmList);
+                commandResult.SetError(ex.Message);
+                return commandResult;
             }
         }
 

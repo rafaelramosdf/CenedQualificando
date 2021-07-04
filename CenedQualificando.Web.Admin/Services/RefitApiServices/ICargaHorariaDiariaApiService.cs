@@ -1,13 +1,10 @@
 ﻿using CenedQualificando.Domain.Models.Dtos;
-using CenedQualificando.Domain.Models.Utils;
-using Refit;
-using System.Threading.Tasks;
+using CenedQualificando.Domain.Models.Entities;
+using CenedQualificando.Web.Admin.Services.RefitApiServices.Base;
 
 namespace CenedQualificando.Web.Admin.Services.RefitApiServices
 {
-    public interface ICargaHorariaDiariaApiService
+    public interface ICargaHorariaDiariaApiService : ICRUDService<CargaHorariaDiaria, CargaHorariaDiariaDto>
     {
-        [Post("/cargas-horarias-diarias/filtros")]
-        Task<DataTableModel<CargaHorariaDiariaDto>> Filtrar([Body] DataTableModel<CargaHorariaDiariaDto> dataTableModel);
     }
 }

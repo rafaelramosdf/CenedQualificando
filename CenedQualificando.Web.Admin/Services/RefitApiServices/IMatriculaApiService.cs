@@ -1,13 +1,10 @@
 ﻿using CenedQualificando.Domain.Models.Dtos;
-using CenedQualificando.Domain.Models.Utils;
-using Refit;
-using System.Threading.Tasks;
+using CenedQualificando.Domain.Models.Entities;
+using CenedQualificando.Web.Admin.Services.RefitApiServices.Base;
 
 namespace CenedQualificando.Web.Admin.Services.RefitApiServices
 {
-    public interface IMatriculaApiService
+    public interface IMatriculaApiService : ICRUDService<Matricula, MatriculaDto>
     {
-        [Post("/matriculas/filtros")]
-        Task<DataTableModel<MatriculaDto>> Filtrar([Body] DataTableModel<MatriculaDto> dataTableModel);
     }
 }

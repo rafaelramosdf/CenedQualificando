@@ -10,10 +10,16 @@ using CenedQualificando.Domain.Interfaces.Services;
 using CenedQualificando.Domain.Interfaces.UoW;
 using CenedQualificando.Domain.Models.Dtos;
 using CenedQualificando.Domain.Models.Entities;
+using CenedQualificando.Domain.Models.Utils;
+using Microsoft.AspNetCore.Http;
 
 namespace CenedQualificando.Api.Services
 {
-    public class GrupoDePermissaoService : BaseService<GrupoDePermissao, GrupoDePermissaoDto, IGrupoDePermissaoQuery, IGrupoDePermissaoRepository>, IGrupoDePermissaoService
+    public class GrupoDePermissaoService : BaseService<GrupoDePermissao, 
+        GrupoDePermissaoDto, 
+        IGrupoDePermissaoQuery, 
+        IGrupoDePermissaoRepository>, 
+        IGrupoDePermissaoService
     {
         private readonly IPermissaoService _permissaoService;
 
@@ -33,15 +39,17 @@ namespace CenedQualificando.Api.Services
             return Mapper.Map<IEnumerable<PermissaoDto>>(await Repository.GetPermissoesAsync(idGrupoPermissao));
         }
 
-        public override GrupoDePermissaoDto Incluir(GrupoDePermissaoDto vm)
+        public override CommandResult Incluir(GrupoDePermissaoDto vm)
         {
-            UnitOfWork.BeginTransaction();
-
-            var grupoPermissao = Mapper.Map<GrupoDePermissao>(vm);
-            var permissoes = vm.Permissoes.Where(p => p.Selecionado);
+            var commandResult = new CommandResult();
 
             try
             {
+                UnitOfWork.BeginTransaction();
+
+                var grupoPermissao = Mapper.Map<GrupoDePermissao>(vm);
+                var permissoes = vm.Permissoes.Where(p => p.Selecionado);
+
                 Repository.Add(grupoPermissao);
                 UnitOfWork.Commit();
 
@@ -49,33 +57,49 @@ namespace CenedQualificando.Api.Services
                 {
                     item.IdGrupoDePermissao = grupoPermissao.IdGrupoDePermissao;
                     var permissao = Mapper.Map<PermissaoDto>(item);
-                    _permissaoService.Incluir(permissao);
+                    var commandResultPermissoes = _permissaoService.Incluir(permissao);
+
+                    if (commandResultPermissoes.HasError)
+                    {
+                        commandResult.SetErrors(commandResultPermissoes.Errors.ToList());
+                        return commandResult;
+                    }
                 }
 
                 UnitOfWork.CommitTransaction();
+
+                return new CommandResult(StatusCodes.Status200OK, Mapper.Map<GrupoDePermissaoDto>(grupoPermissao));
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
                 UnitOfWork.Rollback();
-                throw e;
+                commandResult.Data = vm;
+                commandResult.StatusCode = StatusCodes.Status500InternalServerError;
+                commandResult.SetError(ex.Message);
+                return commandResult;
             }
-
-            return Mapper.Map<GrupoDePermissaoDto>(grupoPermissao);
         }
 
-        public override void Alterar(GrupoDePermissaoDto vm)
+        public override CommandResult Alterar(GrupoDePermissaoDto vm)
         {
-            UnitOfWork.BeginTransaction();
-
-            var grupoPermissao = Mapper.Map<GrupoDePermissao>(vm);
-            var permissoes = vm.Permissoes.Where(p => p.Selecionado);
+            var commandResult = new CommandResult();
 
             try
             {
+                UnitOfWork.BeginTransaction();
+
+                var grupoPermissao = Mapper.Map<GrupoDePermissao>(vm);
+                var permissoes = vm.Permissoes.Where(p => p.Selecionado);
+
                 var permissoesAntigas = GetPermissoesAsync(grupoPermissao.IdGrupoDePermissao).Result;
                 foreach (var permissao in permissoesAntigas)
                 {
-                    _permissaoService.Excluir(permissao);
+                    var commandResultExclusaoPermissoes = _permissaoService.Excluir(permissao);
+                    if (commandResultExclusaoPermissoes.HasError)
+                    {
+                        commandResult.SetErrors(commandResultExclusaoPermissoes.Errors.ToList());
+                        return commandResult;
+                    }
                 }
 
                 Repository.Update(grupoPermissao);
@@ -85,15 +109,25 @@ namespace CenedQualificando.Api.Services
                 {
                     item.IdGrupoDePermissao = grupoPermissao.IdGrupoDePermissao;
                     var permissao = Mapper.Map<PermissaoDto>(item);
-                    _permissaoService.Incluir(permissao);
+                    var commandResultInclusaoPermissoes = _permissaoService.Incluir(permissao);
+
+                    if (commandResultInclusaoPermissoes.HasError)
+                    {
+                        commandResult.SetErrors(commandResultInclusaoPermissoes.Errors.ToList());
+                        return commandResult;
+                    }
                 }
 
                 UnitOfWork.CommitTransaction();
+
+                return new CommandResult(StatusCodes.Status204NoContent, null);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
                 UnitOfWork.Rollback();
-                throw e;
+                commandResult.StatusCode = StatusCodes.Status500InternalServerError;
+                commandResult.SetError(ex.Message);
+                return commandResult;
             }
         }
     }

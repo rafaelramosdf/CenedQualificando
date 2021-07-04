@@ -1,16 +1,10 @@
 ﻿using CenedQualificando.Domain.Models.Dtos;
-using CenedQualificando.Domain.Models.Utils;
-using Refit;
-using System.Threading.Tasks;
+using CenedQualificando.Domain.Models.Entities;
+using CenedQualificando.Web.Admin.Services.RefitApiServices.Base;
 
 namespace CenedQualificando.Web.Admin.Services.RefitApiServices
 {
-    public interface IAlunoApiService
+    public interface IAlunoApiService : ICRUDService<Aluno, AlunoDto>
     {
-        [Get("/alunos/{id}")]
-        Task<AlunoDto> Buscar([AliasAs("id")] int id);
-
-        [Post("/alunos/filtros")]
-        Task<DataTableModel<AlunoDto>> Filtrar([Body] DataTableModel<AlunoDto> dataTableModel);
     }
 }

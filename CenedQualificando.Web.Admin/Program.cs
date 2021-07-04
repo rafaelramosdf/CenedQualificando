@@ -39,17 +39,17 @@ namespace CenedQualificando.Web.Admin
 
             builder.Services.AddRefitClient<IAgentePenitenciarioApiService>(settings).ConfigureHttpClient(c =>
             {
-                c.BaseAddress = new Uri($"{urlBase}");
+                c.BaseAddress = new Uri($"{urlBase}/agentes-penitenciarios");
             });
 
             builder.Services.AddRefitClient<IAlunoApiService>(settings).ConfigureHttpClient(c =>
             {
-                c.BaseAddress = new Uri($"{urlBase}");
+                c.BaseAddress = new Uri($"{urlBase}/alunos");
             });
 
             builder.Services.AddRefitClient<ICargaHorariaDiariaApiService>(settings).ConfigureHttpClient(c =>
             {
-                c.BaseAddress = new Uri($"{urlBase}");
+                c.BaseAddress = new Uri($"{urlBase}/cargas-horarias-diarias");
             });
 
             builder.Services.AddRefitClient<IComboEntidadeApiService>(settings).ConfigureHttpClient(c =>
@@ -64,52 +64,52 @@ namespace CenedQualificando.Web.Admin
 
             builder.Services.AddRefitClient<ICursoApiService>(settings).ConfigureHttpClient(c =>
             {
-                c.BaseAddress = new Uri($"{urlBase}");
+                c.BaseAddress = new Uri($"{urlBase}/cursos");
             });
 
             builder.Services.AddRefitClient<IFiscalSalaApiService>(settings).ConfigureHttpClient(c =>
             {
-                c.BaseAddress = new Uri($"{urlBase}");
+                c.BaseAddress = new Uri($"{urlBase}/fiscais-salas");
             });
 
             builder.Services.AddRefitClient<IGrupoDePermissaoApiService>(settings).ConfigureHttpClient(c =>
             {
-                c.BaseAddress = new Uri($"{urlBase}");
+                c.BaseAddress = new Uri($"{urlBase}/grupos-permissoes");
             });
 
             builder.Services.AddRefitClient<IMatriculaApiService>(settings).ConfigureHttpClient(c =>
             {
-                c.BaseAddress = new Uri($"{urlBase}");
+                c.BaseAddress = new Uri($"{urlBase}/matriculas");
             });
 
             builder.Services.AddRefitClient<IPenitenciariaApiService>(settings).ConfigureHttpClient(c =>
             {
-                c.BaseAddress = new Uri($"{urlBase}");
+                c.BaseAddress = new Uri($"{urlBase}/penitenciarias");
             });
 
             builder.Services.AddRefitClient<IPermissaoApiService>(settings).ConfigureHttpClient(c =>
             {
-                c.BaseAddress = new Uri($"{urlBase}");
+                c.BaseAddress = new Uri($"{urlBase}/permissoes");
             });
 
             builder.Services.AddRefitClient<IProvaApiService>(settings).ConfigureHttpClient(c =>
             {
-                c.BaseAddress = new Uri($"{urlBase}");
+                c.BaseAddress = new Uri($"{urlBase}/provas");
             });
 
             builder.Services.AddRefitClient<IRepresentanteApiService>(settings).ConfigureHttpClient(c =>
             {
-                c.BaseAddress = new Uri($"{urlBase}");
+                c.BaseAddress = new Uri($"{urlBase}/representantes");
             });
 
             builder.Services.AddRefitClient<IUfEntregaApiService>(settings).ConfigureHttpClient(c =>
             {
-                c.BaseAddress = new Uri($"{urlBase}");
+                c.BaseAddress = new Uri($"{urlBase}/uf-entregas");
             });
 
             builder.Services.AddRefitClient<IUsuarioApiService>(settings).ConfigureHttpClient(c =>
             {
-                c.BaseAddress = new Uri($"{urlBase}");
+                c.BaseAddress = new Uri($"{urlBase}/usuarios");
             });
         }
     }

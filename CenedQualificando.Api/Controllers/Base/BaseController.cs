@@ -2,7 +2,9 @@
 using CenedQualificando.Domain.Models.Base;
 using CenedQualificando.Domain.Models.Utils;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace CenedQualificando.Api.Controllers.Base
 {
@@ -22,43 +24,48 @@ namespace CenedQualificando.Api.Controllers.Base
         }
 
         [HttpPost]
-        public virtual ActionResult<TDto> Incluir([FromBody] TDto model)
+        public virtual CommandResult Incluir([FromBody] TDto vm)
         {
-            if (!ModelState.IsValid)
-                return BadRequest();
+            var commandResult = ValidarModelo(vm);
 
-            return Created(nameof(TEntity), Service.Incluir(model));
+            if (commandResult.HasError)
+                return commandResult;
+
+            return Service.Incluir(vm);
         }
 
         [HttpPut("{id:int}")]
-        public virtual ActionResult Alterar(int id, [FromBody] TDto model)
+        public virtual CommandResult Alterar(int id, [FromBody] TDto vm)
         {
-            if (!ModelState.IsValid)
-                return BadRequest();
+            var commandResult = ValidarModelo();
 
-            if (id != model.Id)
-                return BadRequest("ID inválido");
+            if (commandResult.HasError)
+                return commandResult;
 
-            var vm = Service.Buscar(id);
-            if (vm == null)
-                return NotFound("Nenhum recurso encontrado para o id informado");
+            if (id != vm.Id) 
+            {
+                commandResult.SetError("ID inválido");
+                return commandResult;
+            }
 
-            Service.Alterar(model);
-
-            return NoContent();
+            return Service.Alterar(vm);
         }
 
         [HttpDelete("{id:int}")]
-        public virtual ActionResult Excluir(int id)
+        public virtual CommandResult Excluir(int id)
         {
+            var commandResult = new CommandResult();
+
             var model = Service.Buscar(id);
 
             if (model == null)
-                return NotFound("Nenhum recurso encontrado para o id informado");
+            {
+                commandResult.StatusCode = StatusCodes.Status404NotFound;
+                commandResult.SetError("Nenhum recurso encontrado para o id informado");
+                return commandResult;
+            }
 
-            Service.Excluir(model);
-
-            return NoContent();
+            return Service.Excluir(model);
         }
 
         [HttpGet("{id:int}")]
@@ -76,6 +83,23 @@ namespace CenedQualificando.Api.Controllers.Base
         public virtual ActionResult<DataTableModel<TDto>> Buscar([FromBody] DataTableModel<TDto> dataTableModel)
         {
             return Ok(Service.Buscar(dataTableModel));
+        }
+
+
+
+        protected CommandResult ValidarModelo(TDto vm = null)
+        {
+            if (ModelState.IsValid)
+            {
+                return new CommandResult(StatusCodes.Status200OK);
+            }
+            else
+            {
+                var errors = ModelState.Values.SelectMany(s => s.Errors).Select(s => s.ErrorMessage).ToList();
+                var commandResult = new CommandResult(StatusCodes.Status400BadRequest, vm);
+                commandResult.SetErrors(errors);
+                return commandResult;
+            }
         }
     }
 }
