@@ -14,10 +14,23 @@ namespace CenedQualificando.Domain.Models.Utils
             StatusCode = statusCode;
         }
 
+        public CommandResult(int statusCode, string error)
+        {
+            StatusCode = statusCode;
+            SetError(error);
+        }
+
         public CommandResult(int statusCode, object data)
         {
             StatusCode = statusCode;
             Data = data;
+        }
+
+        public CommandResult(int statusCode, object data, string error)
+        {
+            StatusCode = statusCode;
+            Data = data;
+            SetError(error);
         }
 
         public object Data { get; set; }
@@ -27,7 +40,8 @@ namespace CenedQualificando.Domain.Models.Utils
 
         public void SetError(string message) 
         {
-            Errors.Add(message);
+            if(!string.IsNullOrEmpty(message))
+                Errors.Add(message);
         }
         public void SetErrors(List<string> messages)
         {

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Logging;
 using Microsoft.JSInterop;
 using System.Threading.Tasks;
 
@@ -6,6 +7,8 @@ namespace CenedQualificando.Web.Admin.Shared.CodeBase.Pages
 {
     public abstract partial class FormPageBase : PageBase 
     {
+        [Inject] protected ILogger<FormPageBase> Log { get; set; }
+
         [Parameter] public int? Id { get; set; }
         protected bool FormValid { get; set; } = false;
 
@@ -15,7 +18,7 @@ namespace CenedQualificando.Web.Admin.Shared.CodeBase.Pages
         {
             if (firstRender)
             {
-                await Task.Delay(2000);
+                await Task.Delay(2500);
                 await JSRun.InvokeVoidAsync("setMaskInput");
             }
         }

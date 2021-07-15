@@ -34,23 +34,23 @@ namespace CenedQualificando.Web.Admin.Pages.Cadastros
 
         protected async Task OnSubmit(EditContext context)
         {
-            //FormValid = context.Validate();
+            FormValid = context.Validate();
 
-            //if (!FormValid)
-            //{
-            //    Alert(MudBlazor.Severity.Error, context.GetValidationMessages().ToList());
-            //    return;
-            //}
-            
-            var apiCommandResult = new CommandResult();
+            if (!FormValid)
+            {
+                Alert(MudBlazor.Severity.Error, context.GetValidationMessages().ToList());
+                return;
+            }
 
-            apiCommandResult = IsNewRegister 
+            CommandResult apiResponse;
+
+            apiResponse = IsNewRegister 
                 ? await AlunoApiService.Incluir(Model) 
                 : await AlunoApiService.Alterar((int)Id, Model);
 
-            if (apiCommandResult.HasError)
+            if (apiResponse == null || apiResponse.HasError)
             {
-                Alert(MudBlazor.Severity.Error, apiCommandResult.Errors.ToList());
+                Alert(MudBlazor.Severity.Error, apiResponse.Errors.ToList());
                 return;
             }
 

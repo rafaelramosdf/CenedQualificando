@@ -1,3 +1,4 @@
+using CenedQualificando.Api.Filters;
 using CenedQualificando.Api.Services;
 using CenedQualificando.Domain.Interfaces.Queries;
 using CenedQualificando.Domain.Interfaces.Repository;
@@ -29,7 +30,11 @@ namespace CenedQualificando.Api
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
+            services.AddControllers(options => 
+            {
+                options.Filters.Add(new ExceptionFilter());
+            });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CenedQualificando.Api", Version = "v1" });
@@ -59,6 +64,8 @@ namespace CenedQualificando.Api
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CenedQualificando.Api v1"));
             }
+
+            app.UseHsts();
 
             app.UseCors();
 

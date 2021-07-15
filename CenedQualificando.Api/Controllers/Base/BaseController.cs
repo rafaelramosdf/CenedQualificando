@@ -26,24 +26,15 @@ namespace CenedQualificando.Api.Controllers.Base
         [HttpPost]
         public virtual CommandResult Incluir([FromBody] TDto vm)
         {
-            var commandResult = ValidarModelo(vm);
-
-            if (commandResult.HasError)
-                return commandResult;
-
             return Service.Incluir(vm);
         }
 
         [HttpPut("{id:int}")]
         public virtual CommandResult Alterar(int id, [FromBody] TDto vm)
         {
-            var commandResult = ValidarModelo();
-
-            if (commandResult.HasError)
-                return commandResult;
-
-            if (id != vm.Id) 
+            if (id != vm.Id)
             {
+                var commandResult = new CommandResult();
                 commandResult.SetError("ID inválido");
                 return commandResult;
             }
@@ -54,12 +45,11 @@ namespace CenedQualificando.Api.Controllers.Base
         [HttpDelete("{id:int}")]
         public virtual CommandResult Excluir(int id)
         {
-            var commandResult = new CommandResult();
-
             var model = Service.Buscar(id);
 
             if (model == null)
             {
+                var commandResult = new CommandResult();
                 commandResult.StatusCode = StatusCodes.Status404NotFound;
                 commandResult.SetError("Nenhum recurso encontrado para o id informado");
                 return commandResult;
