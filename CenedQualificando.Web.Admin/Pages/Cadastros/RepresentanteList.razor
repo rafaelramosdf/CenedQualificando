@@ -1,9 +1,11 @@
 ﻿
 @page "/cadastros/representantes"
 
-@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.ListPageBase<RepresentanteDto>
-@inject ISnackbar Snackbar
 @using Domain.Models.Dtos
+@using Domain.Models.Entities
+
+@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.ListPageBase<Representante, RepresentanteDto, IRepresentanteApiService>
+@inject ISnackbar Snackbar
 
 <MudOverlay @bind-Visible="State.Carregando" DarkBackground="false" ZIndex="999999" AutoClose="true">
     <MudProgressCircular Color="Color.Success" Indeterminate="true" />
@@ -45,7 +47,7 @@
             <MudMenu Icon="@Icons.Material.Filled.MoreVert">
                 <MudMenuItem>Alterar</MudMenuItem>
                 <MudMenuItem>Consultar</MudMenuItem>
-                <MudMenuItem>Excluir</MudMenuItem>
+                <MudMenuItem OnClick="@(() => Excluir(context.Id))">Excluir</MudMenuItem>
             </MudMenu>
         </MudTd>
         <MudTd DataLabel="Nome">@context.Nome.ToUpper()</MudTd>
@@ -55,12 +57,12 @@
     </RowTemplate>
     <PagerContent>
         <MudTablePager Style="float: left;"
-                       RowsPerPageString="Itens por página: " 
-                       PageSizeOptions="new int[] { 5, 10, 20, 50, 100 }" 
+                       RowsPerPageString="Itens por página: "
+                       PageSizeOptions="new int[] { 5, 10, 20, 50, 100 }"
                        InfoFormat="{first_item}-{last_item} de {all_items}" />
     </PagerContent>
 </MudTable>
 
 <MudFab Style="position: fixed; bottom: 30px; right: 30px;"
-        Color="Color.Success" Icon="@Icons.Material.Filled.Add" 
+        Color="Color.Success" Icon="@Icons.Material.Filled.Add"
         OnClick="@(() => OpenRoute("/cadastros/formularios/representantes"))" />

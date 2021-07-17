@@ -1,6 +1,8 @@
 ﻿@page "/cadastros/formularios/usuarios/{id:int?}"
+@using Domain.Models.Entities
+@using Domain.Models.Dtos
 
-@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.FormPageBase
+@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.FormPageBase<Usuario, UsuarioDto, IUsuarioApiService>
 
 <MudCard Elevation="0">
     <MudCardHeader>
@@ -23,7 +25,7 @@
 <div style="position: fixed; bottom: 30px; right: 30px;">
     <MudTooltip Text="Cancelar" Placement="Placement.Top">
         <MudFab Icon="@Icons.Material.Filled.Close" Color="Color.Default" Size="Size.Small"
-                OnClick="@(() => OpenRoute("/cadastros/usuarios"))"
+                OnClick="@(() => OpenRoute(BackRoute))"
                 DisableElevation="true" />
     </MudTooltip>
     <MudTooltip Text="Salvar" Placement="Placement.Top">

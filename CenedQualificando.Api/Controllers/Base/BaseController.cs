@@ -45,17 +45,7 @@ namespace CenedQualificando.Api.Controllers.Base
         [HttpDelete("{id:int}")]
         public virtual CommandResult Excluir(int id)
         {
-            var model = Service.Buscar(id);
-
-            if (model == null)
-            {
-                var commandResult = new CommandResult();
-                commandResult.StatusCode = StatusCodes.Status404NotFound;
-                commandResult.SetError("Nenhum recurso encontrado para o id informado");
-                return commandResult;
-            }
-
-            return Service.Excluir(model);
+            return Service.Excluir(id);
         }
 
         [HttpGet("{id:int}")]

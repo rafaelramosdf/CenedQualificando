@@ -1,20 +1,29 @@
-﻿using CenedQualificando.Domain.Models.Utils;
+﻿using CenedQualificando.Domain.Models.Base;
+using CenedQualificando.Domain.Models.Utils;
+using CenedQualificando.Web.Admin.Services.RefitApiServices.Base;
+using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CenedQualificando.Web.Admin.Shared.CodeBase.Pages
 {
-    public abstract partial class ListPageBase<TModel> : PageBase
-        where TModel : class
+    public abstract partial class ListPageBase<TEntity, TDto, TApiService> : PageBase
+        where TEntity : Entity 
+        where TDto : Dto<TEntity> 
+        where TApiService : ICRUDService<TEntity, TDto> 
     {
-        protected bool SomenteLeitura = false;
-        protected string FiltroTexto = "";
-        protected TModel ItemSelecionado = null;
-        protected HashSet<TModel> Selecionados = new HashSet<TModel>();
+        [Inject] protected TApiService ApiService { get; set; }
+        [Inject] protected IDialogService Dialog { get; set; }
 
-        protected MudTable<TModel> Table;
-        protected DataTableModel<TModel> DataTable;
+        protected bool SomenteLeitura = true;
+        protected string FiltroTexto = "";
+        protected TDto ItemSelecionado = null;
+        protected HashSet<TDto> Selecionados = new HashSet<TDto>();
+
+        protected MudTable<TDto> Table;
+        protected DataTableModel<TDto> DataTable;
 
         protected void OnSearch(string text)
         {
@@ -22,9 +31,9 @@ namespace CenedQualificando.Web.Admin.Shared.CodeBase.Pages
             Table.ReloadServerData();
         }
 
-        protected async Task<TableData<TModel>> ServerReload(TableState state)
+        protected async Task<TableData<TDto>> ServerReload(TableState state)
         {
-            DataTable = new DataTableModel<TModel>();
+            DataTable = new DataTableModel<TDto>();
 
             DataTable.Sorting.Desc = state.SortDirection == SortDirection.Descending;
             DataTable = Ordenar(DataTable, state);
@@ -34,18 +43,46 @@ namespace CenedQualificando.Web.Admin.Shared.CodeBase.Pages
 
             DataTable = await Buscar(DataTable);
 
-            return new TableData<TModel>() { TotalItems = DataTable.Pagination.Total, Items = DataTable.Data };
+            return new TableData<TDto>() { TotalItems = DataTable.Pagination.Total, Items = DataTable.Data };
         }
 
-        protected virtual DataTableModel<TModel> Ordenar(DataTableModel<TModel> dataTable, TableState state)
+        protected virtual DataTableModel<TDto> Ordenar(DataTableModel<TDto> dataTable, TableState state)
         {
             dataTable.Sorting.Field = state.SortLabel;
             return dataTable;
         }
 
-        protected virtual async Task<DataTableModel<TModel>> Buscar(DataTableModel<TModel> dataTable)
+        protected virtual async Task<DataTableModel<TDto>> Buscar(DataTableModel<TDto> dataTable)
         {
-            return await Task.Run(() => dataTable);
+            State.Carregando = true;
+            dataTable.Filter.Text = FiltroTexto;
+            dataTable = await ApiService.Filtrar(dataTable);
+            State.Carregando = false;
+            return dataTable;
+        }
+
+        protected async Task Excluir(int id)
+        {
+            bool? excluir = await Dialog.ShowMessageBox("Excluir",
+                "Deseja realmente excluir este registro?",
+                yesText: "Sim", cancelText: "Não");
+
+            if (excluir == true)
+            {
+                State.Carregando = true;
+                CommandResult apiResponse = await ApiService.Excluir(id);
+                State.Carregando = false;
+
+                if (apiResponse == null || apiResponse.HasError)
+                {
+                    Alert(Severity.Error, apiResponse.Errors.ToList());
+                }
+                else
+                {
+                    Alert(Severity.Success, "Registro excluído com sucesso!");
+                    await Table.ReloadServerData();
+                }
+            }
         }
     }
 }

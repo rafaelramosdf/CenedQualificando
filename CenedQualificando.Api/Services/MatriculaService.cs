@@ -9,6 +9,7 @@ using CenedQualificando.Domain.Models.Entities;
 using CenedQualificando.Domain.Models.Enumerations.Filters;
 using CenedQualificando.Domain.Models.Filters;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,8 +23,9 @@ namespace CenedQualificando.Api.Services
             IMatriculaQuery query,
             IMatriculaRepository repository,
             IUnitOfWork unitOfWork,
-            IMapper mapper) :
-            base(query, repository, unitOfWork, mapper)
+            IMapper mapper,
+            ILogger<MatriculaService> log) :
+            base(query, repository, unitOfWork, mapper, log)
         {
         }
 

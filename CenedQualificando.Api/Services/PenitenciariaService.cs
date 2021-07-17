@@ -9,6 +9,7 @@ using CenedQualificando.Domain.Models.Dtos;
 using CenedQualificando.Domain.Models.Entities;
 using CenedQualificando.Domain.Models.Enumerations;
 using CenedQualificando.Domain.Models.Utils;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -21,8 +22,9 @@ namespace CenedQualificando.Api.Services
             IPenitenciariaQuery query,
             IPenitenciariaRepository repository,
             IUnitOfWork unitOfWork,
-            IMapper mapper) :
-            base(query, repository, unitOfWork, mapper)
+            IMapper mapper,
+            ILogger<PenitenciariaService> log) :
+            base(query, repository, unitOfWork, mapper, log)
         {
         }
 

@@ -6,6 +6,7 @@ using CenedQualificando.Api.Services.Base;
 using CenedQualificando.Domain.Models.Entities;
 using CenedQualificando.Domain.Models.Dtos;
 using CenedQualificando.Domain.Interfaces.Services;
+using Microsoft.Extensions.Logging;
 
 namespace CenedQualificando.Api.Services
 {
@@ -16,8 +17,9 @@ namespace CenedQualificando.Api.Services
             ICursoQuery query,
             ICursoRepository repository,
             IUnitOfWork unitOfWork,
-            IMapper mapper) :
-            base(query, repository, unitOfWork, mapper)
+            IMapper mapper,
+            ILogger<CursoService> log) :
+            base(query, repository, unitOfWork, mapper, log)
         {
         }
     }

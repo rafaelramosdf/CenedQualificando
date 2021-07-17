@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using CenedQualificando.Api.Services.Base;
 using CenedQualificando.Domain.Interfaces.Queries;
@@ -12,6 +11,7 @@ using CenedQualificando.Domain.Models.Dtos;
 using CenedQualificando.Domain.Models.Entities;
 using CenedQualificando.Domain.Models.Utils;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 
 namespace CenedQualificando.Api.Services
 {
@@ -28,15 +28,16 @@ namespace CenedQualificando.Api.Services
             IGrupoDePermissaoRepository repository,
             IUnitOfWork unitOfWork,
             IMapper mapper,
-            IPermissaoService permissaoService) :
-            base(query, repository, unitOfWork, mapper)
+            IPermissaoService permissaoService,
+            ILogger<GrupoDePermissaoService> log) :
+            base(query, repository, unitOfWork, mapper, log)
         {
             _permissaoService = permissaoService;
         }
 
-        public async Task<IEnumerable<PermissaoDto>> GetPermissoesAsync(int idGrupoPermissao)
+        public IEnumerable<int> GetIdPermissoes(int idGrupoPermissao)
         {
-            return Mapper.Map<IEnumerable<PermissaoDto>>(await Repository.GetPermissoesAsync(idGrupoPermissao));
+            return Repository.GetIdPermissoes(idGrupoPermissao);
         }
 
         public override CommandResult Incluir(GrupoDePermissaoDto vm)
@@ -91,10 +92,10 @@ namespace CenedQualificando.Api.Services
                 var grupoPermissao = Mapper.Map<GrupoDePermissao>(vm);
                 var permissoes = vm.Permissoes.Where(p => p.Selecionado);
 
-                var permissoesAntigas = GetPermissoesAsync(grupoPermissao.IdGrupoDePermissao).Result;
-                foreach (var permissao in permissoesAntigas)
+                var idPermissoesAntigas = GetIdPermissoes(grupoPermissao.IdGrupoDePermissao);
+                foreach (var id in idPermissoesAntigas)
                 {
-                    var commandResultExclusaoPermissoes = _permissaoService.Excluir(permissao);
+                    var commandResultExclusaoPermissoes = _permissaoService.Excluir(id);
                     if (commandResultExclusaoPermissoes.HasError)
                     {
                         commandResult.SetErrors(commandResultExclusaoPermissoes.Errors.ToList());

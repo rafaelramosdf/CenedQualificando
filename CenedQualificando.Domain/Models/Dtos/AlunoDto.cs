@@ -23,9 +23,7 @@ namespace CenedQualificando.Domain.Models.Dtos
 
         public string SexoDescricao => Sexo.EnumDescription();
 
-        [CpfValidation]
-        [Required(ErrorMessageResourceType = typeof(ValidationMessageResource),
-            ErrorMessageResourceName = nameof(ValidationMessageResource.CampoObrigatorio))]
+        [StringRequiredValidation("CPF"), CpfValidation]
         public string Cpf { get; set; }
 
         public string Rg { get; set; }
@@ -52,7 +50,11 @@ namespace CenedQualificando.Domain.Models.Dtos
         public string FoneResidencial { get; set; }
         public string FoneComercial { get; set; }
         public string Email { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(ValidationMessageResource),
+            ErrorMessageResourceName = nameof(ValidationMessageResource.CampoObrigatorio))]
         public string NomePreposto { get; set; }
+
         public VinculoEnum Vinculo { get; set; }
         public string VinculoDescricao => Vinculo.EnumDescription();
         public SexoEnum SexoPreposto { get; set; }
@@ -67,7 +69,11 @@ namespace CenedQualificando.Domain.Models.Dtos
         public string CidadeTrabalho { get; set; }
         public UfEnum UfTrabalho { get; set; }
         public string UfTrabalhoDescricao => UfTrabalho.EnumDescription();
+
+        [Required(ErrorMessageResourceType = typeof(ValidationMessageResource),
+            ErrorMessageResourceName = nameof(ValidationMessageResource.CampoObrigatorio))]
         public int IdPenitenciaria { get; set; }
+
         public string Bloco { get; set; }
         public string Ala { get; set; }
         public string Cela { get; set; }

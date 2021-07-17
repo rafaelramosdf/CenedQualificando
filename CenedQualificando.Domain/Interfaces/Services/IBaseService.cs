@@ -24,7 +24,7 @@ namespace CenedQualificando.Domain.Interfaces.Services
         CommandResult Alterar(TDto vm);
         CommandResult Alterar(IEnumerable<TDto> vmList);
 
-        CommandResult Excluir(TDto vm);
-        CommandResult Excluir(IEnumerable<TDto> vmList);
+        CommandResult Excluir(int id);
+        CommandResult Excluir(IEnumerable<int> idList);
     }
 }

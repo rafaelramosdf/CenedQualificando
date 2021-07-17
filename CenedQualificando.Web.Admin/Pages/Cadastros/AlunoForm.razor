@@ -1,9 +1,10 @@
 ﻿@page "/cadastros/formularios/alunos/{id:int?}"
 
 @using CenedQualificando.Web.Admin.Shared.Components.Select
-@using System.ComponentModel.DataAnnotations
+@using Domain.Models.Entities
+@using Domain.Models.Dtos 
 
-@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.FormPageBase
+@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.FormPageBase<Aluno, AlunoDto, IAlunoApiService>
 
 <EditForm Model="@Model" OnSubmit="OnSubmit">
 
@@ -30,7 +31,7 @@
 
 
                 <MudItem md="3" xs="12">
-                    <MudDatePicker @bind-Date="Model.DataNascimento" 
+                    <MudDatePicker @bind-Date="Model.DataNascimento"
                                    For="@(() => Model.DataNascimento)"
                                    Label="Dt. Nascimento"
                                    InputVariant="Variant.Outlined"
@@ -298,12 +299,12 @@
     <div style="position: fixed; bottom: 30px; right: 30px;">
         <MudTooltip Text="Cancelar" Placement="Placement.Top">
             <MudFab Icon="@Icons.Material.Filled.Close" Color="Color.Default" Size="Size.Small"
-                    OnClick="@(() => OpenRoute("/cadastros/alunos"))"
+                    OnClick="@(() => OpenRoute(BackRoute))"
                     DisableElevation="true" />
         </MudTooltip>
         <MudTooltip Text="Salvar" Placement="Placement.Top">
             <MudFab Icon="@Icons.Material.Filled.Save" Color="Color.Success" Size="Size.Large" ButtonType="ButtonType.Submit" />
         </MudTooltip>
-    </div> 
+    </div>
 
 </EditForm>

@@ -5,7 +5,10 @@ using CenedQualificando.Domain.Interfaces.Services;
 using CenedQualificando.Domain.Interfaces.UoW;
 using CenedQualificando.Domain.Models.Base;
 using CenedQualificando.Domain.Models.Utils;
+using CenedQualificando.Domain.Resources;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,17 +26,20 @@ namespace CenedQualificando.Api.Services.Base
         protected readonly TRepository Repository;
         protected readonly IUnitOfWork UnitOfWork;
         protected readonly IMapper Mapper;
+        protected readonly ILogger<IBaseService<TEntity, TDto>> Log;
 
         protected BaseService(
             TQuery query,
             TRepository repository,
             IUnitOfWork unitOfWork,
-            IMapper mapper)
+            IMapper mapper,
+            ILogger<IBaseService<TEntity, TDto>> log)
         {
             Query = query;
             UnitOfWork = unitOfWork;
             Mapper = mapper;
             Repository = repository;
+            Log = log;
         }
 
         public virtual CommandResult Incluir(TDto vm)
@@ -47,9 +53,7 @@ namespace CenedQualificando.Api.Services.Base
             }
             catch (Exception ex)
             {
-                var commandResult = new CommandResult(StatusCodes.Status500InternalServerError, vm);
-                commandResult.SetError(ex.Message);
-                return commandResult;
+                return RetornarErroPersistencia(ex, vm);
             }
         }
         public CommandResult Incluir(IEnumerable<TDto> vmList)
@@ -70,9 +74,7 @@ namespace CenedQualificando.Api.Services.Base
             catch (Exception ex)
             {
                 UnitOfWork.Rollback();
-                var commandResult = new CommandResult(StatusCodes.Status500InternalServerError, vmList);
-                commandResult.SetError(ex.Message);
-                return commandResult;
+                return RetornarErroPersistencia(ex, vmList);
             }
         }
 
@@ -87,9 +89,7 @@ namespace CenedQualificando.Api.Services.Base
             }
             catch (Exception ex)
             {
-                var commandResult = new CommandResult(StatusCodes.Status500InternalServerError, vm);
-                commandResult.SetError(ex.Message);
-                return commandResult;
+                return RetornarErroPersistencia(ex, vm);
             }
         }
         public CommandResult Alterar(IEnumerable<TDto> vmList)
@@ -110,36 +110,32 @@ namespace CenedQualificando.Api.Services.Base
             catch (Exception ex)
             {
                 UnitOfWork.Rollback();
-                var commandResult = new CommandResult(StatusCodes.Status500InternalServerError, vmList);
-                commandResult.SetError(ex.Message);
-                return commandResult;
+                return RetornarErroPersistencia(ex, vmList);
             }
         }
 
-        public virtual CommandResult Excluir(TDto vm)
+        public virtual CommandResult Excluir(int id)
         {
             try
             {
-                Repository.Remove(Mapper.Map<TEntity>(vm));
+                Repository.Remove(Repository.Get(id));
                 UnitOfWork.Commit();
                 return new CommandResult(StatusCodes.Status204NoContent, null);
             }
             catch (Exception ex)
             {
-                var commandResult = new CommandResult(StatusCodes.Status500InternalServerError, vm);
-                commandResult.SetError(ex.Message);
-                return commandResult;
+                return RetornarErroPersistencia(ex);
             }
         }
-        public CommandResult Excluir(IEnumerable<TDto> vmList)
+        public CommandResult Excluir(IEnumerable<int> idList)
         {
             try
             {
                 UnitOfWork.BeginTransaction();
                 
-                foreach (var item in vmList)
+                foreach (var id in idList)
                 {
-                    Excluir(item);
+                    Excluir(id);
                 }
 
                 UnitOfWork.CommitTransaction();
@@ -149,9 +145,7 @@ namespace CenedQualificando.Api.Services.Base
             catch (Exception ex)
             {
                 UnitOfWork.Rollback();
-                var commandResult = new CommandResult(StatusCodes.Status500InternalServerError, vmList);
-                commandResult.SetError(ex.Message);
-                return commandResult;
+                return RetornarErroPersistencia(ex);
             }
         }
 
@@ -211,6 +205,26 @@ namespace CenedQualificando.Api.Services.Base
         public virtual IQueryable<TEntity> PaginarConsulta(IQueryable<TEntity> queryList, DataTablePaginationModel paginationModel)
         {
             return queryList.Skip((paginationModel.Page - 1) * paginationModel.Limit).Take(paginationModel.Limit);
+        }
+
+        protected CommandResult RetornarErroPersistencia(Exception ex = null, object dto = null)
+        {
+            var log = $"\n\r" +
+                $"***** [MESSAGE] *****\n\r" +
+                $"{ex.Message}\n\r\n\r" +
+                $"***** [INNER EXCEPTION] *****\n\r" +
+                $"{ex.InnerException?.Message}\n\r";
+            
+            if (dto != null)
+                log += $"\n\r" +
+                    $"***** [DADOS DA REQUISICAO] ***** \n\r " +
+                    $"{JsonConvert.SerializeObject(dto)}\n\r\n\r";
+
+            Log.LogError(log);
+
+            var commandResult = new CommandResult(StatusCodes.Status500InternalServerError, dto);
+            commandResult.SetError(ErrorMessageResource.ErroPersistencia);
+            return commandResult;
         }
     }
 }

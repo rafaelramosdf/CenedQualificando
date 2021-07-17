@@ -7,6 +7,7 @@ using CenedQualificando.Domain.Interfaces.Services;
 using CenedQualificando.Domain.Interfaces.UoW;
 using CenedQualificando.Domain.Models.Dtos;
 using CenedQualificando.Domain.Models.Entities;
+using Microsoft.Extensions.Logging;
 
 namespace CenedQualificando.Api.Services
 {
@@ -19,8 +20,9 @@ namespace CenedQualificando.Api.Services
             IUsuarioRepository repository,
             IUnitOfWork unitOfWork,
             IMapper mapper,
+            ILogger<UsuarioService> log, 
             IGrupoDePermissaoService grupoDePermissaoService) :
-            base(query, repository, unitOfWork, mapper)
+            base(query, repository, unitOfWork, mapper, log)
         {
             _grupoDePermissaoService = grupoDePermissaoService;
         }

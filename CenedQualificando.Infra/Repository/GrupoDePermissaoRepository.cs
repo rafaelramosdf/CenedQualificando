@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Linq;
 using CenedQualificando.Domain.Interfaces.Repository;
 using CenedQualificando.Domain.Models.Entities;
 using CenedQualificando.Infra.Context;
@@ -9,16 +9,18 @@ namespace CenedQualificando.Infra.Repository
 {
     public class GrupoDePermissaoRepository : BaseRepository<GrupoDePermissao>, IGrupoDePermissaoRepository
     {
-        public GrupoDePermissaoRepository(EntityContext context)
+        protected readonly IPermissaoRepository _permissaoRepository;
+
+        public GrupoDePermissaoRepository(EntityContext context, 
+            IPermissaoRepository permissaoRepository)
             : base(context)
         {
+            _permissaoRepository = permissaoRepository;
         }
 
-        public async Task<IEnumerable<Permissao>> GetPermissoesAsync(int idGrupoPermissao)
+        public IEnumerable<int> GetIdPermissoes(int idGrupoPermissao)
         {
-            return await Task.Run(() => new List<Permissao>());
-            // TODO: Refazer com EntityFramework
-            //return await Dapper.DapperConnection.QueryAsync<Permissao>($@"SELECT IdPermissao, Nome, IdGrupoDePermissao FROM Penitenciario.Permissao WHERE IdGrupoDePermissao = {idGrupoPermissao}");
+            return _permissaoRepository.List(per => per.IdGrupoDePermissao == idGrupoPermissao).Select(s => s.IdPermissao).ToList();
         }
     }
 }

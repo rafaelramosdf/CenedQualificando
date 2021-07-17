@@ -8,6 +8,7 @@ using CenedQualificando.Domain.Models.Dtos;
 using CenedQualificando.Domain.Models.Entities;
 using CenedQualificando.Domain.Models.Utils;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,9 +22,19 @@ namespace CenedQualificando.Api.Services
             IAlunoQuery query,
             IAlunoRepository repository,
             IUnitOfWork unitOfWork,
-            IMapper mapper) :
-            base(query, repository, unitOfWork, mapper)
+            IMapper mapper,
+            ILogger<AlunoService> log) :
+            base(query, repository, unitOfWork, mapper, log)
         {
+        }
+
+        public override CommandResult Incluir(AlunoDto vm)
+        {
+            vm.Penitenciaria = null;
+            // TODO: Criar método para gerar senha do Aluno (Novo)
+            vm.Senha = "123";
+            vm.ConfirmarSenha = "123";
+            return base.Incluir(vm);
         }
 
         public override IQueryable<Aluno> CriarConsulta()

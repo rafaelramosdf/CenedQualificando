@@ -6,6 +6,7 @@ using CenedQualificando.Domain.Interfaces.Services;
 using CenedQualificando.Domain.Interfaces.UoW;
 using CenedQualificando.Domain.Models.Dtos;
 using CenedQualificando.Domain.Models.Entities;
+using Microsoft.Extensions.Logging;
 
 namespace CenedQualificando.Api.Services
 {
@@ -16,8 +17,9 @@ namespace CenedQualificando.Api.Services
             IFiscalSalaQuery query,
             IFiscalSalaRepository repository,
             IUnitOfWork unitOfWork,
-            IMapper mapper) :
-            base(query, repository, unitOfWork, mapper)
+            IMapper mapper,
+            ILogger<FiscalSalaService> log) :
+            base(query, repository, unitOfWork, mapper, log)
         {
         }
     }
