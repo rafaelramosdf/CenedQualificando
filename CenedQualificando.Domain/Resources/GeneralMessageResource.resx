@@ -117,8 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CampoObrigatorio" xml:space="preserve">
-    <value>Informe o campo "{0}"</value>
-    <comment>{0} = Nome do campo</comment>
+  <data name="DadosSalvosComSucesso" xml:space="preserve">
+    <value>Dados salvos com sucesso!</value>
+  </data>
+  <data name="DesejaRealmenteExcluirEsteRegistro" xml:space="preserve">
+    <value>Deseja realmente excluir este registro?</value>
+  </data>
+  <data name="RegistroExcluidoComSucesso" xml:space="preserve">
+    <value>Registro excluído com sucesso!</value>
   </data>
 </root>

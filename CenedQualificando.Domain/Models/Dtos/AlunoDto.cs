@@ -1,11 +1,9 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using CenedQualificando.Domain.Extensions;
 using CenedQualificando.Domain.Models.Base;
 using CenedQualificando.Domain.Models.Dtos.Validations;
 using CenedQualificando.Domain.Models.Entities;
 using CenedQualificando.Domain.Models.Enumerations;
-using CenedQualificando.Domain.Resources;
 
 namespace CenedQualificando.Domain.Models.Dtos
 {
@@ -15,23 +13,21 @@ namespace CenedQualificando.Domain.Models.Dtos
 
         public int IdAluno { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(ValidationMessageResource),
-            ErrorMessageResourceName = nameof(ValidationMessageResource.CampoObrigatorio))]
+        [RequiredValidation("Nome do Cursista")]
         public string Nome { get; set; }
 
         public SexoEnum Sexo { get; set; }
 
         public string SexoDescricao => Sexo.EnumDescription();
 
-        [StringRequiredValidation("CPF"), CpfValidation]
+        [RequiredValidation("CPF do Cursista"), CpfValidation]
         public string Cpf { get; set; }
 
         public string Rg { get; set; }
 
         public string OrgaoExpedidor { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(ValidationMessageResource),
-            ErrorMessageResourceName = nameof(ValidationMessageResource.CampoObrigatorio))]
+        [RequiredValidation("Data de Nascimento")]
         public DateTime? DataNascimento { get; set; }
 
         public string Naturalidade { get; set; }
@@ -51,15 +47,17 @@ namespace CenedQualificando.Domain.Models.Dtos
         public string FoneComercial { get; set; }
         public string Email { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(ValidationMessageResource),
-            ErrorMessageResourceName = nameof(ValidationMessageResource.CampoObrigatorio))]
+        [RequiredValidation("Nome do Preposto")]
         public string NomePreposto { get; set; }
 
         public VinculoEnum Vinculo { get; set; }
         public string VinculoDescricao => Vinculo.EnumDescription();
         public SexoEnum SexoPreposto { get; set; }
         public string SexoPrepostoDescricao => SexoPreposto.EnumDescription();
+
+        [RequiredValidation("CPF do Preposto")]
         public string CpfPreposto { get; set; }
+
         public string RgPreposto { get; set; }
         public string OrgaoExpedidorPreposto { get; set; }
         public string GrauInstrucao { get; set; }
@@ -70,8 +68,7 @@ namespace CenedQualificando.Domain.Models.Dtos
         public UfEnum UfTrabalho { get; set; }
         public string UfTrabalhoDescricao => UfTrabalho.EnumDescription();
 
-        [Required(ErrorMessageResourceType = typeof(ValidationMessageResource),
-            ErrorMessageResourceName = nameof(ValidationMessageResource.CampoObrigatorio))]
+        [RequiredValidation("Penitenciária")]
         public int IdPenitenciaria { get; set; }
 
         public string Bloco { get; set; }

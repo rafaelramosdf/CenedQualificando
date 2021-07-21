@@ -1,5 +1,6 @@
 ﻿using CenedQualificando.Domain.Models.Base;
 using CenedQualificando.Domain.Models.Utils;
+using CenedQualificando.Domain.Resources;
 using CenedQualificando.Web.Admin.Services.RefitApiServices.Base;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
@@ -77,7 +78,7 @@ namespace CenedQualificando.Web.Admin.Shared.CodeBase.Pages
             }
 
             OpenRoute(BackRoute);
-            Alert(Severity.Success, "Dados salvos com sucesso!");
+            Alert(Severity.Success, GeneralMessageResource.DadosSalvosComSucesso);
             StateHasChanged();
         }
     }

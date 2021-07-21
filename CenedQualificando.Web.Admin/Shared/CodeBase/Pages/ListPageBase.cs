@@ -1,5 +1,6 @@
 ﻿using CenedQualificando.Domain.Models.Base;
 using CenedQualificando.Domain.Models.Utils;
+using CenedQualificando.Domain.Resources;
 using CenedQualificando.Web.Admin.Services.RefitApiServices.Base;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
@@ -64,7 +65,7 @@ namespace CenedQualificando.Web.Admin.Shared.CodeBase.Pages
         protected async Task Excluir(int id)
         {
             bool? excluir = await Dialog.ShowMessageBox("Excluir",
-                "Deseja realmente excluir este registro?",
+                GeneralMessageResource.DesejaRealmenteExcluirEsteRegistro,
                 yesText: "Sim", cancelText: "Não");
 
             if (excluir == true)
@@ -79,7 +80,7 @@ namespace CenedQualificando.Web.Admin.Shared.CodeBase.Pages
                 }
                 else
                 {
-                    Alert(Severity.Success, "Registro excluído com sucesso!");
+                    Alert(Severity.Success, GeneralMessageResource.RegistroExcluidoComSucesso);
                     await Table.ReloadServerData();
                 }
             }

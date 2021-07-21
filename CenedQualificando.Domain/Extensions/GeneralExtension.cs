@@ -1377,6 +1377,16 @@ namespace CenedQualificando.Domain.Extensions
             return (valor != null && valor > 0);
         }
 
+        public static bool PossuiValor(this int valor)
+        {
+            return (valor > 0);
+        }
+
+        public static bool PossuiValor(this int? valor)
+        {
+            return (valor != null && valor > 0);
+        }
+
         public static bool PossuiValor(this object valor)
         {
             return valor != null;

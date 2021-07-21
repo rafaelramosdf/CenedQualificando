@@ -194,7 +194,8 @@
 
                 <MudItem md="8" xs="12">
                     <MudTextField Label="Preposto / Responsável pela Matrícula" Placeholder="Nome completo do responsável"
-                                  @bind-Value="Model.NomePreposto"
+                                  @bind-Value="Model.NomePreposto" 
+                                  For="@(() => Model.NomePreposto)" 
                                   Variant="Variant.Outlined"
                                   Margin="Margin.Dense" />
                 </MudItem>
@@ -208,7 +209,8 @@
                 </MudItem>
                 <MudItem md="3">
                     <MudTextField Label="CPF" Placeholder="CPF do responsável"
-                                  @bind-Value="Model.CpfPreposto"
+                                  @bind-Value="Model.CpfPreposto" 
+                                  For="@(() => Model.CpfPreposto)"
                                   Variant="Variant.Outlined"
                                   Margin="Margin.Dense"
                                   UserAttributes="@(new Dictionary<string, object> { { "mask", "cpf" } })" />

@@ -51,8 +51,7 @@ namespace CenedQualificando.Web.Admin.Shared.CodeBase.Pages
 
         protected void Alert(Severity severity, List<string> messages)
         {
-            Alert(severity, $"Formulário inválido: <br />" + 
-                $"• {string.Join("<br />• ", messages)}");
+            Alert(severity, $"• {string.Join("<br />• ", messages)}");
         }
 
         public void Dispose()
