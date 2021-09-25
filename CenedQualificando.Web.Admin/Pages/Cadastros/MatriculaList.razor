@@ -20,7 +20,7 @@
           SortLabel="Ordenar por"
           Elevation="0">
     <ToolBarContent>
-        <MudToolBarSpacer />
+        <MudSpacer />
         <MudTextField T="string" ValueChanged="@(s => OnSearch(s))"
                       Placeholder="Pesquisar por Aluno ou Curso"
                       Adornment="Adornment.Start"
@@ -59,8 +59,7 @@
     <RowTemplate>
         <MudTd>
             <MudMenu Icon="@Icons.Material.Filled.MoreVert">
-                <MudMenuItem>Alterar</MudMenuItem>
-                <MudMenuItem>Consultar</MudMenuItem>
+                <MudMenuItem OnClick="@(() => OpenRoute($"/cadastros/formularios/matriculas/{context.Id}"))">Abrir</MudMenuItem>
                 <MudMenuItem OnClick="@(() => Excluir(context.Id))">Excluir</MudMenuItem>
             </MudMenu>
         </MudTd>

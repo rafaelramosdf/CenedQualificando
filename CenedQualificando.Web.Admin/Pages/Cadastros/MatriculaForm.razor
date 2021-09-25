@@ -1,34 +1,275 @@
 ﻿@page "/cadastros/formularios/matriculas/{id:int?}"
+
+@using CenedQualificando.Web.Admin.Shared.Components.Select
 @using Domain.Models.Entities
 @using Domain.Models.Dtos
 
 @inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.FormPageBase<Matricula, MatriculaDto, IMatriculaApiService>
 
-<MudCard Elevation="0">
-    <MudCardHeader>
-        <CardHeaderContent>
-            <MudText Color="Color.Primary">Formulário</MudText>
-        </CardHeaderContent>
-    </MudCardHeader>
-    <MudCardContent>
-        <MudGrid>
-            <MudItem md="12" xs="12">
-                <MudTextField T="string" Label="Campo" Placeholder="Campo"
-                              Variant="Variant.Outlined" Margin="Margin.Dense" />
-            </MudItem>
-        </MudGrid>
-    </MudCardContent>
-</MudCard>
+<EditForm Model="@Model" OnSubmit="OnSubmit">
 
-<br />
+    <DataAnnotationsValidator />
 
-<div style="position: fixed; bottom: 30px; right: 30px;">
-    <MudTooltip Text="Cancelar" Placement="Placement.Top">
-        <MudFab Icon="@Icons.Material.Filled.Close" Color="Color.Default" Size="Size.Small"
-                OnClick="@(() => OpenRoute(BackRoute))"
-                DisableElevation="true" />
-    </MudTooltip>
-    <MudTooltip Text="Salvar" Placement="Placement.Top">
-        <MudFab Icon="@Icons.Material.Filled.Save" Color="Color.Success" Size="Size.Large" />
-    </MudTooltip>
-</div>
+    <MudTabs Elevation="0" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
+        
+        <MudTabPanel Text="Dados Gerais do Curso">
+            <MudCard Elevation="0">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Color="Color.Primary">Dados do Curso</MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudGrid>
+                        <MudItem md="2" xs="12">
+                            <MudTextField Label="Matrícula" Placeholder="SP-99999"
+                                          @bind-Value="Model.NumeroMatricula"
+                                          For="@(() => Model.NumeroMatricula)"
+                                          Variant="Variant.Outlined"
+                                          Margin="Margin.Dense" />
+                        </MudItem>
+                        <MudItem md="2" xs="12">
+                            <MudDatePicker @bind-Date="Model.DataMatricula"
+                                           For="@(() => Model.DataMatricula)"
+                                           Label="Dt. Matrícula"
+                                           InputVariant="Variant.Outlined"
+                                           Margin="Margin.Dense"
+                                           DateFormat="dd/MM/yyyy" />
+                        </MudItem>
+                        <MudItem md="8" xs="12">
+                            <AlunoSelect @bind-Id="Model.IdAluno" Dense="true" />
+                        </MudItem>
+
+                        <MudItem md="12" xs="12">
+                            <CursoSelect @bind-Id="Model.IdCurso" Dense="true" />
+                        </MudItem>
+
+                        <MudItem md="2" xs="12">
+                            <MudDatePicker @bind-Date="Model.InicioCurso"
+                                           For="@(() => Model.InicioCurso)"
+                                           Label="Início"
+                                           InputVariant="Variant.Outlined"
+                                           Margin="Margin.Dense"
+                                           DateFormat="dd/MM/yyyy" />
+                        </MudItem>
+                        <MudItem md="2" xs="12">
+                            <MudDatePicker @bind-Date="Model.TerminoCurso"
+                                           For="@(() => Model.TerminoCurso)"
+                                           Label="Término"
+                                           InputVariant="Variant.Outlined"
+                                           Margin="Margin.Dense"
+                                           DateFormat="dd/MM/yyyy" />
+                        </MudItem>
+                        <MudItem md="3" xs="12">
+                            <MudDatePicker @bind-Date="Model.DataPiso"
+                                           For="@(() => Model.DataPiso)"
+                                           Label="Prova Autorizada"
+                                           InputVariant="Variant.Outlined"
+                                           Margin="Margin.Dense"
+                                           DateFormat="dd/MM/yyyy" />
+                        </MudItem>
+                        <MudItem md="2" xs="12">
+                            <MudTextField Label="Período (dias)" Placeholder="99"
+                                          @bind-Value="Model.Periodo"
+                                          For="@(() => Model.Periodo)"
+                                          Variant="Variant.Outlined"
+                                          Margin="Margin.Dense" />
+                        </MudItem>
+                        <MudItem md="3" xs="12">
+                            <MudDatePicker @bind-Date="Model.DataPrescricao"
+                                           For="@(() => Model.DataPrescricao)"
+                                           Label="Dt. Prescrição"
+                                           InputVariant="Variant.Outlined"
+                                           Margin="Margin.Dense"
+                                           DateFormat="dd/MM/yyyy" />
+                        </MudItem>
+
+                        <MudItem md="3" xs="12">
+                            <MudTextField Label="Representante" Placeholder="Representante"
+                                          @bind-Value="Model.Representante"
+                                          For="@(() => Model.Representante)"
+                                          Variant="Variant.Outlined"
+                                          Margin="Margin.Dense" />
+                        </MudItem>
+                        <MudItem md="4" xs="12">
+                            <UsuarioSelect Label="Usuário (última alteração)" @bind-Id="Model.IdUsuario" Dense="true" />
+                        </MudItem>
+                        <MudItem md="2" xs="12">
+                            <MudDatePicker @bind-Date="Model.DataStatusCurso"
+                                           For="@(() => Model.DataStatusCurso)"
+                                           Label="Dt. Alteração"
+                                           InputVariant="Variant.Outlined"
+                                           Margin="Margin.Dense"
+                                           DateFormat="dd/MM/yyyy" />
+                        </MudItem>
+                        <MudItem md="3" xs="12">
+                            <StatusCursoSelect @bind-Value="Model.StatusCurso" Dense="true" />
+                        </MudItem>
+                    </MudGrid>
+                </MudCardContent>
+            </MudCard>
+            <br />
+            <MudCard Elevation="0">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Color="Color.Primary">Envio Material / Observações</MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudGrid>
+                        <MudItem md="4" xs="12">
+                            <EnvioMaterialSelect @bind-Value="Model.EnvioMaterial" Dense="true" />
+                        </MudItem>
+                        <MudItem md="3" xs="12">
+                            <MaterialDidaticoSelect @bind-Value="Model.MaterialDidatico" Dense="true" />
+                        </MudItem>
+                        <MudItem md="2" xs="12">
+                            <MudDatePicker @bind-Date="Model.DataPostagem"
+                                           For="@(() => Model.DataPostagem)"
+                                           Label="Dt. Envio"
+                                           InputVariant="Variant.Outlined"
+                                           Margin="Margin.Dense"
+                                           DateFormat="dd/MM/yyyy" />
+                        </MudItem>
+                        <MudItem md="3" xs="12">
+                            <EnviadoParaSelect @bind-Value="Model.MaterialEnviadoPara" Dense="true" />
+                        </MudItem>
+
+                        <MudItem md="12" xs="12">
+                            <MudTextField Label="Observações" Placeholder="Observações"
+                                          @bind-Value="Model.Observacoes"
+                                          For="@(() => Model.Observacoes)"
+                                          Variant="Variant.Outlined"
+                                          Lines="3"
+                                          Margin="Margin.Dense" />
+                        </MudItem>
+                    </MudGrid>
+                </MudCardContent>
+            </MudCard>
+        </MudTabPanel>
+
+
+        <MudTabPanel Text="Financeiro / Despesas">
+            <MudCard Elevation="0">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Color="Color.Primary">Financeiro / Pagamento</MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudGrid>
+                        <MudItem md="3" xs="12">
+                            <StatusFinanceiroSelect Label="Status" @bind-Value="Model.StatusFinanceiro" Dense="true" />
+                        </MudItem>
+                        <MudItem md="2" xs="12">
+                            <FormaPagamentoSelect Label="Forma" @bind-Value="Model.FormaPagamento" Dense="true" />
+                        </MudItem>
+                        <MudItem md="3" xs="12">
+                            <MudTextField Label="Boleto" Placeholder="Boleto"
+                                          @bind-Value="Model.Boleto"
+                                          For="@(() => Model.Boleto)"
+                                          Variant="Variant.Outlined"
+                                          Margin="Margin.Dense" />
+                        </MudItem>
+                        <MudItem md="2" xs="12">
+                            <MudNumericField Label="Valor" T="decimal" 
+                                          @bind-Value="Model.ValorTotal"
+                                          For="@(() => Model.ValorTotal)"
+                                          Variant="Variant.Outlined"
+                                          Margin="Margin.Dense" 
+                                          Format="C2"
+                                          Culture="@System.Globalization.CultureInfo.CurrentCulture" />
+                        </MudItem>
+                        <MudItem md="2" xs="12">
+                            <MudDatePicker @bind-Date="Model.DataPagamento"
+                                           For="@(() => Model.DataPagamento)"
+                                           Label="Dt. Pagamento"
+                                           InputVariant="Variant.Outlined"
+                                           Margin="Margin.Dense"
+                                           DateFormat="dd/MM/yyyy" />
+                        </MudItem>
+                    </MudGrid>
+                </MudCardContent>
+            </MudCard>
+            <br />
+            <MudCard Elevation="0">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Color="Color.Primary">Despesas Extras</MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudGrid>
+                    </MudGrid>
+                </MudCardContent>
+            </MudCard>
+        </MudTabPanel>
+
+
+        <MudTabPanel Text="Provas / Certificado">
+            <MudCard Elevation="0">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Color="Color.Primary">Provas / Avaliações</MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudGrid>
+                    </MudGrid>
+                </MudCardContent>
+            </MudCard>
+            <br />
+            <MudCard Elevation="0">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Color="Color.Primary">Certificado</MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudGrid>
+                        <MudItem md="3" xs="12">
+                            <MudTextField Label="N° Registro" Placeholder="N° Registro"
+                                          @bind-Value="Model.Registro"
+                                          For="@(() => Model.Registro)"
+                                          Variant="Variant.Outlined"
+                                          Margin="Margin.Dense" />
+                        </MudItem>
+                        <MudItem md="3" xs="12">
+                            <MudDatePicker @bind-Date="Model.CertificadoExpedido"
+                                           For="@(() => Model.CertificadoExpedido)"
+                                           Label="Dt. Expedição"
+                                           InputVariant="Variant.Outlined"
+                                           Margin="Margin.Dense"
+                                           DateFormat="dd/MM/yyyy" />
+                        </MudItem>
+                        <MudItem md="3" xs="12">
+                            <MudDatePicker @bind-Date="Model.CertificadoEnviado"
+                                           For="@(() => Model.CertificadoEnviado)"
+                                           Label="Dt. Envio"
+                                           InputVariant="Variant.Outlined"
+                                           Margin="Margin.Dense"
+                                           DateFormat="dd/MM/yyyy" />
+                        </MudItem>
+                        <MudItem md="3" xs="12">
+                            <EnviadoParaSelect @bind-Value="Model.CertificadoEnviadoPara" Dense="true" />
+                        </MudItem>
+                    </MudGrid>
+                </MudCardContent>
+            </MudCard>
+        </MudTabPanel>
+
+    </MudTabs>
+
+
+    <div style="position: fixed; bottom: 30px; right: 30px;">
+        <MudTooltip Text="Cancelar" Placement="Placement.Top">
+            <MudFab Icon="@Icons.Material.Filled.Close" Color="Color.Default" Size="Size.Small"
+                    OnClick="@(() => OpenRoute(BackRoute))"
+                    DisableElevation="true" />
+        </MudTooltip>
+        <MudTooltip Text="Salvar" Placement="Placement.Top">
+            <MudFab Icon="@Icons.Material.Filled.Save" Color="Color.Success" Size="Size.Large" ButtonType="ButtonType.Submit" />
+        </MudTooltip>
+    </div>
+
+</EditForm>

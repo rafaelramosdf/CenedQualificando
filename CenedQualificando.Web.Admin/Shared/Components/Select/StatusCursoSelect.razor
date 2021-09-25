@@ -1,0 +1,35 @@
+﻿@using CenedQualificando.Domain.Models.Enumerations
+
+@namespace CenedQualificando.Web.Admin.Shared.Components.Select
+
+<MudSelect T="StatusCursoEnum"
+           Value="@Value"
+           Label="@Label"
+           ValueChanged="@OnValueChanged"
+           Variant="@Variant"
+           Dense="@Dense"
+           Clearable="false">
+    <MudSelectItem Value="StatusCursoEnum.Null">Selecione...</MudSelectItem>
+    @{
+        foreach (var item in Enum.GetValues<StatusCursoEnum>())
+        {
+            if (item != StatusCursoEnum.Null)
+            {
+                <MudSelectItem Value="@item">@item.EnumDescription()</MudSelectItem>
+            }
+        }
+    }
+</MudSelect>
+
+@code {
+    [Parameter] public StatusCursoEnum Value { get; set; }
+    [Parameter] public string Label { get; set; } = "Status Curso";
+    [Parameter] public Variant Variant { get; set; } = Variant.Outlined;
+    [Parameter] public bool Dense { get; set; } = false;
+    [Parameter] public EventCallback<StatusCursoEnum> ValueChanged { get; set; }
+
+    private void OnValueChanged(StatusCursoEnum value)
+    {
+        ValueChanged.InvokeAsync(value);
+    }
+}

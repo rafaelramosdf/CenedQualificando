@@ -26,5 +26,21 @@ namespace CenedQualificando.Api.Controllers.Select
         {
             return Ok(service.ObterComboSelecao(param.Term, param.Size));
         }
+
+        [HttpGet("cursos")]
+        public ActionResult<SelectResult> Cursos(
+            [FromServices] ICursoService service,
+            [FromQuery] SelectSearchParam param)
+        {
+            return Ok(service.ObterComboSelecao(param.Term, param.Size));
+        }
+
+        [HttpGet("usuarios")]
+        public ActionResult<SelectResult> Usuarios(
+            [FromServices] IUsuarioService service,
+            [FromQuery] SelectSearchParam param)
+        {
+            return Ok(service.ObterComboSelecao(param.Term, param.Size));
+        }
     }
 }

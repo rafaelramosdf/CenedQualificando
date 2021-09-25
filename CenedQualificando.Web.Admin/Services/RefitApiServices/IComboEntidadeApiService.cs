@@ -12,5 +12,11 @@ namespace CenedQualificando.Web.Admin.Services.RefitApiServices
 
         [Get("/alunos")]
         Task<IEnumerable<SelectResult>> Alunos([Query] SelectSearchParam param);
+
+        [Get("/cursos")]
+        Task<IEnumerable<SelectResult>> Cursos([Query] SelectSearchParam param);
+
+        [Get("/usuarios")]
+        Task<IEnumerable<SelectResult>> Usuarios([Query] SelectSearchParam param);
     }
 }

@@ -1,6 +1,6 @@
-﻿@namespace CenedQualificando.Web.Admin.Shared.Components.Select
+﻿@using CenedQualificando.Domain.Models.Enumerations
 
-@using CenedQualificando.Domain.Models.Enumerations
+@namespace CenedQualificando.Web.Admin.Shared.Components.Select
 
 <MudSelect T="TipoOficioEnum" Value="@Value" Label="Tipo de Ofício" ValueChanged="@OnValueChanged">
     @{
@@ -10,3 +10,13 @@
         }
     }
 </MudSelect>
+
+@code {
+    [Parameter] public TipoOficioEnum Value { get; set; }
+    [Parameter] public EventCallback<TipoOficioEnum> ValueChanged { get; set; }
+
+    private void OnValueChanged(TipoOficioEnum value)
+    {
+        ValueChanged.InvokeAsync(value);
+    }
+}

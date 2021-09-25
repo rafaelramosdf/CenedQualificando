@@ -5,13 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Blazored.LocalStorage" Version="4.1.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.8" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.8" PrivateAssets="all" />
-    <PackageReference Include="MudBlazor" Version="5.0.15" />
-    <PackageReference Include="Refit" Version="6.0.38" />
-    <PackageReference Include="Refit.HttpClientFactory" Version="6.0.38" />
-    <PackageReference Include="Refit.Newtonsoft.Json" Version="6.0.38" />
+    <PackageReference Include="Blazored.LocalStorage" Version="4.1.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.10" PrivateAssets="all" />
+    <PackageReference Include="MudBlazor" Version="5.1.4" />
+    <PackageReference Include="Refit" Version="6.0.94" />
+    <PackageReference Include="Refit.HttpClientFactory" Version="6.0.94" />
+    <PackageReference Include="Refit.Newtonsoft.Json" Version="6.0.94" />
     <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
   </ItemGroup>
 

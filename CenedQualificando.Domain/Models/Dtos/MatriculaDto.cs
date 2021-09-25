@@ -38,7 +38,7 @@ namespace CenedQualificando.Domain.Models.Dtos
         public MaterialDidaticoEnum MaterialDidatico { get; set; }
         public string MaterialDidaticoDescricao => MaterialDidatico.EnumDescription();
         public DateTime? DataPostagem { get; set; }
-        public EnvioMaterialEnum MaterialEnviadoPara { get; set; }
+        public EnviadoParaEnum MaterialEnviadoPara { get; set; }
         public string MaterialEnviadoParaDescricao => MaterialEnviadoPara.EnumDescription();
         public StatusCursoEnum StatusCurso { get; set; }
         public string StatusCursoDescricao => StatusCurso.EnumDescription();

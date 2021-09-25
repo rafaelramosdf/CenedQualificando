@@ -1,11 +1,10 @@
 ﻿@using CenedQualificando.Domain.Models.Dtos
 @using CenedQualificando.Domain.Models.Utils
-@using CenedQualificando.Domain.Models.Enumerations
 
 @namespace CenedQualificando.Web.Admin.Shared.Components.Select
 
 @inject CenedQualificando.Web.Admin.Services.RefitApiServices.IComboEntidadeApiService Service
-@inject CenedQualificando.Web.Admin.Services.RefitApiServices.IPenitenciariaApiService PenitenciariaApiService
+@inject CenedQualificando.Web.Admin.Services.RefitApiServices.ICursoApiService CursoApiService
 
 <MudAutocomplete T="int"
                  Label="@Label"
@@ -17,10 +16,10 @@
                  CoerceText="true"
                  Clearable="true"
                  ToStringFunc="@ToStringFunc"
-                 Placeholder="Digite o Nome da Penitenciária"
+                 Placeholder="Digite o Código/Nome do Curso"
                  Variant="@Variant"
                  Dense="@Dense"
-                 MinCharacters="3"
+                 MinCharacters="1"
                  MaxItems="20" 
                  DebounceInterval="1300" />
 
@@ -43,20 +42,20 @@
     }
 
     [Parameter] public EventCallback<int> IdChanged { get; set; }
-    [Parameter] public EventCallback<PenitenciariaDto> OnSelected { get; set; }
-    [Parameter] public string Label { get; set; } = "Penitenciária";
+    [Parameter] public EventCallback<CursoDto> OnSelected { get; set; }
+    [Parameter] public string Label { get; set; } = "Curso";
     [Parameter] public Variant Variant { get; set; } = Variant.Outlined;
     [Parameter] public bool Dense { get; set; } = false;
 
     private IEnumerable<SelectResult> Items { get; set; }
-    private PenitenciariaDto Selected { get; set; }
+    private CursoDto Selected { get; set; }
     private string SelectedText { get; set; }
 
     private string ToStringFunc(int id) => Items.FirstOrDefault(x => x.Id == id)?.Text;
 
     private async Task<IEnumerable<int>> Search(string pesquisa)
     {
-        Items = await Service.Penitenciarias(new SelectSearchParam(pesquisa, 20, Id));
+        Items = await Service.Cursos(new SelectSearchParam(pesquisa, 20, Id));
         return Items.Select(x => x.Id);
     }
 
@@ -76,7 +75,9 @@
 
     private async Task GetSelectedText(int id)
     {
-        Selected = await PenitenciariaApiService.Buscar(id);
-        SelectedText = $"{Selected.Nome} | {((UfEnum)Selected.Uf).EnumDescription()}";
+        Selected = await CursoApiService.Buscar(id);
+        SelectedText = $"{Selected.Codigo} - {Selected.Nome} " +
+                $"| C.H. {Selected.CargaHoraria} " +
+                $"| VL {Selected.ValorTotal:C2}";
     }
 }
