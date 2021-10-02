@@ -2,6 +2,7 @@
 using CenedQualificando.Api.Services.Base;
 using CenedQualificando.Domain.Interfaces.Queries;
 using CenedQualificando.Domain.Interfaces.Repository;
+using CenedQualificando.Domain.Interfaces.Requirements.Aluno;
 using CenedQualificando.Domain.Interfaces.Services;
 using CenedQualificando.Domain.Interfaces.UoW;
 using CenedQualificando.Domain.Models.Dtos;
@@ -18,22 +19,27 @@ namespace CenedQualificando.Api.Services
     public class AlunoService
         : BaseService<Aluno, AlunoDto, IAlunoQuery, IAlunoRepository>, IAlunoService
     {
+        private readonly IIncluirAlunoRequirement _incluirAlunoRequirement;
+
         public AlunoService(
             IAlunoQuery query,
             IAlunoRepository repository,
             IUnitOfWork unitOfWork,
             IMapper mapper,
-            ILogger<AlunoService> log) :
-            base(query, repository, unitOfWork, mapper, log)
+            ILogger<AlunoService> log,
+            IIncluirAlunoRequirement incluirAlunoRequirement) 
+            : base(query, repository, unitOfWork, mapper, log)
         {
+            _incluirAlunoRequirement = incluirAlunoRequirement;
         }
 
         public override CommandResult Incluir(AlunoDto vm)
         {
-            vm.Penitenciaria = null;
-            // TODO: Criar método para gerar senha do Aluno (Novo)
-            vm.Senha = "123";
-            vm.ConfirmarSenha = "123";
+            var commandResult = _incluirAlunoRequirement.Execute(vm);
+
+            if (commandResult.HasError)
+                return commandResult;
+
             return base.Incluir(vm);
         }
 

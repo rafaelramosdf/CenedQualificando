@@ -2,9 +2,15 @@ using CenedQualificando.Api.Filters;
 using CenedQualificando.Api.Services;
 using CenedQualificando.Domain.Interfaces.Queries;
 using CenedQualificando.Domain.Interfaces.Repository;
+using CenedQualificando.Domain.Interfaces.Requirements.Aluno;
+using CenedQualificando.Domain.Interfaces.Requirements.Aluno.Exceptions;
+using CenedQualificando.Domain.Interfaces.Requirements.Aluno.Functions;
 using CenedQualificando.Domain.Interfaces.Services;
 using CenedQualificando.Domain.Interfaces.UoW;
 using CenedQualificando.Domain.Queries;
+using CenedQualificando.Domain.Requirements.Aluno;
+using CenedQualificando.Domain.Requirements.Aluno.Exceptions;
+using CenedQualificando.Domain.Requirements.Aluno.Functions;
 using CenedQualificando.Infra.Context;
 using CenedQualificando.Infra.Repository;
 using CenedQualificando.Infra.UoW;
@@ -54,6 +60,7 @@ namespace CenedQualificando.Api
             services.AddAutoMapper(typeof(Startup));
 
             RegisterServices(services);
+            RegisterRequirements(services);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -138,6 +145,15 @@ namespace CenedQualificando.Api
             services.AddScoped<IUfEntregaRepository, UfEntregaRepository>();
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
+            #endregion
+        }
+
+        private void RegisterRequirements(IServiceCollection services) 
+        {
+            #region Aluno
+            services.AddScoped<IIncluirAlunoRequirement, IncluirAlunoRequirement>();
+            services.AddScoped<IGeraSenhaInicialAlunoFunction, GeraSenhaInicialAlunoFunction>();
+            services.AddScoped<ICpfDuplicadoAlunoException, CpfDuplicadoAlunoException>();
             #endregion
         }
     }

@@ -44,4 +44,9 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Interfaces\Requirements\Matricula\" />
+    <Folder Include="Requirements\Matricula\" />
+  </ItemGroup>
+
 </Project>
