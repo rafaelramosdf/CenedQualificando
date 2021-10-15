@@ -37,4 +37,5 @@ jobs:
       uses: actions/upload-artifact@v2.2.4
       with:
         name: api-artifact
+        path: packages/api-package
         retention-days: 1
