@@ -37,5 +37,5 @@ jobs:
       uses: actions/upload-artifact@v2.2.4
       with:
         name: api-artifact
-        path: packages/api-package
+        path: /bin/Debug/net5.0
         retention-days: 1
