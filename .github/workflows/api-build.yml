@@ -6,11 +6,6 @@ on:
   pull_request:
     branches: [ master ]
   workflow_dispatch:
-    inputs: 
-      name: 
-        description: 'Executar API Build'
-        required: true
-        default: 'API Build'
 
 jobs:
   build:
