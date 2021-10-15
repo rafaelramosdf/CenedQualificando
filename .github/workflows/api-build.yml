@@ -19,7 +19,7 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Directory
-      run: cd /CenedQualificando.Api
+      run: cd CenedQualificando.Api
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
