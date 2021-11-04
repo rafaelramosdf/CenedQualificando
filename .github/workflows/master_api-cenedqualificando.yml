@@ -60,4 +60,4 @@ jobs:
         with:
           app-name: 'api-cenedqualificando'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_61676031B3584EEAA10D598A77486804 }}
-          package: ${{env.PACKAGE_NAME}}
+          package: .
