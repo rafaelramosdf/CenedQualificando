@@ -31,7 +31,9 @@ jobs:
           dotnet build --configuration Release
 
       - name: Publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/${{env.PACKAGE_NAME}}
+        run: |
+          cd ${{env.DIRECTORY_APP}}
+          dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/${{env.PACKAGE_NAME}}
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
