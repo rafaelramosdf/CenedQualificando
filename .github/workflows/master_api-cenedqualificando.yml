@@ -8,7 +8,10 @@ on:
     branches:
       - master
   workflow_dispatch:
-
+env:
+  PACKAGE_NAME: "api_cenedqualificando"
+  DIRECTORY_APP: "CenedQualificando.Api"
+  
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,26 +19,25 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set up .NET Core
+      - name: Setup
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '5.0.x'
           include-prerelease: true
-          
-      - name: Directory
-        run: cd CenedQualificando.Api
 
-      - name: Build with dotnet
-        run: dotnet build --configuration Release
+      - name: Build
+        run: |
+          cd ${{env.DIRECTORY_APP}}
+          dotnet build --configuration Release
 
-      - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/api_cenedqualificando
+      - name: Publish
+        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/${{env.PACKAGE_NAME}}
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: .net-app
-          path: ${{env.DOTNET_ROOT}}/api_cenedqualificando
+          path: ${{env.DOTNET_ROOT}}/${{env.PACKAGE_NAME}}
 
   deploy:
     runs-on: ubuntu-latest
@@ -55,6 +57,5 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'api-cenedqualificando'
-          slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_61676031B3584EEAA10D598A77486804 }}
-          package: .
+          package: ${{env.PACKAGE_NAME}}
