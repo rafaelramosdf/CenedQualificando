@@ -2,7 +2,6 @@ using CenedQualificando.Domain.Extensions;
 using CenedQualificando.Domain.Models.Base;
 using CenedQualificando.Domain.Models.Entities;
 using CenedQualificando.Domain.Models.Enumerations;
-using Flunt.Extensions.Br.Validations;
 
 namespace CenedQualificando.Domain.Models.Dtos
 {

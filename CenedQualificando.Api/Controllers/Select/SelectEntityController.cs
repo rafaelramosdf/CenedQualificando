@@ -9,7 +9,7 @@ namespace CenedQualificando.Api.Controllers.Select
     [AllowAnonymous]
     [Produces("application/json")]
     [Route("api/combos/entidades")] 
-    public class SelectEntityController : Controller
+    public class SelectEntityController : Microsoft.AspNetCore.Mvc.Controller
     {
         [HttpGet("penitenciarias")]
         public ActionResult<SelectResult> Penitenciarias(

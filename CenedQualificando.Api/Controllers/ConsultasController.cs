@@ -9,7 +9,7 @@ namespace CenedQualificando.Api.Controllers
     [ApiController]
     [Produces("application/json")]
     [Route("api/consultas")]
-    public class ConsultasController : Controller
+    public class ConsultasController : Microsoft.AspNetCore.Mvc.Controller
     {
         [HttpPost("matriculas")]
         public virtual ActionResult<IEnumerable<MatriculaDto>> Matriculas(

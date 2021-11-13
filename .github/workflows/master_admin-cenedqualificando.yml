@@ -1,13 +1,16 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy ASP.Net Core app to Azure Web App - admin-cenedqualificando
+name: CI/CD - WEB ADMIN
 
 on:
   push:
     branches:
       - master
   workflow_dispatch:
+env:
+  PACKAGE_NAME: "admin_cenedqualificando"
+  DIRECTORY_APP: "CenedQualificando.Web.Admin"
 
 jobs:
   build:
@@ -16,42 +19,49 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set up .NET Core
+      - name: Setup
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '6.0.x'
+          dotnet-version: "6.0.x"
           include-prerelease: true
 
-      - name: Build with dotnet
-        run: dotnet build --configuration Release
+      - name: Build
+        run: |
+          cd ${{env.DIRECTORY_APP}}
+          dotnet build --configuration Release
 
-      - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+      - name: Publish
+        run: |
+          cd ${{env.DIRECTORY_APP}}
+          dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/${{env.PACKAGE_NAME}}
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
-          name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
+          name: ${{env.PACKAGE_NAME}}
+          path: ${{env.DOTNET_ROOT}}/${{env.PACKAGE_NAME}}
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
     environment:
-      name: 'Production'
+      name: "Production"
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v2
         with:
-          name: .net-app
+          name: ${{env.PACKAGE_NAME}}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'admin-cenedqualificando'
-          slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_293764F055BC45188AE195FBEB77CB82 }}
+          app-name: "admin-cenedqualificando"
+          slot-name: "Production"
+          publish-profile:
+            ${{
+            secrets.AZUREAPPSERVICE_PUBLISHPROFILE_293764F055BC45188AE195FBEB77CB82
+            }}
           package: .

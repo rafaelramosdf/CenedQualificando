@@ -46,7 +46,14 @@ namespace CenedQualificando.Domain.Requirements
             {
                 foreach (var f in Functions)
                 {
-                    f.Run(model);
+                    try
+                    {
+                        f.Run(model);
+                    }
+                    catch (System.Exception ex)
+                    {
+                        commandResult.SetError($"Erro ao executar a função \"{f.GetType().Name}\" | Message: {ex.Message}");
+                    }
                 }
             }
         }

@@ -13,7 +13,7 @@ namespace CenedQualificando.Api.Controllers.Select
     [AllowAnonymous]
     [Produces("application/json")]
     [Route("api/combos/enumeradores")]
-    public class SelectEnumController : Controller
+    public class SelectEnumController : Microsoft.AspNetCore.Mvc.Controller
     {
         [HttpGet("status-curso")]
         public ActionResult<SelectResult> StatusCurso([FromQuery] SelectSearchParam param)

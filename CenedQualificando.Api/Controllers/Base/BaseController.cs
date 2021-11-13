@@ -11,7 +11,7 @@ namespace CenedQualificando.Api.Controllers.Base
     [ApiController]
     [AllowAnonymous]
     [Produces("application/json")]
-    public abstract class BaseController<TEntity, TDto, TServiceInterface> : Controller
+    public abstract class BaseController<TEntity, TDto, TServiceInterface> : Microsoft.AspNetCore.Mvc.Controller
         where TEntity : Entity, new()
         where TDto : Dto<TEntity>, new()
         where TServiceInterface : IBaseService<TEntity, TDto>
