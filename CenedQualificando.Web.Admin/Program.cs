@@ -30,7 +30,7 @@ namespace CenedQualificando.Web.Admin
 
         private static void ConfigureRefitServices(WebAssemblyHostBuilder builder)
         {
-            const string urlBase = "https://localhost:6001/api";
+            const string urlBase = "https://api-cenedqualificando.azurewebsites.net/api";
 
             var settings = new RefitSettings
             {
