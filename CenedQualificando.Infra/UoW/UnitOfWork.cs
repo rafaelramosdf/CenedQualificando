@@ -21,11 +21,11 @@ namespace CenedQualificando.Infra.UoW
         }
 
         /// <summary>
-        /// Abre a Transação (obs.: dentros do bloco de transaction deve-se usar o comando "Commit()" e por último o "CommitTransaction"
+        /// Abre a Transação (obs.: dentro do bloco de "transaction" deve-se usar o comando "Commit()" e por último o "CommitTransaction"
         /// </summary>
         public void BeginTransaction()
         {
-            _transaction = _entityContext.Database.BeginTransaction();
+            _transaction = _transaction ?? _entityContext.Database.BeginTransaction();
         }
 
         /// <summary>

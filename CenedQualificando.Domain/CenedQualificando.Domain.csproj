@@ -5,8 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Requirements\Matricula\**" />
     <Compile Remove="Utils\**" />
+    <EmbeddedResource Remove="Requirements\Matricula\**" />
     <EmbeddedResource Remove="Utils\**" />
+    <None Remove="Requirements\Matricula\**" />
     <None Remove="Utils\**" />
   </ItemGroup>
 
@@ -40,7 +43,6 @@
 
   <ItemGroup>
     <Folder Include="Interfaces\Requirements\Matricula\" />
-    <Folder Include="Requirements\Matricula\" />
   </ItemGroup>
 
 </Project>

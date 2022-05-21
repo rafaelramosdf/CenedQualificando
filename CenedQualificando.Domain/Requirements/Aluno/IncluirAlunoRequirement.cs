@@ -9,8 +9,9 @@ namespace CenedQualificando.Domain.Requirements.Aluno
 {
     public class IncluirAlunoRequirement : BaseRequirement<AlunoDto>, IIncluirAlunoRequirement
     {
-        public IncluirAlunoRequirement(ICpfDuplicadoAlunoException cpfDuplicadoAlunoException,
-            IGeraSenhaInicialAlunoFunction geraSenhaInicialAlunoFunction)
+        public IncluirAlunoRequirement(
+            ICpfDuplicadoAlunoException cpfDuplicadoAlunoException,
+            IGeraSenhaInicialAlunoFunction geraSenhaInicialAlunoFunction) 
             : base(
                   new List<IRequirementException<AlunoDto>>
                   {
