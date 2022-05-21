@@ -2,18 +2,19 @@
 
 @using CenedQualificando.Domain.Models.Enumerations
 
-<MudAutocomplete T="string" 
-                 Label="@Label" 
-                 Value="@Value" 
-                 ValueChanged="@ValueChanged" 
-                 SearchFunc="@Search" 
+<MudAutocomplete T="string"
+                 Label="@Label"
+                 Value="@Value"
+                 ValueChanged="@ValueChanged"
+                 SearchFunc="@Search"
                  ResetValueOnEmptyText="true"
-                 CoerceText="true" 
-                 CoerceValue="true" 
+                 CoerceText="true"
+                 CoerceValue="true"
                  Clearable="true"
                  Variant="@Variant"
-                 Dense="@Dense" 
-                 MinCharacters="0" 
+                 Margin="@(Dense ? Margin.Dense : Margin.Normal)"
+                 Dense="@Dense"
+                 MinCharacters="0"
                  MaxItems="50"
                  Placeholder="Selecione ou Digite..." />
 
@@ -35,7 +36,8 @@
     {
         var result = Items;
 
-        await Task.Run(() => {
+        await Task.Run(() =>
+        {
             if (!string.IsNullOrEmpty(value))
                 result = result.Where(x => x.Contains(value));
         });

@@ -7,76 +7,67 @@
 @inject CenedQualificando.Web.Admin.Services.RefitApiServices.IComboEntidadeApiService Service
 @inject CenedQualificando.Web.Admin.Services.RefitApiServices.IPenitenciariaApiService PenitenciariaApiService
 
-<MudAutocomplete T="int"
+<MudAutocomplete T="SelectResult"
                  Label="@Label"
-                 Value="@Value"
-                 @bind-Text="SelectedText"
-                 SearchFunc="@Search"
+                 Value="@Selected"
                  ValueChanged="@OnValueChanged"
-                 ResetValueOnEmptyText="true"
+                 SearchFunc="@Search"
+                 ToStringFunc="@(p => p == null ? null : p.Text)"
+                 ResetValueOnEmptyText="false"
                  CoerceText="true"
                  Clearable="true"
-                 ToStringFunc="@ToStringFunc"
                  Placeholder="Digite o Nome da Penitenciária"
                  Variant="@Variant"
+                 Margin="@(Dense ? Margin.Dense : Margin.Normal)"
                  Dense="@Dense"
-                 MinCharacters="3"
                  MaxItems="20" 
-                 DebounceInterval="1300" />
+                 DebounceInterval="800" />
 
 @code{
 
     protected override async Task OnInitializedAsync()
     {
         if (Id > 0)
-            await GetSelectedText(Id);
+            await GetSelectedAsync(Id);
     }
 
-    [Parameter]
-    public int Id
-    {
-        get => Value;
-        set
-        {
-            Value = value;
-        }
-    }
-
+    [Parameter] public int Id { get; set; }
     [Parameter] public EventCallback<int> IdChanged { get; set; }
+
     [Parameter] public EventCallback<PenitenciariaDto> OnSelected { get; set; }
     [Parameter] public string Label { get; set; } = "Penitenciária";
     [Parameter] public Variant Variant { get; set; } = Variant.Outlined;
     [Parameter] public bool Dense { get; set; } = false;
 
     private IEnumerable<SelectResult> Items { get; set; }
-    private PenitenciariaDto Selected { get; set; }
-    private string SelectedText { get; set; }
+    private SelectResult Selected { get; set; }
 
-    private string ToStringFunc(int id) => Items.FirstOrDefault(x => x.Id == id)?.Text;
-
-    private async Task<IEnumerable<int>> Search(string pesquisa)
+    private async Task<IEnumerable<SelectResult>> Search(string pesquisa)
     {
         Items = await Service.Penitenciarias(new SelectSearchParam(pesquisa, 20, Id));
-        return Items.Select(x => x.Id);
+        return Items;
     }
 
-    private int Value { get; set; }
-
-    private async Task OnValueChanged(int id)
+    private async Task OnValueChanged(SelectResult value)
     {
-        await IdChanged.InvokeAsync(id);
-        await GetSelectedAsync(id);
+        if (value != null)
+        {
+            var taskGetSelected = GetSelectedAsync(value.Id);
+            var taskIdChangedInvoke = IdChanged.InvokeAsync(value.Id);
+            await Task.WhenAll(taskGetSelected, taskIdChangedInvoke);
+        }
     }
 
     private async Task GetSelectedAsync(int id)
     {
-        await GetSelectedText(id);
-        await OnSelected.InvokeAsync(Selected);
-    }
+        var penitenciaria = await PenitenciariaApiService.Buscar(id);
 
-    private async Task GetSelectedText(int id)
-    {
-        Selected = await PenitenciariaApiService.Buscar(id);
-        SelectedText = $"{Selected.Nome} | {((UfEnum)Selected.Uf).EnumDescription()}";
+        Selected = new SelectResult 
+        { 
+            Id = penitenciaria.Id, 
+            Text = $"{penitenciaria.Nome} | {((UfEnum)penitenciaria.Uf).EnumDescription()}" 
+        };
+
+        await OnSelected.InvokeAsync(penitenciaria);
     }
 }
