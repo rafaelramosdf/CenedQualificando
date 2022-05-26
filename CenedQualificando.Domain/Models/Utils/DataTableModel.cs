@@ -5,12 +5,12 @@ namespace CenedQualificando.Domain.Models.Utils
     public class DataTableModel<TModel>
     {
         public IEnumerable<TModel> Data { get; set; } = new List<TModel>();
-        public DataTableFilterModel<TModel> Filter { get; set; } = new DataTableFilterModel<TModel>();
-        public DataTableSortingModel<TModel> Sorting { get; set; } = new DataTableSortingModel<TModel>();
+        public DataTableFilterModel Filter { get; set; } = new DataTableFilterModel();
+        public DataTableSortingModel Sorting { get; set; } = new DataTableSortingModel();
         public DataTablePaginationModel Pagination { get; set; } = new DataTablePaginationModel();
     }
 
-    public class DataTableSortingModel<TModel>
+    public class DataTableSortingModel
     {
         public string Field { get; set; }
         public bool Desc { get; set; } = false;
@@ -23,8 +23,8 @@ namespace CenedQualificando.Domain.Models.Utils
         public int Total { get; set; }
     }
 
-    public class DataTableFilterModel<TModel>
+    public class DataTableFilterModel
     {
-        public string Text { get; set; }
+        public string Search { get; set; }
     }
 }

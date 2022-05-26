@@ -11,10 +11,11 @@ namespace CenedQualificando.Api.Controllers.Base
     [ApiController]
     [AllowAnonymous]
     [Produces("application/json")]
-    public abstract class BaseController<TEntity, TDto, TServiceInterface> : Microsoft.AspNetCore.Mvc.Controller
+    public abstract class BaseController<TEntity, TDto, TFilter, TServiceInterface> : Controller
         where TEntity : Entity, new()
         where TDto : Dto<TEntity>, new()
-        where TServiceInterface : IBaseService<TEntity, TDto>
+        where TFilter : Filter, new()
+        where TServiceInterface : IBaseService<TEntity, TDto, TFilter>
     {
         protected readonly TServiceInterface Service;
 
@@ -59,13 +60,11 @@ namespace CenedQualificando.Api.Controllers.Base
             return Ok(result);
         }
 
-        [HttpPost("filtros")]
-        public virtual ActionResult<DataTableModel<TDto>> Buscar([FromBody] DataTableModel<TDto> dataTableModel)
+        [HttpGet]
+        public virtual ActionResult<DataTableModel<TDto>> Buscar([FromQuery] TFilter filtro)
         {
-            return Ok(Service.Buscar(dataTableModel));
+            return Ok(Service.Buscar(filtro));
         }
-
-
 
         protected CommandResult ValidarModelo(TDto vm = null)
         {

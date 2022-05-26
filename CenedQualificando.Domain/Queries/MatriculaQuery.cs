@@ -3,6 +3,7 @@ using CenedQualificando.Domain.Interfaces.Queries;
 using CenedQualificando.Domain.Models.Entities;
 using CenedQualificando.Domain.Models.Enumerations;
 using CenedQualificando.Domain.Models.Enumerations.Filters;
+using CenedQualificando.Domain.Models.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -11,13 +12,13 @@ namespace CenedQualificando.Domain.Queries
 {
     public class MatriculaQuery : IMatriculaQuery
     {
-        public Expression<Func<Matricula, bool>> FiltroGenerico(string textoFiltro)
+        public Expression<Func<Matricula, bool>> Filtrar(MatriculaFilter filtro)
         {
             return x =>
-                (x.Aluno != null && x.Aluno.Nome != null && x.Aluno.Nome.Contains(textoFiltro)) ||
-                (x.Aluno != null && x.Aluno.Cpf != null && x.Aluno.Cpf == textoFiltro) ||
-                (x.Curso != null && x.Curso.Codigo != null && x.Curso.Codigo == textoFiltro) ||
-                (x.Curso != null && x.Curso.Nome != null && x.Curso.Nome.Contains(textoFiltro));
+                (x.Aluno != null && x.Aluno.Nome != null && x.Aluno.Nome.Contains(filtro.Search)) ||
+                (x.Aluno != null && x.Aluno.Cpf != null && x.Aluno.Cpf == filtro.Search) ||
+                (x.Curso != null && x.Curso.Codigo != null && x.Curso.Codigo == filtro.Search) ||
+                (x.Curso != null && x.Curso.Nome != null && x.Curso.Nome.Contains(filtro.Search));
         }
 
         public Expression<Func<Matricula, bool>> FiltroPersonalizado(MatriculaFilterEnum tipoFiltro)
@@ -46,7 +47,7 @@ namespace CenedQualificando.Domain.Queries
             }
         }
 
-        public Expression<Func<Matricula, object>> Ordenacao(string campo)
+        public Expression<Func<Matricula, object>> Ordenar(string campo)
         {
             switch (campo)
             {

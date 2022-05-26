@@ -56,7 +56,7 @@ namespace CenedQualificando.Web.Admin.Shared.CodeBase.Pages
         protected virtual async Task<DataTableModel<TDto>> Buscar(DataTableModel<TDto> dataTable)
         {
             State.Carregando = true;
-            dataTable.Filter.Text = FiltroTexto;
+            dataTable.Filter.Search = FiltroTexto;
             dataTable = await ApiService.Filtrar(dataTable);
             State.Carregando = false;
             return dataTable;

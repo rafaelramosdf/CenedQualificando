@@ -7,6 +7,7 @@ using CenedQualificando.Domain.Interfaces.Services;
 using CenedQualificando.Domain.Interfaces.UoW;
 using CenedQualificando.Domain.Models.Dtos;
 using CenedQualificando.Domain.Models.Entities;
+using CenedQualificando.Domain.Models.Filters;
 using CenedQualificando.Domain.Models.Utils;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -16,8 +17,7 @@ using System.Threading.Tasks;
 
 namespace CenedQualificando.Api.Services
 {
-    public class AlunoService
-        : BaseService<Aluno, AlunoDto, IAlunoQuery, IAlunoRepository>, IAlunoService
+    public class AlunoService : BaseService<Aluno, AlunoDto, AlunoFilter, IAlunoQuery, IAlunoRepository>, IAlunoService
     {
         private readonly IIncluirAlunoRequirement _incluirAlunoRequirement;
 

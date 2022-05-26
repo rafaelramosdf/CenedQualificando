@@ -6,12 +6,13 @@ using CenedQualificando.Domain.Interfaces.Services;
 using CenedQualificando.Domain.Interfaces.UoW;
 using CenedQualificando.Domain.Models.Dtos;
 using CenedQualificando.Domain.Models.Entities;
+using CenedQualificando.Domain.Models.Filters;
 using Microsoft.Extensions.Logging;
 
 namespace CenedQualificando.Api.Services
 {
     public class CargaHorariaDiariaService
-        : BaseService<CargaHorariaDiaria, CargaHorariaDiariaDto, ICargaHorariaDiariaQuery, ICargaHorariaDiariaRepository>, ICargaHorariaDiariaService
+        : BaseService<CargaHorariaDiaria, CargaHorariaDiariaDto, CargaHorariaDiariaFilter, ICargaHorariaDiariaQuery, ICargaHorariaDiariaRepository>, ICargaHorariaDiariaService
     {
         public CargaHorariaDiariaService(
             ICargaHorariaDiariaQuery query,

@@ -8,6 +8,7 @@ using CenedQualificando.Domain.Interfaces.UoW;
 using CenedQualificando.Domain.Models.Dtos;
 using CenedQualificando.Domain.Models.Entities;
 using CenedQualificando.Domain.Models.Enumerations;
+using CenedQualificando.Domain.Models.Filters;
 using CenedQualificando.Domain.Models.Utils;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ using System.Linq;
 namespace CenedQualificando.Api.Services
 {
     public class PenitenciariaService
-        : BaseService<Penitenciaria, PenitenciariaDto, IPenitenciariaQuery, IPenitenciariaRepository>, IPenitenciariaService
+        : BaseService<Penitenciaria, PenitenciariaDto, PenitenciariaFilter, IPenitenciariaQuery, IPenitenciariaRepository>, IPenitenciariaService
     {
         public PenitenciariaService(
             IPenitenciariaQuery query,

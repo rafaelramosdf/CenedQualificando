@@ -1,10 +1,11 @@
-﻿using CenedQualificando.Domain.Models.Enumerations.Filters;
+﻿using CenedQualificando.Domain.Models.Base;
+using CenedQualificando.Domain.Models.Enumerations.Filters;
 using CenedQualificando.Domain.Models.Utils;
 using System.Collections.Generic;
 
 namespace CenedQualificando.Domain.Models.Filters
 {
-    public class MatriculaFilter
+    public class MatriculaFilter : Filter
     {
         public MatriculaFilter()
         {

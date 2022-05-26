@@ -6,12 +6,13 @@ using CenedQualificando.Domain.Interfaces.Services;
 using CenedQualificando.Domain.Interfaces.UoW;
 using CenedQualificando.Domain.Models.Dtos;
 using CenedQualificando.Domain.Models.Entities;
+using CenedQualificando.Domain.Models.Filters;
 using Microsoft.Extensions.Logging;
 
 namespace CenedQualificando.Api.Services
 {
     public class FiscalSalaService
-        : BaseService<FiscalSala, FiscalSalaDto, IFiscalSalaQuery, IFiscalSalaRepository>, IFiscalSalaService
+        : BaseService<FiscalSala, FiscalSalaDto, FiscalSalaFilter, IFiscalSalaQuery, IFiscalSalaRepository>, IFiscalSalaService
     {
         public FiscalSalaService(
             IFiscalSalaQuery query,

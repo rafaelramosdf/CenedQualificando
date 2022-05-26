@@ -1,5 +1,6 @@
 ﻿using CenedQualificando.Domain.Interfaces.Queries;
 using CenedQualificando.Domain.Models.Entities;
+using CenedQualificando.Domain.Models.Filters;
 using System;
 using System.Linq.Expressions;
 
@@ -7,12 +8,12 @@ namespace CenedQualificando.Domain.Queries
 {
     public class RepresentanteQuery : IRepresentanteQuery
     {
-        public Expression<Func<Representante, bool>> FiltroGenerico(string textoFiltro)
+        public Expression<Func<Representante, bool>> Filtrar(RepresentanteFilter filtro)
         {
-            return x => x.Nome.Contains(textoFiltro);
+            return x => x.Nome.Contains(filtro.Search);
         }
 
-        public Expression<Func<Representante, object>> Ordenacao(string campo)
+        public Expression<Func<Representante, object>> Ordenar(string campo)
         {
             switch (campo)
             {

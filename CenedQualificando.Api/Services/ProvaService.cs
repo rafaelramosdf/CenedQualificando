@@ -6,6 +6,7 @@ using CenedQualificando.Domain.Interfaces.Services;
 using CenedQualificando.Domain.Interfaces.UoW;
 using CenedQualificando.Domain.Models.Dtos;
 using CenedQualificando.Domain.Models.Entities;
+using CenedQualificando.Domain.Models.Filters;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 namespace CenedQualificando.Api.Services
 {
     public class ProvaService
-        : BaseService<Prova, ProvaDto, IProvaQuery, IProvaRepository>, IProvaService
+        : BaseService<Prova, ProvaDto, ProvaFilter, IProvaQuery, IProvaRepository>, IProvaService
     {
         public ProvaService(
             IProvaQuery query,

@@ -1,9 +1,10 @@
 ﻿using CenedQualificando.Domain.Models.Dtos;
 using CenedQualificando.Domain.Models.Entities;
+using CenedQualificando.Domain.Models.Filters;
 
 namespace CenedQualificando.Domain.Interfaces.Services
 {
-    public interface IUfEntregaService : IBaseService<UfEntrega, UfEntregaDto>
+    public interface IUfEntregaService : IBaseService<UfEntrega, UfEntregaDto, UfEntregaFilter>
     {
     }
 }

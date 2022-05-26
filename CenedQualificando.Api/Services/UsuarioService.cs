@@ -9,12 +9,13 @@ using CenedQualificando.Domain.Interfaces.Services;
 using CenedQualificando.Domain.Interfaces.UoW;
 using CenedQualificando.Domain.Models.Dtos;
 using CenedQualificando.Domain.Models.Entities;
+using CenedQualificando.Domain.Models.Filters;
 using CenedQualificando.Domain.Models.Utils;
 using Microsoft.Extensions.Logging;
 
 namespace CenedQualificando.Api.Services
 {
-    public class UsuarioService : BaseService<Usuario, UsuarioDto, IUsuarioQuery, IUsuarioRepository>, IUsuarioService
+    public class UsuarioService : BaseService<Usuario, UsuarioDto, UsuarioFilter, IUsuarioQuery, IUsuarioRepository>, IUsuarioService
     {
         private readonly IGrupoDePermissaoService _grupoDePermissaoService;
 

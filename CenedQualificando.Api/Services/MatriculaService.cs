@@ -17,7 +17,7 @@ using System.Linq;
 namespace CenedQualificando.Api.Services
 {
     public class MatriculaService
-        : BaseService<Matricula, MatriculaDto, IMatriculaQuery, IMatriculaRepository>, IMatriculaService
+        : BaseService<Matricula, MatriculaDto, MatriculaFilter, IMatriculaQuery, IMatriculaRepository>, IMatriculaService
     {
         public MatriculaService(
             IMatriculaQuery query,

@@ -10,11 +10,12 @@ using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using CenedQualificando.Domain.Models.Utils;
 using System.Linq;
+using CenedQualificando.Domain.Models.Filters;
 
 namespace CenedQualificando.Api.Services
 {
     public class CursoService
-        : BaseService<Curso, CursoDto, ICursoQuery, ICursoRepository>, ICursoService
+        : BaseService<Curso, CursoDto, CursoFilter, ICursoQuery, ICursoRepository>, ICursoService
     {
         public CursoService(
             ICursoQuery query,

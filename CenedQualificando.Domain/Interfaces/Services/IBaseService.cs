@@ -7,15 +7,16 @@ using System.Linq.Expressions;
 
 namespace CenedQualificando.Domain.Interfaces.Services
 {
-    public interface IBaseService<TEntity, TDto>
+    public interface IBaseService<TEntity, TDto, TFilter>
         where TEntity : Entity
         where TDto : IDto
+        where TFilter : Filter
     {
         TDto Buscar(int id);
-        DataTableModel<TDto> Buscar(DataTableModel<TDto> dataTableModel);
+        DataTableModel<TDto> Buscar(TFilter filtro);
         IQueryable<TEntity> CriarConsulta();
         IQueryable<TEntity> FiltrarConsulta(IQueryable<TEntity> queryList, Expression<Func<TEntity, bool>> filterExpression = null);
-        IQueryable<TEntity> OrdenarConsulta(IQueryable<TEntity> queryList, DataTableSortingModel<TDto> sortingModel);
+        IQueryable<TEntity> OrdenarConsulta(IQueryable<TEntity> queryList, DataTableSortingModel sortingModel);
         IQueryable<TEntity> PaginarConsulta(IQueryable<TEntity> queryList, DataTablePaginationModel paginationModel);
 
         CommandResult Incluir(TDto vm);

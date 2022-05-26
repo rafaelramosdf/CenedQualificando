@@ -1,8 +1,9 @@
 ﻿using CenedQualificando.Domain.Models.Entities;
+using CenedQualificando.Domain.Models.Filters;
 
 namespace CenedQualificando.Domain.Interfaces.Queries
 {
-    public interface IGrupoDePermissaoQuery : IBaseQuery<GrupoDePermissao>
+    public interface IGrupoDePermissaoQuery : IBaseQuery<GrupoDePermissao, GrupoDePermissaoFilter>
     {
     }
 }

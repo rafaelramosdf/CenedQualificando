@@ -2,11 +2,12 @@
 using System.Threading.Tasks;
 using CenedQualificando.Domain.Models.Dtos;
 using CenedQualificando.Domain.Models.Entities;
+using CenedQualificando.Domain.Models.Filters;
 using CenedQualificando.Domain.Models.Utils;
 
 namespace CenedQualificando.Domain.Interfaces.Services
 {
-    public interface IUsuarioService : IBaseService<Usuario, UsuarioDto>
+    public interface IUsuarioService : IBaseService<Usuario, UsuarioDto, UsuarioFilter>
     {
         Task<UsuarioDto> Authenticate(string login, string senha);
 

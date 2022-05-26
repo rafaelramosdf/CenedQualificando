@@ -16,24 +16,25 @@ using System.Linq.Expressions;
 
 namespace CenedQualificando.Api.Services.Base
 {
-    public abstract class BaseService<TEntity, TDto, TQuery, TRepository> : IBaseService<TEntity, TDto>
+    public abstract class BaseService<TEntity, TDto, TFilter, TQuery, TRepository> : IBaseService<TEntity, TDto, TFilter>
         where TEntity : Entity, new()
         where TDto : IDto, new()
-        where TQuery : IBaseQuery<TEntity>
+        where TFilter : Filter, new()
+        where TQuery : IBaseQuery<TEntity, TFilter>
         where TRepository : IBaseRepository<TEntity>
     {
         protected readonly TQuery Query;
         protected readonly TRepository Repository;
         protected readonly IUnitOfWork UnitOfWork;
         protected readonly IMapper Mapper;
-        protected readonly ILogger<IBaseService<TEntity, TDto>> Log;
+        protected readonly ILogger<IBaseService<TEntity, TDto, TFilter>> Log;
 
         protected BaseService(
             TQuery query,
             TRepository repository,
             IUnitOfWork unitOfWork,
             IMapper mapper,
-            ILogger<IBaseService<TEntity, TDto>> log)
+            ILogger<IBaseService<TEntity, TDto, TFilter>> log)
         {
             Query = query;
             UnitOfWork = unitOfWork;
@@ -61,12 +62,12 @@ namespace CenedQualificando.Api.Services.Base
             try
             {
                 UnitOfWork.BeginTransaction();
-                
+
                 foreach (var item in vmList)
                 {
                     Incluir(item);
                 }
-                
+
                 UnitOfWork.CommitTransaction();
 
                 return new CommandResult(StatusCodes.Status200OK, vmList);
@@ -97,7 +98,7 @@ namespace CenedQualificando.Api.Services.Base
             try
             {
                 UnitOfWork.BeginTransaction();
-                
+
                 foreach (var item in vmList)
                 {
                     Alterar(item);
@@ -132,7 +133,7 @@ namespace CenedQualificando.Api.Services.Base
             try
             {
                 UnitOfWork.BeginTransaction();
-                
+
                 foreach (var id in idList)
                 {
                     Excluir(id);
@@ -149,23 +150,39 @@ namespace CenedQualificando.Api.Services.Base
             }
         }
 
+        protected CommandResult RetornarErroPersistencia(Exception ex = null, object dto = null)
+        {
+            var log = $"\n\r" +
+                $"***** [MESSAGE] *****\n\r" +
+                $"{ex.Message}\n\r\n\r" +
+                $"***** [INNER EXCEPTION] *****\n\r" +
+                $"{ex.InnerException?.Message}\n\r";
+
+            if (dto != null)
+                log += $"\n\r" +
+                    $"***** [DADOS DA REQUISICAO] ***** \n\r " +
+                    $"{JsonConvert.SerializeObject(dto)}\n\r\n\r";
+
+            Log.LogError(log);
+
+            var commandResult = new CommandResult(StatusCodes.Status500InternalServerError, dto);
+            commandResult.SetError(ErrorMessageResource.ErroPersistencia);
+            return commandResult;
+        }
+
         public TDto Buscar(int id)
         {
             return Mapper.Map<TDto>(Repository.Get(id));
         }
 
-        public DataTableModel<TDto> Buscar(DataTableModel<TDto> dataTableModel)
+        public DataTableModel<TDto> Buscar(TFilter filtro)
         {
-            return GerarDataTable(dataTableModel);
-        }
+            var dataTableModel = new DataTableModel<TDto>();
 
-        protected DataTableModel<TDto> GerarDataTable(DataTableModel<TDto> dataTableModel)
-        {
             IQueryable<TEntity> queryList = CriarConsulta();
 
-            Expression<Func<TEntity, bool>> filterExpression = !string.IsNullOrEmpty(dataTableModel.Filter.Text) 
-                ? Query.FiltroGenerico(dataTableModel.Filter.Text) 
-                : null;
+            Expression<Func<TEntity, bool>> filterExpression = filtro != null
+                ? Query.Filtrar(filtro) : null;
 
             dataTableModel.Pagination.Total = filterExpression != null
                 ? Repository.List(filterExpression).Count()
@@ -187,7 +204,7 @@ namespace CenedQualificando.Api.Services.Base
             return Repository.List();
         }
 
-        public virtual IQueryable<TEntity> FiltrarConsulta(IQueryable<TEntity> queryList, Expression<Func<TEntity, bool>> filterExpression = null)
+        public IQueryable<TEntity> FiltrarConsulta(IQueryable<TEntity> queryList, Expression<Func<TEntity, bool>> filterExpression = null)
         {
             if (filterExpression != null)
                 queryList = queryList.Where(filterExpression);
@@ -195,36 +212,16 @@ namespace CenedQualificando.Api.Services.Base
             return queryList;
         }
 
-        public virtual IQueryable<TEntity> OrdenarConsulta(IQueryable<TEntity> queryList, DataTableSortingModel<TDto> sortingModel)
+        public IQueryable<TEntity> OrdenarConsulta(IQueryable<TEntity> queryList, DataTableSortingModel sortingModel)
         {
-            var sortingExpression = Query.Ordenacao(sortingModel.Field);
+            var sortingExpression = Query.Ordenar(sortingModel.Field);
             queryList = sortingModel.Desc ? queryList.OrderByDescending(sortingExpression) : queryList.OrderBy(sortingExpression);
             return queryList;
         }
 
-        public virtual IQueryable<TEntity> PaginarConsulta(IQueryable<TEntity> queryList, DataTablePaginationModel paginationModel)
+        public IQueryable<TEntity> PaginarConsulta(IQueryable<TEntity> queryList, DataTablePaginationModel paginationModel)
         {
             return queryList.Skip((paginationModel.Page - 1) * paginationModel.Limit).Take(paginationModel.Limit);
-        }
-
-        protected CommandResult RetornarErroPersistencia(Exception ex = null, object dto = null)
-        {
-            var log = $"\n\r" +
-                $"***** [MESSAGE] *****\n\r" +
-                $"{ex.Message}\n\r\n\r" +
-                $"***** [INNER EXCEPTION] *****\n\r" +
-                $"{ex.InnerException?.Message}\n\r";
-            
-            if (dto != null)
-                log += $"\n\r" +
-                    $"***** [DADOS DA REQUISICAO] ***** \n\r " +
-                    $"{JsonConvert.SerializeObject(dto)}\n\r\n\r";
-
-            Log.LogError(log);
-
-            var commandResult = new CommandResult(StatusCodes.Status500InternalServerError, dto);
-            commandResult.SetError(ErrorMessageResource.ErroPersistencia);
-            return commandResult;
         }
     }
 }

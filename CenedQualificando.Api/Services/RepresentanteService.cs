@@ -6,12 +6,13 @@ using CenedQualificando.Domain.Interfaces.Services;
 using CenedQualificando.Domain.Interfaces.UoW;
 using CenedQualificando.Domain.Models.Dtos;
 using CenedQualificando.Domain.Models.Entities;
+using CenedQualificando.Domain.Models.Filters;
 using Microsoft.Extensions.Logging;
 
 namespace CenedQualificando.Api.Services
 {
     public class RepresentanteService
-        : BaseService<Representante, RepresentanteDto, IRepresentanteQuery, IRepresentanteRepository>, IRepresentanteService
+        : BaseService<Representante, RepresentanteDto, RepresentanteFilter, IRepresentanteQuery, IRepresentanteRepository>, IRepresentanteService
     {
         public RepresentanteService(
             IRepresentanteQuery query,

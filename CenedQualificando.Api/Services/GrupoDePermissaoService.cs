@@ -9,6 +9,7 @@ using CenedQualificando.Domain.Interfaces.Services;
 using CenedQualificando.Domain.Interfaces.UoW;
 using CenedQualificando.Domain.Models.Dtos;
 using CenedQualificando.Domain.Models.Entities;
+using CenedQualificando.Domain.Models.Filters;
 using CenedQualificando.Domain.Models.Utils;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
@@ -16,7 +17,8 @@ using Microsoft.Extensions.Logging;
 namespace CenedQualificando.Api.Services
 {
     public class GrupoDePermissaoService : BaseService<GrupoDePermissao, 
-        GrupoDePermissaoDto, 
+        GrupoDePermissaoDto,
+        GrupoDePermissaoFilter,
         IGrupoDePermissaoQuery, 
         IGrupoDePermissaoRepository>, 
         IGrupoDePermissaoService
