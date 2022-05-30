@@ -121,4 +121,7 @@
     <value>Informe o campo "{0}"</value>
     <comment>{0} = Nome do campo</comment>
   </data>
+  <data name="IdInvalido" xml:space="preserve">
+    <value>ID inválido</value>
+  </data>
 </root>

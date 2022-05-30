@@ -1,4 +1,4 @@
-﻿using CenedQualificando.Domain.Models.Utils;
+﻿using CenedQualificando.Domain.Models.ValueObjects;
 using Refit;
 using System.Collections.Generic;
 using System.Threading.Tasks;

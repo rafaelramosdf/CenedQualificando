@@ -1,4 +1,4 @@
-﻿using CenedQualificando.Domain.Models.Utils;
+﻿using CenedQualificando.Domain.Models.ValueObjects;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;

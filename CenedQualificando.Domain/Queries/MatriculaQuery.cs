@@ -1,9 +1,9 @@
 ﻿using CenedQualificando.Domain.Extensions;
-using CenedQualificando.Domain.Interfaces.Queries;
 using CenedQualificando.Domain.Models.Entities;
 using CenedQualificando.Domain.Models.Enumerations;
 using CenedQualificando.Domain.Models.Enumerations.Filters;
 using CenedQualificando.Domain.Models.Filters;
+using CenedQualificando.Domain.Queries.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -14,6 +14,9 @@ namespace CenedQualificando.Domain.Queries
     {
         public Expression<Func<Matricula, bool>> Filtrar(MatriculaFilter filtro)
         {
+            if (string.IsNullOrEmpty(filtro?.Search))
+                return _ => true;
+
             return x =>
                 (x.Aluno != null && x.Aluno.Nome != null && x.Aluno.Nome.Contains(filtro.Search)) ||
                 (x.Aluno != null && x.Aluno.Cpf != null && x.Aluno.Cpf == filtro.Search) ||
@@ -21,7 +24,7 @@ namespace CenedQualificando.Domain.Queries
                 (x.Curso != null && x.Curso.Nome != null && x.Curso.Nome.Contains(filtro.Search));
         }
 
-        public Expression<Func<Matricula, bool>> FiltroPersonalizado(MatriculaFilterEnum tipoFiltro)
+        public Expression<Func<Matricula, bool>> FiltrarPelaSituacaoDaMatricula(MatriculaFilterEnum tipoFiltro)
         {
             switch (tipoFiltro)
             {

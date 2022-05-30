@@ -123,6 +123,9 @@
   <data name="DesejaRealmenteExcluirEsteRegistro" xml:space="preserve">
     <value>Deseja realmente excluir este registro?</value>
   </data>
+  <data name="NenhumRecursoEncontradoParaID" xml:space="preserve">
+    <value>Nenhum recurso encontrado para o id informado</value>
+  </data>
   <data name="RegistroExcluidoComSucesso" xml:space="preserve">
     <value>Registro excluído com sucesso!</value>
   </data>

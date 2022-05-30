@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using CenedQualificando.Domain.Models.Dtos;
 using CenedQualificando.Domain.Models.Entities;
 using CenedQualificando.Domain.Models.Filters;
-using CenedQualificando.Domain.Models.Utils;
+using CenedQualificando.Domain.Models.ValueObjects;
 
 namespace CenedQualificando.Domain.Interfaces.Services
 {

@@ -68,5 +68,14 @@ namespace CenedQualificando.Domain.Resources {
                 return ResourceManager.GetString("CampoObrigatorio", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ID inválido.
+        /// </summary>
+        public static string IdInvalido {
+            get {
+                return ResourceManager.GetString("IdInvalido", resourceCulture);
+            }
+        }
     }
 }

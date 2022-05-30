@@ -1,6 +1,6 @@
-﻿using CenedQualificando.Domain.Interfaces.Queries;
-using CenedQualificando.Domain.Models.Entities;
+﻿using CenedQualificando.Domain.Models.Entities;
 using CenedQualificando.Domain.Models.Filters;
+using CenedQualificando.Domain.Queries.Contracts;
 using System;
 using System.Linq.Expressions;
 
@@ -10,12 +10,12 @@ namespace CenedQualificando.Domain.Queries
     {
         public Expression<Func<CargaHorariaDiaria, bool>> Filtrar(CargaHorariaDiariaFilter filtro)
         {
-            throw new NotImplementedException();
+            return _ => true;
         }
 
         public Expression<Func<CargaHorariaDiaria, object>> Ordenar(string campo)
         {
-            throw new NotImplementedException();
+            return o => o.Uf;
         }
     }
 }

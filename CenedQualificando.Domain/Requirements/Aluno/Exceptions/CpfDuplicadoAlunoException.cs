@@ -1,6 +1,6 @@
-﻿using CenedQualificando.Domain.Interfaces.Repository;
-using CenedQualificando.Domain.Interfaces.Requirements.Aluno.Exceptions;
+﻿using CenedQualificando.Domain.Interfaces.Requirements.Aluno.Exceptions;
 using CenedQualificando.Domain.Models.Dtos;
+using CenedQualificando.Domain.Repositories.Contracts;
 using System.Linq;
 
 namespace CenedQualificando.Domain.Requirements.Aluno.Exceptions

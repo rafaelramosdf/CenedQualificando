@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
-using CenedQualificando.Domain.Interfaces.Repository;
 using CenedQualificando.Domain.Models.Entities;
+using CenedQualificando.Domain.Repositories.Contracts;
 using CenedQualificando.Infra.Context;
 using CenedQualificando.Infra.Repository.Base;
 

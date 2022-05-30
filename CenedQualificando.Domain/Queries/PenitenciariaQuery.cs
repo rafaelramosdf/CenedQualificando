@@ -1,8 +1,8 @@
 ﻿using CenedQualificando.Domain.Extensions;
-using CenedQualificando.Domain.Interfaces.Queries;
 using CenedQualificando.Domain.Models.Entities;
 using CenedQualificando.Domain.Models.Enumerations;
 using CenedQualificando.Domain.Models.Filters;
+using CenedQualificando.Domain.Queries.Contracts;
 using System;
 using System.Linq;
 using System.Linq.Expressions;

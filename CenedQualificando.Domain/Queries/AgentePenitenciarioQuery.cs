@@ -1,6 +1,6 @@
-﻿using CenedQualificando.Domain.Interfaces.Queries;
-using CenedQualificando.Domain.Models.Entities;
+﻿using CenedQualificando.Domain.Models.Entities;
 using CenedQualificando.Domain.Models.Filters;
+using CenedQualificando.Domain.Queries.Contracts;
 using System;
 using System.Linq.Expressions;
 
@@ -10,12 +10,23 @@ namespace CenedQualificando.Domain.Queries
     {
         public Expression<Func<AgentePenitenciario, bool>> Filtrar(AgentePenitenciarioFilter filtro)
         {
-            throw new NotImplementedException();
+            Expression<Func<AgentePenitenciario, bool>> query = _ => true;
+
+            if (filtro != null)
+            {
+                if (!string.IsNullOrEmpty(filtro.Search))
+                {
+                    query = x => x.Nome.Contains(filtro.Search) ||
+                            x.CpfUsuario == filtro.Search;
+                }
+            }
+
+            return query;
         }
 
         public Expression<Func<AgentePenitenciario, object>> Ordenar(string campo)
         {
-            throw new NotImplementedException();
+            return x => x.Nome;
         }
     }
 }

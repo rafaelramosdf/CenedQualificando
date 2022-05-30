@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
-using CenedQualificando.Domain.Interfaces.Repository.Base;
 using CenedQualificando.Infra.Context;
 using CenedQualificando.Domain.Models.Base;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Collections.Generic;
+using CenedQualificando.Domain.Repositories.Base;
 
 namespace CenedQualificando.Infra.Repository.Base
 {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage;
 using System;
-using CenedQualificando.Domain.Interfaces.UoW;
 using CenedQualificando.Infra.Context;
+using CenedQualificando.Domain.Repositories.Base;
 
 namespace CenedQualificando.Infra.UoW
 {

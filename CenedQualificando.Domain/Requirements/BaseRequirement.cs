@@ -1,6 +1,6 @@
 ﻿using CenedQualificando.Domain.Interfaces.Requirements;
 using CenedQualificando.Domain.Models.Base;
-using CenedQualificando.Domain.Models.Utils;
+using CenedQualificando.Domain.Models.ValueObjects;
 using System.Collections.Generic;
 
 namespace CenedQualificando.Domain.Requirements

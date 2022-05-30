@@ -1,5 +1,5 @@
 ﻿using CenedQualificando.Domain.Models.Base;
-using CenedQualificando.Domain.Models.Utils;
+using CenedQualificando.Domain.Models.ValueObjects;
 using CenedQualificando.Domain.Resources;
 using CenedQualificando.Web.Admin.Services.RefitApiServices.Base;
 using Microsoft.AspNetCore.Components;

@@ -1,13 +1,24 @@
 using CenedQualificando.Api.Filters;
-using CenedQualificando.Api.Services;
-using CenedQualificando.Domain.Interfaces.Queries;
-using CenedQualificando.Domain.Interfaces.Repository;
+using CenedQualificando.Domain.Handlers.AgentePenitenciario;
+using CenedQualificando.Domain.Handlers.Aluno;
+using CenedQualificando.Domain.Handlers.CargaHorariaDiaria;
+using CenedQualificando.Domain.Handlers.Curso;
+using CenedQualificando.Domain.Handlers.FiscalSala;
+using CenedQualificando.Domain.Handlers.GrupoDePermissao;
+using CenedQualificando.Domain.Handlers.Matricula;
+using CenedQualificando.Domain.Handlers.Penitenciaria;
+using CenedQualificando.Domain.Handlers.Permissao;
+using CenedQualificando.Domain.Handlers.Prova;
+using CenedQualificando.Domain.Handlers.Representante;
+using CenedQualificando.Domain.Handlers.UfEntrega;
+using CenedQualificando.Domain.Handlers.Usuario;
 using CenedQualificando.Domain.Interfaces.Requirements.Aluno;
 using CenedQualificando.Domain.Interfaces.Requirements.Aluno.Exceptions;
 using CenedQualificando.Domain.Interfaces.Requirements.Aluno.Functions;
-using CenedQualificando.Domain.Interfaces.Services;
-using CenedQualificando.Domain.Interfaces.UoW;
 using CenedQualificando.Domain.Queries;
+using CenedQualificando.Domain.Queries.Contracts;
+using CenedQualificando.Domain.Repositories.Base;
+using CenedQualificando.Domain.Repositories.Contracts;
 using CenedQualificando.Domain.Requirements.Aluno;
 using CenedQualificando.Domain.Requirements.Aluno.Exceptions;
 using CenedQualificando.Domain.Requirements.Aluno.Functions;
@@ -61,6 +72,7 @@ namespace CenedQualificando.Api
 
             RegisterServices(services);
             RegisterRequirements(services);
+            RegisterHandlers(services);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -91,24 +103,6 @@ namespace CenedQualificando.Api
 
         private void RegisterServices(IServiceCollection services)
         {
-            #region Service
-
-            services.AddScoped<IAgentePenitenciarioService, AgentePenitenciarioService>();
-            services.AddScoped<IAlunoService, AlunoService>();
-            services.AddScoped<ICargaHorariaDiariaService, CargaHorariaDiariaService>();
-            services.AddScoped<ICursoService, CursoService>();
-            services.AddScoped<IFiscalSalaService, FiscalSalaService>();
-            services.AddScoped<IGrupoDePermissaoService, GrupoDePermissaoService>();
-            services.AddScoped<IPermissaoService, PermissaoService>();
-            services.AddScoped<IMatriculaService, MatriculaService>();
-            services.AddScoped<IPenitenciariaService, PenitenciariaService>();
-            services.AddScoped<IProvaService, ProvaService>();
-            services.AddScoped<IRepresentanteService, RepresentanteService>();
-            services.AddScoped<IUfEntregaService, UfEntregaService>();
-            services.AddScoped<IUsuarioService, UsuarioService>();
-
-            #endregion
-
             #region Domain
 
             services.AddScoped<IAgentePenitenciarioQuery, AgentePenitenciarioQuery>();
@@ -155,6 +149,123 @@ namespace CenedQualificando.Api
             services.AddScoped<IIncluirAlunoRequirement, IncluirAlunoRequirement>();
             services.AddScoped<IGeraSenhaInicialAlunoFunction, GeraSenhaInicialAlunoFunction>();
             services.AddScoped<ICpfDuplicadoAlunoException, CpfDuplicadoAlunoException>();
+            #endregion
+        }
+
+        private void RegisterHandlers(IServiceCollection services)
+        {
+            #region Aluno
+            services.AddScoped<IAlterarAlunoCommandHandler, AlterarAlunoCommandHandler>();
+            services.AddScoped<IBuscarAlunoPorIdQueryHandler, BuscarAlunoPorIdQueryHandler>();
+            services.AddScoped<IObterDataTableAlunosQueryHandler, ObterDataTableAlunosQueryHandler>();
+            services.AddScoped<IObterComboSelecaoAlunosQueryHandler, ObterComboSelecaoAlunosQueryHandler>();
+            services.AddScoped<IExcluirAlunoCommandHandler, ExcluirAlunoCommandHandler>();
+            services.AddScoped<IIncluirAlunoCommandHandler, IncluirAlunoCommandHandler>();
+            #endregion
+
+            #region AgentePenitenciario
+            services.AddScoped<IAlterarAgentePenitenciarioCommandHandler, AlterarAgentePenitenciarioCommandHandler>();
+            services.AddScoped<IBuscarAgentePenitenciarioPorIdQueryHandler, BuscarAgentePenitenciarioPorIdQueryHandler>();
+            services.AddScoped<IObterDataTableAgentesPenitenciariosQueryHandler, ObterDataTableAgentesPenitenciariosQueryHandler>();
+            services.AddScoped<IObterComboSelecaoAgentesPenitenciariosQueryHandler, ObterComboSelecaoAgentesPenitenciariosQueryHandler>();
+            services.AddScoped<IExcluirAgentePenitenciarioCommandHandler, ExcluirAgentePenitenciarioCommandHandler>();
+            services.AddScoped<IIncluirAgentePenitenciarioCommandHandler, IncluirAgentePenitenciarioCommandHandler>();
+            #endregion
+
+            #region CargaHorariaDiaria
+            services.AddScoped<IAlterarCargaHorariaDiariaCommandHandler, AlterarCargaHorariaDiariaCommandHandler>();
+            services.AddScoped<IBuscarCargaHorariaDiariaPorIdQueryHandler, BuscarCargaHorariaDiariaPorIdQueryHandler>();
+            services.AddScoped<IObterDataTableCargaHorariaDiariaQueryHandler, ObterDataTableCargaHorariaDiariaQueryHandler>();
+            services.AddScoped<IExcluirCargaHorariaDiariaCommandHandler, ExcluirCargaHorariaDiariaCommandHandler>();
+            services.AddScoped<IIncluirCargaHorariaDiariaCommandHandler, IncluirCargaHorariaDiariaCommandHandler>();
+            #endregion
+
+            #region Curso
+            services.AddScoped<IAlterarCursoCommandHandler, AlterarCursoCommandHandler>();
+            services.AddScoped<IBuscarCursoPorIdQueryHandler, BuscarCursoPorIdQueryHandler>();
+            services.AddScoped<IObterDataTableCursosQueryHandler, ObterDataTableCursosQueryHandler>();
+            services.AddScoped<IObterComboSelecaoCursosQueryHandler, ObterComboSelecaoCursosQueryHandler>();
+            services.AddScoped<IExcluirCursoCommandHandler, ExcluirCursoCommandHandler>();
+            services.AddScoped<IIncluirCursoCommandHandler, IncluirCursoCommandHandler>();
+            #endregion
+
+            #region FiscalSala
+            services.AddScoped<IAlterarFiscalSalaCommandHandler, AlterarFiscalSalaCommandHandler>();
+            services.AddScoped<IBuscarFiscalSalaPorIdQueryHandler, BuscarFiscalSalaPorIdQueryHandler>();
+            services.AddScoped<IObterDataTableFiscalSalaQueryHandler, ObterDataTableFiscalSalaQueryHandler>();
+            services.AddScoped<IObterComboSelecaoFiscalSalaQueryHandler, ObterComboSelecaoFiscalSalaQueryHandler>();
+            services.AddScoped<IExcluirFiscalSalaCommandHandler, ExcluirFiscalSalaCommandHandler>();
+            services.AddScoped<IIncluirFiscalSalaCommandHandler, IncluirFiscalSalaCommandHandler>();
+            #endregion
+
+            #region GrupoDePermissao
+            services.AddScoped<IAlterarGrupoDePermissaoCommandHandler, AlterarGrupoDePermissaoCommandHandler>();
+            services.AddScoped<IBuscarGrupoDePermissaoPorIdQueryHandler, BuscarGrupoDePermissaoPorIdQueryHandler>();
+            services.AddScoped<IObterDataTableGrupoDePermissaosQueryHandler, ObterDataTableGrupoDePermissaosQueryHandler>();
+            services.AddScoped<IObterComboSelecaoGrupoDePermissaosQueryHandler, ObterComboSelecaoGrupoDePermissaosQueryHandler>();
+            services.AddScoped<IExcluirGrupoDePermissaoCommandHandler, ExcluirGrupoDePermissaoCommandHandler>();
+            services.AddScoped<IIncluirGrupoDePermissaoCommandHandler, IncluirGrupoDePermissaoCommandHandler>();
+            #endregion
+
+            #region Matricula
+            services.AddScoped<IAlterarMatriculaCommandHandler, AlterarMatriculaCommandHandler>();
+            services.AddScoped<IBuscarMatriculaPorIdQueryHandler, BuscarMatriculaPorIdQueryHandler>();
+            services.AddScoped<IBuscarMatriculasQueryHandler, BuscarMatriculasQueryHandler>();
+            services.AddScoped<IObterDataTableMatriculasQueryHandler, ObterDataTableMatriculasQueryHandler>();
+            services.AddScoped<IExcluirMatriculaCommandHandler, ExcluirMatriculaCommandHandler>();
+            services.AddScoped<IIncluirMatriculaCommandHandler, IncluirMatriculaCommandHandler>();
+            #endregion
+
+            #region Penitenciaria
+            services.AddScoped<IAlterarPenitenciariaCommandHandler, AlterarPenitenciariaCommandHandler>();
+            services.AddScoped<IBuscarPenitenciariaPorIdQueryHandler, BuscarPenitenciariaPorIdQueryHandler>();
+            services.AddScoped<IObterDataTablePenitenciariasQueryHandler, ObterDataTablePenitenciariasQueryHandler>();
+            services.AddScoped<IObterComboSelecaoPenitenciariasQueryHandler, ObterComboSelecaoPenitenciariasQueryHandler>();
+            services.AddScoped<IExcluirPenitenciariaCommandHandler, ExcluirPenitenciariaCommandHandler>();
+            services.AddScoped<IIncluirPenitenciariaCommandHandler, IncluirPenitenciariaCommandHandler>();
+            #endregion
+
+            #region Permissao
+            services.AddScoped<IAlterarPermissaoCommandHandler, AlterarPermissaoCommandHandler>();
+            services.AddScoped<IBuscarPermissaoPorIdQueryHandler, BuscarPermissaoPorIdQueryHandler>();
+            services.AddScoped<IObterDataTablePermissaosQueryHandler, ObterDataTablePermissaosQueryHandler>();
+            services.AddScoped<IExcluirPermissaoCommandHandler, ExcluirPermissaoCommandHandler>();
+            services.AddScoped<IIncluirPermissaoCommandHandler, IncluirPermissaoCommandHandler>();
+            #endregion
+
+            #region Prova
+            services.AddScoped<IAlterarProvaCommandHandler, AlterarProvaCommandHandler>();
+            services.AddScoped<IBuscarProvaPorIdQueryHandler, BuscarProvaPorIdQueryHandler>();
+            services.AddScoped<IBuscarProvasPorIdMatriculasQueryHandler, BuscarProvasPorIdMatriculasQueryHandler>();
+            services.AddScoped<IObterDataTableProvasQueryHandler, ObterDataTableProvasQueryHandler>();
+            services.AddScoped<IExcluirProvaCommandHandler, ExcluirProvaCommandHandler>();
+            services.AddScoped<IIncluirProvaCommandHandler, IncluirProvaCommandHandler>();
+            #endregion
+
+            #region Representante
+            services.AddScoped<IAlterarRepresentanteCommandHandler, AlterarRepresentanteCommandHandler>();
+            services.AddScoped<IBuscarRepresentantePorIdQueryHandler, BuscarRepresentantePorIdQueryHandler>();
+            services.AddScoped<IObterDataTableRepresentantesQueryHandler, ObterDataTableRepresentantesQueryHandler>();
+            services.AddScoped<IObterComboSelecaoRepresentantesQueryHandler, ObterComboSelecaoRepresentantesQueryHandler>();
+            services.AddScoped<IExcluirRepresentanteCommandHandler, ExcluirRepresentanteCommandHandler>();
+            services.AddScoped<IIncluirRepresentanteCommandHandler, IncluirRepresentanteCommandHandler>();
+            #endregion
+
+            #region UfEntrega
+            services.AddScoped<IAlterarUfEntregaCommandHandler, AlterarUfEntregaCommandHandler>();
+            services.AddScoped<IBuscarUfEntregaPorIdQueryHandler, BuscarUfEntregaPorIdQueryHandler>();
+            services.AddScoped<IObterDataTableUfEntregasQueryHandler, ObterDataTableUfEntregasQueryHandler>();
+            services.AddScoped<IExcluirUfEntregaCommandHandler, ExcluirUfEntregaCommandHandler>();
+            services.AddScoped<IIncluirUfEntregaCommandHandler, IncluirUfEntregaCommandHandler>();
+            #endregion
+
+            #region Usuario
+            services.AddScoped<IAlterarUsuarioCommandHandler, AlterarUsuarioCommandHandler>();
+            services.AddScoped<IBuscarUsuarioPorIdQueryHandler, BuscarUsuarioPorIdQueryHandler>();
+            services.AddScoped<IObterDataTableUsuariosQueryHandler, ObterDataTableUsuariosQueryHandler>();
+            services.AddScoped<IObterComboSelecaoUsuariosQueryHandler, ObterComboSelecaoUsuariosQueryHandler>();
+            services.AddScoped<IExcluirUsuarioCommandHandler, ExcluirUsuarioCommandHandler>();
+            services.AddScoped<IIncluirUsuarioCommandHandler, IncluirUsuarioCommandHandler>();
             #endregion
         }
     }
