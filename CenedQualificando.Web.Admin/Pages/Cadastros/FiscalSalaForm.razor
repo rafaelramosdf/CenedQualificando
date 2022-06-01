@@ -1,8 +1,9 @@
 ﻿@page "/cadastros/formularios/fiscais-salas/{id:int?}"
 @using Domain.Models.Entities
-@using Domain.Models.Dtos
+@using Domain.Models.ViewModels
+@using CenedQualificando.Domain.Models.Filters
 
-@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.FormPageBase<FiscalSala, FiscalSalaDto, IFiscalSalaApiService>
+@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.FormPageBase<FiscalSala, FiscalSalaFilter, FiscalSalaViewModel, IFiscalSalaApiService>
 
 <MudCard Elevation="0">
     <MudCardHeader>

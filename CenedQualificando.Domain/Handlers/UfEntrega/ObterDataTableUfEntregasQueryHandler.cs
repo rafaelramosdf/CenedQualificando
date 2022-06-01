@@ -1,17 +1,17 @@
 ﻿using AutoMapper;
-using CenedQualificando.Domain.Models.Dtos;
+using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Models.Filters;
-using CenedQualificando.Domain.Models.ValueObjects;
 using CenedQualificando.Domain.Queries.Contracts;
 using CenedQualificando.Domain.Repositories.Contracts;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using CenedQualificando.Domain.Models.Base;
 
 namespace CenedQualificando.Domain.Handlers.UfEntrega;
 
-public interface IObterDataTableUfEntregasQueryHandler : IDataTableQueryHandler<UfEntregaDto, UfEntregaFilter> 
+public interface IObterDataTableUfEntregasQueryHandler : IDataTableQueryHandler<UfEntregaViewModel, UfEntregaFilter> 
 {
 }
 
@@ -34,13 +34,13 @@ public class ObterDataTableUfEntregasQueryHandler : IObterDataTableUfEntregasQue
         Mapper = mapper;
     }
 
-    public DataTableModel<UfEntregaDto> Execute(UfEntregaFilter filtro)
+    public DataTableModel<UfEntregaViewModel> Execute(UfEntregaFilter filtro)
     {
         Logger.LogInformation($"Iniciando handler ObterDataTableUfEntregasQueryHandler");
 
-        var dataTableModel = new DataTableModel<UfEntregaDto>();
+        var dataTableModel = new DataTableModel<UfEntregaViewModel>();
 
-        Expression<Func<Models.Entities.UfEntrega, bool>> filterExpression = Query.Filtrar(filtro);
+        Expression<Func<Models.Entities.UfEntrega, bool>> filterExpression = Query.ObterPesquisa(filtro);
 
         IQueryable<Models.Entities.UfEntrega> queryList = 
             Repository.List(filterExpression);

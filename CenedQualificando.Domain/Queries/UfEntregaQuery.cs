@@ -8,12 +8,12 @@ namespace CenedQualificando.Domain.Queries
 {
     public class UfEntregaQuery : IUfEntregaQuery
     {
-        public Expression<Func<UfEntrega, bool>> Filtrar(UfEntregaFilter filtro)
+        public Expression<Func<UfEntrega, bool>> ObterPesquisa(UfEntregaFilter filtro)
         {
             return _ => true;
         }
 
-        public Expression<Func<UfEntrega, object>> Ordenar(string campo)
+        public Expression<Func<UfEntrega, object>> ObterOrdenacao(string campo)
         {
             return o => o.Uf;
         }

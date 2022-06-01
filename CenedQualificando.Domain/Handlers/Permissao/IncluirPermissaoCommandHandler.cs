@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
-using CenedQualificando.Domain.Models.Dtos;
-using CenedQualificando.Domain.Models.ValueObjects;
+using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Repositories.Base;
 using CenedQualificando.Domain.Repositories.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
+using CenedQualificando.Domain.Models.Base;
 
 namespace CenedQualificando.Domain.Handlers.Permissao;
 
-public interface IIncluirPermissaoCommandHandler : IEditCommandHandler<PermissaoDto>
+public interface IIncluirPermissaoCommandHandler : IEditCommandHandler<PermissaoViewModel>
 {
 }
 
@@ -32,7 +32,7 @@ public class IncluirPermissaoCommandHandler : IIncluirPermissaoCommandHandler
         Mapper = mapper;
     }
 
-    public CommandResult Execute(PermissaoDto dto)
+    public CommandResult Execute(PermissaoViewModel dto)
     {
         Logger.LogInformation($"Iniciando handler IncluirPermissaoCommandHandler");
 
@@ -41,7 +41,7 @@ public class IncluirPermissaoCommandHandler : IIncluirPermissaoCommandHandler
             var entity = Mapper.Map<Models.Entities.Permissao>(dto);
             Repository.Add(entity);
             UnitOfWork.Commit();
-            return new CommandResult(StatusCodes.Status201Created, Mapper.Map<PermissaoDto>(entity));
+            return new CommandResult(StatusCodes.Status201Created, Mapper.Map<PermissaoViewModel>(entity));
         }
         catch (Exception ex)
         {

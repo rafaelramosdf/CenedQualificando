@@ -1,5 +1,5 @@
 ﻿using CenedQualificando.Domain.Models.Base;
-using CenedQualificando.Domain.Models.ValueObjects;
+using CenedQualificando.Domain.Queries.Filters.Base;
 using CenedQualificando.Domain.Resources;
 using CenedQualificando.Web.Admin.Services.RefitApiServices.Base;
 using Microsoft.AspNetCore.Components;
@@ -13,12 +13,13 @@ using System.Threading.Tasks;
 
 namespace CenedQualificando.Web.Admin.Shared.CodeBase.Pages
 {
-    public abstract partial class FormPageBase<TEntity, TDto, TApiService> : PageBase
-        where TEntity : Entity 
-        where TDto : Dto<TEntity> 
-        where TApiService : ICRUDService<TEntity, TDto>
+    public abstract partial class FormPageBase<TEntity, TFilter, TViewModel, TApiService> : PageBase
+        where TEntity : Entity
+        where TFilter : Filter
+        where TViewModel : ViewModel<TEntity> 
+        where TApiService : ICRUDService<TEntity, TFilter, TViewModel>
     {
-        [Inject] protected ILogger<FormPageBase<TEntity, TDto, TApiService>> Log { get; set; }
+        [Inject] protected ILogger<FormPageBase<TEntity, TFilter, TViewModel, TApiService>> Log { get; set; }
         [Inject] protected TApiService ApiService { get; set; }
         [Inject] protected IDialogService Dialog { get; set; }
 
@@ -27,7 +28,7 @@ namespace CenedQualificando.Web.Admin.Shared.CodeBase.Pages
 
         protected bool IsNewRegister => Id == null;
         protected string BackRoute { get; set; }
-        protected TDto Model { get; set; } = Activator.CreateInstance<TDto>();
+        protected TViewModel Model { get; set; } = Activator.CreateInstance<TViewModel>();
 
         protected override async Task OnInitializedAsync()
         {

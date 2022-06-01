@@ -1,17 +1,18 @@
 ﻿
 @page "/cadastros/representantes"
 
-@using Domain.Models.Dtos
+@using Domain.Models.ViewModels
 @using Domain.Models.Entities
+@using CenedQualificando.Domain.Models.Filters
 
-@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.ListPageBase<Representante, RepresentanteDto, IRepresentanteApiService>
+@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.ListPageBase<Representante, RepresentanteFilter, RepresentanteViewModel, IRepresentanteApiService>
 @inject ISnackbar Snackbar
 
 <MudOverlay @bind-Visible="State.Carregando" DarkBackground="false" ZIndex="999999" AutoClose="true">
     <MudProgressCircular Color="Color.Success" Indeterminate="true" />
 </MudOverlay>
 
-<MudTable ServerData="@(new Func<TableState, Task<TableData<RepresentanteDto>>>(ServerReload))"
+<MudTable ServerData="@(new Func<TableState, Task<TableData<RepresentanteViewModel>>>(ServerReload))"
           @ref="Table"
           Dense="true"
           Hover="true"
@@ -37,7 +38,7 @@
                 <MudMenuItem>...</MudMenuItem>
             </MudMenu>
         </MudTh>
-        <MudTh><MudTableSortLabel T="RepresentanteDto" SortLabel="@nameof(RepresentanteDto.Nome)" InitialDirection="SortDirection.Ascending">Nome</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel T="RepresentanteViewModel" SortLabel="@nameof(RepresentanteViewModel.Nome)" InitialDirection="SortDirection.Ascending">Nome</MudTableSortLabel></MudTh>
         <MudTh><MudText>Email</MudText></MudTh>
         <MudTh><MudText>UF</MudText></MudTh>
         <MudTh><MudText>Ativo</MudText></MudTh>

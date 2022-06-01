@@ -14,7 +14,7 @@ namespace CenedQualificando.Domain.Queries
             return x => x.Cpf == cpf;
         }
 
-        public Expression<Func<Aluno, bool>> Filtrar(AlunoFilter filtro)
+        public Expression<Func<Aluno, bool>> ObterPesquisa(AlunoFilter filtro)
         {
             Expression<Func<Aluno, bool>> query = _ => true;
 
@@ -48,7 +48,7 @@ namespace CenedQualificando.Domain.Queries
             return query;
         }
 
-        public Expression<Func<Aluno, object>> Ordenar(string campo)
+        public Expression<Func<Aluno, object>> ObterOrdenacao(string campo)
         {
             switch (campo)
             {

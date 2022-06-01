@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
-using CenedQualificando.Domain.Models.Dtos;
-using CenedQualificando.Domain.Models.ValueObjects;
+using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Repositories.Base;
 using CenedQualificando.Domain.Repositories.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
+using CenedQualificando.Domain.Models.Base;
 
 namespace CenedQualificando.Domain.Handlers.Aluno;
 
-public interface IIncluirAlunoCommandHandler : IEditCommandHandler<AlunoDto>
+public interface IIncluirAlunoCommandHandler : IEditCommandHandler<AlunoViewModel>
 {
 }
 
@@ -32,7 +32,7 @@ public class IncluirAlunoCommandHandler : IIncluirAlunoCommandHandler
         Mapper = mapper;
     }
 
-    public CommandResult Execute(AlunoDto dto)
+    public CommandResult Execute(AlunoViewModel dto)
     {
         Logger.LogInformation($"Iniciando handler IncluirAlunoCommandHandler");
 
@@ -41,7 +41,7 @@ public class IncluirAlunoCommandHandler : IIncluirAlunoCommandHandler
             var entity = Mapper.Map<Models.Entities.Aluno>(dto);
             Repository.Add(entity);
             UnitOfWork.Commit();
-            return new CommandResult(StatusCodes.Status201Created, Mapper.Map<AlunoDto>(entity));
+            return new CommandResult(StatusCodes.Status201Created, Mapper.Map<AlunoViewModel>(entity));
         }
         catch (Exception ex)
         {

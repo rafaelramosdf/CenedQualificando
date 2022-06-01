@@ -1,8 +1,9 @@
 ﻿@page "/cadastros/formularios/penitenciarias/{id:int?}"
 @using Domain.Models.Entities
-@using Domain.Models.Dtos
+@using Domain.Models.ViewModels
+@using CenedQualificando.Domain.Models.Filters
 
-@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.FormPageBase<Penitenciaria, PenitenciariaDto, IPenitenciariaApiService>
+@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.FormPageBase<Penitenciaria, PenitenciariaFilter, PenitenciariaViewModel, IPenitenciariaApiService>
 
 <MudCard Elevation="0">
     <MudCardHeader>

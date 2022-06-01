@@ -1,10 +1,10 @@
 ﻿using CenedQualificando.Domain.Handlers.Permissao;
-using CenedQualificando.Domain.Models.Dtos;
+using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Models.Filters;
-using CenedQualificando.Domain.Models.ValueObjects;
 using CenedQualificando.Domain.Resources;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using CenedQualificando.Domain.Models.Base;
 
 namespace CenedQualificando.Api.Controllers.v1
 {
@@ -15,7 +15,7 @@ namespace CenedQualificando.Api.Controllers.v1
     {
         [HttpPost]
         public ActionResult<CommandResult> Incluir(
-            [FromBody] PermissaoDto vm,
+            [FromBody] PermissaoViewModel vm,
             [FromServices] IIncluirPermissaoCommandHandler handler)
         {
             var result = handler.Execute(vm);
@@ -23,7 +23,7 @@ namespace CenedQualificando.Api.Controllers.v1
         }
 
         [HttpGet("{id:int}")]
-        public ActionResult<PermissaoDto> Buscar(int id,
+        public ActionResult<PermissaoViewModel> Buscar(int id,
             [FromServices] IBuscarPermissaoPorIdQueryHandler handler)
         {
             var result = handler.Execute(id);
@@ -35,7 +35,7 @@ namespace CenedQualificando.Api.Controllers.v1
         }
 
         [HttpGet]
-        public ActionResult<DataTableModel<PermissaoDto>> Buscar(
+        public ActionResult<DataTableModel<PermissaoViewModel>> Buscar(
             [FromQuery] PermissaoFilter filtro,
             [FromServices] IObterDataTablePermissaosQueryHandler handler)
         {
@@ -45,7 +45,7 @@ namespace CenedQualificando.Api.Controllers.v1
 
         [HttpPut("{id:int}")]
         public ActionResult<CommandResult> Alterar(int id, 
-            [FromBody] PermissaoDto vm,
+            [FromBody] PermissaoViewModel vm,
             [FromServices] IAlterarPermissaoCommandHandler handler)
         {
             if (id != vm.Id)

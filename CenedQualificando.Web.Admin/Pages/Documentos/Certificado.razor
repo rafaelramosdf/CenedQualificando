@@ -4,7 +4,7 @@
 
 @inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.DocumentPageBase
 
-@using Domain.Models.Dtos
+@using Domain.Models.ViewModels
 
 <MudOverlay @bind-Visible="State.Carregando" ZIndex="999" AutoClose="true">
     <MudProgressCircular Color="Color.Primary" Indeterminate="true" />
@@ -40,7 +40,7 @@
                   SortLabel="Ordenar por"
                   MultiSelection="true"
                   @bind-SelectedItems="Selecionados"
-                  Filter="new Func<MatriculaDto,bool>(FilterFunc)">
+                  Filter="new Func<MatriculaViewModel,bool>(FilterFunc)">
             <ToolBarContent>
                 <MudSpacer />
                 <MudTextField @bind-Value="FilterString"

@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using CenedQualificando.Domain.Models.Dtos;
+using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Repositories.Contracts;
 using Microsoft.Extensions.Logging;
 
 namespace CenedQualificando.Domain.Handlers.Usuario;
 
-public interface IBuscarUsuarioPorIdQueryHandler : IByIdQueryHandler<UsuarioDto>
+public interface IBuscarUsuarioPorIdQueryHandler : IByIdQueryHandler<UsuarioViewModel>
 {
 }
 
@@ -25,9 +25,9 @@ public class BuscarUsuarioPorIdQueryHandler : IBuscarUsuarioPorIdQueryHandler
         Mapper = mapper;
     }
 
-    public UsuarioDto Execute(int id)
+    public UsuarioViewModel Execute(int id)
     {
         Logger.LogInformation($"Iniciando handler BuscarUsuarioPorIdQueryHandler");
-        return Mapper.Map<UsuarioDto>(Repository.Get(id));
+        return Mapper.Map<UsuarioViewModel>(Repository.Get(id));
     }
 }

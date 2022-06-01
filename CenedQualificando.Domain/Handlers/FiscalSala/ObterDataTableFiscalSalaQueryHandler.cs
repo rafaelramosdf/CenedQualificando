@@ -1,17 +1,17 @@
 ﻿using AutoMapper;
-using CenedQualificando.Domain.Models.Dtos;
+using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Models.Filters;
-using CenedQualificando.Domain.Models.ValueObjects;
 using CenedQualificando.Domain.Queries.Contracts;
 using CenedQualificando.Domain.Repositories.Contracts;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using CenedQualificando.Domain.Models.Base;
 
 namespace CenedQualificando.Domain.Handlers.FiscalSala;
 
-public interface IObterDataTableFiscalSalaQueryHandler : IDataTableQueryHandler<FiscalSalaDto, FiscalSalaFilter> 
+public interface IObterDataTableFiscalSalaQueryHandler : IDataTableQueryHandler<FiscalSalaViewModel, FiscalSalaFilter> 
 {
 }
 
@@ -34,13 +34,13 @@ public class ObterDataTableFiscalSalaQueryHandler : IObterDataTableFiscalSalaQue
         Mapper = mapper;
     }
 
-    public DataTableModel<FiscalSalaDto> Execute(FiscalSalaFilter filtro)
+    public DataTableModel<FiscalSalaViewModel> Execute(FiscalSalaFilter filtro)
     {
         Logger.LogInformation($"Iniciando handler BuscarFiscalSalaDataTableQueryHandler");
 
-        var dataTableModel = new DataTableModel<FiscalSalaDto>();
+        var dataTableModel = new DataTableModel<FiscalSalaViewModel>();
 
-        Expression<Func<Models.Entities.FiscalSala, bool>> filterExpression = Query.Filtrar(filtro);
+        Expression<Func<Models.Entities.FiscalSala, bool>> filterExpression = Query.ObterPesquisa(filtro);
 
         IQueryable<Models.Entities.FiscalSala> queryList = 
             Repository.List(filterExpression);

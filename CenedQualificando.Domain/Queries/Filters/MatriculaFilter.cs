@@ -1,5 +1,5 @@
-﻿using CenedQualificando.Domain.Models.Enumerations.Filters;
-using CenedQualificando.Domain.Models.ValueObjects;
+﻿using CenedQualificando.Domain.Models.Base.ValueObjects;
+using CenedQualificando.Domain.Models.Enumerations.Filters;
 using CenedQualificando.Domain.Queries.Filters.Base;
 using System.Collections.Generic;
 

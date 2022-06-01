@@ -1,18 +1,16 @@
 ﻿using AutoMapper;
-using CenedQualificando.Domain.Models.Dtos;
+using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Models.Filters;
-using CenedQualificando.Domain.Models.ValueObjects;
 using CenedQualificando.Domain.Queries.Contracts;
 using CenedQualificando.Domain.Repositories.Contracts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Linq;
-using System.Linq.Expressions;
+using CenedQualificando.Domain.Models.Base;
 
 namespace CenedQualificando.Domain.Handlers.Matricula;
 
-public interface IObterDataTableMatriculasQueryHandler : IDataTableQueryHandler<MatriculaDto, MatriculaFilter> 
+public interface IObterDataTableMatriculasQueryHandler : IDataTableQueryHandler<MatriculaViewModel, MatriculaFilter> 
 {
 }
 
@@ -35,18 +33,18 @@ public class ObterDataTableMatriculasQueryHandler : IObterDataTableMatriculasQue
         Mapper = mapper;
     }
 
-    public DataTableModel<MatriculaDto> Execute(MatriculaFilter filtro)
+    public DataTableModel<MatriculaViewModel> Execute(MatriculaFilter filtro)
     {
         Logger.LogInformation($"Iniciando handler ObterDataTableMatriculasQueryHandler");
 
-        var dataTableModel = new DataTableModel<MatriculaDto>();
-
-        Expression<Func<Models.Entities.Matricula, bool>> filterExpression = Query.Filtrar(filtro);
+        var dataTableModel = new DataTableModel<MatriculaViewModel>();
 
         IQueryable<Models.Entities.Matricula> queryList = 
-            Repository.List(filterExpression)
-            .Include(i => i.Aluno)
-            .Include(i => i.Curso);
+            Repository.List(Query.ObterPesquisa(filtro));
+
+        queryList = Query.FiltrarMatriculas(filtro, queryList);
+
+        queryList.Include(i => i.Aluno).Include(i => i.Curso);
 
         dataTableModel.SortAndPage(queryList, filtro, Query, Mapper);
 

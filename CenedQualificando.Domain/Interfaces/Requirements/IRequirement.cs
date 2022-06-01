@@ -1,11 +1,10 @@
 ﻿using CenedQualificando.Domain.Models.Base;
-using CenedQualificando.Domain.Models.ValueObjects;
 
 namespace CenedQualificando.Domain.Interfaces.Requirements
 {
-    public interface IRequirement<TDto>
-        where TDto : IDto
+    public interface IRequirement<TViewModel>
+        where TViewModel : IViewModel
     {
-        public CommandResult Execute(TDto model);
+        public CommandResult Execute(TViewModel vm);
     }
 }

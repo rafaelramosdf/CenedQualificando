@@ -8,12 +8,12 @@ namespace CenedQualificando.Domain.Queries
 {
     public class RepresentanteQuery : IRepresentanteQuery
     {
-        public Expression<Func<Representante, bool>> Filtrar(RepresentanteFilter filtro)
+        public Expression<Func<Representante, bool>> ObterPesquisa(RepresentanteFilter filtro)
         {
             return x => x.Nome.Contains(filtro.Search);
         }
 
-        public Expression<Func<Representante, object>> Ordenar(string campo)
+        public Expression<Func<Representante, object>> ObterOrdenacao(string campo)
         {
             switch (campo)
             {

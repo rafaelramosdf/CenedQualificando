@@ -1,8 +1,8 @@
-﻿using CenedQualificando.Domain.Models.Dtos;
+﻿using CenedQualificando.Domain.Models.ViewModels;
 
 namespace CenedQualificando.Domain.Interfaces.Requirements.Aluno
 {
-    public interface IIncluirAlunoRequirement : IRequirement<AlunoDto>
+    public interface IIncluirAlunoRequirement : IRequirement<AlunoViewModel>
     {
     }
 }

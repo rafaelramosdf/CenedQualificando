@@ -210,7 +210,7 @@ namespace CenedQualificando.Api
             #region Matricula
             services.AddScoped<IAlterarMatriculaCommandHandler, AlterarMatriculaCommandHandler>();
             services.AddScoped<IBuscarMatriculaPorIdQueryHandler, BuscarMatriculaPorIdQueryHandler>();
-            services.AddScoped<IBuscarMatriculasQueryHandler, BuscarMatriculasQueryHandler>();
+            services.AddScoped<IObterDocumentoConsultaMatriculasQueryHandler, ObterDocumentoConsultaMatriculasQueryHandler>();
             services.AddScoped<IObterDataTableMatriculasQueryHandler, ObterDataTableMatriculasQueryHandler>();
             services.AddScoped<IExcluirMatriculaCommandHandler, ExcluirMatriculaCommandHandler>();
             services.AddScoped<IIncluirMatriculaCommandHandler, IncluirMatriculaCommandHandler>();

@@ -8,12 +8,12 @@ namespace CenedQualificando.Domain.Queries
 {
     public class CargaHorariaDiariaQuery : ICargaHorariaDiariaQuery
     {
-        public Expression<Func<CargaHorariaDiaria, bool>> Filtrar(CargaHorariaDiariaFilter filtro)
+        public Expression<Func<CargaHorariaDiaria, bool>> ObterPesquisa(CargaHorariaDiariaFilter filtro)
         {
             return _ => true;
         }
 
-        public Expression<Func<CargaHorariaDiaria, object>> Ordenar(string campo)
+        public Expression<Func<CargaHorariaDiaria, object>> ObterOrdenacao(string campo)
         {
             return o => o.Uf;
         }

@@ -2,9 +2,10 @@
 
 @using CenedQualificando.Web.Admin.Shared.Components.Select
 @using Domain.Models.Entities
-@using Domain.Models.Dtos 
+@using Domain.Models.ViewModels 
+@using CenedQualificando.Domain.Models.Filters
 
-@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.FormPageBase<Aluno, AlunoDto, IAlunoApiService>
+@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.FormPageBase<Aluno, AlunoFilter, AlunoViewModel, IAlunoApiService>
 
 <EditForm Model="@Model" OnSubmit="OnSubmit">
 

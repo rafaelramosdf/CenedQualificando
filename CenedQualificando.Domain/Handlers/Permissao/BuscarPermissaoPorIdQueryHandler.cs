@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using CenedQualificando.Domain.Models.Dtos;
+using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Repositories.Contracts;
 using Microsoft.Extensions.Logging;
 
 namespace CenedQualificando.Domain.Handlers.Permissao;
 
-public interface IBuscarPermissaoPorIdQueryHandler : IByIdQueryHandler<PermissaoDto>
+public interface IBuscarPermissaoPorIdQueryHandler : IByIdQueryHandler<PermissaoViewModel>
 {
 }
 
@@ -25,9 +25,9 @@ public class BuscarPermissaoPorIdQueryHandler : IBuscarPermissaoPorIdQueryHandle
         Mapper = mapper;
     }
 
-    public PermissaoDto Execute(int id)
+    public PermissaoViewModel Execute(int id)
     {
         Logger.LogInformation($"Iniciando handler BuscarPermissaoPorIdQueryHandler");
-        return Mapper.Map<PermissaoDto>(Repository.Get(id));
+        return Mapper.Map<PermissaoViewModel>(Repository.Get(id));
     }
 }

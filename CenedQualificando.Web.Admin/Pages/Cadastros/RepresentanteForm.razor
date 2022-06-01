@@ -1,8 +1,9 @@
 ﻿@page "/cadastros/formularios/representantes/{id:int?}"
 @using Domain.Models.Entities
-@using Domain.Models.Dtos
+@using Domain.Models.ViewModels
+@using CenedQualificando.Domain.Models.Filters
 
-@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.FormPageBase<Representante, RepresentanteDto, IRepresentanteApiService>
+@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.FormPageBase<Representante, RepresentanteFilter, RepresentanteViewModel, IRepresentanteApiService>
 
 <MudCard Elevation="0">
     <MudCardHeader>

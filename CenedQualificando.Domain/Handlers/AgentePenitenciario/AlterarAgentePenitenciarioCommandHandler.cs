@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using CenedQualificando.Domain.Models.Dtos;
-using CenedQualificando.Domain.Models.ValueObjects;
+using CenedQualificando.Domain.Models.Base;
+using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Repositories.Base;
 using CenedQualificando.Domain.Repositories.Contracts;
 using Microsoft.AspNetCore.Http;
@@ -9,7 +9,7 @@ using System;
 
 namespace CenedQualificando.Domain.Handlers.AgentePenitenciario;
 
-public interface IAlterarAgentePenitenciarioCommandHandler : IEditCommandHandler<AgentePenitenciarioDto>
+public interface IAlterarAgentePenitenciarioCommandHandler : IEditCommandHandler<AgentePenitenciarioViewModel>
 {
 }
 
@@ -32,7 +32,7 @@ public class AlterarAgentePenitenciarioCommandHandler : IAlterarAgentePenitencia
         Mapper = mapper;
     }
 
-    public CommandResult Execute(AgentePenitenciarioDto dto)
+    public CommandResult Execute(AgentePenitenciarioViewModel dto)
     {
         Logger.LogInformation($"Iniciando handler AlterarAgentePenitenciarioEditCommandHandler");
 

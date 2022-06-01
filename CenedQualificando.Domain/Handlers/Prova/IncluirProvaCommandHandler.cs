@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
-using CenedQualificando.Domain.Models.Dtos;
-using CenedQualificando.Domain.Models.ValueObjects;
+using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Repositories.Base;
 using CenedQualificando.Domain.Repositories.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
+using CenedQualificando.Domain.Models.Base;
 
 namespace CenedQualificando.Domain.Handlers.Prova;
 
-public interface IIncluirProvaCommandHandler : IEditCommandHandler<ProvaDto>
+public interface IIncluirProvaCommandHandler : IEditCommandHandler<ProvaViewModel>
 {
 }
 
@@ -32,7 +32,7 @@ public class IncluirProvaCommandHandler : IIncluirProvaCommandHandler
         Mapper = mapper;
     }
 
-    public CommandResult Execute(ProvaDto dto)
+    public CommandResult Execute(ProvaViewModel dto)
     {
         Logger.LogInformation($"Iniciando handler IncluirProvaCommandHandler");
 
@@ -41,7 +41,7 @@ public class IncluirProvaCommandHandler : IIncluirProvaCommandHandler
             var entity = Mapper.Map<Models.Entities.Prova>(dto);
             Repository.Add(entity);
             UnitOfWork.Commit();
-            return new CommandResult(StatusCodes.Status201Created, Mapper.Map<ProvaDto>(entity));
+            return new CommandResult(StatusCodes.Status201Created, Mapper.Map<ProvaViewModel>(entity));
         }
         catch (Exception ex)
         {

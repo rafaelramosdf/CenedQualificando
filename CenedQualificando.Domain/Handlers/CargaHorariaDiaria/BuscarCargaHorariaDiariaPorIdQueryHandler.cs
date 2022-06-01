@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using CenedQualificando.Domain.Models.Dtos;
+using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Repositories.Contracts;
 using Microsoft.Extensions.Logging;
 
 namespace CenedQualificando.Domain.Handlers.CargaHorariaDiaria;
 
-public interface IBuscarCargaHorariaDiariaPorIdQueryHandler : IByIdQueryHandler<CargaHorariaDiariaDto>
+public interface IBuscarCargaHorariaDiariaPorIdQueryHandler : IByIdQueryHandler<CargaHorariaDiariaViewModel>
 {
 }
 
@@ -25,9 +25,9 @@ public class BuscarCargaHorariaDiariaPorIdQueryHandler : IBuscarCargaHorariaDiar
         Mapper = mapper;
     }
 
-    public CargaHorariaDiariaDto Execute(int id)
+    public CargaHorariaDiariaViewModel Execute(int id)
     {
         Logger.LogInformation($"Iniciando handler BuscarCargaHorariaDiariaPorIdQueryHandler");
-        return Mapper.Map<CargaHorariaDiariaDto>(Repository.Get(id));
+        return Mapper.Map<CargaHorariaDiariaViewModel>(Repository.Get(id));
     }
 }

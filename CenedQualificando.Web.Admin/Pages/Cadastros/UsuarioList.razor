@@ -1,17 +1,18 @@
 ﻿
 @page "/cadastros/usuarios"
 
-@using Domain.Models.Dtos
+@using CenedQualificando.Domain.Models.Filters
+@using Domain.Models.ViewModels
 @using Domain.Models.Entities
 
-@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.ListPageBase<Usuario, UsuarioDto, IUsuarioApiService>
+@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.ListPageBase<Usuario, UsuarioFilter, UsuarioViewModel, IUsuarioApiService>
 @inject ISnackbar Snackbar
 
 <MudOverlay @bind-Visible="State.Carregando" DarkBackground="false" ZIndex="999999" AutoClose="true">
     <MudProgressCircular Color="Color.Success" Indeterminate="true" />
 </MudOverlay>
 
-<MudTable ServerData="@(new Func<TableState, Task<TableData<UsuarioDto>>>(ServerReload))"
+<MudTable ServerData="@(new Func<TableState, Task<TableData<UsuarioViewModel>>>(ServerReload))"
           @ref="Table"
           Dense="true"
           Hover="true"
@@ -37,7 +38,7 @@
                 <MudMenuItem>Grupos de Permissões</MudMenuItem>
             </MudMenu>
         </MudTh>
-        <MudTh><MudTableSortLabel T="UsuarioDto" SortLabel="@nameof(UsuarioDto.Nome)" InitialDirection="SortDirection.Ascending">Nome</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel T="UsuarioViewModel" SortLabel="@nameof(UsuarioViewModel.Nome)" InitialDirection="SortDirection.Ascending">Nome</MudTableSortLabel></MudTh>
         <MudTh><MudText>Email</MudText></MudTh>
         <MudTh><MudText>Login</MudText></MudTh>
         <MudTh><MudText>Ativo</MudText></MudTh>

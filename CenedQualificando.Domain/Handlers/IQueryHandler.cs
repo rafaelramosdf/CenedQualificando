@@ -1,46 +1,45 @@
 ﻿using CenedQualificando.Domain.Models.Base;
-using CenedQualificando.Domain.Models.ValueObjects;
 using CenedQualificando.Domain.Queries.Filters.Base;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CenedQualificando.Domain.Handlers;
 
-public interface IByIdQueryHandler<TDto>
-    where TDto : IDto
+public interface IByIdQueryHandler<TViewModel>
+    where TViewModel : IViewModel
 {
-    TDto Execute(int id);
+    TViewModel Execute(int id);
 }
-public interface IByIdQueryHandlerAsync<TDto>
-    where TDto : IDto
+public interface IByIdQueryHandlerAsync<TViewModel>
+    where TViewModel : IViewModel
 {
-    Task<TDto> Execute(int id);
-}
-
-public interface IDataTableQueryHandler<TDto, TFilter>
-    where TDto : IDto
-    where TFilter : Filter
-{
-    DataTableModel<TDto> Execute(TFilter filtro);
-}
-public interface IDataTableQueryHandlerAsync<TDto, TFilter>
-    where TDto : IDto
-    where TFilter : Filter
-{
-    Task<DataTableModel<TDto>> Execute(TFilter filtro);
+    Task<TViewModel> Execute(int id);
 }
 
-public interface IEnumerableQueryHandler<TDto, TFilter>
-    where TDto : IDto
+public interface IDataTableQueryHandler<TViewModel, TFilter>
+    where TViewModel : IViewModel
     where TFilter : Filter
 {
-    IEnumerable<TDto> Execute(TFilter filtro);
+    DataTableModel<TViewModel> Execute(TFilter filtro);
 }
-public interface IEnumerableQueryHandlerAsync<TDto, TFilter>
-    where TDto : IDto
+public interface IDataTableQueryHandlerAsync<TViewModel, TFilter>
+    where TViewModel : IViewModel
     where TFilter : Filter
 {
-    Task<IEnumerable<TDto>> Execute(TFilter filtro);
+    Task<DataTableModel<TViewModel>> Execute(TFilter filtro);
+}
+
+public interface IEnumerableQueryHandler<TViewModel, TFilter>
+    where TViewModel : IViewModel
+    where TFilter : Filter
+{
+    IEnumerable<TViewModel> Execute(TFilter filtro);
+}
+public interface IEnumerableQueryHandlerAsync<TViewModel, TFilter>
+    where TViewModel : IViewModel
+    where TFilter : Filter
+{
+    Task<IEnumerable<TViewModel>> Execute(TFilter filtro);
 }
 
 public interface ISelectQueryHandler 

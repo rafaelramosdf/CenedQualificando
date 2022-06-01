@@ -1,5 +1,5 @@
 ﻿using CenedQualificando.Domain.Handlers.Matricula;
-using CenedQualificando.Domain.Models.Dtos;
+using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Models.Filters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,8 +13,8 @@ namespace CenedQualificando.Api.Controllers.v1
     public class DocumentoConsultaController : ControllerBase
     {
         [HttpGet("matriculas")]
-        public virtual ActionResult<IEnumerable<MatriculaDto>> Matriculas(
-            [FromServices] IBuscarMatriculasQueryHandler handler,
+        public virtual ActionResult<IEnumerable<MatriculaViewModel>> Matriculas(
+            [FromServices] IObterDocumentoConsultaMatriculasQueryHandler handler,
             [FromQuery] MatriculaFilter filtro)
         {
             var result = handler.Execute(filtro);

@@ -1,23 +1,22 @@
 ﻿using CenedQualificando.Domain.Interfaces.Requirements;
 using CenedQualificando.Domain.Models.Base;
-using CenedQualificando.Domain.Models.ValueObjects;
 using System.Collections.Generic;
 
 namespace CenedQualificando.Domain.Requirements
 {
-    public abstract class BaseRequirement<TDto> : IRequirement<TDto>
-        where TDto : IDto
+    public abstract class BaseRequirement<TViewModel> : IRequirement<TViewModel>
+        where TViewModel : IViewModel
     {
-        public IList<IRequirementException<TDto>> Exceptions { get; set; }
-        public IList<IRequirementFunction<TDto>> Functions { get; set; }
+        public IList<IRequirementException<TViewModel>> Exceptions { get; set; }
+        public IList<IRequirementFunction<TViewModel>> Functions { get; set; }
 
-        public BaseRequirement(IList<IRequirementException<TDto>> exceptions, IList<IRequirementFunction<TDto>> functions)
+        public BaseRequirement(IList<IRequirementException<TViewModel>> exceptions, IList<IRequirementFunction<TViewModel>> functions)
         {
             Exceptions = exceptions;
             Functions = functions;
         }
 
-        public virtual CommandResult Execute(TDto model)
+        public virtual CommandResult Execute(TViewModel model)
         {
             var commandResult = new CommandResult();
 
@@ -31,7 +30,7 @@ namespace CenedQualificando.Domain.Requirements
             return commandResult;
         }
 
-        protected void ValidExceptions(CommandResult commandResult, TDto model)
+        protected void ValidExceptions(CommandResult commandResult, TViewModel model)
         {
             foreach (var e in Exceptions)
             {
@@ -40,7 +39,7 @@ namespace CenedQualificando.Domain.Requirements
             }
         }
 
-        protected void RunFunctions(CommandResult commandResult, TDto model)
+        protected void RunFunctions(CommandResult commandResult, TViewModel model)
         {
             if (!commandResult.HasError)
             {

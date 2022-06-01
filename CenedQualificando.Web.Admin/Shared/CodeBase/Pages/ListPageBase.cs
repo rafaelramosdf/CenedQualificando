@@ -1,40 +1,42 @@
 ﻿using CenedQualificando.Domain.Models.Base;
-using CenedQualificando.Domain.Models.ValueObjects;
+using CenedQualificando.Domain.Queries.Filters.Base;
 using CenedQualificando.Domain.Resources;
 using CenedQualificando.Web.Admin.Services.RefitApiServices.Base;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace CenedQualificando.Web.Admin.Shared.CodeBase.Pages
 {
-    public abstract partial class ListPageBase<TEntity, TDto, TApiService> : PageBase
+    public abstract partial class ListPageBase<TEntity, TFilter, TViewModel, TApiService> : PageBase
         where TEntity : Entity 
-        where TDto : Dto<TEntity> 
-        where TApiService : ICRUDService<TEntity, TDto> 
+        where TFilter : Filter
+        where TViewModel : ViewModel<TEntity> 
+        where TApiService : ICRUDService<TEntity, TFilter, TViewModel> 
     {
         [Inject] protected TApiService ApiService { get; set; }
         [Inject] protected IDialogService Dialog { get; set; }
 
         protected bool SomenteLeitura = true;
-        protected string FiltroTexto = "";
-        protected TDto ItemSelecionado = null;
-        protected HashSet<TDto> Selecionados = new HashSet<TDto>();
+        protected TFilter Filtro = Activator.CreateInstance<TFilter>();
+        protected TViewModel ItemSelecionado = null;
+        protected HashSet<TViewModel> Selecionados = new HashSet<TViewModel>();
 
-        protected MudTable<TDto> Table;
-        protected DataTableModel<TDto> DataTable;
+        protected MudTable<TViewModel> Table;
+        protected DataTableModel<TViewModel> DataTable;
 
         protected void OnSearch(string text)
         {
-            FiltroTexto = text;
+            Filtro.Search = text;
             Table.ReloadServerData();
         }
 
-        protected async Task<TableData<TDto>> ServerReload(TableState state)
+        protected async Task<TableData<TViewModel>> ServerReload(TableState state)
         {
-            DataTable = new DataTableModel<TDto>();
+            DataTable = new DataTableModel<TViewModel>();
 
             DataTable.Sorting.Desc = state.SortDirection == SortDirection.Descending;
             DataTable = Ordenar(DataTable, state);
@@ -42,22 +44,21 @@ namespace CenedQualificando.Web.Admin.Shared.CodeBase.Pages
             DataTable.Pagination.Page = state.Page + 1;
             DataTable.Pagination.Limit = state.PageSize;
 
-            DataTable = await Buscar(DataTable);
+            DataTable = await Buscar(Filtro);
 
-            return new TableData<TDto>() { TotalItems = DataTable.Pagination.Total, Items = DataTable.Data };
+            return new TableData<TViewModel>() { TotalItems = DataTable.Pagination.Total, Items = DataTable.Data };
         }
 
-        protected virtual DataTableModel<TDto> Ordenar(DataTableModel<TDto> dataTable, TableState state)
+        protected virtual DataTableModel<TViewModel> Ordenar(DataTableModel<TViewModel> dataTable, TableState state)
         {
             dataTable.Sorting.Field = state.SortLabel;
             return dataTable;
         }
 
-        protected virtual async Task<DataTableModel<TDto>> Buscar(DataTableModel<TDto> dataTable)
+        protected virtual async Task<DataTableModel<TViewModel>> Buscar(TFilter filtro)
         {
             State.Carregando = true;
-            dataTable.Filter.Search = FiltroTexto;
-            dataTable = await ApiService.Filtrar(dataTable);
+            var dataTable = await ApiService.Buscar(filtro);
             State.Carregando = false;
             return dataTable;
         }

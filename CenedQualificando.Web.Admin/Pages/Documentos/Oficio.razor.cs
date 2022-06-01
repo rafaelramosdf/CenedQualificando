@@ -1,5 +1,5 @@
 ﻿using CenedQualificando.Domain.Extensions;
-using CenedQualificando.Domain.Models.Dtos;
+using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Models.Enumerations;
 using CenedQualificando.Domain.Models.Filters;
 using CenedQualificando.Web.Admin.Services.RefitApiServices;
@@ -14,12 +14,12 @@ namespace CenedQualificando.Web.Admin.Pages.Documentos
 {
     public partial class Oficio : DocumentPageBase
     {
-        [Inject] protected IConsultaApiService ConsultaApiService { get; set; }
+        [Inject] protected IDocumentoConsultaApiService ConsultaApiService { get; set; }
         [Inject] ISnackbar Snackbar { get; set; }
 
-        private IEnumerable<MatriculaDto> Lista = new List<MatriculaDto>();
+        private IEnumerable<MatriculaViewModel> Lista = new List<MatriculaViewModel>();
 
-        private HashSet<MatriculaDto> Selecionados { get; set; }
+        private HashSet<MatriculaViewModel> Selecionados { get; set; }
 
         private MatriculaFilter Filtro = new MatriculaFilter 
         {
@@ -45,7 +45,7 @@ namespace CenedQualificando.Web.Admin.Pages.Documentos
         }
 
         private string FilterString = "";
-        private bool FilterFunc(MatriculaDto element)
+        private bool FilterFunc(MatriculaViewModel element)
         {
             if (string.IsNullOrWhiteSpace(FilterString))
                 return true;
@@ -60,7 +60,7 @@ namespace CenedQualificando.Web.Admin.Pages.Documentos
             return false;
         }
 
-        private void OnPenitenciariaSelected(PenitenciariaDto penitenciaria)
+        private void OnPenitenciariaSelected(PenitenciariaViewModel penitenciaria)
         {
             PenitenciariaSelecionada = penitenciaria;
         }

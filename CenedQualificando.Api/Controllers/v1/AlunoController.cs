@@ -1,10 +1,10 @@
 ﻿using CenedQualificando.Domain.Handlers.Aluno;
-using CenedQualificando.Domain.Models.Dtos;
+using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Models.Filters;
-using CenedQualificando.Domain.Models.ValueObjects;
 using CenedQualificando.Domain.Resources;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using CenedQualificando.Domain.Models.Base;
 
 namespace CenedQualificando.Api.Controllers.v1
 {
@@ -15,7 +15,7 @@ namespace CenedQualificando.Api.Controllers.v1
     {
         [HttpPost]
         public ActionResult<CommandResult> Incluir(
-            [FromBody] AlunoDto vm,
+            [FromBody] AlunoViewModel vm,
             [FromServices] IIncluirAlunoCommandHandler handler)
         {
             var result = handler.Execute(vm);
@@ -23,7 +23,7 @@ namespace CenedQualificando.Api.Controllers.v1
         }
 
         [HttpGet("{id:int}")]
-        public ActionResult<AlunoDto> Buscar(int id,
+        public ActionResult<AlunoViewModel> Buscar(int id,
             [FromServices] IBuscarAlunoPorIdQueryHandler handler)
         {
             var result = handler.Execute(id);
@@ -35,7 +35,7 @@ namespace CenedQualificando.Api.Controllers.v1
         }
 
         [HttpGet]
-        public ActionResult<DataTableModel<AlunoDto>> Buscar(
+        public ActionResult<DataTableModel<AlunoViewModel>> Buscar(
             [FromQuery] AlunoFilter filtro,
             [FromServices] IObterDataTableAlunosQueryHandler handler)
         {
@@ -45,7 +45,7 @@ namespace CenedQualificando.Api.Controllers.v1
 
         [HttpPut("{id:int}")]
         public ActionResult<CommandResult> Alterar(int id, 
-            [FromBody] AlunoDto vm,
+            [FromBody] AlunoViewModel vm,
             [FromServices] IAlterarAlunoCommandHandler handler)
         {
             if (id != vm.Id)

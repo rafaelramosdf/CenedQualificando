@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using CenedQualificando.Domain.Models.Dtos;
+using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Models.Filters;
 using CenedQualificando.Domain.Queries.Contracts;
 using CenedQualificando.Domain.Repositories.Contracts;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CenedQualificando.Domain.Handlers.Prova;
 
-public interface IBuscarProvasPorIdMatriculasQueryHandler : IEnumerableQueryHandlerAsync<ProvaDto, ProvaFilter>
+public interface IBuscarProvasPorIdMatriculasQueryHandler : IEnumerableQueryHandlerAsync<ProvaViewModel, ProvaFilter>
 {
 }
 
@@ -33,13 +33,13 @@ public class BuscarProvasPorIdMatriculasQueryHandler : IBuscarProvasPorIdMatricu
         Mapper = mapper;
     }
 
-    public async Task<IEnumerable<ProvaDto>> Execute(ProvaFilter filtro)
+    public async Task<IEnumerable<ProvaViewModel>> Execute(ProvaFilter filtro)
     {
         Logger.LogInformation($"Iniciando handler BuscarProvasPorIdMatriculasQueryHandler");
 
         var queryList = await Repository.BuscarProvasPorIdMatriculas(filtro.IdMatriculas);
 
-        var dtoList = Mapper.Map<IEnumerable<Models.Entities.Prova>, IEnumerable<ProvaDto>>(queryList.ToList());
+        var dtoList = Mapper.Map<IEnumerable<Models.Entities.Prova>, IEnumerable<ProvaViewModel>>(queryList.ToList());
 
         return dtoList;
     }

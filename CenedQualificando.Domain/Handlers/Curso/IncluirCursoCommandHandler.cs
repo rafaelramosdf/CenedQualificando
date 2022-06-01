@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
-using CenedQualificando.Domain.Models.Dtos;
-using CenedQualificando.Domain.Models.ValueObjects;
+using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Repositories.Base;
 using CenedQualificando.Domain.Repositories.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
+using CenedQualificando.Domain.Models.Base;
 
 namespace CenedQualificando.Domain.Handlers.Curso;
 
-public interface IIncluirCursoCommandHandler : IEditCommandHandler<CursoDto>
+public interface IIncluirCursoCommandHandler : IEditCommandHandler<CursoViewModel>
 {
 }
 
@@ -32,7 +32,7 @@ public class IncluirCursoCommandHandler : IIncluirCursoCommandHandler
         Mapper = mapper;
     }
 
-    public CommandResult Execute(CursoDto dto)
+    public CommandResult Execute(CursoViewModel dto)
     {
         Logger.LogInformation($"Iniciando handler IncluirCursoCommandHandler");
 
@@ -41,7 +41,7 @@ public class IncluirCursoCommandHandler : IIncluirCursoCommandHandler
             var entity = Mapper.Map<Models.Entities.Curso>(dto);
             Repository.Add(entity);
             UnitOfWork.Commit();
-            return new CommandResult(StatusCodes.Status201Created, Mapper.Map<CursoDto>(entity));
+            return new CommandResult(StatusCodes.Status201Created, Mapper.Map<CursoViewModel>(entity));
         }
         catch (Exception ex)
         {

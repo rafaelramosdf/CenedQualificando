@@ -1,15 +1,17 @@
 ﻿@page "/cadastros/alunos"
 
-@using Domain.Models.Dtos
+@using Domain.Models.ViewModels
 @using Domain.Models.Entities
-@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.ListPageBase<Aluno, AlunoDto, IAlunoApiService>
+@using CenedQualificando.Domain.Models.Filters
+
+@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.ListPageBase<Aluno, AlunoFilter, AlunoViewModel, IAlunoApiService>
 @inject ISnackbar Snackbar
 
 <MudOverlay @bind-Visible="State.Carregando" DarkBackground="false" ZIndex="999999" AutoClose="true">
     <MudProgressCircular Color="Color.Success" Indeterminate="true" />
 </MudOverlay>
 
-<MudTable ServerData="@(new Func<TableState, Task<TableData<AlunoDto>>>(ServerReload))"
+<MudTable ServerData="@(new Func<TableState, Task<TableData<AlunoViewModel>>>(ServerReload))"
           @ref="Table"
           Dense="true"
           Hover="true"
@@ -35,7 +37,7 @@
                 <MudMenuItem>...</MudMenuItem>
             </MudMenu>
         </MudTh>
-        <MudTh><MudTableSortLabel T="AlunoDto" SortLabel="@nameof(AlunoDto.Nome)" InitialDirection="SortDirection.Ascending">Nome</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel T="AlunoViewModel" SortLabel="@nameof(AlunoViewModel.Nome)" InitialDirection="SortDirection.Ascending">Nome</MudTableSortLabel></MudTh>
         <MudTh><MudText>CPF</MudText></MudTh>
         <MudTh><MudText>Preposto</MudText></MudTh>
         <MudTh><MudText>CPF Preposto</MudText></MudTh>

@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using CenedQualificando.Domain.Models.Dtos;
+using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Repositories.Contracts;
 using Microsoft.Extensions.Logging;
 
 namespace CenedQualificando.Domain.Handlers.FiscalSala;
 
-public interface IBuscarFiscalSalaPorIdQueryHandler : IByIdQueryHandler<FiscalSalaDto>
+public interface IBuscarFiscalSalaPorIdQueryHandler : IByIdQueryHandler<FiscalSalaViewModel>
 {
 }
 
@@ -25,9 +25,9 @@ public class BuscarFiscalSalaPorIdQueryHandler : IBuscarFiscalSalaPorIdQueryHand
         Mapper = mapper;
     }
 
-    public FiscalSalaDto Execute(int id)
+    public FiscalSalaViewModel Execute(int id)
     {
         Logger.LogInformation($"Iniciando handler BuscarFiscalSalaPorIdQueryHandler");
-        return Mapper.Map<FiscalSalaDto>(Repository.Get(id));
+        return Mapper.Map<FiscalSalaViewModel>(Repository.Get(id));
     }
 }

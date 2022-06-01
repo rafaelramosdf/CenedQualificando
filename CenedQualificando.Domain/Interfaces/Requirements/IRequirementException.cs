@@ -2,10 +2,10 @@
 
 namespace CenedQualificando.Domain.Interfaces.Requirements
 {
-    public interface IRequirementException<TDto>
-        where TDto : IDto
+    public interface IRequirementException<TViewModel>
+        where TViewModel : IViewModel
     {
-        public bool IsValid(TDto model);
+        public bool IsValid(TViewModel vm);
         public string Message { get; }
     }
 }

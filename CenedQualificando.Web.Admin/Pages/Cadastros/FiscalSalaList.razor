@@ -1,17 +1,18 @@
 ﻿
 @page "/cadastros/fiscais-salas"
 
-@using Domain.Models.Dtos
+@using Domain.Models.ViewModels
 @using Domain.Models.Entities 
+@using CenedQualificando.Domain.Models.Filters
 
-@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.ListPageBase<FiscalSala, FiscalSalaDto, IFiscalSalaApiService>
+@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.ListPageBase<FiscalSala, FiscalSalaFilter, FiscalSalaViewModel, IFiscalSalaApiService>
 @inject ISnackbar Snackbar
 
 <MudOverlay @bind-Visible="State.Carregando" DarkBackground="false" ZIndex="999999" AutoClose="true">
     <MudProgressCircular Color="Color.Success" Indeterminate="true" />
 </MudOverlay>
 
-<MudTable ServerData="@(new Func<TableState, Task<TableData<FiscalSalaDto>>>(ServerReload))"
+<MudTable ServerData="@(new Func<TableState, Task<TableData<FiscalSalaViewModel>>>(ServerReload))"
           @ref="Table"
           Dense="true"
           Hover="true"
@@ -37,7 +38,7 @@
                 <MudMenuItem>...</MudMenuItem>
             </MudMenu>
         </MudTh>
-        <MudTh><MudTableSortLabel T="FiscalSalaDto" SortLabel="@nameof(FiscalSalaDto.Nome)" InitialDirection="SortDirection.Ascending">Nome</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel T="FiscalSalaViewModel" SortLabel="@nameof(FiscalSalaViewModel.Nome)" InitialDirection="SortDirection.Ascending">Nome</MudTableSortLabel></MudTh>
         <MudTh><MudText>CPF</MudText></MudTh>
         <MudTh><MudText>RG</MudText></MudTh>
         <MudTh><MudText>UF</MudText></MudTh>

@@ -8,7 +8,7 @@ namespace CenedQualificando.Domain.Queries
 {
     public class UsuarioQuery : IUsuarioQuery
     {
-        public Expression<Func<Usuario, bool>> Filtrar(UsuarioFilter filtro)
+        public Expression<Func<Usuario, bool>> ObterPesquisa(UsuarioFilter filtro)
         {
             return x => x.Nome.Contains(filtro.Search) 
                 || x.CpfUsuario == filtro.Search
@@ -16,7 +16,7 @@ namespace CenedQualificando.Domain.Queries
                 || x.Email.ToLower() == filtro.Search.ToLower();
         }
 
-        public Expression<Func<Usuario, object>> Ordenar(string campo)
+        public Expression<Func<Usuario, object>> ObterOrdenacao(string campo)
         {
             switch (campo)
             {

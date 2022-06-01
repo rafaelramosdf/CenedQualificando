@@ -1,17 +1,17 @@
 ﻿using AutoMapper;
-using CenedQualificando.Domain.Models.Dtos;
+using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Models.Filters;
-using CenedQualificando.Domain.Models.ValueObjects;
 using CenedQualificando.Domain.Queries.Contracts;
 using CenedQualificando.Domain.Repositories.Contracts;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using CenedQualificando.Domain.Models.Base;
 
 namespace CenedQualificando.Domain.Handlers.Representante;
 
-public interface IObterDataTableRepresentantesQueryHandler : IDataTableQueryHandler<RepresentanteDto, RepresentanteFilter> 
+public interface IObterDataTableRepresentantesQueryHandler : IDataTableQueryHandler<RepresentanteViewModel, RepresentanteFilter> 
 {
 }
 
@@ -34,13 +34,13 @@ public class ObterDataTableRepresentantesQueryHandler : IObterDataTableRepresent
         Mapper = mapper;
     }
 
-    public DataTableModel<RepresentanteDto> Execute(RepresentanteFilter filtro)
+    public DataTableModel<RepresentanteViewModel> Execute(RepresentanteFilter filtro)
     {
         Logger.LogInformation($"Iniciando handler ObterDataTableRepresentantesQueryHandler");
 
-        var dataTableModel = new DataTableModel<RepresentanteDto>();
+        var dataTableModel = new DataTableModel<RepresentanteViewModel>();
 
-        Expression<Func<Models.Entities.Representante, bool>> filterExpression = Query.Filtrar(filtro);
+        Expression<Func<Models.Entities.Representante, bool>> filterExpression = Query.ObterPesquisa(filtro);
 
         IQueryable<Models.Entities.Representante> queryList = 
             Repository.List(filterExpression);

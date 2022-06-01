@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using CenedQualificando.Domain.Models.Dtos;
+using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Repositories.Contracts;
 using Microsoft.Extensions.Logging;
 
 namespace CenedQualificando.Domain.Handlers.Matricula;
 
-public interface IBuscarMatriculaPorIdQueryHandler : IByIdQueryHandler<MatriculaDto>
+public interface IBuscarMatriculaPorIdQueryHandler : IByIdQueryHandler<MatriculaViewModel>
 {
 }
 
@@ -25,9 +25,9 @@ public class BuscarMatriculaPorIdQueryHandler : IBuscarMatriculaPorIdQueryHandle
         Mapper = mapper;
     }
 
-    public MatriculaDto Execute(int id)
+    public MatriculaViewModel Execute(int id)
     {
         Logger.LogInformation($"Iniciando handler BuscarMatriculaPorIdQueryHandler");
-        return Mapper.Map<MatriculaDto>(Repository.Get(id));
+        return Mapper.Map<MatriculaViewModel>(Repository.Get(id));
     }
 }

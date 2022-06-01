@@ -1,17 +1,17 @@
 ﻿using AutoMapper;
-using CenedQualificando.Domain.Models.Dtos;
+using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Models.Filters;
-using CenedQualificando.Domain.Models.ValueObjects;
 using CenedQualificando.Domain.Queries.Contracts;
 using CenedQualificando.Domain.Repositories.Contracts;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using CenedQualificando.Domain.Models.Base;
 
 namespace CenedQualificando.Domain.Handlers.GrupoDePermissao;
 
-public interface IObterDataTableGrupoDePermissaosQueryHandler : IDataTableQueryHandler<GrupoDePermissaoDto, GrupoDePermissaoFilter> 
+public interface IObterDataTableGrupoDePermissaosQueryHandler : IDataTableQueryHandler<GrupoDePermissaoViewModel, GrupoDePermissaoFilter> 
 {
 }
 
@@ -34,13 +34,13 @@ public class ObterDataTableGrupoDePermissaosQueryHandler : IObterDataTableGrupoD
         Mapper = mapper;
     }
 
-    public DataTableModel<GrupoDePermissaoDto> Execute(GrupoDePermissaoFilter filtro)
+    public DataTableModel<GrupoDePermissaoViewModel> Execute(GrupoDePermissaoFilter filtro)
     {
         Logger.LogInformation($"Iniciando handler ObterDataTableGrupoDePermissaosQueryHandler");
 
-        var dataTableModel = new DataTableModel<GrupoDePermissaoDto>();
+        var dataTableModel = new DataTableModel<GrupoDePermissaoViewModel>();
 
-        Expression<Func<Models.Entities.GrupoDePermissao, bool>> filterExpression = Query.Filtrar(filtro);
+        Expression<Func<Models.Entities.GrupoDePermissao, bool>> filterExpression = Query.ObterPesquisa(filtro);
 
         IQueryable<Models.Entities.GrupoDePermissao> queryList = 
             Repository.List(filterExpression);

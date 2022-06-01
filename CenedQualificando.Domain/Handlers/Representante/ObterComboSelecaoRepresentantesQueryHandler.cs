@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using CenedQualificando.Domain.Models.ValueObjects;
+using CenedQualificando.Domain.Models.Base;
 using CenedQualificando.Domain.Repositories.Contracts;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;

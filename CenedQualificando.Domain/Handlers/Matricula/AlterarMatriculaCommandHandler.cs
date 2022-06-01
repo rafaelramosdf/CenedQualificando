@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
-using CenedQualificando.Domain.Models.Dtos;
-using CenedQualificando.Domain.Models.ValueObjects;
+using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Repositories.Base;
 using CenedQualificando.Domain.Repositories.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
+using CenedQualificando.Domain.Models.Base;
 
 namespace CenedQualificando.Domain.Handlers.Matricula;
 
-public interface IAlterarMatriculaCommandHandler : IEditCommandHandler<MatriculaDto>
+public interface IAlterarMatriculaCommandHandler : IEditCommandHandler<MatriculaViewModel>
 {
 }
 
@@ -32,7 +32,7 @@ public class AlterarMatriculaCommandHandler : IAlterarMatriculaCommandHandler
         Mapper = mapper;
     }
 
-    public CommandResult Execute(MatriculaDto dto)
+    public CommandResult Execute(MatriculaViewModel dto)
     {
         Logger.LogInformation($"Iniciando handler AlterarMatriculaCommandHandler");
 

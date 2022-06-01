@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
-using CenedQualificando.Domain.Models.Dtos;
-using CenedQualificando.Domain.Models.ValueObjects;
+using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Repositories.Base;
 using CenedQualificando.Domain.Repositories.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
+using CenedQualificando.Domain.Models.Base;
 
 namespace CenedQualificando.Domain.Handlers.AgentePenitenciario;
 
-public interface IIncluirAgentePenitenciarioCommandHandler : IEditCommandHandler<AgentePenitenciarioDto>
+public interface IIncluirAgentePenitenciarioCommandHandler : IEditCommandHandler<AgentePenitenciarioViewModel>
 {
 }
 
@@ -32,7 +32,7 @@ public class IncluirAgentePenitenciarioCommandHandler : IIncluirAgentePenitencia
         Mapper = mapper;
     }
 
-    public CommandResult Execute(AgentePenitenciarioDto dto)
+    public CommandResult Execute(AgentePenitenciarioViewModel dto)
     {
         Logger.LogInformation($"Iniciando handler IncluirAgentePenitenciarioCommandHandler");
 
@@ -41,7 +41,7 @@ public class IncluirAgentePenitenciarioCommandHandler : IIncluirAgentePenitencia
             var entity = Mapper.Map<Models.Entities.AgentePenitenciario>(dto);
             Repository.Add(entity);
             UnitOfWork.Commit();
-            return new CommandResult(StatusCodes.Status201Created, Mapper.Map<AgentePenitenciarioDto>(entity));
+            return new CommandResult(StatusCodes.Status201Created, Mapper.Map<AgentePenitenciarioViewModel>(entity));
         }
         catch (Exception ex)
         {

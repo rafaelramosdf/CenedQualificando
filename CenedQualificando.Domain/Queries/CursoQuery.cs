@@ -8,12 +8,12 @@ namespace CenedQualificando.Domain.Queries
 {
     public class CursoQuery : ICursoQuery
     {
-        public Expression<Func<Curso, bool>> Filtrar(CursoFilter filtro)
+        public Expression<Func<Curso, bool>> ObterPesquisa(CursoFilter filtro)
         {
             return x => x.Codigo == filtro.Search || x.Nome.Contains(filtro.Search);
         }
 
-        public Expression<Func<Curso, object>> Ordenar(string campo)
+        public Expression<Func<Curso, object>> ObterOrdenacao(string campo)
         {
             switch (campo)
             {

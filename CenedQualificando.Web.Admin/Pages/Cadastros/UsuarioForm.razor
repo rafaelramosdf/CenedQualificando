@@ -1,8 +1,9 @@
 ﻿@page "/cadastros/formularios/usuarios/{id:int?}"
 @using Domain.Models.Entities
-@using Domain.Models.Dtos
+@using Domain.Models.ViewModels
+@using CenedQualificando.Domain.Models.Filters
 
-@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.FormPageBase<Usuario, UsuarioDto, IUsuarioApiService>
+@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.FormPageBase<Usuario, UsuarioFilter, UsuarioViewModel, IUsuarioApiService>
 
 <MudCard Elevation="0">
     <MudCardHeader>

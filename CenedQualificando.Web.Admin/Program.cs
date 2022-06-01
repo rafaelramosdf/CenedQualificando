@@ -30,7 +30,7 @@ namespace CenedQualificando.Web.Admin
 
         private static void ConfigureRefitServices(WebAssemblyHostBuilder builder)
         {
-            const string urlBase = "https://localhost:6001/api"; //"https://api-cenedqualificando.azurewebsites.net/api";
+            const string urlBase = "https://localhost:6001/api/v1"; //"https://api-cenedqualificando.azurewebsites.net/api/v1";
 
             var settings = new RefitSettings
             {
@@ -57,9 +57,9 @@ namespace CenedQualificando.Web.Admin
                 c.BaseAddress = new Uri($"{urlBase}/combos/entidades");
             });
 
-            builder.Services.AddRefitClient<IConsultaApiService>(settings).ConfigureHttpClient(c =>
+            builder.Services.AddRefitClient<IDocumentoConsultaApiService>(settings).ConfigureHttpClient(c =>
             {
-                c.BaseAddress = new Uri($"{urlBase}/consultas");
+                c.BaseAddress = new Uri($"{urlBase}/documentos/consultas");
             });
 
             builder.Services.AddRefitClient<ICursoApiService>(settings).ConfigureHttpClient(c =>

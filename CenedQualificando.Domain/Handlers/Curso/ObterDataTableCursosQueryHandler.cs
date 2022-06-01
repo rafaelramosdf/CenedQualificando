@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
-using CenedQualificando.Domain.Models.Dtos;
+using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Models.Filters;
-using CenedQualificando.Domain.Models.ValueObjects;
 using CenedQualificando.Domain.Queries.Contracts;
 using CenedQualificando.Domain.Repositories.Contracts;
 using Microsoft.EntityFrameworkCore;
@@ -9,10 +8,11 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using CenedQualificando.Domain.Models.Base;
 
 namespace CenedQualificando.Domain.Handlers.Curso;
 
-public interface IObterDataTableCursosQueryHandler : IDataTableQueryHandler<CursoDto, CursoFilter> 
+public interface IObterDataTableCursosQueryHandler : IDataTableQueryHandler<CursoViewModel, CursoFilter> 
 {
 }
 
@@ -35,13 +35,13 @@ public class ObterDataTableCursosQueryHandler : IObterDataTableCursosQueryHandle
         Mapper = mapper;
     }
 
-    public DataTableModel<CursoDto> Execute(CursoFilter filtro)
+    public DataTableModel<CursoViewModel> Execute(CursoFilter filtro)
     {
         Logger.LogInformation($"Iniciando handler BuscarCursoDataTableQueryHandler");
 
-        var dataTableModel = new DataTableModel<CursoDto>();
+        var dataTableModel = new DataTableModel<CursoViewModel>();
 
-        Expression<Func<Models.Entities.Curso, bool>> filterExpression = Query.Filtrar(filtro);
+        Expression<Func<Models.Entities.Curso, bool>> filterExpression = Query.ObterPesquisa(filtro);
 
         IQueryable<Models.Entities.Curso> queryList = 
             Repository.List(filterExpression).Include(i => i.Conteudo);

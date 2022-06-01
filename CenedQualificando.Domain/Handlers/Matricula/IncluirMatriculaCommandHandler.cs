@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
-using CenedQualificando.Domain.Models.Dtos;
-using CenedQualificando.Domain.Models.ValueObjects;
+using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Repositories.Base;
 using CenedQualificando.Domain.Repositories.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
+using CenedQualificando.Domain.Models.Base;
 
 namespace CenedQualificando.Domain.Handlers.Matricula;
 
-public interface IIncluirMatriculaCommandHandler : IEditCommandHandler<MatriculaDto>
+public interface IIncluirMatriculaCommandHandler : IEditCommandHandler<MatriculaViewModel>
 {
 }
 
@@ -32,7 +32,7 @@ public class IncluirMatriculaCommandHandler : IIncluirMatriculaCommandHandler
         Mapper = mapper;
     }
 
-    public CommandResult Execute(MatriculaDto dto)
+    public CommandResult Execute(MatriculaViewModel dto)
     {
         Logger.LogInformation($"Iniciando handler IncluirMatriculaCommandHandler");
 
@@ -41,7 +41,7 @@ public class IncluirMatriculaCommandHandler : IIncluirMatriculaCommandHandler
             var entity = Mapper.Map<Models.Entities.Matricula>(dto);
             Repository.Add(entity);
             UnitOfWork.Commit();
-            return new CommandResult(StatusCodes.Status201Created, Mapper.Map<MatriculaDto>(entity));
+            return new CommandResult(StatusCodes.Status201Created, Mapper.Map<MatriculaViewModel>(entity));
         }
         catch (Exception ex)
         {

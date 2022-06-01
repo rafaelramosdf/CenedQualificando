@@ -1,11 +1,11 @@
 ﻿using CenedQualificando.Domain.Interfaces.Requirements.Aluno.Functions;
-using CenedQualificando.Domain.Models.Dtos;
+using CenedQualificando.Domain.Models.ViewModels;
 
 namespace CenedQualificando.Domain.Requirements.Aluno.Functions
 {
     public class GeraSenhaInicialAlunoFunction : IGeraSenhaInicialAlunoFunction
     {
-        public void Run(AlunoDto model)
+        public void Run(AlunoViewModel model)
         {
             model.Penitenciaria = null; // TODO: Remover pra outra function
 

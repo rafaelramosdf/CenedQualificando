@@ -1,5 +1,5 @@
 ﻿using Blazored.LocalStorage;
-using CenedQualificando.Domain.Models.Dtos;
+using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Models.Enumerations;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -47,37 +47,37 @@ namespace CenedQualificando.Web.Admin.Shared.CodeBase.Pages
             set => LocalStorage.SetItem(DATA_IMPRESSAO_DOCUMENTO_KEY, value);
         }
 
-        protected AlunoDto AlunoSelecionado
+        protected AlunoViewModel AlunoSelecionado
         {
             get => LocalStorage.ContainKey(ALUNO_SELECIONADO_KEY)
-                ? LocalStorage.GetItem<AlunoDto>(ALUNO_SELECIONADO_KEY)
+                ? LocalStorage.GetItem<AlunoViewModel>(ALUNO_SELECIONADO_KEY)
                 : null;
 
             set => LocalStorage.SetItem(ALUNO_SELECIONADO_KEY, value);
         }
 
-        protected PenitenciariaDto PenitenciariaSelecionada
+        protected PenitenciariaViewModel PenitenciariaSelecionada
         {
             get => LocalStorage.ContainKey(PENITENCIARIA_SELECIONADA_KEY)
-                ? LocalStorage.GetItem<PenitenciariaDto>(PENITENCIARIA_SELECIONADA_KEY)
+                ? LocalStorage.GetItem<PenitenciariaViewModel>(PENITENCIARIA_SELECIONADA_KEY)
                 : null;
 
             set => LocalStorage.SetItem(PENITENCIARIA_SELECIONADA_KEY, value);
         }
 
-        protected MatriculaDto MatriculaSelecionada
+        protected MatriculaViewModel MatriculaSelecionada
         {
             get => LocalStorage.ContainKey(MATRICULA_SELECIONADA_KEY)
-                ? LocalStorage.GetItem<MatriculaDto>(MATRICULA_SELECIONADA_KEY)
+                ? LocalStorage.GetItem<MatriculaViewModel>(MATRICULA_SELECIONADA_KEY)
                 : null;
 
             set => LocalStorage.SetItem(MATRICULA_SELECIONADA_KEY, value);
         }
 
-        protected List<MatriculaDto> MatriculasSelecionadas
+        protected List<MatriculaViewModel> MatriculasSelecionadas
         {
             get => LocalStorage.ContainKey(MATRICULAS_SELECIONADAS_KEY)
-                ? LocalStorage.GetItem<List<MatriculaDto>>(MATRICULAS_SELECIONADAS_KEY)
+                ? LocalStorage.GetItem<List<MatriculaViewModel>>(MATRICULAS_SELECIONADAS_KEY)
                 : null;
 
             set => LocalStorage.SetItem(MATRICULAS_SELECIONADAS_KEY, value);

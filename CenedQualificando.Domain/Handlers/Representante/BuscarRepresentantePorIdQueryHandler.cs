@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using CenedQualificando.Domain.Models.Dtos;
+using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Repositories.Contracts;
 using Microsoft.Extensions.Logging;
 
 namespace CenedQualificando.Domain.Handlers.Representante;
 
-public interface IBuscarRepresentantePorIdQueryHandler : IByIdQueryHandler<RepresentanteDto>
+public interface IBuscarRepresentantePorIdQueryHandler : IByIdQueryHandler<RepresentanteViewModel>
 {
 }
 
@@ -25,9 +25,9 @@ public class BuscarRepresentantePorIdQueryHandler : IBuscarRepresentantePorIdQue
         Mapper = mapper;
     }
 
-    public RepresentanteDto Execute(int id)
+    public RepresentanteViewModel Execute(int id)
     {
         Logger.LogInformation($"Iniciando handler BuscarRepresentantePorIdQueryHandler");
-        return Mapper.Map<RepresentanteDto>(Repository.Get(id));
+        return Mapper.Map<RepresentanteViewModel>(Repository.Get(id));
     }
 }

@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using CenedQualificando.Domain.Extensions;
 using CenedQualificando.Domain.Models.Enumerations;
-using CenedQualificando.Domain.Models.ValueObjects;
 using CenedQualificando.Domain.Repositories.Contracts;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
+using CenedQualificando.Domain.Models.Base;
 
 namespace CenedQualificando.Domain.Handlers.Penitenciaria;
 

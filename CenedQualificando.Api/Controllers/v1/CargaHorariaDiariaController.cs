@@ -1,10 +1,10 @@
 ﻿using CenedQualificando.Domain.Handlers.CargaHorariaDiaria;
-using CenedQualificando.Domain.Models.Dtos;
+using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Models.Filters;
-using CenedQualificando.Domain.Models.ValueObjects;
 using CenedQualificando.Domain.Resources;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using CenedQualificando.Domain.Models.Base;
 
 namespace CenedQualificando.Api.Controllers.v1
 {
@@ -15,7 +15,7 @@ namespace CenedQualificando.Api.Controllers.v1
     {
         [HttpPost]
         public ActionResult<CommandResult> Incluir(
-            [FromBody] CargaHorariaDiariaDto vm,
+            [FromBody] CargaHorariaDiariaViewModel vm,
             [FromServices] IIncluirCargaHorariaDiariaCommandHandler handler)
         {
             var result = handler.Execute(vm);
@@ -23,7 +23,7 @@ namespace CenedQualificando.Api.Controllers.v1
         }
 
         [HttpGet("{id:int}")]
-        public ActionResult<CargaHorariaDiariaDto> Buscar(int id,
+        public ActionResult<CargaHorariaDiariaViewModel> Buscar(int id,
             [FromServices] IBuscarCargaHorariaDiariaPorIdQueryHandler handler)
         {
             var result = handler.Execute(id);
@@ -35,7 +35,7 @@ namespace CenedQualificando.Api.Controllers.v1
         }
 
         [HttpGet]
-        public ActionResult<DataTableModel<CargaHorariaDiariaDto>> Buscar(
+        public ActionResult<DataTableModel<CargaHorariaDiariaViewModel>> Buscar(
             [FromQuery] CargaHorariaDiariaFilter filtro,
             [FromServices] IObterDataTableCargaHorariaDiariaQueryHandler handler)
         {
@@ -45,7 +45,7 @@ namespace CenedQualificando.Api.Controllers.v1
 
         [HttpPut("{id:int}")]
         public ActionResult<CommandResult> Alterar(int id, 
-            [FromBody] CargaHorariaDiariaDto vm,
+            [FromBody] CargaHorariaDiariaViewModel vm,
             [FromServices] IAlterarCargaHorariaDiariaCommandHandler handler)
         {
             if (id != vm.Id)

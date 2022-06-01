@@ -9,7 +9,7 @@ namespace CenedQualificando.Domain.Queries.Base
         where TEntity : Entity
         where TFilter : Filter
     {
-        Expression<Func<TEntity, bool>> Filtrar(TFilter filtro);
-        Expression<Func<TEntity, object>> Ordenar(string campo);
+        Expression<Func<TEntity, bool>> ObterPesquisa(TFilter filtro);
+        Expression<Func<TEntity, object>> ObterOrdenacao(string campo);
     }
 }

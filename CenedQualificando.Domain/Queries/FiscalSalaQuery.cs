@@ -8,7 +8,7 @@ namespace CenedQualificando.Domain.Queries
 {
     public class FiscalSalaQuery : IFiscalSalaQuery
     {
-        public Expression<Func<FiscalSala, bool>> Filtrar(FiscalSalaFilter filtro)
+        public Expression<Func<FiscalSala, bool>> ObterPesquisa(FiscalSalaFilter filtro)
         {
             if (string.IsNullOrEmpty(filtro?.Search))
                 return _ => true;
@@ -16,7 +16,7 @@ namespace CenedQualificando.Domain.Queries
             return x => x.Nome.Contains(filtro.Search) || x.Cpf.Contains(filtro.Search);
         }
 
-        public Expression<Func<FiscalSala, object>> Ordenar(string campo)
+        public Expression<Func<FiscalSala, object>> ObterOrdenacao(string campo)
         {
             switch (campo)
             {

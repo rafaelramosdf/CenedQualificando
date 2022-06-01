@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
-using CenedQualificando.Domain.Models.Dtos;
-using CenedQualificando.Domain.Models.ValueObjects;
+using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Repositories.Base;
 using CenedQualificando.Domain.Repositories.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
+using CenedQualificando.Domain.Models.Base;
 
 namespace CenedQualificando.Domain.Handlers.UfEntrega;
 
-public interface IAlterarUfEntregaCommandHandler : IEditCommandHandler<UfEntregaDto>
+public interface IAlterarUfEntregaCommandHandler : IEditCommandHandler<UfEntregaViewModel>
 {
 }
 
@@ -32,7 +32,7 @@ public class AlterarUfEntregaCommandHandler : IAlterarUfEntregaCommandHandler
         Mapper = mapper;
     }
 
-    public CommandResult Execute(UfEntregaDto dto)
+    public CommandResult Execute(UfEntregaViewModel dto)
     {
         Logger.LogInformation($"Iniciando handler AlterarUfEntregaCommandHandler");
 

@@ -1,10 +1,10 @@
 ﻿using CenedQualificando.Domain.Handlers.Prova;
-using CenedQualificando.Domain.Models.Dtos;
+using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Models.Filters;
-using CenedQualificando.Domain.Models.ValueObjects;
 using CenedQualificando.Domain.Resources;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using CenedQualificando.Domain.Models.Base;
 
 namespace CenedQualificando.Api.Controllers.v1
 {
@@ -15,7 +15,7 @@ namespace CenedQualificando.Api.Controllers.v1
     {
         [HttpPost]
         public ActionResult<CommandResult> Incluir(
-            [FromBody] ProvaDto vm,
+            [FromBody] ProvaViewModel vm,
             [FromServices] IIncluirProvaCommandHandler handler)
         {
             var result = handler.Execute(vm);
@@ -23,7 +23,7 @@ namespace CenedQualificando.Api.Controllers.v1
         }
 
         [HttpGet("{id:int}")]
-        public ActionResult<ProvaDto> Buscar(int id,
+        public ActionResult<ProvaViewModel> Buscar(int id,
             [FromServices] IBuscarProvaPorIdQueryHandler handler)
         {
             var result = handler.Execute(id);
@@ -35,7 +35,7 @@ namespace CenedQualificando.Api.Controllers.v1
         }
 
         [HttpGet]
-        public ActionResult<DataTableModel<ProvaDto>> Buscar(
+        public ActionResult<DataTableModel<ProvaViewModel>> Buscar(
             [FromQuery] ProvaFilter filtro,
             [FromServices] IObterDataTableProvasQueryHandler handler)
         {
@@ -45,7 +45,7 @@ namespace CenedQualificando.Api.Controllers.v1
 
         [HttpPut("{id:int}")]
         public ActionResult<CommandResult> Alterar(int id, 
-            [FromBody] ProvaDto vm,
+            [FromBody] ProvaViewModel vm,
             [FromServices] IAlterarProvaCommandHandler handler)
         {
             if (id != vm.Id)

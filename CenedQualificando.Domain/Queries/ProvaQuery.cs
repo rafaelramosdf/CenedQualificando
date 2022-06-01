@@ -8,7 +8,7 @@ namespace CenedQualificando.Domain.Queries
 {
     public class ProvaQuery : IProvaQuery
     {
-        public Expression<Func<Prova, bool>> Filtrar(ProvaFilter filtro)
+        public Expression<Func<Prova, bool>> ObterPesquisa(ProvaFilter filtro)
         {
             if (string.IsNullOrEmpty(filtro?.Search))
                 return _ => true;
@@ -16,7 +16,7 @@ namespace CenedQualificando.Domain.Queries
             return x => x.TipoProva.Contains(filtro.Search);
         }
 
-        public Expression<Func<Prova, object>> Ordenar(string campo)
+        public Expression<Func<Prova, object>> ObterOrdenacao(string campo)
         {
             switch (campo)
             {

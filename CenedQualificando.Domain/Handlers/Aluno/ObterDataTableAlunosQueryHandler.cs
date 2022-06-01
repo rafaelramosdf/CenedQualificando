@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
-using CenedQualificando.Domain.Models.Dtos;
+using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Models.Filters;
-using CenedQualificando.Domain.Models.ValueObjects;
 using CenedQualificando.Domain.Queries.Contracts;
 using CenedQualificando.Domain.Repositories.Contracts;
 using Microsoft.EntityFrameworkCore;
@@ -9,10 +8,11 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using CenedQualificando.Domain.Models.Base;
 
 namespace CenedQualificando.Domain.Handlers.Aluno;
 
-public interface IObterDataTableAlunosQueryHandler : IDataTableQueryHandler<AlunoDto, AlunoFilter> 
+public interface IObterDataTableAlunosQueryHandler : IDataTableQueryHandler<AlunoViewModel, AlunoFilter> 
 {
 }
 
@@ -35,13 +35,13 @@ public class ObterDataTableAlunosQueryHandler : IObterDataTableAlunosQueryHandle
         Mapper = mapper;
     }
 
-    public DataTableModel<AlunoDto> Execute(AlunoFilter filtro)
+    public DataTableModel<AlunoViewModel> Execute(AlunoFilter filtro)
     {
         Logger.LogInformation($"Iniciando handler ObterDataTableAlunosQueryHandler");
 
-        var dataTableModel = new DataTableModel<AlunoDto>();
+        var dataTableModel = new DataTableModel<AlunoViewModel>();
 
-        Expression<Func<Models.Entities.Aluno, bool>> filterExpression = Query.Filtrar(filtro);
+        Expression<Func<Models.Entities.Aluno, bool>> filterExpression = Query.ObterPesquisa(filtro);
 
         IQueryable<Models.Entities.Aluno> queryList = 
             Repository.List(filterExpression).Include(i => i.Penitenciaria);

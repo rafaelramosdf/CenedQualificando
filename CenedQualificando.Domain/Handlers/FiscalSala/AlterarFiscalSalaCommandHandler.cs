@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using CenedQualificando.Domain.Models.Dtos;
-using CenedQualificando.Domain.Models.ValueObjects;
+using CenedQualificando.Domain.Models.ViewModels;
+using CenedQualificando.Domain.Models.Base;
 using CenedQualificando.Domain.Repositories.Base;
 using CenedQualificando.Domain.Repositories.Contracts;
 using Microsoft.AspNetCore.Http;
@@ -9,7 +9,7 @@ using System;
 
 namespace CenedQualificando.Domain.Handlers.FiscalSala;
 
-public interface IAlterarFiscalSalaCommandHandler : IEditCommandHandler<FiscalSalaDto>
+public interface IAlterarFiscalSalaCommandHandler : IEditCommandHandler<FiscalSalaViewModel>
 {
 }
 
@@ -32,7 +32,7 @@ public class AlterarFiscalSalaCommandHandler : IAlterarFiscalSalaCommandHandler
         Mapper = mapper;
     }
 
-    public CommandResult Execute(FiscalSalaDto dto)
+    public CommandResult Execute(FiscalSalaViewModel dto)
     {
         Logger.LogInformation($"Iniciando handler AlterarFiscalSalaCommandHandler");
 

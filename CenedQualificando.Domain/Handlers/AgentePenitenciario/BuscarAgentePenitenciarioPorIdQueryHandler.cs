@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using CenedQualificando.Domain.Models.Dtos;
+using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Repositories.Contracts;
 using Microsoft.Extensions.Logging;
 
 namespace CenedQualificando.Domain.Handlers.AgentePenitenciario;
 
-public interface IBuscarAgentePenitenciarioPorIdQueryHandler : IByIdQueryHandler<AgentePenitenciarioDto>
+public interface IBuscarAgentePenitenciarioPorIdQueryHandler : IByIdQueryHandler<AgentePenitenciarioViewModel>
 {
 }
 
@@ -25,9 +25,9 @@ public class BuscarAgentePenitenciarioPorIdQueryHandler : IBuscarAgentePenitenci
         Mapper = mapper;
     }
 
-    public AgentePenitenciarioDto Execute(int id)
+    public AgentePenitenciarioViewModel Execute(int id)
     {
         Logger.LogInformation($"Iniciando handler BuscarAgentePenitenciarioPorIdQueryHandler");
-        return Mapper.Map<AgentePenitenciarioDto>(Repository.Get(id));
+        return Mapper.Map<AgentePenitenciarioViewModel>(Repository.Get(id));
     }
 }

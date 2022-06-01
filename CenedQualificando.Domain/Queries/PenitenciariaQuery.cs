@@ -11,7 +11,7 @@ namespace CenedQualificando.Domain.Queries
 {
     public class PenitenciariaQuery : IPenitenciariaQuery
     {
-        public Expression<Func<Penitenciaria, bool>> Filtrar(PenitenciariaFilter filtro)
+        public Expression<Func<Penitenciaria, bool>> ObterPesquisa(PenitenciariaFilter filtro)
         {
             var ufs = Enum.GetNames(typeof(UfEnum)).Select(s => s.ToUpper()).ToList();
             var filtroUf = ufs.Contains(filtro.Search.ToUpper()) ? filtro.Search.DescriptionTo<UfEnum>() : UfEnum.Null;
@@ -21,7 +21,7 @@ namespace CenedQualificando.Domain.Queries
                 : x => x.Nome.Contains(filtro.Search) || x.Cidade.Contains(filtro.Search);
         }
 
-        public Expression<Func<Penitenciaria, object>> Ordenar(string campo)
+        public Expression<Func<Penitenciaria, object>> ObterOrdenacao(string campo)
         {
             switch (campo)
             {

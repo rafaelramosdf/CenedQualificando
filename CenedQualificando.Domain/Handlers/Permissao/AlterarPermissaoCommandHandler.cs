@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
-using CenedQualificando.Domain.Models.Dtos;
-using CenedQualificando.Domain.Models.ValueObjects;
+using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Repositories.Base;
 using CenedQualificando.Domain.Repositories.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
+using CenedQualificando.Domain.Models.Base;
 
 namespace CenedQualificando.Domain.Handlers.Permissao;
 
-public interface IAlterarPermissaoCommandHandler : IEditCommandHandler<PermissaoDto>
+public interface IAlterarPermissaoCommandHandler : IEditCommandHandler<PermissaoViewModel>
 {
 }
 
@@ -32,7 +32,7 @@ public class AlterarPermissaoCommandHandler : IAlterarPermissaoCommandHandler
         Mapper = mapper;
     }
 
-    public CommandResult Execute(PermissaoDto dto)
+    public CommandResult Execute(PermissaoViewModel dto)
     {
         Logger.LogInformation($"Iniciando handler AlterarPermissaoCommandHandler");
 

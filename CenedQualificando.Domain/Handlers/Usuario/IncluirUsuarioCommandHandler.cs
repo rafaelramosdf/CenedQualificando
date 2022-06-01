@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
-using CenedQualificando.Domain.Models.Dtos;
-using CenedQualificando.Domain.Models.ValueObjects;
+using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Repositories.Base;
 using CenedQualificando.Domain.Repositories.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
+using CenedQualificando.Domain.Models.Base;
 
 namespace CenedQualificando.Domain.Handlers.Usuario;
 
-public interface IIncluirUsuarioCommandHandler : IEditCommandHandler<UsuarioDto>
+public interface IIncluirUsuarioCommandHandler : IEditCommandHandler<UsuarioViewModel>
 {
 }
 
@@ -32,7 +32,7 @@ public class IncluirUsuarioCommandHandler : IIncluirUsuarioCommandHandler
         Mapper = mapper;
     }
 
-    public CommandResult Execute(UsuarioDto dto)
+    public CommandResult Execute(UsuarioViewModel dto)
     {
         Logger.LogInformation($"Iniciando handler IncluirUsuarioCommandHandler");
 
@@ -41,7 +41,7 @@ public class IncluirUsuarioCommandHandler : IIncluirUsuarioCommandHandler
             var entity = Mapper.Map<Models.Entities.Usuario>(dto);
             Repository.Add(entity);
             UnitOfWork.Commit();
-            return new CommandResult(StatusCodes.Status201Created, Mapper.Map<UsuarioDto>(entity));
+            return new CommandResult(StatusCodes.Status201Created, Mapper.Map<UsuarioViewModel>(entity));
         }
         catch (Exception ex)
         {

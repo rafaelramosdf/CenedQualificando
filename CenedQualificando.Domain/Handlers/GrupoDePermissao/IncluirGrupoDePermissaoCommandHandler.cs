@@ -1,16 +1,16 @@
 ﻿using AutoMapper;
-using CenedQualificando.Domain.Models.Dtos;
-using CenedQualificando.Domain.Models.ValueObjects;
+using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Repositories.Base;
 using CenedQualificando.Domain.Repositories.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
+using CenedQualificando.Domain.Models.Base;
 
 namespace CenedQualificando.Domain.Handlers.GrupoDePermissao;
 
-public interface IIncluirGrupoDePermissaoCommandHandler : IEditCommandHandler<GrupoDePermissaoDto>
+public interface IIncluirGrupoDePermissaoCommandHandler : IEditCommandHandler<GrupoDePermissaoViewModel>
 {
 }
 
@@ -36,7 +36,7 @@ public class IncluirGrupoDePermissaoCommandHandler : IIncluirGrupoDePermissaoCom
         Mapper = mapper;
     }
 
-    public CommandResult Execute(GrupoDePermissaoDto dto)
+    public CommandResult Execute(GrupoDePermissaoViewModel dto)
     {
         Logger.LogInformation($"Iniciando handler IncluirGrupoDePermissaoCommandHandler");
 
@@ -62,7 +62,7 @@ public class IncluirGrupoDePermissaoCommandHandler : IIncluirGrupoDePermissaoCom
 
             UnitOfWork.CommitTransaction();
 
-            return new CommandResult(StatusCodes.Status201Created, Mapper.Map<GrupoDePermissaoDto>(grupoPermissao));
+            return new CommandResult(StatusCodes.Status201Created, Mapper.Map<GrupoDePermissaoViewModel>(grupoPermissao));
         }
         catch (Exception ex)
         {

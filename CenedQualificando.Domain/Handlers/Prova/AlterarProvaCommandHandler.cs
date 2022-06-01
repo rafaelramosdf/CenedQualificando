@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
-using CenedQualificando.Domain.Models.Dtos;
-using CenedQualificando.Domain.Models.ValueObjects;
+using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Repositories.Base;
 using CenedQualificando.Domain.Repositories.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
+using CenedQualificando.Domain.Models.Base;
 
 namespace CenedQualificando.Domain.Handlers.Prova;
 
-public interface IAlterarProvaCommandHandler : IEditCommandHandler<ProvaDto>
+public interface IAlterarProvaCommandHandler : IEditCommandHandler<ProvaViewModel>
 {
 }
 
@@ -32,7 +32,7 @@ public class AlterarProvaCommandHandler : IAlterarProvaCommandHandler
         Mapper = mapper;
     }
 
-    public CommandResult Execute(ProvaDto dto)
+    public CommandResult Execute(ProvaViewModel dto)
     {
         Logger.LogInformation($"Iniciando handler AlterarProvaCommandHandler");
 

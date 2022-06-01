@@ -1,16 +1,17 @@
 ﻿@page "/cadastros/matriculas"
 
-@using Domain.Models.Dtos
+@using Domain.Models.ViewModels
 @using Domain.Models.Entities
+@using CenedQualificando.Domain.Models.Filters
 
-@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.ListPageBase<Matricula, MatriculaDto, IMatriculaApiService>
+@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.ListPageBase<Matricula, MatriculaFilter, MatriculaViewModel, IMatriculaApiService>
 @inject ISnackbar Snackbar
 
 <MudOverlay @bind-Visible="State.Carregando" DarkBackground="false" ZIndex="999999" AutoClose="true">
     <MudProgressCircular Color="Color.Success" Indeterminate="true" />
 </MudOverlay>
 
-<MudTable ServerData="@(new Func<TableState, Task<TableData<MatriculaDto>>>(ServerReload))"
+<MudTable ServerData="@(new Func<TableState, Task<TableData<MatriculaViewModel>>>(ServerReload))"
           @ref="Table"
           Dense="true"
           Hover="true"
@@ -36,12 +37,12 @@
             </MudMenu>
         </MudTh>
         <MudTh>
-            <MudTableSortLabel T="MatriculaDto" SortLabel="@nameof(MatriculaDto.Aluno)">
+            <MudTableSortLabel T="MatriculaViewModel" SortLabel="@nameof(MatriculaViewModel.Aluno)">
                 Aluno / CPF
             </MudTableSortLabel>
         </MudTh>
         <MudTh>
-            <MudTableSortLabel T="MatriculaDto" SortLabel="@nameof(MatriculaDto.Curso)">
+            <MudTableSortLabel T="MatriculaViewModel" SortLabel="@nameof(MatriculaViewModel.Curso)">
                 Curso
             </MudTableSortLabel>
         </MudTh>
@@ -51,7 +52,7 @@
             </MudText>
         </MudTh>
         <MudTh>
-            <MudTableSortLabel T="MatriculaDto" SortLabel="@nameof(MatriculaDto.DataMatricula)" InitialDirection="SortDirection.Descending">
+            <MudTableSortLabel T="MatriculaViewModel" SortLabel="@nameof(MatriculaViewModel.DataMatricula)" InitialDirection="SortDirection.Descending">
                 Data
             </MudTableSortLabel>
         </MudTh>

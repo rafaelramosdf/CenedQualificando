@@ -8,7 +8,7 @@ namespace CenedQualificando.Domain.Queries
 {
     public class AgentePenitenciarioQuery : IAgentePenitenciarioQuery
     {
-        public Expression<Func<AgentePenitenciario, bool>> Filtrar(AgentePenitenciarioFilter filtro)
+        public Expression<Func<AgentePenitenciario, bool>> ObterPesquisa(AgentePenitenciarioFilter filtro)
         {
             Expression<Func<AgentePenitenciario, bool>> query = _ => true;
 
@@ -24,7 +24,7 @@ namespace CenedQualificando.Domain.Queries
             return query;
         }
 
-        public Expression<Func<AgentePenitenciario, object>> Ordenar(string campo)
+        public Expression<Func<AgentePenitenciario, object>> ObterOrdenacao(string campo)
         {
             return x => x.Nome;
         }

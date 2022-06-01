@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using CenedQualificando.Domain.Models.Dtos;
-using CenedQualificando.Domain.Models.ValueObjects;
+using CenedQualificando.Domain.Models.ViewModels;
+using CenedQualificando.Domain.Models.Base;
 using CenedQualificando.Domain.Repositories.Base;
 using CenedQualificando.Domain.Repositories.Contracts;
 using Microsoft.AspNetCore.Http;
@@ -9,7 +9,7 @@ using System;
 
 namespace CenedQualificando.Domain.Handlers.FiscalSala;
 
-public interface IIncluirFiscalSalaCommandHandler : IEditCommandHandler<FiscalSalaDto>
+public interface IIncluirFiscalSalaCommandHandler : IEditCommandHandler<FiscalSalaViewModel>
 {
 }
 
@@ -32,7 +32,7 @@ public class IncluirFiscalSalaCommandHandler : IIncluirFiscalSalaCommandHandler
         Mapper = mapper;
     }
 
-    public CommandResult Execute(FiscalSalaDto dto)
+    public CommandResult Execute(FiscalSalaViewModel dto)
     {
         Logger.LogInformation($"Iniciando handler IncluirFiscalSalaCommandHandler");
 
@@ -41,7 +41,7 @@ public class IncluirFiscalSalaCommandHandler : IIncluirFiscalSalaCommandHandler
             var entity = Mapper.Map<Models.Entities.FiscalSala>(dto);
             Repository.Add(entity);
             UnitOfWork.Commit();
-            return new CommandResult(StatusCodes.Status201Created, Mapper.Map<FiscalSalaDto>(entity));
+            return new CommandResult(StatusCodes.Status201Created, Mapper.Map<FiscalSalaViewModel>(entity));
         }
         catch (Exception ex)
         {

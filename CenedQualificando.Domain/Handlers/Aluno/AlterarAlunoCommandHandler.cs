@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
-using CenedQualificando.Domain.Models.Dtos;
-using CenedQualificando.Domain.Models.ValueObjects;
+using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Repositories.Base;
 using CenedQualificando.Domain.Repositories.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
+using CenedQualificando.Domain.Models.Base;
 
 namespace CenedQualificando.Domain.Handlers.Aluno;
 
-public interface IAlterarAlunoCommandHandler : IEditCommandHandler<AlunoDto>
+public interface IAlterarAlunoCommandHandler : IEditCommandHandler<AlunoViewModel>
 {
 }
 
@@ -32,7 +32,7 @@ public class AlterarAlunoCommandHandler : IAlterarAlunoCommandHandler
         Mapper = mapper;
     }
 
-    public CommandResult Execute(AlunoDto dto)
+    public CommandResult Execute(AlunoViewModel dto)
     {
         Logger.LogInformation($"Iniciando handler AlterarAlunoCommandHandler");
 

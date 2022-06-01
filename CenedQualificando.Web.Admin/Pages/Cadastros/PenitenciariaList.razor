@@ -1,17 +1,18 @@
 ﻿
 @page "/cadastros/penitenciarias"
 
-@using Domain.Models.Dtos
+@using Domain.Models.ViewModels
 @using Domain.Models.Entities
+@using CenedQualificando.Domain.Models.Filters
 
-@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.ListPageBase<Penitenciaria, PenitenciariaDto, IPenitenciariaApiService>
+@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.ListPageBase<Penitenciaria, PenitenciariaFilter, PenitenciariaViewModel, IPenitenciariaApiService>
 @inject ISnackbar Snackbar
 
 <MudOverlay @bind-Visible="State.Carregando" DarkBackground="false" ZIndex="999999" AutoClose="true">
     <MudProgressCircular Color="Color.Success" Indeterminate="true" />
 </MudOverlay>
 
-<MudTable ServerData="@(new Func<TableState, Task<TableData<PenitenciariaDto>>>(ServerReload))"
+<MudTable ServerData="@(new Func<TableState, Task<TableData<PenitenciariaViewModel>>>(ServerReload))"
           @ref="Table"
           Dense="true"
           Hover="true"
@@ -37,9 +38,9 @@
                 <MudMenuItem>...</MudMenuItem>
             </MudMenu>
         </MudTh>
-        <MudTh><MudTableSortLabel T="PenitenciariaDto" SortLabel="@nameof(PenitenciariaDto.Nome)" InitialDirection="SortDirection.Ascending">Nome</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel T="PenitenciariaDto" SortLabel="@nameof(PenitenciariaDto.Cidade)">Cidade</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel T="PenitenciariaDto" SortLabel="@nameof(PenitenciariaDto.Uf)">UF</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel T="PenitenciariaViewModel" SortLabel="@nameof(PenitenciariaViewModel.Nome)" InitialDirection="SortDirection.Ascending">Nome</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel T="PenitenciariaViewModel" SortLabel="@nameof(PenitenciariaViewModel.Cidade)">Cidade</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel T="PenitenciariaViewModel" SortLabel="@nameof(PenitenciariaViewModel.Uf)">UF</MudTableSortLabel></MudTh>
         <MudTh><MudText>Ativo</MudText></MudTh>
     </HeaderContent>
     <RowTemplate>

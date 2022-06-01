@@ -2,7 +2,7 @@
 using CenedQualificando.Domain.Handlers.Curso;
 using CenedQualificando.Domain.Handlers.Penitenciaria;
 using CenedQualificando.Domain.Handlers.Usuario;
-using CenedQualificando.Domain.Models.ValueObjects;
+using CenedQualificando.Domain.Models.Base;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

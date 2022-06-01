@@ -1,8 +1,8 @@
-﻿using CenedQualificando.Domain.Models.Dtos;
+﻿using CenedQualificando.Domain.Models.ViewModels;
 
 namespace CenedQualificando.Domain.Interfaces.Requirements.Aluno.Functions
 {
-    public interface IGeraSenhaInicialAlunoFunction : IRequirementFunction<AlunoDto>
+    public interface IGeraSenhaInicialAlunoFunction : IRequirementFunction<AlunoViewModel>
     {
     }
 }

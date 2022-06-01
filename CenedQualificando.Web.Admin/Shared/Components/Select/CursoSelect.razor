@@ -1,5 +1,5 @@
-﻿@using CenedQualificando.Domain.Models.Dtos
-@using CenedQualificando.Domain.Models.ValueObjects
+﻿@using CenedQualificando.Domain.Models.ViewModels
+@using CenedQualificando.Domain.Models.Base
 
 @namespace CenedQualificando.Web.Admin.Shared.Components.Select
 
@@ -27,13 +27,13 @@
     protected override async Task OnInitializedAsync()
     {
         if (Id > 0)
-            await GetSelectedAsync(Id);
+            await GetSelectedAsync(Id.Value);
     }
 
-    [Parameter] public int Id { get; set; }
-    [Parameter] public EventCallback<int> IdChanged { get; set; }
+    [Parameter] public int? Id { get; set; }
+    [Parameter] public EventCallback<int?> IdChanged { get; set; }
 
-    [Parameter] public EventCallback<CursoDto> OnSelected { get; set; }
+    [Parameter] public EventCallback<CursoViewModel> OnSelected { get; set; }
     [Parameter] public string Label { get; set; } = "Curso";
     [Parameter] public Variant Variant { get; set; } = Variant.Outlined;
     [Parameter] public bool Dense { get; set; } = false;
@@ -43,7 +43,7 @@
 
     private async Task<IEnumerable<SelectResult>> Search(string pesquisa)
     {
-        Items = await Service.Cursos(new SelectSearchParam(pesquisa, 20, Id));
+        Items = await Service.Cursos(new SelectSearchParam(pesquisa, 20, Id.Value));
         return Items;
     }
 

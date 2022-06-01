@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using CenedQualificando.Domain.Models.Dtos;
+using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Repositories.Contracts;
 using Microsoft.Extensions.Logging;
 
 namespace CenedQualificando.Domain.Handlers.Curso;
 
-public interface IBuscarCursoPorIdQueryHandler : IByIdQueryHandler<CursoDto>
+public interface IBuscarCursoPorIdQueryHandler : IByIdQueryHandler<CursoViewModel>
 {
 }
 
@@ -25,9 +25,9 @@ public class BuscarCursoPorIdQueryHandler : IBuscarCursoPorIdQueryHandler
         Mapper = mapper;
     }
 
-    public CursoDto Execute(int id)
+    public CursoViewModel Execute(int id)
     {
         Logger.LogInformation($"Iniciando handler BuscarCursoPorIdQueryHandler");
-        return Mapper.Map<CursoDto>(Repository.Get(id));
+        return Mapper.Map<CursoViewModel>(Repository.Get(id));
     }
 }

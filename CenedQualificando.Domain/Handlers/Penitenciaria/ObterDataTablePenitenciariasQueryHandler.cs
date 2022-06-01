@@ -1,17 +1,17 @@
 ﻿using AutoMapper;
-using CenedQualificando.Domain.Models.Dtos;
+using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Models.Filters;
-using CenedQualificando.Domain.Models.ValueObjects;
 using CenedQualificando.Domain.Queries.Contracts;
 using CenedQualificando.Domain.Repositories.Contracts;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using CenedQualificando.Domain.Models.Base;
 
 namespace CenedQualificando.Domain.Handlers.Penitenciaria;
 
-public interface IObterDataTablePenitenciariasQueryHandler : IDataTableQueryHandler<PenitenciariaDto, PenitenciariaFilter> 
+public interface IObterDataTablePenitenciariasQueryHandler : IDataTableQueryHandler<PenitenciariaViewModel, PenitenciariaFilter> 
 {
 }
 
@@ -34,13 +34,13 @@ public class ObterDataTablePenitenciariasQueryHandler : IObterDataTablePenitenci
         Mapper = mapper;
     }
 
-    public DataTableModel<PenitenciariaDto> Execute(PenitenciariaFilter filtro)
+    public DataTableModel<PenitenciariaViewModel> Execute(PenitenciariaFilter filtro)
     {
         Logger.LogInformation($"Iniciando handler ObterDataTablePenitenciariasQueryHandler");
 
-        var dataTableModel = new DataTableModel<PenitenciariaDto>();
+        var dataTableModel = new DataTableModel<PenitenciariaViewModel>();
 
-        Expression<Func<Models.Entities.Penitenciaria, bool>> filterExpression = Query.Filtrar(filtro);
+        Expression<Func<Models.Entities.Penitenciaria, bool>> filterExpression = Query.ObterPesquisa(filtro);
 
         IQueryable<Models.Entities.Penitenciaria> queryList = 
             Repository.List(filterExpression);

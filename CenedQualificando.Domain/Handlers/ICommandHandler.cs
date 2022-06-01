@@ -1,5 +1,4 @@
 ﻿using CenedQualificando.Domain.Models.Base;
-using CenedQualificando.Domain.Models.ValueObjects;
 
 namespace CenedQualificando.Domain.Handlers;
 
@@ -8,8 +7,8 @@ public interface IDeleteCommandHandler
     CommandResult Execute(int id);
 }
 
-public interface IEditCommandHandler<TDto>
-    where TDto : IDto
+public interface IEditCommandHandler<TViewModel>
+    where TViewModel : IViewModel
 {
-    CommandResult Execute(TDto dto);
+    CommandResult Execute(TViewModel vm);
 }

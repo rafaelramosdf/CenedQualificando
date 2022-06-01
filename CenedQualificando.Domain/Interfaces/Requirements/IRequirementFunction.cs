@@ -2,9 +2,9 @@
 
 namespace CenedQualificando.Domain.Interfaces.Requirements
 {
-    public interface IRequirementFunction<TDto>
-        where TDto : IDto
+    public interface IRequirementFunction<TViewModel>
+        where TViewModel : IViewModel
     {
-        public void Run(TDto model);
+        public void Run(TViewModel vm);
     }
 }

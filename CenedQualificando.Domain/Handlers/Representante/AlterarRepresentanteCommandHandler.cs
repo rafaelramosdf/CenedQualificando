@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
-using CenedQualificando.Domain.Models.Dtos;
-using CenedQualificando.Domain.Models.ValueObjects;
+using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Repositories.Base;
 using CenedQualificando.Domain.Repositories.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
+using CenedQualificando.Domain.Models.Base;
 
 namespace CenedQualificando.Domain.Handlers.Representante;
 
-public interface IAlterarRepresentanteCommandHandler : IEditCommandHandler<RepresentanteDto>
+public interface IAlterarRepresentanteCommandHandler : IEditCommandHandler<RepresentanteViewModel>
 {
 }
 
@@ -32,7 +32,7 @@ public class AlterarRepresentanteCommandHandler : IAlterarRepresentanteCommandHa
         Mapper = mapper;
     }
 
-    public CommandResult Execute(RepresentanteDto dto)
+    public CommandResult Execute(RepresentanteViewModel dto)
     {
         Logger.LogInformation($"Iniciando handler AlterarRepresentanteCommandHandler");
 

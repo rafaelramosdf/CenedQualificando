@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using CenedQualificando.Domain.Models.Dtos;
+using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Repositories.Contracts;
 using Microsoft.Extensions.Logging;
 
 namespace CenedQualificando.Domain.Handlers.Aluno;
 
-public interface IBuscarAlunoPorIdQueryHandler : IByIdQueryHandler<AlunoDto>
+public interface IBuscarAlunoPorIdQueryHandler : IByIdQueryHandler<AlunoViewModel>
 {
 }
 
@@ -25,9 +25,9 @@ public class BuscarAlunoPorIdQueryHandler : IBuscarAlunoPorIdQueryHandler
         Mapper = mapper;
     }
 
-    public AlunoDto Execute(int id)
+    public AlunoViewModel Execute(int id)
     {
         Logger.LogInformation($"Iniciando handler BuscarAlunoPorIdQueryHandler");
-        return Mapper.Map<AlunoDto>(Repository.Get(id));
+        return Mapper.Map<AlunoViewModel>(Repository.Get(id));
     }
 }

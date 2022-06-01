@@ -8,7 +8,7 @@ namespace CenedQualificando.Domain.Queries
 {
     public class PermissaoQuery : IPermissaoQuery
     {
-        public Expression<Func<Permissao, bool>> Filtrar(PermissaoFilter filtro)
+        public Expression<Func<Permissao, bool>> ObterPesquisa(PermissaoFilter filtro)
         {
             if (string.IsNullOrEmpty(filtro?.Search))
                 return _ => true;
@@ -16,7 +16,7 @@ namespace CenedQualificando.Domain.Queries
             return x => x.Nome.Contains(filtro.Search);
         }
 
-        public Expression<Func<Permissao, object>> Ordenar(string campo)
+        public Expression<Func<Permissao, object>> ObterOrdenacao(string campo)
         {
             switch (campo)
             {

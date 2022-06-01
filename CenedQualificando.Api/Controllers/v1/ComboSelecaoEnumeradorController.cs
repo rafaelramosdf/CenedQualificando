@@ -1,11 +1,11 @@
 ﻿using CenedQualificando.Domain.Extensions;
 using CenedQualificando.Domain.Models.Enumerations;
-using CenedQualificando.Domain.Models.ValueObjects;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CenedQualificando.Domain.Models.Base;
 
 namespace CenedQualificando.Api.Controllers.v1
 {

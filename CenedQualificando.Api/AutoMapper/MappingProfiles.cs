@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using AutoMapper;
-using CenedQualificando.Domain.Models.Dtos;
+using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Models.Entities;
 
 namespace Cened.Penitenciario.Api.AutoMapper
@@ -10,20 +10,20 @@ namespace Cened.Penitenciario.Api.AutoMapper
     {
         public MappingProfiles()
         {
-            CreateMap<AgentePenitenciario, AgentePenitenciarioDto>().ReverseMap();
-            CreateMap<Aluno, AlunoDto>().ReverseMap();
-            CreateMap<CargaHorariaDiaria, CargaHorariaDiariaDto>().ReverseMap();
-            CreateMap<Curso, CursoDto>().ReverseMap();
-            CreateMap<FiscalSala, FiscalSalaDto>().ReverseMap();
-            CreateMap<GrupoDePermissao, GrupoDePermissaoDto>().ReverseMap();
-            CreateMap<ImpressaoCertificado, ImpressaoCertificadoDto>().ReverseMap();
-            CreateMap<Matricula, MatriculaDto>().ReverseMap();
-            CreateMap<Penitenciaria, PenitenciariaDto>().ReverseMap();
-            CreateMap<Permissao, PermissaoDto>().ReverseMap();
-            CreateMap<Prova, ProvaDto>().ReverseMap();
-            CreateMap<Representante, RepresentanteDto>().ReverseMap();
-            CreateMap<UfEntrega, UfEntregaDto>().ReverseMap();
-            CreateMap<Usuario, UsuarioDto>().ReverseMap();
+            CreateMap<AgentePenitenciario, AgentePenitenciarioViewModel>().ReverseMap();
+            CreateMap<Aluno, AlunoViewModel>().ReverseMap();
+            CreateMap<CargaHorariaDiaria, CargaHorariaDiariaViewModel>().ReverseMap();
+            CreateMap<Curso, CursoViewModel>().ReverseMap();
+            CreateMap<FiscalSala, FiscalSalaViewModel>().ReverseMap();
+            CreateMap<GrupoDePermissao, GrupoDePermissaoViewModel>().ReverseMap();
+            CreateMap<ImpressaoCertificado, ImpressaoCertificadoViewModel>().ReverseMap();
+            CreateMap<Matricula, MatriculaViewModel>().ReverseMap();
+            CreateMap<Penitenciaria, PenitenciariaViewModel>().ReverseMap();
+            CreateMap<Permissao, PermissaoViewModel>().ReverseMap();
+            CreateMap<Prova, ProvaViewModel>().ReverseMap();
+            CreateMap<Representante, RepresentanteViewModel>().ReverseMap();
+            CreateMap<UfEntrega, UfEntregaViewModel>().ReverseMap();
+            CreateMap<Usuario, UsuarioViewModel>().ReverseMap();
         }
     }
 }
