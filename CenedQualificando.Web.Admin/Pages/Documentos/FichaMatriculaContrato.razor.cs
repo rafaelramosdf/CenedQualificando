@@ -2,7 +2,7 @@
 using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Models.Enumerations;
 using CenedQualificando.Domain.Models.Filters;
-using CenedQualificando.Web.Admin.Services.RefitApiServices;
+using CenedQualificando.Web.Admin.Services.ApiContracts;
 using CenedQualificando.Web.Admin.Shared.CodeBase.Pages;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
@@ -14,7 +14,7 @@ namespace CenedQualificando.Web.Admin.Pages.Documentos
 {
     public partial class FichaMatriculaContrato : DocumentPageBase
     {
-        [Inject] protected IDocumentoConsultaApiService ConsultaApiService { get; set; }
+        [Inject] protected IDocumentoConsultaApiContract ConsultaApiService { get; set; }
         [Inject] ISnackbar Snackbar { get; set; }
 
         private IEnumerable<MatriculaViewModel> Lista = new List<MatriculaViewModel>();
@@ -28,7 +28,7 @@ namespace CenedQualificando.Web.Admin.Pages.Documentos
 
         private MatriculaFilter Filtro = new MatriculaFilter
         {
-            StatusCurso = new List<int> 
+            StatusCurso = new List<int?> 
             { 
                 StatusCursoEnum.EmAndamento.ToInt32(),
                 StatusCursoEnum.ReProva.ToInt32(),

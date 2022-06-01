@@ -1,6 +1,6 @@
 ﻿using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Models.Filters;
-using CenedQualificando.Web.Admin.Services.RefitApiServices;
+using CenedQualificando.Web.Admin.Services.ApiContracts;
 using CenedQualificando.Web.Admin.Shared.CodeBase.Pages;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
@@ -12,7 +12,7 @@ namespace CenedQualificando.Web.Admin.Pages.Documentos
 {
     public partial class ResultadoProva : DocumentPageBase
     {
-        [Inject] protected IDocumentoConsultaApiService ConsultaApiService { get; set; }
+        [Inject] protected IDocumentoConsultaApiContract ConsultaApiService { get; set; }
         [Inject] ISnackbar Snackbar { get; set; }
 
         private IEnumerable<MatriculaViewModel> Lista = new List<MatriculaViewModel>();

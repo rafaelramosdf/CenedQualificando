@@ -10,6 +10,9 @@ namespace CenedQualificando.Domain.Queries
     {
         public Expression<Func<CargaHorariaDiaria, bool>> ObterPesquisa(CargaHorariaDiariaFilter filtro)
         {
+            if (string.IsNullOrEmpty(filtro?.Search))
+                return _ => true;
+
             return _ => true;
         }
 

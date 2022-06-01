@@ -10,6 +10,9 @@ namespace CenedQualificando.Domain.Queries
     {
         public Expression<Func<Representante, bool>> ObterPesquisa(RepresentanteFilter filtro)
         {
+            if (string.IsNullOrEmpty(filtro?.Search))
+                return _ => true;
+
             return x => x.Nome.Contains(filtro.Search);
         }
 

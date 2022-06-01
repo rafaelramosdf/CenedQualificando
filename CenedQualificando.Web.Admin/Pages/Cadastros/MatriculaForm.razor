@@ -4,8 +4,9 @@
 @using Domain.Models.Entities
 @using Domain.Models.ViewModels
 @using CenedQualificando.Domain.Models.Filters
+@using CenedQualificando.Web.Admin.Services.ApiContracts
 
-@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.FormPageBase<Matricula, MatriculaFilter, MatriculaViewModel, IMatriculaApiService>
+@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.FormPageBase<Matricula, MatriculaFilter, MatriculaViewModel, IMatriculaApiContract>
 
 <EditForm Model="@Model" OnSubmit="OnSubmit">
 

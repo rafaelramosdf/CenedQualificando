@@ -40,10 +40,8 @@ public class ObterDataTableProvasQueryHandler : IObterDataTableProvasQueryHandle
 
         var dataTableModel = new DataTableModel<ProvaViewModel>();
 
-        Expression<Func<Models.Entities.Prova, bool>> filterExpression = Query.ObterPesquisa(filtro);
-
-        IQueryable<Models.Entities.Prova> queryList = 
-            Repository.List(filterExpression);
+        IQueryable<Models.Entities.Prova> queryList = Repository
+            .List(Query.ObterPesquisa(filtro));
 
         dataTableModel.SortAndPage(queryList, filtro, Query, Mapper);
 

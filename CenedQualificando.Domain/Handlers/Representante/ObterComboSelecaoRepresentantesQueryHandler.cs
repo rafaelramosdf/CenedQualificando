@@ -27,7 +27,7 @@ public class ObterComboSelecaoRepresentantesQueryHandler : IObterComboSelecaoRep
         Mapper = mapper;
     }
 
-    public IEnumerable<SelectResult> Execute(string search, int limit, int selected = 0)
+    public IEnumerable<SelectResult> Execute(string search, int limit = 50, int selected = 0)
     {
         Logger.LogInformation($"Iniciando handler ObterComboSelecaoRepresentantesQueryHandler");
 
@@ -37,7 +37,7 @@ public class ObterComboSelecaoRepresentantesQueryHandler : IObterComboSelecaoRep
             ? Repository.List(x => x.Nome.Contains(search))
             : Repository.List();
 
-        query
+        var list = query
             .Where(x => true)
             .OrderBy(o => o.Nome)
             .Take(limit)
@@ -45,9 +45,7 @@ public class ObterComboSelecaoRepresentantesQueryHandler : IObterComboSelecaoRep
             {
                 s.IdRepresentante,
                 s.Nome
-            });
-
-        var list = query.ToList();
+            }).ToList();
 
         if (list.Any())
         {

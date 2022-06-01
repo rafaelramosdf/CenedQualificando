@@ -39,12 +39,12 @@ public class ObterDataTableMatriculasQueryHandler : IObterDataTableMatriculasQue
 
         var dataTableModel = new DataTableModel<MatriculaViewModel>();
 
-        IQueryable<Models.Entities.Matricula> queryList = 
-            Repository.List(Query.ObterPesquisa(filtro));
+        IQueryable<Models.Entities.Matricula> queryList = Repository
+            .List(Query.ObterPesquisa(filtro))
+            .Include(i => i.Aluno)
+            .Include(i => i.Curso);
 
         queryList = Query.FiltrarMatriculas(filtro, queryList);
-
-        queryList.Include(i => i.Aluno).Include(i => i.Curso);
 
         dataTableModel.SortAndPage(queryList, filtro, Query, Mapper);
 

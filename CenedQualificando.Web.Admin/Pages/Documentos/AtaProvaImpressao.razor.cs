@@ -1,6 +1,6 @@
 ﻿using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Models.Filters;
-using CenedQualificando.Web.Admin.Services.RefitApiServices;
+using CenedQualificando.Web.Admin.Services.ApiContracts;
 using CenedQualificando.Web.Admin.Shared.CodeBase.Pages;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ namespace CenedQualificando.Web.Admin.Pages.Documentos
 {
     public partial class AtaProvaImpressao : DocumentPrintPageBase
     {
-        [Inject] protected IDocumentoConsultaApiService ConsultaApiService { get; set; }
+        [Inject] protected IDocumentoConsultaApiContract ConsultaApiService { get; set; }
 
         private List<MatriculaViewModel> ListaMatriculas = new List<MatriculaViewModel>();
 
@@ -20,7 +20,7 @@ namespace CenedQualificando.Web.Admin.Pages.Documentos
 
             ListaMatriculas = (List<MatriculaViewModel>) await ConsultaApiService.Matriculas(new MatriculaFilter 
             { 
-                IdMatriculas = IdMatriculasSelecionadas 
+                IdMatriculas = (IEnumerable<int?>)IdMatriculasSelecionadas 
             });
         }
     }

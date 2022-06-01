@@ -40,10 +40,8 @@ public class ObterDataTableRepresentantesQueryHandler : IObterDataTableRepresent
 
         var dataTableModel = new DataTableModel<RepresentanteViewModel>();
 
-        Expression<Func<Models.Entities.Representante, bool>> filterExpression = Query.ObterPesquisa(filtro);
-
-        IQueryable<Models.Entities.Representante> queryList = 
-            Repository.List(filterExpression);
+        IQueryable<Models.Entities.Representante> queryList = Repository
+            .List(Query.ObterPesquisa(filtro));
 
         dataTableModel.SortAndPage(queryList, filtro, Query, Mapper);
 

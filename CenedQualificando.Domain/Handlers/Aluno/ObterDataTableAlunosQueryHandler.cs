@@ -41,10 +41,9 @@ public class ObterDataTableAlunosQueryHandler : IObterDataTableAlunosQueryHandle
 
         var dataTableModel = new DataTableModel<AlunoViewModel>();
 
-        Expression<Func<Models.Entities.Aluno, bool>> filterExpression = Query.ObterPesquisa(filtro);
-
-        IQueryable<Models.Entities.Aluno> queryList = 
-            Repository.List(filterExpression).Include(i => i.Penitenciaria);
+        IQueryable<Models.Entities.Aluno> queryList = Repository
+            .List(Query.ObterPesquisa(filtro))
+            .Include(i => i.Penitenciaria);
 
         dataTableModel.SortAndPage(queryList, filtro, Query, Mapper);
 

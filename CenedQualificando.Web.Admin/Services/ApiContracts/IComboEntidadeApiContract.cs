@@ -3,9 +3,9 @@ using Refit;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace CenedQualificando.Web.Admin.Services.RefitApiServices
+namespace CenedQualificando.Web.Admin.Services.ApiContracts
 {
-    public interface IComboEntidadeApiService
+    public interface IComboEntidadeApiContract
     {
         [Get("/penitenciarias")]
         Task<IEnumerable<SelectResult>> Penitenciarias([Query] SelectSearchParam param);

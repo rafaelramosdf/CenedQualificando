@@ -41,10 +41,8 @@ public class ObterDataTableCursosQueryHandler : IObterDataTableCursosQueryHandle
 
         var dataTableModel = new DataTableModel<CursoViewModel>();
 
-        Expression<Func<Models.Entities.Curso, bool>> filterExpression = Query.ObterPesquisa(filtro);
-
-        IQueryable<Models.Entities.Curso> queryList = 
-            Repository.List(filterExpression).Include(i => i.Conteudo);
+        IQueryable<Models.Entities.Curso> queryList = Repository
+            .List(Query.ObterPesquisa(filtro));
 
         dataTableModel.SortAndPage(queryList, filtro, Query, Mapper);
 

@@ -2,8 +2,9 @@
 @using Domain.Models.Entities
 @using Domain.Models.ViewModels
 @using CenedQualificando.Domain.Models.Filters
+@using CenedQualificando.Web.Admin.Services.ApiContracts
 
-@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.FormPageBase<FiscalSala, FiscalSalaFilter, FiscalSalaViewModel, IFiscalSalaApiService>
+@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.FormPageBase<FiscalSala, FiscalSalaFilter, FiscalSalaViewModel, IFiscalSalaApiContract>
 
 <MudCard Elevation="0">
     <MudCardHeader>

@@ -27,7 +27,7 @@ public class ObterComboSelecaoAgentesPenitenciariosQueryHandler : IObterComboSel
         Mapper = mapper;
     }
 
-    public IEnumerable<SelectResult> Execute(string search, int limit = 10, int selected = 0)
+    public IEnumerable<SelectResult> Execute(string search, int limit = 50, int selected = 0)
     {
         Logger.LogInformation($"Iniciando handler ObterComboSelecaoAgentesPenitenciariosQueryHandler");
 
@@ -37,8 +37,8 @@ public class ObterComboSelecaoAgentesPenitenciariosQueryHandler : IObterComboSel
             ? Repository.List(x => x.Nome.Contains(search) || x.CpfUsuario == search)
             : Repository.List();
 
-        query
-            .Where(x => x.IdPenitenciaria > 1)
+        var list = query
+            .Where(x => true)
             .OrderBy(o => o.Nome)
             .Take(limit)
             .Select(s => new
@@ -46,9 +46,7 @@ public class ObterComboSelecaoAgentesPenitenciariosQueryHandler : IObterComboSel
                 s.IdAgentePenitenciario,
                 s.Nome,
                 s.CpfUsuario
-            });
-
-        var list = query.ToList();
+            }).ToList();
 
         if (list.Any())
         {

@@ -29,7 +29,7 @@ public class ObterComboSelecaoPenitenciariasQueryHandler : IObterComboSelecaoPen
         Mapper = mapper;
     }
 
-    public IEnumerable<SelectResult> Execute(string search, int limit, int selected = 0)
+    public IEnumerable<SelectResult> Execute(string search, int limit = 50, int selected = 0)
     {
         Logger.LogInformation($"Iniciando handler ObterComboSelecaoPenitenciariasQueryHandler");
 
@@ -39,17 +39,16 @@ public class ObterComboSelecaoPenitenciariasQueryHandler : IObterComboSelecaoPen
             ? Repository.List(x => x.Nome.Contains(search))
             : Repository.List();
 
-        query
+        var list = query
             .Where(x => x.IdPenitenciaria > 1)
             .OrderBy(o => o.Nome)
             .Take(limit)
-            .Select(s => new {
+            .Select(s => new
+            {
                 s.IdPenitenciaria,
                 s.Nome,
                 s.Uf
-            });
-
-        var list = query.ToList();
+            }).ToList();
 
         if (list.Any())
         {
@@ -57,7 +56,7 @@ public class ObterComboSelecaoPenitenciariasQueryHandler : IObterComboSelecaoPen
             {
                 selectList.Add(new SelectResult
                 {
-                    Id = item.Id,
+                    Id = item.IdPenitenciaria,
                     Text = $"{item.Nome} | {((UfEnum)item.Uf).EnumDescription()}"
                 });
             }

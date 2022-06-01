@@ -27,7 +27,7 @@ public class ObterComboSelecaoCursosQueryHandler : IObterComboSelecaoCursosQuery
         Mapper = mapper;
     }
 
-    public IEnumerable<SelectResult> Execute(string search, int limit, int selected = 0)
+    public IEnumerable<SelectResult> Execute(string search, int limit = 50, int selected = 0)
     {
         Logger.LogInformation($"Iniciando handler ObterComboSelecaoCursosQueryHandler");
 
@@ -37,7 +37,9 @@ public class ObterComboSelecaoCursosQueryHandler : IObterComboSelecaoCursosQuery
             ? Repository.List(x => x.Nome.Contains(search) || x.Codigo == search)
             : Repository.List();
 
-        query.Where(c => c.IdCurso > 0).OrderBy(o => o.Nome)
+        var list = query
+            .Where(c => c.IdCurso > 0)
+            .OrderBy(o => o.Nome)
             .Take(limit)
             .Select(s => new {
                 s.IdCurso,
@@ -45,9 +47,7 @@ public class ObterComboSelecaoCursosQueryHandler : IObterComboSelecaoCursosQuery
                 s.Codigo,
                 s.CargaHoraria,
                 s.ValorTotal
-            });
-
-        var list = query.ToList();
+            }).ToList();
 
         if (list.Any())
         {

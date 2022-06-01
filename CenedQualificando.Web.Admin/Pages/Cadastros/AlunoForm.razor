@@ -4,8 +4,9 @@
 @using Domain.Models.Entities
 @using Domain.Models.ViewModels 
 @using CenedQualificando.Domain.Models.Filters
+@using CenedQualificando.Web.Admin.Services.ApiContracts
 
-@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.FormPageBase<Aluno, AlunoFilter, AlunoViewModel, IAlunoApiService>
+@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.FormPageBase<Aluno, AlunoFilter, AlunoViewModel, IAlunoApiContract>
 
 <EditForm Model="@Model" OnSubmit="OnSubmit">
 

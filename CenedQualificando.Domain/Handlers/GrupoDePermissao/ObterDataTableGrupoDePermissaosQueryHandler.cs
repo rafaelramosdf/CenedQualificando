@@ -40,10 +40,8 @@ public class ObterDataTableGrupoDePermissaosQueryHandler : IObterDataTableGrupoD
 
         var dataTableModel = new DataTableModel<GrupoDePermissaoViewModel>();
 
-        Expression<Func<Models.Entities.GrupoDePermissao, bool>> filterExpression = Query.ObterPesquisa(filtro);
-
-        IQueryable<Models.Entities.GrupoDePermissao> queryList = 
-            Repository.List(filterExpression);
+        IQueryable<Models.Entities.GrupoDePermissao> queryList = Repository
+            .List(Query.ObterPesquisa(filtro));
 
         dataTableModel.SortAndPage(queryList, filtro, Query, Mapper);
 

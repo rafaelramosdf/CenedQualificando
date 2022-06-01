@@ -40,10 +40,8 @@ public class ObterDataTableUfEntregasQueryHandler : IObterDataTableUfEntregasQue
 
         var dataTableModel = new DataTableModel<UfEntregaViewModel>();
 
-        Expression<Func<Models.Entities.UfEntrega, bool>> filterExpression = Query.ObterPesquisa(filtro);
-
         IQueryable<Models.Entities.UfEntrega> queryList = 
-            Repository.List(filterExpression);
+            Repository.List(Query.ObterPesquisa(filtro));
 
         dataTableModel.SortAndPage(queryList, filtro, Query, Mapper);
 

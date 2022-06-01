@@ -10,6 +10,9 @@ namespace CenedQualificando.Domain.Queries
     {
         public Expression<Func<Usuario, bool>> ObterPesquisa(UsuarioFilter filtro)
         {
+            if (string.IsNullOrEmpty(filtro?.Search))
+                return _ => true;
+
             return x => x.Nome.Contains(filtro.Search) 
                 || x.CpfUsuario == filtro.Search
                 || x.Login.ToLower() == filtro.Search.ToLower() 

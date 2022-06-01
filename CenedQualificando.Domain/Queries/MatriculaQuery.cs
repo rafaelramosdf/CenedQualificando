@@ -57,10 +57,10 @@ namespace CenedQualificando.Domain.Queries
                 if (filtro.IdPenitenciaria > 0)
                     queryList = queryList.Where(x => x.IdPenitenciaria == filtro.IdPenitenciaria);
 
-                if (filtro.IdMatriculas.Any())
+                if (filtro.IdMatriculas.Any(x => x != null))
                     queryList = queryList.Where(x => filtro.IdMatriculas.Contains(x.IdMatricula));
 
-                if (filtro.StatusCurso.Any())
+                if (filtro.StatusCurso.Any(x => x != null))
                     queryList = queryList.Where(x => filtro.StatusCurso.Contains(x.StatusCurso));
 
                 if (filtro.PeriodoDataMatricula.Inicio.HasValue)

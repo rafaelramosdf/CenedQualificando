@@ -1,7 +1,7 @@
 ﻿using CenedQualificando.Domain.Models.Base;
 using CenedQualificando.Domain.Queries.Filters.Base;
 using CenedQualificando.Domain.Resources;
-using CenedQualificando.Web.Admin.Services.RefitApiServices.Base;
+using CenedQualificando.Web.Admin.Services.ApiContracts.Base;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Logging;
@@ -17,7 +17,7 @@ namespace CenedQualificando.Web.Admin.Shared.CodeBase.Pages
         where TEntity : Entity
         where TFilter : Filter
         where TViewModel : ViewModel<TEntity> 
-        where TApiService : ICRUDService<TEntity, TFilter, TViewModel>
+        where TApiService : ICrudApiContract<TEntity, TFilter, TViewModel>
     {
         [Inject] protected ILogger<FormPageBase<TEntity, TFilter, TViewModel, TApiService>> Log { get; set; }
         [Inject] protected TApiService ApiService { get; set; }

@@ -13,6 +13,9 @@ namespace CenedQualificando.Domain.Queries
     {
         public Expression<Func<Penitenciaria, bool>> ObterPesquisa(PenitenciariaFilter filtro)
         {
+            if (string.IsNullOrEmpty(filtro?.Search))
+                return _ => true;
+
             var ufs = Enum.GetNames(typeof(UfEnum)).Select(s => s.ToUpper()).ToList();
             var filtroUf = ufs.Contains(filtro.Search.ToUpper()) ? filtro.Search.DescriptionTo<UfEnum>() : UfEnum.Null;
 

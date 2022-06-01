@@ -41,10 +41,9 @@ public class ObterDataTableUsuariosQueryHandler : IObterDataTableUsuariosQueryHa
 
         var dataTableModel = new DataTableModel<UsuarioViewModel>();
 
-        Expression<Func<Models.Entities.Usuario, bool>> filterExpression = Query.ObterPesquisa(filtro);
-
-        IQueryable<Models.Entities.Usuario> queryList = 
-            Repository.List(filterExpression).Include(i => i.IdGrupoDePermissaoNavigation);
+        IQueryable<Models.Entities.Usuario> queryList = Repository
+            .List(Query.ObterPesquisa(filtro))
+            .Include(i => i.IdGrupoDePermissaoNavigation);
 
         dataTableModel.SortAndPage(queryList, filtro, Query, Mapper);
 

@@ -1,12 +1,12 @@
 ﻿using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Models.Entities;
-using CenedQualificando.Web.Admin.Services.RefitApiServices;
+using CenedQualificando.Web.Admin.Services.ApiContracts;
 using CenedQualificando.Web.Admin.Shared.CodeBase.Pages;
 using CenedQualificando.Domain.Models.Filters;
 
 namespace CenedQualificando.Web.Admin.Pages.Cadastros
 {
-    public partial class AlunoForm : FormPageBase<Aluno, AlunoFilter, AlunoViewModel, IAlunoApiService>
+    public partial class AlunoForm : FormPageBase<Aluno, AlunoFilter, AlunoViewModel, IAlunoApiContract>
     {
         protected override void OnInit()
         {

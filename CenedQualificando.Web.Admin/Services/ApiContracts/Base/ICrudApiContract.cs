@@ -3,9 +3,9 @@ using CenedQualificando.Domain.Queries.Filters.Base;
 using Refit;
 using System.Threading.Tasks;
 
-namespace CenedQualificando.Web.Admin.Services.RefitApiServices.Base
+namespace CenedQualificando.Web.Admin.Services.ApiContracts.Base
 {
-    public interface ICRUDService<TEntity, TFilter, TViewModel>
+    public interface ICrudApiContract<TEntity, TFilter, TViewModel>
         where TEntity : Entity
         where TFilter : Filter
         where TViewModel : ViewModel<TEntity>
@@ -22,7 +22,7 @@ namespace CenedQualificando.Web.Admin.Services.RefitApiServices.Base
         [Get("/{id}")]
         Task<TViewModel> Buscar([AliasAs("id")] int id);
 
-        [Post("")]
-        Task<DataTableModel<TViewModel>> Buscar([Body] TFilter filtro);
+        [Get("")]
+        Task<DataTableModel<TViewModel>> Buscar([Query] TFilter filtro);
     }
 }

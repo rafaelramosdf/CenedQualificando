@@ -4,8 +4,9 @@
 @using CenedQualificando.Domain.Models.Filters
 @using Domain.Models.ViewModels
 @using Domain.Models.Entities
+@using CenedQualificando.Web.Admin.Services.ApiContracts
 
-@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.ListPageBase<Usuario, UsuarioFilter, UsuarioViewModel, IUsuarioApiService>
+@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.ListPageBase<Usuario, UsuarioFilter, UsuarioViewModel, IUsuarioApiContract>
 @inject ISnackbar Snackbar
 
 <MudOverlay @bind-Visible="State.Carregando" DarkBackground="false" ZIndex="999999" AutoClose="true">

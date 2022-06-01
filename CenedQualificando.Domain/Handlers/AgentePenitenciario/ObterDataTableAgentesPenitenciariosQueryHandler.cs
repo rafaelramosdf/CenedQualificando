@@ -40,9 +40,8 @@ public class ObterDataTableAgentesPenitenciariosQueryHandler : IObterDataTableAg
 
         var dataTableModel = new DataTableModel<AgentePenitenciarioViewModel>();
 
-        Expression<Func<Models.Entities.AgentePenitenciario, bool>> filterExpression = Query.ObterPesquisa(filtro);
-
-        IQueryable<Models.Entities.AgentePenitenciario> queryList = Repository.List(filterExpression);
+        IQueryable<Models.Entities.AgentePenitenciario> queryList = Repository
+            .List(Query.ObterPesquisa(filtro));
 
         dataTableModel.SortAndPage(queryList, filtro, Query, Mapper);
 

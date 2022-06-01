@@ -3,8 +3,9 @@
 @using Domain.Models.Entities
 @using Domain.Models.ViewModels
 @using CenedQualificando.Domain.Models.Filters
+@using CenedQualificando.Web.Admin.Services.ApiContracts
 
-@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.FormPageBase<Curso, CursoFilter, CursoViewModel, ICursoApiService>
+@inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.FormPageBase<Curso, CursoFilter, CursoViewModel, ICursoApiContract>
 
 <MudCard Elevation="0">
     <MudCardHeader>

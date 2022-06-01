@@ -10,6 +10,9 @@ namespace CenedQualificando.Domain.Queries
     {
         public Expression<Func<UfEntrega, bool>> ObterPesquisa(UfEntregaFilter filtro)
         {
+            if (string.IsNullOrEmpty(filtro?.Search))
+                return _ => true;
+
             return _ => true;
         }
 

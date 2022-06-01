@@ -3,8 +3,8 @@
 
 @namespace CenedQualificando.Web.Admin.Shared.Components.Select
 
-@inject CenedQualificando.Web.Admin.Services.RefitApiServices.IComboEntidadeApiService Service
-@inject CenedQualificando.Web.Admin.Services.RefitApiServices.IUsuarioApiService UsuarioApiService
+@inject CenedQualificando.Web.Admin.Services.ApiContracts.IComboEntidadeApiContract Service
+@inject CenedQualificando.Web.Admin.Services.ApiContracts.IUsuarioApiContract UsuarioApiService
 
 <MudAutocomplete T="SelectResult"
                  Label="@Label"
@@ -27,11 +27,11 @@
     protected override async Task OnInitializedAsync()
     {
         if (Id > 0)
-            await GetSelectedAsync(Id.Value);
+            await GetSelectedAsync(Id);
     }
 
-    [Parameter] public int? Id { get; set; }
-    [Parameter] public EventCallback<int?> IdChanged { get; set; }
+    [Parameter] public int Id { get; set; }
+    [Parameter] public EventCallback<int> IdChanged { get; set; }
 
     [Parameter] public EventCallback<UsuarioViewModel> OnSelected { get; set; }
     [Parameter] public string Label { get; set; } = "Usuário";
@@ -43,7 +43,7 @@
 
     private async Task<IEnumerable<SelectResult>> Search(string pesquisa)
     {
-        Items = await Service.Usuarios(new SelectSearchParam(pesquisa, 20, Id.Value));
+        Items = await Service.Usuarios(new SelectSearchParam(pesquisa, 20, Id));
         return Items;
     }
 

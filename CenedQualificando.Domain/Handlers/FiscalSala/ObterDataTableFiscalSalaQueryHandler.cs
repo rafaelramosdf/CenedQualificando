@@ -40,10 +40,8 @@ public class ObterDataTableFiscalSalaQueryHandler : IObterDataTableFiscalSalaQue
 
         var dataTableModel = new DataTableModel<FiscalSalaViewModel>();
 
-        Expression<Func<Models.Entities.FiscalSala, bool>> filterExpression = Query.ObterPesquisa(filtro);
-
-        IQueryable<Models.Entities.FiscalSala> queryList = 
-            Repository.List(filterExpression);
+        IQueryable<Models.Entities.FiscalSala> queryList = Repository
+            .List(Query.ObterPesquisa(filtro));
 
         dataTableModel.SortAndPage(queryList, filtro, Query, Mapper);
 

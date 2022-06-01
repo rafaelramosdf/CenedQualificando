@@ -41,10 +41,9 @@ public class ObterDataTablePermissaosQueryHandler : IObterDataTablePermissaosQue
 
         var dataTableModel = new DataTableModel<PermissaoViewModel>();
 
-        Expression<Func<Models.Entities.Permissao, bool>> filterExpression = Query.ObterPesquisa(filtro);
-
-        IQueryable<Models.Entities.Permissao> queryList = 
-            Repository.List(filterExpression).Include(i => i.IdGrupoDePermissaoNavigation);
+        IQueryable<Models.Entities.Permissao> queryList = Repository
+            .List(Query.ObterPesquisa(filtro))
+            .Include(i => i.IdGrupoDePermissaoNavigation);
 
         dataTableModel.SortAndPage(queryList, filtro, Query, Mapper);
 

@@ -40,10 +40,8 @@ public class ObterDataTableCargaHorariaDiariaQueryHandler : IObterDataTableCarga
 
         var dataTableModel = new DataTableModel<CargaHorariaDiariaViewModel>();
 
-        Expression<Func<Models.Entities.CargaHorariaDiaria, bool>> filterExpression = Query.ObterPesquisa(filtro);
-
-        IQueryable<Models.Entities.CargaHorariaDiaria> queryList = 
-            Repository.List(filterExpression);
+        IQueryable<Models.Entities.CargaHorariaDiaria> queryList = Repository
+            .List(Query.ObterPesquisa(filtro));
 
         dataTableModel.SortAndPage(queryList, filtro, Query, Mapper);
 

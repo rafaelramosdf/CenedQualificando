@@ -27,7 +27,7 @@ public class ObterComboSelecaoGrupoDePermissaosQueryHandler : IObterComboSelecao
         Mapper = mapper;
     }
 
-    public IEnumerable<SelectResult> Execute(string search, int limit, int selected = 0)
+    public IEnumerable<SelectResult> Execute(string search, int limit = 50, int selected = 0)
     {
         Logger.LogInformation($"Iniciando handler ObterComboSelecaoGrupoDePermissaosQueryHandler");
 
@@ -37,7 +37,7 @@ public class ObterComboSelecaoGrupoDePermissaosQueryHandler : IObterComboSelecao
             ? Repository.List(x => x.Descricao.Contains(search))
             : Repository.List();
 
-        query
+        var list = query
             .Where(x => true)
             .OrderBy(o => o.Descricao)
             .Take(limit)
@@ -45,9 +45,7 @@ public class ObterComboSelecaoGrupoDePermissaosQueryHandler : IObterComboSelecao
             {
                 s.IdGrupoDePermissao,
                 s.Descricao
-            });
-
-        var list = query.ToList();
+            }).ToList();
 
         if (list.Any())
         {
