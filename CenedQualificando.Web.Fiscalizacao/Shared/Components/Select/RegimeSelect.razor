@@ -1,0 +1,37 @@
+﻿@namespace CenedQualificando.Web.Fiscalizacao.Shared.Components.Select
+
+@using CenedQualificando.Domain.Models.Enumerations
+
+<MudSelect T="RegimeEnum"
+           Value="@Value"
+           Label="@Label"
+           ValueChanged="@OnValueChanged"
+           Variant="@Variant"
+           Margin="@(Dense ? Margin.Dense : Margin.Normal)"
+           Dense="@Dense"
+           Clearable="false">
+    <MudSelectItem Value="RegimeEnum.Null">Selecione...</MudSelectItem>
+    @{
+        foreach (var item in Enum.GetValues<RegimeEnum>())
+        {
+            if (item != RegimeEnum.Null)
+            {
+                <MudSelectItem Value="@item">@item.EnumDescription()</MudSelectItem>
+            }
+
+        }
+    }
+</MudSelect>
+
+@code {
+    [Parameter] public RegimeEnum Value { get; set; }
+    [Parameter] public string Label { get; set; } = "Regime";
+    [Parameter] public Variant Variant { get; set; } = Variant.Outlined;
+    [Parameter] public bool Dense { get; set; } = false;
+    [Parameter] public EventCallback<RegimeEnum> ValueChanged { get; set; }
+
+    private void OnValueChanged(RegimeEnum value)
+    {
+        ValueChanged.InvokeAsync(value);
+    }
+}

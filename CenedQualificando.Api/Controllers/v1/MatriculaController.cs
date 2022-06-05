@@ -5,6 +5,7 @@ using CenedQualificando.Domain.Resources;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using CenedQualificando.Domain.Models.Base;
+using System.Threading.Tasks;
 
 namespace CenedQualificando.Api.Controllers.v1
 {
@@ -35,11 +36,11 @@ namespace CenedQualificando.Api.Controllers.v1
         }
 
         [HttpGet]
-        public ActionResult<DataTableModel<MatriculaViewModel>> Buscar(
+        public async Task<ActionResult<DataTableModel<MatriculaViewModel>>> Buscar(
             [FromQuery] MatriculaFilter filtro,
             [FromServices] IObterDataTableMatriculasQueryHandler handler)
         {
-            var result = handler.Execute(filtro);
+            var result = await handler.Execute(filtro);
             return StatusCode(StatusCodes.Status200OK, result);
         }
 

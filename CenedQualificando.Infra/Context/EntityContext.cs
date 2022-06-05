@@ -6,7 +6,6 @@ namespace CenedQualificando.Infra.Context
 {
     public partial class EntityContext : DbContext
     {
-        const string StrConnHomologacao = "server=tcp:cened.database.windows.net,1433;database=DbCened_Desenvolvimento;User ID=cened;Password=@Gestor2016";
         const string StrConnLocal = "Data Source=.;Initial Catalog=DbCenedLocal;Integrated Security=True";
 
         public EntityContext()
@@ -22,7 +21,7 @@ namespace CenedQualificando.Infra.Context
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(StrConnHomologacao,
+                optionsBuilder.UseSqlServer(StrConnLocal,
                     x => x.MigrationsHistoryTable("__MigrationHistory", "Penitenciario"));
             }
         }

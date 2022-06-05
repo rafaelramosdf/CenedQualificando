@@ -1,0 +1,23 @@
+﻿@page "/"
+
+@inject StateContainer State
+
+<MudGrid>
+    <MudItem md="12" xs="12">
+        <MudPaper Elevation="0" Class="py-4 px-2">
+        </MudPaper>
+    </MudItem>
+</MudGrid>
+
+@code{
+    protected override void OnInitialized()
+    {
+        State.OnChange += StateHasChanged;
+        State.TituloPagina = "Página Inicial";
+    }
+
+    public void Dispose()
+    {
+        State.OnChange -= StateHasChanged;
+    }
+}

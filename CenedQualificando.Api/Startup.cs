@@ -47,7 +47,7 @@ namespace CenedQualificando.Api
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers(options => 
+            services.AddControllers(options =>
             {
                 options.Filters.Add(new ExceptionFilter());
             });
@@ -70,8 +70,8 @@ namespace CenedQualificando.Api
 
             services.AddAutoMapper(typeof(Startup));
 
-            RegisterServices(services);
-            RegisterRequirements(services);
+            RegisterRepositories(services);
+            RegisterQueries(services);
             RegisterHandlers(services);
         }
 
@@ -101,28 +101,8 @@ namespace CenedQualificando.Api
             });
         }
 
-        private void RegisterServices(IServiceCollection services)
+        private void RegisterRepositories(IServiceCollection services)
         {
-            #region Domain
-
-            services.AddScoped<IAgentePenitenciarioQuery, AgentePenitenciarioQuery>();
-            services.AddScoped<IAlunoQuery, AlunoQuery>();
-            services.AddScoped<ICargaHorariaDiariaQuery, CargaHorariaDiariaQuery>();
-            services.AddScoped<ICursoQuery, CursoQuery>();
-            services.AddScoped<IFiscalSalaQuery, FiscalSalaQuery>();
-            services.AddScoped<IGrupoDePermissaoQuery, GrupoDePermissaoQuery>();
-            services.AddScoped<IPermissaoQuery, PermissaoQuery>();
-            services.AddScoped<IMatriculaQuery, MatriculaQuery>();
-            services.AddScoped<IPenitenciariaQuery, PenitenciariaQuery>();
-            services.AddScoped<IProvaQuery, ProvaQuery>();
-            services.AddScoped<IRepresentanteQuery, RepresentanteQuery>();
-            services.AddScoped<IUfEntregaQuery, UfEntregaQuery>();
-            services.AddScoped<IUsuarioQuery, UsuarioQuery>();
-
-            #endregion
-
-            #region Infra
-
             services.AddDbContext<EntityContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DbCened")));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
@@ -139,17 +119,23 @@ namespace CenedQualificando.Api
             services.AddScoped<IRepresentanteRepository, RepresentanteRepository>();
             services.AddScoped<IUfEntregaRepository, UfEntregaRepository>();
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
-
-            #endregion
         }
 
-        private void RegisterRequirements(IServiceCollection services) 
+        private void RegisterQueries(IServiceCollection services)
         {
-            #region Aluno
-            services.AddScoped<IIncluirAlunoRequirement, IncluirAlunoRequirement>();
-            services.AddScoped<IGeraSenhaInicialAlunoFunction, GeraSenhaInicialAlunoFunction>();
-            services.AddScoped<ICpfDuplicadoAlunoException, CpfDuplicadoAlunoException>();
-            #endregion
+            services.AddScoped<IAgentePenitenciarioQuery, AgentePenitenciarioQuery>();
+            services.AddScoped<IAlunoQuery, AlunoQuery>();
+            services.AddScoped<ICargaHorariaDiariaQuery, CargaHorariaDiariaQuery>();
+            services.AddScoped<ICursoQuery, CursoQuery>();
+            services.AddScoped<IFiscalSalaQuery, FiscalSalaQuery>();
+            services.AddScoped<IGrupoDePermissaoQuery, GrupoDePermissaoQuery>();
+            services.AddScoped<IPermissaoQuery, PermissaoQuery>();
+            services.AddScoped<IMatriculaQuery, MatriculaQuery>();
+            services.AddScoped<IPenitenciariaQuery, PenitenciariaQuery>();
+            services.AddScoped<IProvaQuery, ProvaQuery>();
+            services.AddScoped<IRepresentanteQuery, RepresentanteQuery>();
+            services.AddScoped<IUfEntregaQuery, UfEntregaQuery>();
+            services.AddScoped<IUsuarioQuery, UsuarioQuery>();
         }
 
         private void RegisterHandlers(IServiceCollection services)

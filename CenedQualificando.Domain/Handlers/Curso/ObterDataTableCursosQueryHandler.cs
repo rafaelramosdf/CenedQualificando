@@ -3,11 +3,8 @@ using CenedQualificando.Domain.Models.ViewModels;
 using CenedQualificando.Domain.Models.Filters;
 using CenedQualificando.Domain.Queries.Contracts;
 using CenedQualificando.Domain.Repositories.Contracts;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Linq;
-using System.Linq.Expressions;
 using CenedQualificando.Domain.Models.Base;
 
 namespace CenedQualificando.Domain.Handlers.Curso;

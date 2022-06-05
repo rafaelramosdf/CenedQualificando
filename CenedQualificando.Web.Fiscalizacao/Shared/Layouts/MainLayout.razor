@@ -1,0 +1,26 @@
+﻿@inherits LayoutComponentBase
+
+@inject StateContainer State
+
+<MudThemeProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+
+    <MudAppBar Elevation="1">
+        <MudIcon Icon="@Icons.Material.Filled.LocalLibrary" Size="Size.Medium"></MudIcon>
+        &nbsp;&nbsp;
+        <MudText>CENED Qualificando </MudText>
+    </MudAppBar>
+
+    <MudMainContent MaxWidth="MaxWidth.False" Class="mt-4 px-3">
+        @Body
+    </MudMainContent>
+
+    <MudItem Style="height: 150px;"></MudItem>
+
+</MudLayout>
+
+@code {
+}

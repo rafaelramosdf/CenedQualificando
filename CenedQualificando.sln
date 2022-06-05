@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31229.75
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CenedQualificando.Web.Admin", "CenedQualificando.Web.Admin\CenedQualificando.Web.Admin.csproj", "{536A5960-09DA-49F0-A1B4-1A9401D11239}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CenedQualificando.Domain", "CenedQualificando.Domain\CenedQualificando.Domain.csproj", "{4575D569-61A3-446C-968A-132973DDEBDE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CenedQualificando.Api", "CenedQualificando.Api\CenedQualificando.Api.csproj", "{99F7A302-209F-4BFD-9E14-2EC6EE1F49BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CenedQualificando.Web.Fiscalizacao", "CenedQualificando.Web.Fiscalizacao\CenedQualificando.Web.Fiscalizacao.csproj", "{19754AAE-AFA8-43ED-BD8E-81AC9939B9A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{99F7A302-209F-4BFD-9E14-2EC6EE1F49BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99F7A302-209F-4BFD-9E14-2EC6EE1F49BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99F7A302-209F-4BFD-9E14-2EC6EE1F49BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19754AAE-AFA8-43ED-BD8E-81AC9939B9A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19754AAE-AFA8-43ED-BD8E-81AC9939B9A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19754AAE-AFA8-43ED-BD8E-81AC9939B9A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19754AAE-AFA8-43ED-BD8E-81AC9939B9A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

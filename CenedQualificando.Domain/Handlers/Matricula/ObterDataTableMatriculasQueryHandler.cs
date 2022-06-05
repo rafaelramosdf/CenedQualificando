@@ -7,10 +7,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Linq;
 using CenedQualificando.Domain.Models.Base;
+using System.Threading.Tasks;
 
 namespace CenedQualificando.Domain.Handlers.Matricula;
 
-public interface IObterDataTableMatriculasQueryHandler : IDataTableQueryHandler<MatriculaViewModel, MatriculaFilter> 
+public interface IObterDataTableMatriculasQueryHandler : IDataTableQueryHandlerAsync<MatriculaViewModel, MatriculaFilter>
 {
 }
 
@@ -33,21 +34,25 @@ public class ObterDataTableMatriculasQueryHandler : IObterDataTableMatriculasQue
         Mapper = mapper;
     }
 
-    public DataTableModel<MatriculaViewModel> Execute(MatriculaFilter filtro)
+    public async Task<DataTableModel<MatriculaViewModel>> Execute(MatriculaFilter filtro)
     {
-        Logger.LogInformation($"Iniciando handler ObterDataTableMatriculasQueryHandler");
+        return await Task.Run(() => 
+        {
+            Logger.LogInformation($"Iniciando handler ObterDataTableMatriculasQueryHandler");
 
-        var dataTableModel = new DataTableModel<MatriculaViewModel>();
+            var dataTableModel = new DataTableModel<MatriculaViewModel>();
 
-        IQueryable<Models.Entities.Matricula> queryList = Repository
-            .List(Query.ObterPesquisa(filtro))
-            .Include(i => i.Aluno)
-            .Include(i => i.Curso);
+            IQueryable<Models.Entities.Matricula> queryList = Repository
+                .List(Query.ObterPesquisa(filtro))
+                .Include(i => i.Penitenciaria)
+                .Include(i => i.Aluno)
+                .Include(i => i.Curso);
 
-        queryList = Query.FiltrarMatriculas(filtro, queryList);
+            queryList = Query.FiltrarMatriculas(filtro, queryList);
 
-        dataTableModel.SortAndPage(queryList, filtro, Query, Mapper);
+            dataTableModel.SortAndPage(queryList, filtro, Query, Mapper);
 
-        return dataTableModel;
+            return dataTableModel;
+        });
     }
 }

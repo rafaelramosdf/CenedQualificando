@@ -1,0 +1,47 @@
+﻿@namespace CenedQualificando.Web.Fiscalizacao.Shared.Components.Select
+
+@using CenedQualificando.Domain.Models.Enumerations
+
+<MudAutocomplete T="string"
+                 Label="@Label"
+                 Value="@Value"
+                 ValueChanged="@ValueChanged"
+                 SearchFunc="@Search"
+                 ResetValueOnEmptyText="true"
+                 CoerceText="true"
+                 CoerceValue="true"
+                 Clearable="true"
+                 Variant="@Variant"
+                 Margin="@(Dense ? Margin.Dense : Margin.Normal)"
+                 Dense="@Dense"
+                 MinCharacters="0"
+                 MaxItems="50"
+                 Placeholder="Selecione ou Digite..." />
+
+@code {
+    [Parameter] public string Value { get; set; }
+    [Parameter] public string Label { get; set; } = "Grau de Escolaridade";
+    [Parameter] public Variant Variant { get; set; } = Variant.Outlined;
+    [Parameter] public bool Dense { get; set; } = false;
+    [Parameter] public EventCallback<string> ValueChanged { get; set; }
+
+    private IEnumerable<string> Items = Enum.GetValues<GrauEscolaridadeEnum>().Select(m => m.EnumDescription());
+
+    private void OnValueChanged(string value)
+    {
+        ValueChanged.InvokeAsync(value);
+    }
+
+    private async Task<IEnumerable<string>> Search(string value)
+    {
+        var result = Items;
+
+        await Task.Run(() =>
+        {
+            if (!string.IsNullOrEmpty(value))
+                result = result.Where(x => x.Contains(value));
+        });
+
+        return result;
+    }
+}

@@ -1,0 +1,72 @@
+﻿@using CenedQualificando.Domain.Models.ViewModels
+@using CenedQualificando.Domain.Models.Base
+
+@namespace CenedQualificando.Web.Fiscalizacao.Shared.Components.Select
+
+@inject CenedQualificando.Domain.Handlers.Aluno.IObterComboSelecaoAlunosQueryHandler ObterComboSelecaoHandler
+@inject CenedQualificando.Domain.Handlers.Aluno.BuscarAlunoPorIdQueryHandler BuscarRegistroPorIdHandler
+
+<MudAutocomplete T="SelectResult"
+                 Label="@Label"
+                 Value="@Selected"
+                 ValueChanged="@OnValueChanged"
+                 SearchFunc="@Search"
+                 ToStringFunc="@(p => p == null ? null : p.Text)"
+                 ResetValueOnEmptyText="false"
+                 CoerceText="true"
+                 Clearable="true"
+                 Placeholder="Digite Nome/CPF do Aluno"
+                 Variant="@Variant"
+                 Margin="@(Dense ? Margin.Dense : Margin.Normal)"
+                 Dense="@Dense"
+                 MaxItems="20" 
+                 DebounceInterval="800" />
+
+@code{
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Id > 0)
+            await GetSelectedAsync(Id);
+    }
+
+    [Parameter] public int Id { get; set; }
+    [Parameter] public EventCallback<int> IdChanged { get; set; }
+
+    [Parameter] public EventCallback<AlunoViewModel> OnSelected { get; set; }
+    [Parameter] public string Label { get; set; } = "Aluno";
+    [Parameter] public Variant Variant { get; set; } = Variant.Outlined;
+    [Parameter] public bool Dense { get; set; } = false;
+
+    private IEnumerable<SelectResult> Items { get; set; }
+    private SelectResult Selected { get; set; }
+
+    private async Task<IEnumerable<SelectResult>> Search(string pesquisa)
+    {
+        Items = ObterComboSelecaoHandler.Execute(pesquisa, 20, Id);
+        return Items;
+    }
+
+    private async Task OnValueChanged(SelectResult value)
+    {
+        if (value != null)
+        {
+            var taskGetSelected = GetSelectedAsync(value.Id);
+            var taskIdChangedInvoke = IdChanged.InvokeAsync(value.Id);
+            await Task.WhenAll(taskGetSelected, taskIdChangedInvoke);
+        }
+    }
+
+    private async Task GetSelectedAsync(int id)
+    {
+        var aluno = BuscarRegistroPorIdHandler.Execute(id);
+
+        Selected = new SelectResult 
+        { 
+            Id = aluno.Id, 
+            Text = $"{aluno.Nome.ToUpper()} | {aluno.Cpf}" 
+        };
+
+        await OnSelected.InvokeAsync(aluno);
+    }
+}

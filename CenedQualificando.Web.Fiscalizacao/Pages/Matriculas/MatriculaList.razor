@@ -1,0 +1,118 @@
+﻿@page "/matriculas"
+
+@using Domain.Models.ViewModels
+
+@inherits CenedQualificando.Web.Fiscalizacao.Shared.CodeBase.Pages.PageBase
+
+@inject ISnackbar Snackbar
+
+<br />
+
+<MudText Typo="@Typo.h6" Color="Color.Primary" Align="Align.Center">
+    FISCALIZAÇÃO E CONTROLE DAS SECRETARIAS DE ADMINISTRAÇÃO PENITENCIÁRIAS DOS ESTADOS
+</MudText>
+
+<MudOverlay @bind-Visible="State.Carregando" DarkBackground="false" ZIndex="999999" AutoClose="true">
+    <MudProgressCircular Color="Color.Success" Indeterminate="true" />
+</MudOverlay>
+
+<MudTable ServerData="@(new Func<TableState, Task<TableData<MatriculaViewModel>>>(ServerReload))"
+          @ref="Table"
+          Dense="true"
+          Hover="true"
+          ReadOnly="true"
+          Striped="false"
+          @bind-SelectedItem="ItemSelecionado"
+          SortLabel="Ordenar por"
+          Elevation="0"
+          GroupBy="@GroupDefinition"
+          FixedHeader="true">
+
+    <ToolBarContent>
+        <MudSpacer />
+        <MudTextField T="string" ValueChanged="@(s => OnSearch(s))"
+                      Placeholder="Pesquisar por Aluno ou Curso"
+                      Adornment="Adornment.Start"
+                      AdornmentIcon="@Icons.Material.Filled.Search"
+                      IconSize="Size.Medium"
+                      Class="mt-0">
+        </MudTextField>
+    </ToolBarContent>
+    <ColGroup>
+        <col />
+        <col />
+        <col />
+        <col />
+        <col />
+        <col />
+        <col />
+    </ColGroup>
+    <HeaderContent>
+        <MudTh>
+        </MudTh>
+        <MudTh>
+            <MudText>
+                Data Matrícula
+            </MudText>
+        </MudTh>
+        <MudTh>
+            <MudText>
+                Estudante
+            </MudText>
+        </MudTh>
+        <MudTh>
+            <MudText>
+                Curso
+            </MudText>
+        </MudTh>
+        <MudTh>
+            <MudText>
+                Início
+            </MudText>
+        </MudTh>
+        <MudTh>
+            <MudText>
+                Término
+            </MudText>
+        </MudTh>
+        <MudTh>
+            <MudText>
+                Situação
+            </MudText>
+        </MudTh>
+    </HeaderContent>
+    <GroupHeaderTemplate>
+        <MudTh Class="mud-table-cell-custom-group" Style="background-color: #FFECB3" colspan="2">
+            <MudText Style="font-weight: bold;" Align="Align.Left">
+                @context.Items.FirstOrDefault().Penitenciaria.Nome
+            </MudText>
+        </MudTh>
+        <MudTh Class="mud-table-cell-custom-group" Style="background-color: #FFECB3" colspan="5">
+            <MudText Style="font-weight: bold;" Align="Align.Left">
+                UF: @context.Items.FirstOrDefault().Penitenciaria.UfDescricao
+            </MudText>
+        </MudTh>
+    </GroupHeaderTemplate>
+    <RowTemplate>
+        <MudTd>
+            <MudIconButton Icon="@Icons.Material.Filled.Search">
+            </MudIconButton>
+        </MudTd>
+        <MudTd DataLabel="Data Matrícula">@($"{context.DataMatricula:dd/MM/yyyy}")</MudTd>
+        <MudTd DataLabel="Estudante">@context.Aluno.Nome.ToUpper() | CPF: @context.Aluno.Cpf</MudTd>
+        <MudTd DataLabel="Curso">@context.Curso.Codigo | @context.Curso.Nome | C.H. @context.Curso.CargaHoraria h</MudTd>
+        <MudTd DataLabel="Início">@($"{context.InicioCurso:dd/MM/yyyy}")</MudTd>
+        <MudTd DataLabel="Término">@($"{context.TerminoCurso:dd/MM/yyyy}")</MudTd>
+        <MudTd DataLabel="Situação">
+            <MudText Color="@StyleHelper.ClasseCssStatusCurso(context.StatusCurso)" Typo="MudBlazor.Typo.caption" Style="font-weight: bold;">
+                @context.StatusCursoDescricao
+            </MudText>
+        </MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager Style="float: left;"
+                       RowsPerPageString="Itens por página: "
+                       PageSizeOptions="new int[] { 5, 10, 20, 50, 100 }"
+                       InfoFormat="{first_item}-{last_item} de {all_items}" />
+    </PagerContent>
+</MudTable>

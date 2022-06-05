@@ -60,6 +60,7 @@ namespace CenedQualificando.Domain.Models.ViewModels
 
         public AlunoViewModel Aluno { get; set; } = new AlunoViewModel();
         public CursoViewModel Curso { get; set; } = new CursoViewModel();
+        public PenitenciariaViewModel Penitenciaria { get; set; } = new PenitenciariaViewModel();
         public IEnumerable<ProvaViewModel> Provas { get; set; } = new List<ProvaViewModel>();
     }
 }
