@@ -1,5 +1,4 @@
-﻿
-@page "/cadastros/usuarios"
+﻿@page "/cadastros/usuarios"
 
 @using CenedQualificando.Domain.Models.Filters
 @using Domain.Models.ViewModels
@@ -8,6 +7,10 @@
 
 @inherits CenedQualificando.Web.Admin.Shared.CodeBase.Pages.ListPageBase<Usuario, UsuarioFilter, UsuarioViewModel, IUsuarioApiContract>
 @inject ISnackbar Snackbar
+
+
+<MudButton Color="Color.Primary" Variant="Variant.Filled">Usuários</MudButton>
+<MudButton Color="Color.Default" Variant="Variant.Filled">Grupos de Permissões</MudButton>
 
 <MudOverlay @bind-Visible="State.Carregando" DarkBackground="false" ZIndex="999999" AutoClose="true">
     <MudProgressCircular Color="Color.Success" Indeterminate="true" />
@@ -35,8 +38,7 @@
     </ToolBarContent>
     <HeaderContent>
         <MudTh>
-            <MudMenu Icon="@Icons.Material.Filled.ViewList" Color="Color.Primary">
-                <MudMenuItem>Grupos de Permissões</MudMenuItem>
+            <MudMenu Icon="@Icons.Material.Filled.ViewList" Disabled="true">
             </MudMenu>
         </MudTh>
         <MudTh><MudTableSortLabel T="UsuarioViewModel" SortLabel="@nameof(UsuarioViewModel.Nome)" InitialDirection="SortDirection.Ascending">Nome</MudTableSortLabel></MudTh>
