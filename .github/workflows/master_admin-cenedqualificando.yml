@@ -64,4 +64,4 @@ jobs:
             ${{
             secrets.AZUREAPPSERVICE_PUBLISHPROFILE_293764F055BC45188AE195FBEB77CB82
             }}
-          package: .
+          package: ${{env.DOTNET_ROOT}}/${{env.PACKAGE_NAME}}/publish/wwwroot
