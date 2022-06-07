@@ -21,7 +21,7 @@ builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 builder.Services.AddSingleton<StateContainer>();
 
-string urlBase = builder.Configuration.GetSection("UrlBaseApi").Value;
+string urlBase = builder.Configuration["UrlBaseApi"];
 
 var settings = new RefitSettings
 {
