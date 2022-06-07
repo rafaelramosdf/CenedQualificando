@@ -1,4 +1,4 @@
-name: CI/CD WEB FISCALIZACAO
+name: CI/CD - WEB FISCALIZACAO
 
 on:
   push:
