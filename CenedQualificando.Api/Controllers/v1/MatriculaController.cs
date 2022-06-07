@@ -6,15 +6,18 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using CenedQualificando.Domain.Models.Base;
 using System.Threading.Tasks;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace CenedQualificando.Api.Controllers.v1
 {
     [ApiController]
     [Route("api/v1/matriculas")]
     [Produces("application/json")]
+    [SwaggerTag("Cadastro e Consulta de Matrículas")]
     public class MatriculaController : ControllerBase
     {
         [HttpPost]
+        [SwaggerOperation("Inclui novo registro de matrícula.")]
         public ActionResult<CommandResult> Incluir(
             [FromBody] MatriculaViewModel vm,
             [FromServices] IIncluirMatriculaCommandHandler handler)
@@ -24,6 +27,7 @@ namespace CenedQualificando.Api.Controllers.v1
         }
 
         [HttpGet("{id:int}")]
+        [SwaggerOperation("Busca matrícula com base no ID informado.")]
         public ActionResult<MatriculaViewModel> Buscar(int id,
             [FromServices] IBuscarMatriculaPorIdQueryHandler handler)
         {
@@ -36,6 +40,7 @@ namespace CenedQualificando.Api.Controllers.v1
         }
 
         [HttpGet]
+        [SwaggerOperation("Busca tabela de matrículas com base nos filtros informados.")]
         public async Task<ActionResult<DataTableModel<MatriculaViewModel>>> Buscar(
             [FromQuery] MatriculaFilter filtro,
             [FromServices] IObterDataTableMatriculasQueryHandler handler)
@@ -45,6 +50,7 @@ namespace CenedQualificando.Api.Controllers.v1
         }
 
         [HttpPut("{id:int}")]
+        [SwaggerOperation("Altera os dados do matrícula com base no ID informado.")]
         public ActionResult<CommandResult> Alterar(int id, 
             [FromBody] MatriculaViewModel vm,
             [FromServices] IAlterarMatriculaCommandHandler handler)
@@ -61,6 +67,7 @@ namespace CenedQualificando.Api.Controllers.v1
         }
 
         [HttpDelete("{id:int}")]
+        [SwaggerOperation("Exclui o registro do matrícula com base no ID informado.")]
         public ActionResult<CommandResult> Excluir(int id,
             [FromServices] IExcluirMatriculaCommandHandler handler)
         {

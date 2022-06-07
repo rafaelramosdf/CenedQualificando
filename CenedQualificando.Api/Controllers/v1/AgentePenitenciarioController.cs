@@ -5,15 +5,18 @@ using CenedQualificando.Domain.Resources;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using CenedQualificando.Domain.Models.Base;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace CenedQualificando.Api.Controllers.v1
 {
     [ApiController]
     [Route("api/v1/agentes-penitenciarios")]
     [Produces("application/json")]
+    [SwaggerTag("Cadastro e Consulta de Agentes Penitenciários")]
     public class AgentePenitenciarioController : ControllerBase
     {
         [HttpPost]
+        [SwaggerOperation("Inclui novo registro de agente penitenciário.")]
         public ActionResult<CommandResult> Incluir(
             [FromBody] AgentePenitenciarioViewModel vm,
             [FromServices] IIncluirAgentePenitenciarioCommandHandler handler)
@@ -23,6 +26,7 @@ namespace CenedQualificando.Api.Controllers.v1
         }
 
         [HttpGet("{id:int}")]
+        [SwaggerOperation("Busca agente penitenciário com base no ID informado.")]
         public ActionResult<AgentePenitenciarioViewModel> Buscar(int id,
             [FromServices] IBuscarAgentePenitenciarioPorIdQueryHandler handler)
         {
@@ -35,6 +39,7 @@ namespace CenedQualificando.Api.Controllers.v1
         }
 
         [HttpGet]
+        [SwaggerOperation("Busca tabela de agentes penitenciários com base nos filtros informados.")]
         public ActionResult<DataTableModel<AgentePenitenciarioViewModel>> Buscar(
             [FromQuery] AgentePenitenciarioFilter filtro,
             [FromServices] IObterDataTableAgentesPenitenciariosQueryHandler handler)
@@ -44,7 +49,8 @@ namespace CenedQualificando.Api.Controllers.v1
         }
 
         [HttpPut("{id:int}")]
-        public ActionResult<CommandResult> Alterar(int id, 
+        [SwaggerOperation("Altera os dados do agente penitenciário com base no ID informado.")]
+        public ActionResult<CommandResult> Alterar(int id,
             [FromBody] AgentePenitenciarioViewModel vm,
             [FromServices] IAlterarAgentePenitenciarioCommandHandler handler)
         {
@@ -60,6 +66,7 @@ namespace CenedQualificando.Api.Controllers.v1
         }
 
         [HttpDelete("{id:int}")]
+        [SwaggerOperation("Exclui o registro do agente penitenciário com base no ID informado.")]
         public ActionResult<CommandResult> Excluir(int id,
             [FromServices] IExcluirAgentePenitenciarioCommandHandler handler)
         {

@@ -5,15 +5,18 @@ using CenedQualificando.Domain.Resources;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using CenedQualificando.Domain.Models.Base;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace CenedQualificando.Api.Controllers.v1
 {
     [ApiController]
     [Route("api/v1/cursos")]
     [Produces("application/json")]
+    [SwaggerTag("Cadastro e Consulta de Cursos CENED")]
     public class CursoController : ControllerBase
     {
         [HttpPost]
+        [SwaggerOperation("Inclui novo registro de curso.")]
         public ActionResult<CommandResult> Incluir(
             [FromBody] CursoViewModel vm,
             [FromServices] IIncluirCursoCommandHandler handler)
@@ -23,6 +26,7 @@ namespace CenedQualificando.Api.Controllers.v1
         }
 
         [HttpGet("{id:int}")]
+        [SwaggerOperation("Busca curso com base no ID informado.")]
         public ActionResult<CursoViewModel> Buscar(int id,
             [FromServices] IBuscarCursoPorIdQueryHandler handler)
         {
@@ -35,6 +39,7 @@ namespace CenedQualificando.Api.Controllers.v1
         }
 
         [HttpGet]
+        [SwaggerOperation("Busca tabela de cursos com base nos filtros informados.")]
         public ActionResult<DataTableModel<CursoViewModel>> Buscar(
             [FromQuery] CursoFilter filtro,
             [FromServices] IObterDataTableCursosQueryHandler handler)
@@ -44,6 +49,7 @@ namespace CenedQualificando.Api.Controllers.v1
         }
 
         [HttpPut("{id:int}")]
+        [SwaggerOperation("Altera os dados do curso com base no ID informado.")]
         public ActionResult<CommandResult> Alterar(int id, 
             [FromBody] CursoViewModel vm,
             [FromServices] IAlterarCursoCommandHandler handler)
@@ -60,6 +66,7 @@ namespace CenedQualificando.Api.Controllers.v1
         }
 
         [HttpDelete("{id:int}")]
+        [SwaggerOperation("Exclui o registro do curso com base no ID informado.")]
         public ActionResult<CommandResult> Excluir(int id,
             [FromServices] IExcluirCursoCommandHandler handler)
         {

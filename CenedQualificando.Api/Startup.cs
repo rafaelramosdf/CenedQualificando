@@ -12,16 +12,10 @@ using CenedQualificando.Domain.Handlers.Prova;
 using CenedQualificando.Domain.Handlers.Representante;
 using CenedQualificando.Domain.Handlers.UfEntrega;
 using CenedQualificando.Domain.Handlers.Usuario;
-using CenedQualificando.Domain.Interfaces.Requirements.Aluno;
-using CenedQualificando.Domain.Interfaces.Requirements.Aluno.Exceptions;
-using CenedQualificando.Domain.Interfaces.Requirements.Aluno.Functions;
 using CenedQualificando.Domain.Queries;
 using CenedQualificando.Domain.Queries.Contracts;
 using CenedQualificando.Domain.Repositories.Base;
 using CenedQualificando.Domain.Repositories.Contracts;
-using CenedQualificando.Domain.Requirements.Aluno;
-using CenedQualificando.Domain.Requirements.Aluno.Exceptions;
-using CenedQualificando.Domain.Requirements.Aluno.Functions;
 using CenedQualificando.Infra.Context;
 using CenedQualificando.Infra.Repository;
 using CenedQualificando.Infra.UoW;
@@ -54,7 +48,21 @@ namespace CenedQualificando.Api
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "CenedQualificando.Api", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo 
+                { 
+                    Title = "API CENED QUALIFICANDO", 
+                    Version = "v1",
+                    Description = "API para consumo das funcionalidades do sistema de " +
+                    "ensino a distância para presidiários, da escola CENED. <br> " +
+                    "Em caso de dúvida, favor enviar e-mail para o contato abaixo.",
+                    Contact = new OpenApiContact 
+                    {
+                        Name = "Rafael Ramos | rafaelramosdf@gmail.com",
+                        Email = "rafaelramosdf@gmail.com"
+                    }
+                });
+
+                c.EnableAnnotations();
             });
 
             services.AddCors(options =>
@@ -83,7 +91,11 @@ namespace CenedQualificando.Api
             }
 
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CenedQualificando.Api v1"));
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "CenedQualificando.Api v1");
+                c.RoutePrefix = string.Empty;
+            });
 
             app.UseHsts();
 

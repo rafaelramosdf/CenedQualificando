@@ -5,15 +5,18 @@ using CenedQualificando.Domain.Resources;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using CenedQualificando.Domain.Models.Base;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace CenedQualificando.Api.Controllers.v1
 {
     [ApiController]
     [Route("api/v1/cargas-horarias-diarias")]
     [Produces("application/json")]
+    [SwaggerTag("Cadastro e Consulta de Cargas Horárias Diárias")]
     public class CargaHorariaDiariaController : ControllerBase
     {
         [HttpPost]
+        [SwaggerOperation("Inclui novo registro de carga horária diária.")]
         public ActionResult<CommandResult> Incluir(
             [FromBody] CargaHorariaDiariaViewModel vm,
             [FromServices] IIncluirCargaHorariaDiariaCommandHandler handler)
@@ -23,6 +26,7 @@ namespace CenedQualificando.Api.Controllers.v1
         }
 
         [HttpGet("{id:int}")]
+        [SwaggerOperation("Busca carga horária diária com base no ID informado.")]
         public ActionResult<CargaHorariaDiariaViewModel> Buscar(int id,
             [FromServices] IBuscarCargaHorariaDiariaPorIdQueryHandler handler)
         {
@@ -35,6 +39,7 @@ namespace CenedQualificando.Api.Controllers.v1
         }
 
         [HttpGet]
+        [SwaggerOperation("Busca tabela de carga horária diária com base nos filtros informados.")]
         public ActionResult<DataTableModel<CargaHorariaDiariaViewModel>> Buscar(
             [FromQuery] CargaHorariaDiariaFilter filtro,
             [FromServices] IObterDataTableCargaHorariaDiariaQueryHandler handler)
@@ -44,6 +49,7 @@ namespace CenedQualificando.Api.Controllers.v1
         }
 
         [HttpPut("{id:int}")]
+        [SwaggerOperation("Altera os dados do carga horária diária com base no ID informado.")]
         public ActionResult<CommandResult> Alterar(int id, 
             [FromBody] CargaHorariaDiariaViewModel vm,
             [FromServices] IAlterarCargaHorariaDiariaCommandHandler handler)
@@ -60,6 +66,7 @@ namespace CenedQualificando.Api.Controllers.v1
         }
 
         [HttpDelete("{id:int}")]
+        [SwaggerOperation("Exclui o registro do carga horária diária com base no ID informado.")]
         public ActionResult<CommandResult> Excluir(int id,
             [FromServices] IExcluirCargaHorariaDiariaCommandHandler handler)
         {

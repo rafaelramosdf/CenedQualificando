@@ -5,15 +5,18 @@ using CenedQualificando.Domain.Resources;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using CenedQualificando.Domain.Models.Base;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace CenedQualificando.Api.Controllers.v1
 {
     [ApiController]
     [Route("api/v1/alunos")]
     [Produces("application/json")]
+    [SwaggerTag("Cadastro e Consulta de Alunos")]
     public class AlunoController : ControllerBase
     {
         [HttpPost]
+        [SwaggerOperation("Inclui novo registro de aluno.")]
         public ActionResult<CommandResult> Incluir(
             [FromBody] AlunoViewModel vm,
             [FromServices] IIncluirAlunoCommandHandler handler)
@@ -23,6 +26,7 @@ namespace CenedQualificando.Api.Controllers.v1
         }
 
         [HttpGet("{id:int}")]
+        [SwaggerOperation("Busca aluno com base no ID informado.")]
         public ActionResult<AlunoViewModel> Buscar(int id,
             [FromServices] IBuscarAlunoPorIdQueryHandler handler)
         {
@@ -35,6 +39,7 @@ namespace CenedQualificando.Api.Controllers.v1
         }
 
         [HttpGet]
+        [SwaggerOperation("Busca tabela de alunos com base nos filtros informados.")]
         public ActionResult<DataTableModel<AlunoViewModel>> Buscar(
             [FromQuery] AlunoFilter filtro,
             [FromServices] IObterDataTableAlunosQueryHandler handler)
@@ -44,6 +49,7 @@ namespace CenedQualificando.Api.Controllers.v1
         }
 
         [HttpPut("{id:int}")]
+        [SwaggerOperation("Altera os dados do aluno com base no ID informado.")]
         public ActionResult<CommandResult> Alterar(int id, 
             [FromBody] AlunoViewModel vm,
             [FromServices] IAlterarAlunoCommandHandler handler)
@@ -60,6 +66,7 @@ namespace CenedQualificando.Api.Controllers.v1
         }
 
         [HttpDelete("{id:int}")]
+        [SwaggerOperation("Exclui o registro do aluno com base no ID informado.")]
         public ActionResult<CommandResult> Excluir(int id,
             [FromServices] IExcluirAlunoCommandHandler handler)
         {
