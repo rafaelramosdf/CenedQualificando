@@ -53,11 +53,10 @@ namespace CenedQualificando.Api
                     Title = "API CENED QUALIFICANDO", 
                     Version = "v1",
                     Description = "API para consumo das funcionalidades do sistema de " +
-                    "ensino a distância para presidiários, da escola CENED. <br> " +
-                    "Em caso de dúvida, favor enviar e-mail para o contato abaixo.",
+                    "ensino a distancia CENED Qualificando.",
                     Contact = new OpenApiContact 
                     {
-                        Name = "Rafael Ramos | rafaelramosdf@gmail.com",
+                        Name = ": Rafael Ramos | rafaelramosdf@gmail.com",
                         Email = "rafaelramosdf@gmail.com"
                     }
                 });
