@@ -34,20 +34,18 @@
         <MudDatePicker @bind-Date="Filtro.PeriodoDataInicioCurso.Final" Label="Início (até)" DateFormat="dd/MM/yyyy" Variant="Variant.Outlined" Margin="Margin.Dense" />
     </MudItem>
     <MudItem>
-        <MudButton 
-            Variant="Variant.Filled" 
-            Color="Color.Secondary" 
-            OnClick="@Buscar" 
-            StartIcon="@Icons.Material.Filled.FilterAlt">
+        <MudButton Variant="Variant.Filled"
+                   Color="Color.Secondary"
+                   OnClick="@Buscar"
+                   StartIcon="@Icons.Material.Filled.FilterAlt">
             Filtrar
         </MudButton>
     </MudItem>
     <MudItem>
-        <MudButton 
-            Variant="Variant.Filled" 
-            Color="Color.Default" 
-            OnClick="@Imprimir" 
-            StartIcon="@Icons.Material.Filled.Print">
+        <MudButton Variant="Variant.Filled"
+                   Color="Color.Default"
+                   OnClick="@Imprimir"
+                   StartIcon="@Icons.Material.Filled.Print">
             Imprimir Página Atual
         </MudButton>
     </MudItem>
@@ -63,12 +61,14 @@
           Dense="true"
           Hover="true"
           ReadOnly="true"
-          Striped="false"
+          Striped="true"
+          Bordered="true" 
           @bind-SelectedItem="ItemSelecionado"
           SortLabel="Ordenar por"
           Elevation="0"
           GroupBy="@GroupDefinition"
           FixedHeader="true">
+
     <ToolBarContent>
         <MudTextField T="string"
                       ValueChanged="@(s => OnSearch(s))"
@@ -79,8 +79,15 @@
                       Class="mt-0">
         </MudTextField>
     </ToolBarContent>
+
+    <PagerContent>
+        <MudTablePager Style="float: right;"
+                       RowsPerPageString="Itens por página: "
+                       PageSizeOptions="new int[] { 5, 10, 20, 50, 100 }"
+                       InfoFormat="{first_item}-{last_item} de {all_items}" />
+    </PagerContent>
+    
     <ColGroup>
-        <col />
         <col />
         <col />
         <col />
@@ -89,8 +96,6 @@
         <col />
     </ColGroup>
     <HeaderContent>
-        <MudTh>
-        </MudTh>
         <MudTh>
             <MudText>
                 Data Matrícula
@@ -135,10 +140,6 @@
         </MudTh>
     </GroupHeaderTemplate>
     <RowTemplate>
-        <MudTd>
-            <MudIconButton Icon="@Icons.Material.Filled.Search">
-            </MudIconButton>
-        </MudTd>
         <MudTd DataLabel="Data Matrícula">@($"{context.DataMatricula:dd/MM/yyyy}")</MudTd>
         <MudTd DataLabel="Estudante">@context.Aluno.Nome.ToUpper() | CPF: @context.Aluno.Cpf</MudTd>
         <MudTd DataLabel="Curso">@context.Curso.Codigo | @context.Curso.Nome | C.H. @context.Curso.CargaHoraria h</MudTd>
@@ -150,10 +151,4 @@
             </MudText>
         </MudTd>
     </RowTemplate>
-    <PagerContent>
-        <MudTablePager Style="float: left;"
-                       RowsPerPageString="Itens por página: "
-                       PageSizeOptions="new int[] { 5, 10, 20, 50, 100 }"
-                       InfoFormat="{first_item}-{last_item} de {all_items}" />
-    </PagerContent>
 </MudTable>
