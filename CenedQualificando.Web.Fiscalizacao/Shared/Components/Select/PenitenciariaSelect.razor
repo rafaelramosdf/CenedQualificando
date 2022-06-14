@@ -1,11 +1,10 @@
-﻿@using CenedQualificando.Domain.Models.ViewModels
+﻿@using CenedQualificando.Domain.Models.Filters
+@using CenedQualificando.Domain.Models.ViewModels
 @using CenedQualificando.Domain.Models.Base
 @using CenedQualificando.Domain.Models.Enumerations
+@using CenedQualificando.Web.Fiscalizacao.Services.ApiContracts
 
 @namespace CenedQualificando.Web.Fiscalizacao.Shared.Components.Select
-
-@inject CenedQualificando.Domain.Handlers.Penitenciaria.IObterComboSelecaoPenitenciariasQueryHandler ObterComboSelecaoHandler
-@inject CenedQualificando.Domain.Handlers.Penitenciaria.BuscarPenitenciariaPorIdQueryHandler BuscarRegistroPorIdHandler
 
 <MudAutocomplete T="SelectResult"
                  Label="@Label"
@@ -25,6 +24,9 @@
 
 @code{
 
+    [Inject] protected IComboEntidadeApiContract CombosApiService { get; set; }
+    [Inject] protected IPenitenciariaApiContract PenitenciariaApiService { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
         if (Id > 0)
@@ -34,6 +36,8 @@
     [Parameter] public int Id { get; set; }
     [Parameter] public EventCallback<int> IdChanged { get; set; }
 
+    [Parameter] public UfEnum Uf { get => Filtro.Uf; set => Filtro.Uf = value; }
+
     [Parameter] public EventCallback<PenitenciariaViewModel> OnSelected { get; set; }
     [Parameter] public string Label { get; set; } = "Penitenciária";
     [Parameter] public Variant Variant { get; set; } = Variant.Outlined;
@@ -41,10 +45,16 @@
 
     private IEnumerable<SelectResult> Items { get; set; }
     private SelectResult Selected { get; set; }
+    private PenitenciariaFilter Filtro { get; set; } = new PenitenciariaFilter
+    {
+        Limit = 50,
+        Page = 1
+    };
 
     private async Task<IEnumerable<SelectResult>> Search(string pesquisa)
     {
-        Items = ObterComboSelecaoHandler.Execute(pesquisa, 20, Id);
+        Filtro.Search = pesquisa;
+        Items = await CombosApiService.Penitenciarias(Filtro);
         return Items;
     }
 
@@ -60,13 +70,16 @@
 
     private async Task GetSelectedAsync(int id)
     {
-        var penitenciaria = BuscarRegistroPorIdHandler.Execute(id);
+        var penitenciaria = await PenitenciariaApiService.Buscar(id);
 
         Selected = new SelectResult 
         { 
             Id = penitenciaria.Id, 
             Text = $"{penitenciaria.Nome} | {((UfEnum)penitenciaria.Uf).EnumDescription()}" 
         };
+
+        if (!Items.Any(m => m.Id == Selected.Id))
+            Items.Prepend(Selected);
 
         await OnSelected.InvokeAsync(penitenciaria);
     }

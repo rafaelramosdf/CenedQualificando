@@ -12,7 +12,7 @@ namespace CenedQualificando.Api.Controllers.v1
     [ApiController]
     [AllowAnonymous]
     [Produces("application/json")]
-    [Route("api/v1/combos/enumeradores")]
+    [Route("api/v1/combos")]
     public class ComboSelecaoEnumeradorController : Controller
     {
         [HttpGet("status-curso")]

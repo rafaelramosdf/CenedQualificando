@@ -1,4 +1,4 @@
-﻿@page "/matriculas"
+﻿@page "/matriculas/{uf:int}"
 
 @using Domain.Models.ViewModels
 
@@ -11,6 +11,35 @@
 <MudText Typo="@Typo.h6" Color="Color.Primary" Align="Align.Center">
     FISCALIZAÇÃO E CONTROLE DAS SECRETARIAS DE ADMINISTRAÇÃO PENITENCIÁRIAS DOS ESTADOS
 </MudText>
+
+<br />
+<br />
+<MudGrid>
+    <MudItem md="8">
+        <PenitenciariaSelect @bind-Id="Filtro.IdPenitenciaria" Uf="Filtro.Uf" Dense="true" />
+    </MudItem>
+    <MudItem md="4" xs="12">
+        <StatusCursoSelect @bind-Value="Filtro.SituacaoCurso" Label="Situação do Curso" Dense="true" />
+    </MudItem>
+    <MudItem md="2" xs="12">
+        <MudDatePicker @bind-Date="Filtro.PeriodoDataMatricula.Inicio" Label="Matrículas (a partir)" DateFormat="dd/MM/yyyy" Variant="Variant.Outlined" Margin="Margin.Dense" />
+    </MudItem>
+    <MudItem md="2" xs="12">
+        <MudDatePicker @bind-Date="Filtro.PeriodoDataMatricula.Final" Label="Matrículas (até)" DateFormat="dd/MM/yyyy" Variant="Variant.Outlined" Margin="Margin.Dense" />
+    </MudItem>
+    <MudItem md="2" xs="12">
+        <MudDatePicker @bind-Date="Filtro.PeriodoDataInicioCurso.Inicio" Label="Início (a partir)" DateFormat="dd/MM/yyyy" Variant="Variant.Outlined" Margin="Margin.Dense" />
+    </MudItem>
+    <MudItem md="2" xs="12">
+        <MudDatePicker @bind-Date="Filtro.PeriodoDataInicioCurso.Final" Label="Início (até)" DateFormat="dd/MM/yyyy" Variant="Variant.Outlined" Margin="Margin.Dense" />
+    </MudItem>
+    <MudItem>
+        <MudButton Variant="Variant.Filled" Color="Color.Secondary" OnClick="@Buscar" Margin="Margin.Dense">
+            Buscar
+        </MudButton>
+    </MudItem>
+</MudGrid>
+<br />
 
 <MudOverlay @bind-Visible="State.Carregando" DarkBackground="false" ZIndex="999999" AutoClose="true">
     <MudProgressCircular Color="Color.Success" Indeterminate="true" />
@@ -27,14 +56,13 @@
           Elevation="0"
           GroupBy="@GroupDefinition"
           FixedHeader="true">
-
     <ToolBarContent>
-        <MudSpacer />
-        <MudTextField T="string" ValueChanged="@(s => OnSearch(s))"
-                      Placeholder="Pesquisar por Aluno ou Curso"
-                      Adornment="Adornment.Start"
-                      AdornmentIcon="@Icons.Material.Filled.Search"
+        <MudTextField T="string"
+                      ValueChanged="@(s => OnSearch(s))"
+                      Label="Pesquisar por Estudante ou Curso"
+                      Placeholder="Digite o Nome do Estudante ou Curso (pressione 'Enter' para pesquisar)"
                       IconSize="Size.Medium"
+                      Margin="Margin.Dense"
                       Class="mt-0">
         </MudTextField>
     </ToolBarContent>

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using CenedQualificando.Web.Fiscalizacao.Shared.CodeBase.Pages;
 using CenedQualificando.Web.Fiscalizacao.Services.ApiContracts;
 using static MudBlazor.CategoryTypes;
+using CenedQualificando.Domain.Models.Enumerations;
 
 namespace CenedQualificando.Web.Fiscalizacao.Pages.Matriculas
 {
@@ -16,17 +17,29 @@ namespace CenedQualificando.Web.Fiscalizacao.Pages.Matriculas
         [Inject] protected IMatriculaApiContract MatriculasApiService { get; set; }
         [Inject] protected IDialogService Dialog { get; set; }
 
+        [Parameter] public int Uf { get; set; }
+
         protected bool SomenteLeitura = true;
-        protected MatriculaFilter Filtro = new MatriculaFilter();
+        public MatriculaFilter Filtro = new MatriculaFilter();
         protected MatriculaViewModel ItemSelecionado = null;
         protected HashSet<MatriculaViewModel> Selecionados = new HashSet<MatriculaViewModel>();
 
         protected MudTable<MatriculaViewModel> Table;
         protected DataTableModel<MatriculaViewModel> DataTable;
 
+        protected override async Task OnInitializedAsync()
+        {
+            Filtro.Uf = (UfEnum)Uf;
+        }
+
         protected void OnSearch(string text)
         {
             Filtro.Search = text;
+            Table.ReloadServerData();
+        }
+
+        protected void Buscar()
+        {
             Table.ReloadServerData();
         }
 

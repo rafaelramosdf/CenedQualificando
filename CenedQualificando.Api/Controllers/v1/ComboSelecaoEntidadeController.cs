@@ -3,6 +3,7 @@ using CenedQualificando.Domain.Handlers.Curso;
 using CenedQualificando.Domain.Handlers.Penitenciaria;
 using CenedQualificando.Domain.Handlers.Usuario;
 using CenedQualificando.Domain.Models.Base;
+using CenedQualificando.Domain.Models.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +13,7 @@ namespace CenedQualificando.Api.Controllers.v1
     [ApiController]
     [AllowAnonymous]
     [Produces("application/json")]
-    [Route("api/v1/combos/entidades")]
+    [Route("api/v1/combos")]
     public class ComboSelecaoEntidadeController : Controller
     {
         [HttpGet("penitenciarias")]
@@ -21,6 +22,15 @@ namespace CenedQualificando.Api.Controllers.v1
             [FromQuery] SelectSearchParam param)
         {
             var result = handler.Execute(param.Term, param.Size, param.Selected);
+            return StatusCode(StatusCodes.Status200OK, result);
+        }
+
+        [HttpGet("filtros/penitenciarias")]
+        public ActionResult<SelectResult> Penitenciarias(
+            [FromServices] IObterComboSelecaoPenitenciariasComFiltroQueryHandler handler,
+            [FromQuery] PenitenciariaFilter param)
+        {
+            var result = handler.Execute(param);
             return StatusCode(StatusCodes.Status200OK, result);
         }
 

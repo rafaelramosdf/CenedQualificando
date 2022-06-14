@@ -28,10 +28,22 @@ var settings = new RefitSettings
     ContentSerializer = new NewtonsoftJsonContentSerializer()
 };
 
+builder.Services.AddRefitClient<IComboEntidadeApiContract>(settings)
+    .ConfigureHttpClient(c =>
+    {
+        c.BaseAddress = new Uri($"{urlBase}/combos");
+    });
+
 builder.Services.AddRefitClient<IMatriculaApiContract>(settings)
     .ConfigureHttpClient(c => 
     { 
         c.BaseAddress = new Uri($"{urlBase}/matriculas"); 
+    });
+
+builder.Services.AddRefitClient<IPenitenciariaApiContract>(settings)
+    .ConfigureHttpClient(c =>
+    {
+        c.BaseAddress = new Uri($"{urlBase}/penitenciarias");
     });
 
 await builder.Build().RunAsync();

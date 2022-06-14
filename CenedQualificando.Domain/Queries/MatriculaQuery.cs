@@ -68,6 +68,16 @@ namespace CenedQualificando.Domain.Queries
                 if (filtro.PeriodoDataMatricula.Final.HasValue)
                     queryList = queryList.Where(x => x.DataMatricula <= filtro.PeriodoDataMatricula.Final);
 
+                if (filtro.PeriodoDataInicioCurso.Inicio.HasValue)
+                    queryList = queryList.Where(x => x.InicioCurso >= filtro.PeriodoDataInicioCurso.Inicio);
+                if (filtro.PeriodoDataInicioCurso.Final.HasValue)
+                    queryList = queryList.Where(x => x.InicioCurso <= filtro.PeriodoDataInicioCurso.Final);
+
+                if (filtro.PeriodoDataTerminoCurso.Inicio.HasValue)
+                    queryList = queryList.Where(x => x.TerminoCurso >= filtro.PeriodoDataTerminoCurso.Inicio);
+                if (filtro.PeriodoDataTerminoCurso.Final.HasValue)
+                    queryList = queryList.Where(x => x.TerminoCurso <= filtro.PeriodoDataTerminoCurso.Final);
+
                 if (filtro.PeriodoDataPiso.Inicio.HasValue)
                     queryList = queryList.Where(x => x.DataPiso >= filtro.PeriodoDataPiso.Inicio);
                 if (filtro.PeriodoDataPiso.Final.HasValue)
@@ -85,6 +95,12 @@ namespace CenedQualificando.Domain.Queries
                     queryList = queryList.Where(x => x.Provas.Where(p => p.DataRecebidaProva >= dtInicioProvaRecebida
                                                     && p.DataRecebidaProva <= dtFinalProvaRecebida).Any());
                 }
+
+                if (filtro.SituacaoCurso != StatusCursoEnum.Null)
+                    queryList = queryList.Where(m => m.StatusCurso == (int)filtro.SituacaoCurso);
+
+                if (filtro.Uf != UfEnum.Null)
+                    queryList = queryList.Where(m => m.Penitenciaria.Uf == (int)filtro.Uf);
             }
 
             return queryList;

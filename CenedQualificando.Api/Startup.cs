@@ -218,6 +218,7 @@ namespace CenedQualificando.Api
             services.AddScoped<IBuscarPenitenciariaPorIdQueryHandler, BuscarPenitenciariaPorIdQueryHandler>();
             services.AddScoped<IObterDataTablePenitenciariasQueryHandler, ObterDataTablePenitenciariasQueryHandler>();
             services.AddScoped<IObterComboSelecaoPenitenciariasQueryHandler, ObterComboSelecaoPenitenciariasQueryHandler>();
+            services.AddScoped<IObterComboSelecaoPenitenciariasComFiltroQueryHandler, ObterComboSelecaoPenitenciariasComFiltroQueryHandler>();
             services.AddScoped<IExcluirPenitenciariaCommandHandler, ExcluirPenitenciariaCommandHandler>();
             services.AddScoped<IIncluirPenitenciariaCommandHandler, IncluirPenitenciariaCommandHandler>();
             #endregion

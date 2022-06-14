@@ -34,7 +34,7 @@ namespace CenedQualificando.Web.Admin.Services
 
             builder.Services.AddRefitClient<IComboEntidadeApiContract>(settings).ConfigureHttpClient(c =>
             {
-                c.BaseAddress = new Uri($"{urlBase}/combos/entidades");
+                c.BaseAddress = new Uri($"{urlBase}/combos");
             });
 
             builder.Services.AddRefitClient<IDocumentoConsultaApiContract>(settings).ConfigureHttpClient(c =>

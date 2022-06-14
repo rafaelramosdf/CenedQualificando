@@ -52,17 +52,17 @@ public class ObterDocumentoConsultaMatriculasQueryHandler : IObterDocumentoConsu
 
         queryList = queryList.Take(filtro.Limit ?? 100);
 
-        var dtoList = Mapper.Map<IEnumerable<Models.Entities.Matricula>, IEnumerable<MatriculaViewModel>>(queryList.ToList());
+        var viewModelList = Mapper.Map<IEnumerable<Models.Entities.Matricula>, IEnumerable<MatriculaViewModel>>(queryList.ToList());
 
         if (filtro.PeriodoDataProvaRecebida.Inicio.HasValue || filtro.PeriodoDataProvaRecebida.Final.HasValue)
         {
             var dtInicioProvaRecebida = filtro.PeriodoDataProvaRecebida.Inicio ?? DateTime.MinValue;
             var dtFinalProvaRecebida = filtro.PeriodoDataProvaRecebida.Final ?? DateTime.MaxValue;
-            dtoList = dtoList.Where(x => x.UltimaProvaRealizada != null
+            viewModelList = viewModelList.Where(x => x.UltimaProvaRealizada != null
                         && x.UltimaProvaRealizada.DataRecebidaProva >= dtInicioProvaRecebida
                         && x.UltimaProvaRealizada.DataRecebidaProva <= dtFinalProvaRecebida);
         }
 
-        return dtoList;
+        return viewModelList;
     }
 }

@@ -36,5 +36,16 @@ namespace CenedQualificando.Domain.Queries
                     return x => x.Nome;
             }
         }
+
+        public IQueryable<Penitenciaria> FiltrarPenitenciarias(PenitenciariaFilter filtro, IQueryable<Penitenciaria> queryList)
+        {
+            if (filtro != null) 
+            {
+                if (filtro.Uf != UfEnum.Null)
+                    queryList = queryList.Where(p => p.Uf == (int)filtro.Uf);
+            }
+
+            return queryList;
+        }
     }
 }

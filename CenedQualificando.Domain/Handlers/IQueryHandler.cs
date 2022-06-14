@@ -50,3 +50,14 @@ public interface ISelectQueryHandlerAsync
 {
     Task<IEnumerable<SelectResult>> Execute(string search, int limit, int selected);
 }
+
+public interface ISelectQueryHandler<TFilter>
+    where TFilter : Filter
+{
+    IEnumerable<SelectResult> Execute(TFilter filtro);
+}
+public interface ISelectQueryHandlerAsync<TFilter>
+    where TFilter : Filter
+{
+    Task<IEnumerable<SelectResult>> Execute(TFilter filtro);
+}
