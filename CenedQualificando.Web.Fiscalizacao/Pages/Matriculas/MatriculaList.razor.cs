@@ -7,8 +7,8 @@ using CenedQualificando.Domain.Models.Base;
 using System.Threading.Tasks;
 using CenedQualificando.Web.Fiscalizacao.Shared.CodeBase.Pages;
 using CenedQualificando.Web.Fiscalizacao.Services.ApiContracts;
-using static MudBlazor.CategoryTypes;
 using CenedQualificando.Domain.Models.Enumerations;
+using Microsoft.JSInterop;
 
 namespace CenedQualificando.Web.Fiscalizacao.Pages.Matriculas
 {
@@ -16,6 +16,7 @@ namespace CenedQualificando.Web.Fiscalizacao.Pages.Matriculas
     {
         [Inject] protected IMatriculaApiContract MatriculasApiService { get; set; }
         [Inject] protected IDialogService Dialog { get; set; }
+        [Inject] protected IJSRuntime JSRun { get; set; }
 
         [Parameter] public int Uf { get; set; }
 
@@ -41,6 +42,11 @@ namespace CenedQualificando.Web.Fiscalizacao.Pages.Matriculas
         protected void Buscar()
         {
             Table.ReloadServerData();
+        }
+
+        protected void Imprimir()
+        {
+            JSRun.InvokeAsync<object>("print", null);
         }
 
         protected async Task<TableData<MatriculaViewModel>> ServerReload(TableState state)

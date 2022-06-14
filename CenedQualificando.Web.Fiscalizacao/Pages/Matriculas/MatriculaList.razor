@@ -34,8 +34,21 @@
         <MudDatePicker @bind-Date="Filtro.PeriodoDataInicioCurso.Final" Label="Início (até)" DateFormat="dd/MM/yyyy" Variant="Variant.Outlined" Margin="Margin.Dense" />
     </MudItem>
     <MudItem>
-        <MudButton Variant="Variant.Filled" Color="Color.Secondary" OnClick="@Buscar" Margin="Margin.Dense">
-            Buscar
+        <MudButton 
+            Variant="Variant.Filled" 
+            Color="Color.Secondary" 
+            OnClick="@Buscar" 
+            StartIcon="@Icons.Material.Filled.FilterAlt">
+            Filtrar
+        </MudButton>
+    </MudItem>
+    <MudItem>
+        <MudButton 
+            Variant="Variant.Filled" 
+            Color="Color.Default" 
+            OnClick="@Imprimir" 
+            StartIcon="@Icons.Material.Filled.Print">
+            Imprimir Página Atual
         </MudButton>
     </MudItem>
 </MudGrid>
