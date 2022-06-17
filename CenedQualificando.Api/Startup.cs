@@ -62,6 +62,7 @@ namespace CenedQualificando.Api
                 });
 
                 c.EnableAnnotations();
+                c.SchemaFilter<SwaggerEnumDescriptionFilter>();
             });
 
             services.AddCors(options =>

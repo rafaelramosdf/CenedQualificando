@@ -56,18 +56,18 @@
     <MudProgressCircular Color="Color.Success" Indeterminate="true" />
 </MudOverlay>
 
-<MudTable ServerData="@(new Func<TableState, Task<TableData<MatriculaViewModel>>>(ServerReload))"
-          @ref="Table"
-          Dense="true"
-          Hover="true"
-          ReadOnly="true"
-          Striped="true"
-          Bordered="true" 
-          @bind-SelectedItem="ItemSelecionado"
-          SortLabel="Ordenar por"
-          Elevation="0"
-          GroupBy="@GroupDefinition"
-          FixedHeader="true">
+<MudTable 
+    ServerData="@(new Func<TableState, Task<TableData<MatriculaViewModel>>>(ServerReload))"
+    @ref="Table"
+    Dense="true"
+    Hover="true"
+    ReadOnly="true"
+    Striped="true"
+    Bordered="true" 
+    @bind-SelectedItem="ItemSelecionado"
+    SortLabel="Ordenar por"
+    Elevation="0"
+    GroupBy="@GroupDefinition">
 
     <ToolBarContent>
         <MudTextField T="string"
