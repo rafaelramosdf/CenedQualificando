@@ -31,6 +31,8 @@ public class ObterComboSelecaoFiscalSalaQueryHandler : IObterComboSelecaoFiscalS
     {
         Logger.LogInformation($"Iniciando handler ObterComboSelecaoFiscalSalaQueryHandler");
 
+        limit = limit < 1 || limit > 50 ? 50 : limit;
+
         var selectList = new List<SelectResult>();
 
         var query = !string.IsNullOrEmpty(search)

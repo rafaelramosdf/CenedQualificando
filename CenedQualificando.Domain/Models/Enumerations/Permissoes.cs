@@ -9,7 +9,12 @@ namespace CenedQualificando.Domain.Models.Enumerations
         PermissaoRelatorio,
         PermissaoMensagem,
         PermissaoDocumento,
-        PermissaoConfiguracoes
+        PermissaoConfiguracoes,
+        PermissaoApiSite,
+        PermissaoApiGestor,
+        PermissaoApiAreaAluno,
+        PermissaoApiAreaPenitenciaria,
+        PermissaoApiAreaSecretariaPenitenciaria
     }
 
     public enum PermissaoCadastro
@@ -201,5 +206,35 @@ namespace CenedQualificando.Domain.Models.Enumerations
 
         [Description("Permitir Aplicar Bolsa Parceria Integral")]
         AplicarBolsaParceria
+    }
+
+    public enum PermissaoApiSite
+    {
+        [Description("API Site")]
+        ApiSite
+    }
+
+    public enum PermissaoApiGestor
+    {
+        [Description("API Gestor")]
+        ApiGestor
+    }
+
+    public enum PermissaoApiAreaAluno
+    {
+        [Description("API Área do Aluno")]
+        ApiAreaAluno
+    }
+
+    public enum PermissaoApiAreaPenitenciaria
+    {
+        [Description("API Área da Penitenciária")]
+        ApiAreaPenitenciaria
+    }
+
+    public enum PermissaoApiAreaSecretariaPenitenciaria
+    {
+        [Description("API Área da Secretaria Penitenciária")]
+        ApiAreaSecretariaPenitenciaria
     }
 }

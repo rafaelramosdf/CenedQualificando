@@ -39,6 +39,11 @@ namespace CenedQualificando.Domain.Models.ViewModels
             todasPermissoes.AddRange(EnumerationExtension.EnumNames<PermissaoMensagem>().Select(permissao => new PermissaoViewModel(TipoPermissao.PermissaoMensagem, permissao)));
             todasPermissoes.AddRange(EnumerationExtension.EnumNames<PermissaoDocumento>().Select(permissao => new PermissaoViewModel(TipoPermissao.PermissaoDocumento, permissao)));
             todasPermissoes.AddRange(EnumerationExtension.EnumNames<PermissaoConfiguracoes>().Select(permissao => new PermissaoViewModel(TipoPermissao.PermissaoConfiguracoes, permissao)));
+            todasPermissoes.AddRange(EnumerationExtension.EnumNames<PermissaoApiSite>().Select(permissao => new PermissaoViewModel(TipoPermissao.PermissaoApiSite, permissao)));
+            todasPermissoes.AddRange(EnumerationExtension.EnumNames<PermissaoApiGestor>().Select(permissao => new PermissaoViewModel(TipoPermissao.PermissaoApiGestor, permissao)));
+            todasPermissoes.AddRange(EnumerationExtension.EnumNames<PermissaoApiAreaAluno>().Select(permissao => new PermissaoViewModel(TipoPermissao.PermissaoApiAreaAluno, permissao)));
+            todasPermissoes.AddRange(EnumerationExtension.EnumNames<PermissaoApiAreaPenitenciaria>().Select(permissao => new PermissaoViewModel(TipoPermissao.PermissaoApiAreaPenitenciaria, permissao)));
+            todasPermissoes.AddRange(EnumerationExtension.EnumNames<PermissaoApiAreaSecretariaPenitenciaria>().Select(permissao => new PermissaoViewModel(TipoPermissao.PermissaoApiAreaSecretariaPenitenciaria, permissao)));
 
             return todasPermissoes;
         }

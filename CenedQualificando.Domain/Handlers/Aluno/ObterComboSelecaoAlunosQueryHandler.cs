@@ -31,6 +31,8 @@ public class ObterComboSelecaoAlunosQueryHandler : IObterComboSelecaoAlunosQuery
     {
         Logger.LogInformation($"Iniciando handler ObterComboSelecaoAlunosQueryHandler");
 
+        limit = limit < 1 || limit > 50 ? 50 : limit;
+
         var selectList = new List<SelectResult>();
 
         var query = !string.IsNullOrEmpty(search)

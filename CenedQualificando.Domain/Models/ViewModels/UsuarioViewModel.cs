@@ -24,6 +24,6 @@ namespace CenedQualificando.Domain.Models.ViewModels
         public DateTime? DataExpiracaoSenha { get; set; }
         public string CpfUsuario { get; set; }
 
-        public GrupoDePermissaoViewModel GrupoDePermissao { get; set; }
+        public GrupoDePermissaoViewModel GrupoDePermissao { get; set; } = new GrupoDePermissaoViewModel();
     }
 }
