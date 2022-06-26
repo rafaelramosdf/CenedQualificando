@@ -22,7 +22,10 @@ namespace CenedQualificando.Api.Helpers
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.Login),
+                new Claim(ClaimTypes.Name, user.Nome),
+                new Claim(ClaimTypes.NameIdentifier, user.Login),
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.Hash, user.IdUsuario.ToString()),
                 new Claim(ClaimTypes.GroupSid, user.IdGrupoDePermissao.ToString())
             };
 

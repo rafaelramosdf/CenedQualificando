@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using CenedQualificando.Domain.Models.Base;
 using Swashbuckle.AspNetCore.Annotations;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CenedQualificando.Api.Controllers.v1
 {
@@ -67,6 +68,7 @@ namespace CenedQualificando.Api.Controllers.v1
 
         [HttpDelete("{id:int}")]
         [SwaggerOperation("Exclui o registro do aluno com base no ID informado.")]
+        [Authorize(Roles = "DeletarAluno")]
         public ActionResult<CommandResult> Excluir(int id,
             [FromServices] IExcluirAlunoCommandHandler handler)
         {
